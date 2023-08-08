@@ -59,7 +59,7 @@ export function addPrismaModel(schema: string, name: string, label: string) {
     .attribute('id')
     .attribute('default', [{ name: 'cuid' }])
     .field('createdAt', 'DateTime')
-    .attribute('createdAt', [{ name: 'now' }])
+    .attribute('default', [{ name: 'now' }])
     .field('updatedAt', 'DateTime')
     .attribute('updatedAt')
     .field(label, 'String')

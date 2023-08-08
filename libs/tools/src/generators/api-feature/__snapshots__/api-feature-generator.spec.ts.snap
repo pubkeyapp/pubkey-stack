@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`api-feature generator should generate the feature libraries 1`] = `
+"export * from './lib/api-test-data-access.module';
+export * from './lib/api-test.service';
+export * from './lib/api-test-admin.service';
+export * from './lib/dto/admin-create-test.input';
+export * from './lib/dto/admin-update-test.input';
+export * from './lib/entity/test.entity';
+"
+`;
+
+exports[`api-feature generator should generate the feature libraries 2`] = `
+"import { Injectable } from '@nestjs/common';
+import { ApiCoreService } from '@proj/api/core/data-access';
+import { ApiTestAdminService } from './api-test-admin.service';
+
+@Injectable()
+export class ApiTestService {
+  constructor(
+    private readonly core: ApiCoreService,
+    readonly admin: ApiTestAdminService
+  ) {}
+}
+"
+`;
+
+exports[`api-feature generator should generate the feature libraries 3`] = `
+"import { Injectable } from '@nestjs/common';
+import { ApiCoreService } from '@proj/api/core/data-access';
+import { AdminCreateTestInput } from './dto/admin-create-test.input';
+import { AdminUpdateTestInput } from './dto/admin-update-test.input';
+
+@Injectable()
+export class ApiTestAdminService {
+  constructor(private readonly core: ApiCoreService) {}
+
+  async createTest(adminId: string, input: AdminCreateTestInput) {
+    await this.core.ensureUserAdmin(adminId);
+    return this.core.data.test.create({ data: input });
+  }
+
+  async deleteTest(adminId: string, testId: string) {
+    await this.core.ensureUserAdmin(adminId);
+    return this.core.data.test.delete({ where: { id: testId } });
+  }
+
+  async findManyTests(adminId: string) {
+    await this.core.ensureUserAdmin(adminId);
+    return this.core.data.test.findMany();
+  }
+
+  async findOneTest(adminId: string, testId: string) {
+    await this.core.ensureUserAdmin(adminId);
+    return this.core.data.test.findUnique({ where: { id: testId } });
+  }
+
+  async updateTest(
+    adminId: string,
+    testId: string,
+    input: AdminUpdateTestInput
+  ) {
+    await this.core.ensureUserAdmin(adminId);
+    return this.core.data.test.update({ where: { id: testId }, data: input });
+  }
+}
+"
+`;
+
+exports[`api-feature generator should generate the feature libraries 4`] = `
+"export * from './lib/api-test-feature.module';
+"
+`;
+
+exports[`api-feature generator should generate the feature libraries 5`] = `
+"import { Resolver } from '@nestjs/graphql';
+import { ApiTestService } from '@proj/api/test/data-access';
+
+@Resolver()
+export class ApiTestResolver {
+  constructor(private readonly service: ApiTestService) {}
+}
+"
+`;
+
+exports[`api-feature generator should generate the feature libraries 6`] = `
+"import { Resolver } from '@nestjs/graphql';
+import { ApiTestService } from '@proj/api/test/data-access';
+import { ApiAuthGraphqlGuard, CtxUser } from '@proj/api/auth/data-access';
+import { User } from '@proj/api/user/data-access';
+import { Mutation, Query, Args } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
+import {
+  AdminCreateTestInput,
+  AdminUpdateTestInput,
+  Test,
+} from '@proj/api/test/data-access';
+
+@Resolver()
+@UseGuards(ApiAuthGraphqlGuard)
+export class ApiTestAdminResolver {
+  constructor(private readonly service: ApiTestService) {}
+
+  @Mutation(() => Test, { nullable: true })
+  adminCreateTest(
+    @CtxUser() user: User,
+    @Args('input') input: AdminCreateTestInput
+  ) {
+    return this.service.admin.createTest(user.id, input);
+  }
+
+  @Mutation(() => Test, { nullable: true })
+  adminDeleteTest(@CtxUser() user: User, @Args('testId') testId: string) {
+    return this.service.admin.deleteTest(user.id, testId);
+  }
+
+  @Query(() => [Test], { nullable: true })
+  adminFindManyTests(@CtxUser() user: User) {
+    return this.service.admin.findManyTests(user.id);
+  }
+
+  @Query(() => Test, { nullable: true })
+  adminFindOneTest(@CtxUser() user: User, @Args('testId') testId: string) {
+    return this.service.admin.findOneTest(user.id, testId);
+  }
+
+  @Mutation(() => Test, { nullable: true })
+  adminUpdateTest(
+    @CtxUser() user: User,
+    @Args('testId') testId: string,
+    @Args('input') input: AdminUpdateTestInput
+  ) {
+    return this.service.admin.updateTest(user.id, testId, input);
+  }
+}
+"
+`;

@@ -18,6 +18,11 @@
       "description": "The name of the application you are adding the feature to.",
       "default": "api"
     },
+    "skipAdminCrud": {
+      "type": "boolean",
+      "description": "Do not create an admin crud library for this feature.",
+      "default": false
+    },
     "skipDataAccess": {
       "type": "boolean",
       "description": "Do not create a data access library for this feature.",

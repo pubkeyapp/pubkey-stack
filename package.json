@@ -120,6 +120,7 @@
     "core-js": "^3.32.0",
     "cypress": "12.17.3",
     "dayjs": "^1.11.9",
+    "en-inflectors": "^1.0.12",
     "eslint": "~8.46.0",
     "eslint-config-prettier": "9.0.0",
     "eslint-plugin-cypress": "^2.13.4",

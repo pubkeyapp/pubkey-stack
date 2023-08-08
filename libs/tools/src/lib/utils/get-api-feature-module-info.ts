@@ -19,5 +19,23 @@ export function getApiFeatureModuleInfo(tree: Tree, app: string, name: string) {
 
   const { className: resolverName } = names(`${app}-${name}-resolver`)
 
-  return { ...lib, modulePath, moduleClassName, resolverPath, resolverName }
+  // Optional admin service name and path
+  const adminResolverFile = `${app}-${name}-admin.resolver.ts`
+  const adminResolverPath = `${lib.project.sourceRoot}/lib/${adminResolverFile}`
+  let adminResolverClassName: string | undefined
+
+  if (tree.exists(adminResolverPath)) {
+    adminResolverClassName = names(adminResolverFile.replace('.ts', '')).className
+  }
+
+  return {
+    ...lib,
+    modulePath,
+    moduleClassName,
+    resolverPath,
+    resolverName,
+    adminResolverPath,
+    adminResolverFile,
+    adminResolverClassName,
+  }
 }

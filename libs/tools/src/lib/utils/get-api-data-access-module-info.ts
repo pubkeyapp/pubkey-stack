@@ -19,5 +19,23 @@ export function getApiDataAccessModuleInfo(tree: Tree, app: string, name: string
 
   const { className: serviceClassName } = names(`${app}-${name}-service`)
 
-  return { ...lib, modulePath, moduleClassName, servicePath, serviceClassName }
+  // Optional admin service name and path
+  const adminServiceFile = `${app}-${name}-admin.service.ts`
+  const adminServicePath = `${lib.project.sourceRoot}/lib/${adminServiceFile}`
+  let adminServiceClassName: string | undefined
+
+  if (tree.exists(adminServicePath)) {
+    adminServiceClassName = names(adminServiceFile.replace('.ts', '')).className
+  }
+
+  return {
+    ...lib,
+    modulePath,
+    moduleClassName,
+    servicePath,
+    serviceClassName,
+    adminServicePath,
+    adminServiceFile,
+    adminServiceClassName,
+  }
 }
