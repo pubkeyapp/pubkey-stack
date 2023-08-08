@@ -1,12 +1,10 @@
 import { Injectable } from '@nestjs/common'
 import { UserRole, UserStatus } from '@prisma/client'
-import { hasher } from 'node-object-hash'
 import { ApiCoreConfigService } from './api-core-config.service'
 import { ApiCoreDataService } from './api-core-data.service'
 
 @Injectable()
 export class ApiCoreService {
-  readonly hasher = hasher({ sort: true, coerce: false })
   constructor(readonly config: ApiCoreConfigService, readonly data: ApiCoreDataService) {}
 
   async ensureUser(userId: string) {
