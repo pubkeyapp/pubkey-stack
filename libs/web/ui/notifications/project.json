@@ -1,0 +1,16 @@
+{
+  "name": "web-ui-notifications",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/web/ui/notifications/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/web/ui/notifications/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  }
+}

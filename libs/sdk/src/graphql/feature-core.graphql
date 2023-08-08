@@ -1,0 +1,22 @@
+fragment AppConfigDetails on AppConfig {
+  authDiscordEnabled
+  authPasswordEnabled
+  authRegisterEnabled
+}
+
+fragment PagingDetails on Paging {
+  count
+  skip
+  take
+  total
+}
+
+query uptime {
+  uptime
+}
+
+query appConfig {
+  config: appConfig {
+    ...AppConfigDetails
+  }
+}

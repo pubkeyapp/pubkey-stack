@@ -1,0 +1,113 @@
+import { Button, Stepper } from '@mantine/core'
+import { modals } from '@mantine/modals'
+import { WalletMultiButton } from '@pubkeyapp/wallet-adapter-mantine-ui'
+import { ellipsify, IdentityProvider } from '@pubkey-stack/sdk'
+import { UiStack, UiWarn } from '@pubkey-stack/web/ui/core'
+import { showNotificationError } from '@pubkey-stack/web/ui/notifications'
+import { useWallet } from '@solana/wallet-adapter-react'
+import { useEffect, useState } from 'react'
+import { useLinkSolana } from './identity-ui-solana-link-provider'
+
+export function IdentityUiSolanaLinkWizard() {
+  const { identities, linkAndSign } = useLinkSolana()
+  const { connected, publicKey, disconnect } = useWallet()
+  const [signing, setSigning] = useState(false)
+  const provider = IdentityProvider.Solana
+
+  const exists = identities?.some((item) => item.providerId === publicKey?.toBase58())
+
+  const [active, setActive] = useState(0)
+
+  useEffect(() => {
+    if (!connected) {
+      return
+    }
+    if (connected && exists) {
+      setActive(0)
+      return
+    }
+    setActive(1)
+  }, [connected, exists])
+
+  return (
+    <UiStack>
+      <Stepper active={active} onStepClick={setActive} orientation="vertical">
+        <Stepper.Step
+          label="Step 1: Connect Wallet"
+          description={connected ? `Connected ${ellipsify(publicKey?.toBase58() ?? '')}` : 'Connect Wallet'}
+        >
+          {provider ? (
+            connected ? (
+              <UiStack>
+                <Button
+                  size={`lg`}
+                  variant={connected ? 'filled' : 'light'}
+                  onClick={() => {
+                    if (!connected) {
+                      return
+                    }
+                    disconnect()
+                  }}
+                >
+                  Disconnect
+                </Button>
+
+                {exists ? (
+                  <UiWarn
+                    title="Identity already linked"
+                    message="This identity is already linked to your account. Please connect a different wallet."
+                  />
+                ) : (
+                  <Button
+                    size={`lg`}
+                    variant={connected ? 'filled' : 'light'}
+                    onClick={() => {
+                      if (!connected) {
+                        return
+                      }
+                      setActive(1)
+                    }}
+                  >
+                    Select {ellipsify(publicKey?.toBase58() ?? '')} on {provider}
+                  </Button>
+                )}
+              </UiStack>
+            ) : (
+              <UiStack>
+                <WalletMultiButton size="lg" />
+              </UiStack>
+            )
+          ) : (
+            <UiWarn title={'Select provider'} message={'Please select a provider before connecting your wallet.'} />
+          )}
+        </Stepper.Step>
+
+        <Stepper.Step loading={signing} label="Step 2: Link Identity" description="Link and Verify Identity">
+          {provider && connected && publicKey ? (
+            <UiStack>
+              <Button
+                loading={signing}
+                size="lg"
+                onClick={() => {
+                  setSigning(true)
+                  linkAndSign(publicKey.toString())
+                    .then(() => {
+                      modals.closeAll()
+                      setActive(2)
+                    })
+                    .catch((err) => {
+                      console.log('error linking identity', err)
+                      showNotificationError('Error linking identity')
+                    })
+                    .finally(() => setSigning(false))
+                }}
+              >
+                Link and Verify Identity
+              </Button>
+            </UiStack>
+          ) : null}
+        </Stepper.Step>
+      </Stepper>
+    </UiStack>
+  )
+}

@@ -1,0 +1,214 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input AdminCreateEmailInput {
+  email: String!
+  ownerId: String!
+}
+
+input AdminCreateIdentityInput {
+  ownerId: String!
+  provider: IdentityProvider!
+  providerId: String!
+}
+
+input AdminCreateUserInput {
+  password: String
+  username: String!
+}
+
+input AdminFindEmailsInput {
+  ownerId: String!
+}
+
+input AdminFindIdentitiesInput {
+  ownerId: String
+  provider: IdentityProvider
+}
+
+input AdminFindUsersInput {
+  role: UserRole
+  search: String
+  skip: Int = 0
+  status: UserStatus
+  take: Int = 10
+}
+
+input AdminUpdateEmailInput {
+  default: Boolean
+  email: String
+  private: Boolean
+  verified: Boolean
+}
+
+input AdminUpdateUserInput {
+  avatarUrl: String
+  developer: Boolean
+  name: String
+  role: UserRole
+  status: UserStatus
+  username: String
+}
+
+type AppConfig {
+  authDiscordEnabled: Boolean!
+  authPasswordEnabled: Boolean!
+  authRegisterEnabled: Boolean!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Email {
+  createdAt: DateTime!
+  default: Boolean
+  email: String!
+  id: String!
+  private: Boolean
+  updatedAt: DateTime!
+  verified: Boolean
+}
+
+type Identity {
+  challenges: [IdentityChallenge!]
+  createdAt: DateTime!
+  expired: Boolean
+  id: String!
+  name: String
+  owner: User
+  profile: JSON
+  provider: IdentityProvider!
+  providerId: String!
+  updatedAt: DateTime!
+  verified: Boolean
+}
+
+type IdentityChallenge {
+  challenge: String!
+  createdAt: DateTime!
+  id: String!
+  ip: String!
+  provider: IdentityProvider!
+  providerId: String!
+  signature: String
+  updatedAt: DateTime!
+  userAgent: String!
+  verified: Boolean!
+}
+
+enum IdentityProvider {
+  Discord
+  Solana
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+input LinkIdentityInput {
+  provider: IdentityProvider!
+  providerId: String!
+}
+
+input LoginInput {
+  password: String!
+  username: String!
+}
+
+type Mutation {
+  adminCreateEmail(input: AdminCreateEmailInput!): Email
+  adminCreateIdentity(input: AdminCreateIdentityInput!): Identity
+  adminCreateUser(input: AdminCreateUserInput!): User
+  adminDeleteEmail(emailId: String!): Boolean
+  adminDeleteIdentity(identityId: String!): Boolean
+  adminDeleteUser(userId: String!): Boolean
+  adminUpdateEmail(emailId: String!, input: AdminUpdateEmailInput!): Email
+  adminUpdateUser(input: AdminUpdateUserInput!, userId: String!): User
+  login(input: LoginInput!): User
+  logout: Boolean
+  register(input: RegisterInput!): User
+  userDeleteIdentity(identityId: String!): Boolean
+  userLinkIdentity(input: LinkIdentityInput!): Identity
+  userUpdateUser(input: UserUpdateUserInput!): User
+  userVerifyIdentityChallenge(input: VerifyIdentityChallengeInput!): IdentityChallenge
+}
+
+type Paging {
+  count: Int
+  skip: Int
+  take: Int
+  total: Int
+}
+
+type Query {
+  adminFindEmails(input: AdminFindEmailsInput!): [Email!]
+  adminFindIdentities(input: AdminFindIdentitiesInput!): [Identity!]
+  adminFindUsers(input: AdminFindUsersInput!): [User!]
+  adminFindUsersCount(input: AdminFindUsersInput!): Paging
+  adminGetUser(userId: String!): User
+  appConfig: AppConfig!
+  me: User
+  uptime: Float!
+  userFindIdentities: [Identity!]
+  userFindUsers(input: UserFindUsersInput!): [User!]
+  userFindUsersCount(input: UserFindUsersInput!): Paging
+  userGetUserByUsername(username: String!): User
+  userRequestIdentityChallenge(input: RequestIdentityChallengeInput!): IdentityChallenge
+}
+
+input RegisterInput {
+  password: String!
+  username: String!
+}
+
+input RequestIdentityChallengeInput {
+  provider: IdentityProvider!
+  providerId: String!
+}
+
+type User {
+  avatarUrl: String
+  createdAt: DateTime
+  developer: Boolean
+  id: String!
+  name: String
+  profileUrl: String
+  role: UserRole
+  status: UserStatus
+  updatedAt: DateTime
+  username: String
+}
+
+input UserFindUsersInput {
+  search: String
+  skip: Int = 0
+  take: Int = 10
+}
+
+enum UserRole {
+  Admin
+  User
+}
+
+enum UserStatus {
+  Active
+  Created
+  Inactive
+}
+
+input UserUpdateUserInput {
+  avatarUrl: String
+  developer: Boolean
+  name: String
+}
+
+input VerifyIdentityChallengeInput {
+  challenge: String!
+  provider: IdentityProvider!
+  providerId: String!
+  signature: String!
+}

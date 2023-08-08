@@ -1,0 +1,63 @@
+fragment UserDetails on User {
+  avatarUrl
+  createdAt
+  developer
+  id
+  name
+  profileUrl
+  role
+  status
+  updatedAt
+  username
+}
+
+query adminFindUsers($input: AdminFindUsersInput!) {
+  count: adminFindUsersCount(input: $input) {
+    ...PagingDetails
+  }
+  items: adminFindUsers(input: $input) {
+    ...UserDetails
+  }
+}
+
+query adminGetUser($userId: String!) {
+  item: adminGetUser(userId: $userId) {
+    ...UserDetails
+  }
+}
+
+mutation adminCreateUser($input: AdminCreateUserInput!) {
+  created: adminCreateUser(input: $input) {
+    ...UserDetails
+  }
+}
+
+mutation adminUpdateUser($userId: String!, $input: AdminUpdateUserInput!) {
+  updated: adminUpdateUser(userId: $userId, input: $input) {
+    ...UserDetails
+  }
+}
+
+mutation adminDeleteUser($userId: String!) {
+  deleted: adminDeleteUser(userId: $userId)
+}
+
+query userFindUsers($input: UserFindUsersInput!) {
+  count: userFindUsersCount(input: $input) {
+    ...PagingDetails
+  }
+  items: userFindUsers(input: $input) {
+    ...UserDetails
+  }
+}
+query userGetUserByUsername($username: String!) {
+  item: userGetUserByUsername(username: $username) {
+    ...UserDetails
+  }
+}
+
+mutation userUpdateUser($input: UserUpdateUserInput!) {
+  updated: userUpdateUser(input: $input) {
+    ...UserDetails
+  }
+}

@@ -1,0 +1,31 @@
+fragment EmailDetails on Email {
+  createdAt
+  default
+  email
+  id
+  private
+  updatedAt
+  verified
+}
+
+query adminFindEmails($input: AdminFindEmailsInput!) {
+  items: adminFindEmails(input: $input) {
+    ...EmailDetails
+  }
+}
+
+mutation adminCreateEmail($input: AdminCreateEmailInput!) {
+  created: adminCreateEmail(input: $input) {
+    ...EmailDetails
+  }
+}
+
+mutation adminUpdateEmail($emailId: String!, $input: AdminUpdateEmailInput!) {
+  updated: adminUpdateEmail(emailId: $emailId, input: $input) {
+    ...EmailDetails
+  }
+}
+
+mutation adminDeleteEmail($emailId: String!) {
+  deleted: adminDeleteEmail(emailId: $emailId)
+}
