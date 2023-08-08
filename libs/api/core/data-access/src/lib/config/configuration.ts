@@ -1,5 +1,9 @@
 // Remove trailing slashes from the URLs to avoid double slashes
 const API_URL = getUrl('API_URL') as string
+
+if (!API_URL) {
+  throw new Error('API_URL is not set. Make sure to set it in the .env file')
+}
 // Infer the WEB URL from the API_URL if it's not set
 const WEB_URL = getUrl('WEB_URL') ?? API_URL?.replace('/api', '')
 
