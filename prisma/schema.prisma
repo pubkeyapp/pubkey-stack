@@ -10,7 +10,7 @@ datasource db {
 model Email {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
+  updatedAt DateTime @updatedAt
   default   Boolean  @default(false)
   email     String   @unique
   private   Boolean  @default(false)
@@ -22,7 +22,7 @@ model Email {
 model Identity {
   id           String              @id @default(cuid())
   createdAt    DateTime            @default(now())
-  updatedAt    DateTime            @default(now()) @updatedAt
+  updatedAt    DateTime            @updatedAt
   provider     IdentityProvider
   providerId   String
   name         String?
@@ -40,7 +40,7 @@ model Identity {
 model IdentityChallenge {
   id         String           @id @default(cuid())
   createdAt  DateTime         @default(now())
-  updatedAt  DateTime         @default(now()) @updatedAt
+  updatedAt  DateTime         @updatedAt
   challenge  String           @unique
   signature  String?
   ip         String
@@ -49,11 +49,6 @@ model IdentityChallenge {
   identity   Identity         @relation(fields: [provider, providerId], references: [provider, providerId])
   provider   IdentityProvider
   providerId String
-}
-
-enum IdentityProvider {
-  Discord
-  Solana
 }
 
 model User {
@@ -69,6 +64,11 @@ model User {
   username   String     @unique
   identities Identity[]
   emails     Email[]
+}
+
+enum IdentityProvider {
+  Discord
+  Solana
 }
 
 enum UserRole {
