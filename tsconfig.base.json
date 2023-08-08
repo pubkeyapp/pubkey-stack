@@ -26,6 +26,7 @@
       "@pubkey-stack/api/user/data-access": ["libs/api/user/data-access/src/index.ts"],
       "@pubkey-stack/api/user/feature": ["libs/api/user/feature/src/index.ts"],
       "@pubkey-stack/sdk": ["libs/sdk/src/index.ts"],
+      "@pubkey-stack/tools": ["libs/tools/src/index.ts"],
       "@pubkey-stack/web/auth/data-access": ["libs/web/auth/data-access/src/index.ts"],
       "@pubkey-stack/web/auth/feature": ["libs/web/auth/feature/src/index.ts"],
       "@pubkey-stack/web/auth/ui": ["libs/web/auth/ui/src/index.ts"],
