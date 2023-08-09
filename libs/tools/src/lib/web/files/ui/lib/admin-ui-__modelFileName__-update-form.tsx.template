@@ -1,0 +1,25 @@
+import { Button, Group } from '@mantine/core'
+import { AdminUpdate<%= modelClassName %>Input, <%= modelClassName %> } from '@<%= npmScope %>/sdk'
+import { formFieldText, UiForm, UiFormField } from '@<%= npmScope %>/<%= app %>/ui/core'
+
+export interface AdminUiUpdate<%= modelClassName %>FormProps {
+  submit: (res: AdminUpdate<%= modelClassName %>Input) => Promise<boolean>
+  <%= modelPropertyName %>: <%= modelClassName %>
+}
+
+export function AdminUiUpdate<%= modelClassName %>Form({ submit, <%= modelPropertyName %> }: AdminUiUpdate<%= modelClassName %>FormProps) {
+  const model = {
+    <%= label %>: <%= modelPropertyName %>.<%= label %> ?? '',
+  }
+
+  const fields: UiFormField<AdminUpdate<%= modelClassName %>Input>[] = [
+    formFieldText('<%= label %>', { label: '<%= labelClassName %>' }),
+  ]
+  return (
+    <UiForm model={model} fields={fields} submit={(res) => submit(res as AdminUpdate<%= modelClassName %>Input)}>
+      <Group position="right">
+        <Button type="submit">Save</Button>
+      </Group>
+    </UiForm>
+  )
+}

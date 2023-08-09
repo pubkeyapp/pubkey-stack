@@ -1,0 +1,13 @@
+import { UiAlert, UiCard } from '@<%= npmScope %>/<%= app %>/ui/core'
+import { useAdminFindOne<%= modelClassName %> } from '@<%= npmScope %>/<%= app %>/<%= modelFileName %>/data-access'
+import { AdminUiUpdate<%= modelClassName %>Form } from '@<%= npmScope %>/<%= app %>/<%= modelFileName %>/ui'
+
+export function WebAdmin<%= modelClassName %>DetailSettingsTab({ <%= modelPropertyName %>Id }: { <%= modelPropertyName %>Id: string }) {
+  const { <%= modelPropertyName %>, update<%= modelClassName %> } = useAdminFindOne<%= modelClassName %>(<%= modelPropertyName %>Id)
+
+  return (
+    <UiCard>
+      {<%= modelPropertyName %> ? <AdminUiUpdate<%= modelClassName %>Form <%= modelPropertyName %>={<%= modelPropertyName %>} submit={update<%= modelClassName %>} /> : <UiAlert message="<%= modelClassName %> not found." />}
+    </UiCard>
+  )
+}

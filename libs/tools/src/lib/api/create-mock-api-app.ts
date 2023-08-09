@@ -1,7 +1,7 @@
 import { Tree } from '@nx/devkit'
 import { applicationGenerator, libraryGenerator, serviceGenerator } from '@nx/nest'
 
-export async function createMockApi(tree: Tree, app: string) {
+export async function createMockApiApp(tree: Tree, app: string) {
   // Build the mock app and core libs
   await applicationGenerator(tree, { name: app, directory: 'apps', skipFormat: true })
   // Create the core data access lib

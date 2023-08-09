@@ -1,0 +1,42 @@
+import { Button, Group } from '@mantine/core'
+import { <%= modelClassName %> } from '@<%= npmScope %>/sdk'
+import { UiBack, UiAdminPage, UiAlert, UiLoader, UiPagination, UiSearchField } from '@<%= npmScope %>/<%= app %>/ui/core'
+import { useAdminFindMany<%= modelClassName %> } from '@<%= npmScope %>/<%= app %>/<%= modelPropertyName %>/data-access'
+import { AdminUi<%= modelClassName %>Table } from '@<%= npmScope %>/<%= app %>/<%= modelPropertyName %>/ui'
+import { Link } from 'react-router-dom'
+
+export function WebAdmin<%= modelClassName %>ListFeature() {
+  const { delete<%= modelClassName %>, pagination, query, setSearch } = useAdminFindMany<%= modelClassName %>()
+
+  return (
+    <UiAdminPage
+      title="<%= modelClassName %>s"
+      leftAction={<UiBack />}
+      rightAction={
+        <Button component={Link} to="create">
+          Create
+        </Button>
+      }
+    >
+      <Group>
+        <UiSearchField placeholder="Search <%= modelPropertyName %>" setSearch={setSearch} />
+      </Group>
+
+      {query.isLoading ? (
+        <UiLoader />
+      ) : query?.data?.items?.length ? (
+        <AdminUi<%= modelClassName %>Table
+          delete<%= modelClassName %>={(<%= modelPropertyName %>) => {
+            if (!window.confirm('Are you sure?')) return
+            return delete<%= modelClassName %>(<%= modelPropertyName %>.id)
+          }}
+          <%= modelPropertyName %>s={query?.data?.items as <%= modelClassName %>[]}
+        />
+      ) : (
+        <UiAlert message="<%= modelClassName %> not found" />
+      )}
+
+      <UiPagination pagination={pagination} />
+    </UiAdminPage>
+  )
+}

@@ -7,3 +7,13 @@ export function addExport(tree: Tree, path: string, exportPath: string) {
     return source
   })
 }
+
+export function addExports(tree: Tree, path: string, exportPaths: string | string[]) {
+  const paths = Array.isArray(exportPaths) ? exportPaths : [exportPaths]
+  updateSourceFile(tree, path, (source) => {
+    for (const exportPath of paths) {
+      source.addExportDeclaration({ moduleSpecifier: exportPath.replace('.ts', '') })
+    }
+    return source
+  })
+}

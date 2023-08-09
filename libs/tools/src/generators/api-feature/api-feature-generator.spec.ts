@@ -1,6 +1,6 @@
 import { readProjectConfiguration, Tree } from '@nx/devkit'
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing'
-import { createMockApi } from '../../lib/api/create-mock-api'
+import { createMockApiApp } from '../../lib/api/create-mock-api-app'
 
 import { apiFeatureGenerator } from './api-feature-generator'
 import { ApiFeatureGeneratorSchema } from './api-feature-schema'
@@ -14,7 +14,7 @@ describe('api-feature generator', () => {
   })
 
   it('should generate the feature libraries', async () => {
-    await createMockApi(tree, options.app)
+    await createMockApiApp(tree, options.app)
 
     // By default, we generate two libraries: data-access and feature
     const libs = ['data-access', 'feature']
@@ -51,7 +51,7 @@ describe('api-feature generator', () => {
   })
 
   it('should generate the feature libraries with util lib', async () => {
-    await createMockApi(tree, options.app)
+    await createMockApiApp(tree, options.app)
 
     // By default, we generate two libraries: data-access and feature
     const libs = ['data-access', 'feature', 'util']
@@ -65,7 +65,7 @@ describe('api-feature generator', () => {
 
   it('should generate the feature with different name', async () => {
     const testOptions = { ...options, name: 'company' }
-    await createMockApi(tree, testOptions.app)
+    await createMockApiApp(tree, testOptions.app)
 
     // By default, we generate two libraries: data-access and feature
     const libs = ['data-access', 'feature', 'util']
@@ -78,7 +78,7 @@ describe('api-feature generator', () => {
   })
 
   it('should generate the feature libraries with custom names', async () => {
-    await createMockApi(tree, options.app)
+    await createMockApiApp(tree, options.app)
 
     // By default, we generate two libraries: data-access and feature
     const libs = ['data-access', 'feature']

@@ -1,0 +1,36 @@
+import { AdminUpdate<%= modelClassName %>Input } from '@<%= npmScope %>/sdk'
+import { useWebSdk } from '@<%= npmScope %>/<%= app %>/shell/data-access'
+import { showNotificationError, showNotificationSuccess } from '@<%= npmScope %>/<%= app %>/ui/notifications'
+import { useQuery } from '@tanstack/react-query'
+
+export function useAdminFindOne<%= modelClassName %>(<%= modelPropertyName %>Id: string) {
+  const sdk = useWebSdk()
+  const query = useQuery(
+    ['admin', '<%= modelPropertyName %>s', 'get', <%= modelPropertyName %>Id],
+    () => sdk.adminFindOne<%= modelClassName %>({ <%= modelPropertyName %>Id }).then((res) => res.data),
+    { retry: 0 },
+  )
+  const <%= modelPropertyName %> = query.data?.item ?? undefined
+
+  return {
+    <%= modelPropertyName %>,
+    query,
+    update<%= modelClassName %>: async (input: AdminUpdate<%= modelClassName %>Input) =>
+      sdk
+        .adminUpdate<%= modelClassName %>({ <%= modelPropertyName %>Id, input })
+        .then((res) => res.data)
+        .then(async (res) => {
+          if (res) {
+            showNotificationSuccess('<%= modelClassName %> updated')
+            await query.refetch()
+            return true
+          }
+          showNotificationError('<%= modelClassName %> not updated')
+          return false
+        })
+        .catch((err) => {
+          showNotificationError(err.message)
+          return false
+        }),
+  }
+}

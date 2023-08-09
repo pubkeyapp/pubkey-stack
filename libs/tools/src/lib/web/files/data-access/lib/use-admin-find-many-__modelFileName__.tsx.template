@@ -1,0 +1,51 @@
+import { AdminCreate<%= modelClassName %>Input, AdminFindMany<%= modelClassName %>Input } from '@<%= npmScope %>/sdk'
+import { useWebSdk } from '@<%= npmScope %>/<%= app %>/shell/data-access'
+
+import { useUiPagination } from '@<%= npmScope %>/<%= app %>/ui/core'
+import { showNotificationError, showNotificationSuccess } from '@<%= npmScope %>/<%= app %>/ui/notifications'
+import { useQuery } from '@tanstack/react-query'
+import { useState } from 'react'
+
+export function useAdminFindMany<%= modelClassName %>(props?: Partial<AdminFindMany<%= modelClassName %>Input>) {
+  const sdk = useWebSdk()
+  const [take, setTake] = useState(props?.take ?? 10)
+  const [skip, setSkip] = useState(props?.skip ?? 0)
+  const [search, setSearch] = useState<string>(props?.search ?? '')
+
+  const input: AdminFindMany<%= modelClassName %>Input = { skip, take, search }
+  const query = useQuery(['admin', '<%= modelPropertyName %>s', 'find', input], () => sdk.adminFindMany<%= modelClassName %>s({ input }).then((res) => res.data))
+  const total = query.data?.count?.total ?? 0
+
+  return {
+    create<%= modelClassName %>: (input: AdminCreate<%= modelClassName %>Input) =>
+      sdk
+        .adminCreate<%= modelClassName %>({ input })
+        .then((res) => res.data)
+        .then((res) => {
+          if (res.created) {
+            showNotificationSuccess(`<%= modelClassName %>  created`)
+          } else {
+            showNotificationError(`<%= modelClassName %> not created`)
+          }
+          return res.created
+        })
+        .catch((err) => {
+          showNotificationError(err.message)
+          return undefined
+        }),
+    delete<%= modelClassName %>: (<%= modelPropertyName %>Id: string) =>
+      sdk.adminDelete<%= modelClassName %>({ <%= modelPropertyName %>Id }).then(() => {
+        showNotificationSuccess('<%= modelClassName %> deleted')
+        return query.refetch()
+      }),
+    query,
+    setSearch,
+    pagination: useUiPagination({
+      skip,
+      setSkip,
+      take,
+      setTake,
+      total,
+    }),
+  }
+}

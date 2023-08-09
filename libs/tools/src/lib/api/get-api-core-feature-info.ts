@@ -6,7 +6,7 @@ export function getApiCoreFeatureInfo(tree: Tree, app: string) {
   const modulePath = `${lib.project.sourceRoot}/lib/${lib.project.name}.module.ts`
 
   if (!tree.exists(modulePath)) {
-    throw new Error(`getApiFeatureModuleInfo: ${modulePath} does not exist in ${lib.project.sourceRoot}`)
+    throw new Error(`getApiCoreFeatureInfo: ${modulePath} does not exist in ${lib.project.sourceRoot}`)
   }
 
   const { className: moduleClassName } = names(`${lib.project.name}-module`)

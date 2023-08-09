@@ -1,0 +1,33 @@
+import { Button, Group } from '@mantine/core'
+import { AdminCreate<%= modelClassName %>Input } from '@<%= npmScope %>/sdk'
+import { UiBack, UiAdminPage, UiCard } from '@<%= npmScope %>/<%= app %>/ui/core'
+import { showNotificationError } from '@<%= npmScope %>/<%= app %>/ui/notifications'
+import { useAdminFindMany<%= modelClassName %> } from '@<%= npmScope %>/<%= app %>/<%= modelFileName %>/data-access'
+import { AdminUiCreate<%= modelClassName %>Form } from '@<%= npmScope %>/<%= app %>/<%= modelFileName %>/ui'
+import { useNavigate } from 'react-router-dom'
+
+export function WebAdmin<%= modelClassName %>CreateFeature() {
+  const navigate = useNavigate()
+  const { create<%= modelClassName %> } = useAdminFindMany<%= modelClassName %>()
+
+  const submit = async (input: AdminCreate<%= modelClassName %>Input) =>
+    create<%= modelClassName %>(input)
+      .then((res) => navigate(`/admin/<%= modelFileName %>s/${res?.id}`))
+      .then(() => true)
+      .catch((err) => {
+        showNotificationError(err.message)
+        return false
+      })
+
+  return (
+    <UiAdminPage leftAction={<UiBack />} title="Create <%= modelClassName %>">
+      <UiCard>
+        <AdminUiCreate<%= modelClassName %>Form submit={submit}>
+          <Group position="right">
+            <Button type="submit">Create</Button>
+          </Group>
+        </AdminUiCreate<%= modelClassName %>Form>
+      </UiCard>
+    </UiAdminPage>
+  )
+}

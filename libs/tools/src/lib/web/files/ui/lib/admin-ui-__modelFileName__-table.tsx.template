@@ -1,0 +1,54 @@
+import { ActionIcon, Anchor, Group, ScrollArea } from '@mantine/core'
+import { <%= modelClassName %> } from '@<%= npmScope %>/sdk'
+import { UiGroup } from '@<%= npmScope %>/<%= app %>/ui/core'
+import { IconPencil, IconTrash } from '@tabler/icons-react'
+import { DataTable } from 'mantine-datatable'
+import { Link } from 'react-router-dom'
+
+interface Admin<%= modelClassName %>TableProps {
+  <%= modelPropertyName %>s: <%= modelClassName %>[]
+  delete<%= modelClassName %>: (<%= modelPropertyName %>: <%= modelClassName %>) => void
+}
+
+export function AdminUi<%= modelClassName %>Table({ delete<%= modelClassName %>, <%= modelPropertyName %>s = [] }: Admin<%= modelClassName %>TableProps) {
+  return (
+    <ScrollArea>
+      <DataTable
+        borderRadius="sm"
+        withBorder
+        shadow="xs"
+        columns={[
+          {
+            accessor: '<%= label %>',
+            render: (item) => {
+              const link = `/admin/<%= modelPropertyName %>s/${item.id}`
+              return (
+                <UiGroup position="left" spacing={4} align="baseline">
+                  <Anchor component={Link} to={link} size="sm" weight={500}>
+                    {item.<%= label %>}
+                  </Anchor>
+                </UiGroup>
+              )
+            },
+          },
+          {
+            accessor: 'actions',
+            title: 'Actions',
+            textAlignment: 'right',
+            render: (item) => (
+              <Group spacing={0} position="right" noWrap>
+                <ActionIcon color="brand" component={Link} to={`/admin/<%= modelPropertyName %>s/${item.id}/settings`}>
+                  <IconPencil size={16} />
+                </ActionIcon>
+                <ActionIcon color="red" onClick={() => delete<%= modelClassName %>(item)}>
+                  <IconTrash size={16} />
+                </ActionIcon>
+              </Group>
+            ),
+          },
+        ]}
+        records={<%= modelPropertyName %>s}
+      />
+    </ScrollArea>
+  )
+}

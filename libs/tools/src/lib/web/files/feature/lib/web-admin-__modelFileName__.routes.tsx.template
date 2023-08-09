@@ -1,0 +1,15 @@
+import { useRoutes } from 'react-router-dom'
+import { WebAdmin<%= modelClassName %>DetailFeature } from './web-admin-<%= modelFileName %>-detail.feature'
+import { WebAdmin<%= modelClassName %>CreateFeature } from './web-admin-<%= modelFileName %>-create.feature'
+import { WebAdmin<%= modelClassName %>ListFeature } from './web-admin-<%= modelFileName %>-list.feature'
+
+export default function WebAdmin<%= modelClassName %>Routes() {
+  return useRoutes([
+    { path: '', element: <WebAdmin<%= modelClassName %>ListFeature /> },
+    {
+      path: 'create',
+      element: <WebAdmin<%= modelClassName %>CreateFeature />,
+    },
+    { path: ':<%= modelPropertyName %>Id/*', element: <WebAdmin<%= modelClassName %>DetailFeature /> },
+  ])
+}

@@ -9,6 +9,11 @@
       "factory": "./src/generators/prisma-model/prisma-model-generator",
       "schema": "./src/generators/prisma-model/prisma-model-schema.json",
       "description": "prisma-model generator"
+    },
+    "web-feature": {
+      "factory": "./src/generators/web-feature/web-feature-generator",
+      "schema": "./src/generators/web-feature/web-feature-schema.json",
+      "description": "web-feature generator"
     }
   }
 }

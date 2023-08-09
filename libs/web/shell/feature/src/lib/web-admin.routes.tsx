@@ -15,6 +15,7 @@ export default function WebAdminRoutes() {
             links={[
               { label: 'Development', icon: IconBug, link: '/admin/development' },
               { label: 'Users', icon: IconUsers, link: '/admin/users' },
+              // GENERATE_ADMIN_DASHBOARD_LINK
             ]}
           />
         </UiContainer>
@@ -22,5 +23,6 @@ export default function WebAdminRoutes() {
     },
     { path: 'development/*', element: <WebDevAdminRoutes /> },
     { path: 'users/*', element: <WebAdminUserRoutes /> },
+    // GENERATE_ADMIN_DASHBOARD_ROUTE
   ])
 }
