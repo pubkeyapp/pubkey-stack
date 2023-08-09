@@ -7,5 +7,8 @@ export interface ApiFeatureGeneratorSchema {
   skipAdminCrud?: boolean
   skipDataAccess?: boolean
   skipFeature?: boolean
+  skipSdk?: boolean
   skipUtil?: boolean
 }
+
+export type NormalizedApiFeatureSchema = Required<NormalizedApiFeatureSchema>

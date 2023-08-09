@@ -1,27 +1,15 @@
 import { Tree } from '@nx/devkit'
 import { libraryGenerator } from '@nx/nest'
+import { NormalizedApiFeatureSchema } from '../../generators/api-feature/api-feature-schema'
 import { ApiLibType } from '../types/api-feature'
 import { generateApiLibDataAccess } from './generate-api-lib-data-access'
 import { generateApiLibFeature } from './generate-api-lib-feature'
 
-export interface GenerateApiLibOptions {
-  app: string
-  name: string
-  label: string
-  adminCrud?: boolean
-  modelName?: string
-  pluralModelName?: string
-  type: ApiLibType
-}
-
-export async function generateApiLib(
-  tree: Tree,
-  { name, type, app, label, adminCrud, modelName, pluralModelName }: GenerateApiLibOptions,
-) {
+export async function generateApiLib(tree: Tree, type: ApiLibType, options: NormalizedApiFeatureSchema) {
   const generated = await libraryGenerator(tree, {
     name: type,
-    directory: `libs/${app}/${name}`,
-    tags: `app:${app},type:${type}`,
+    directory: `libs/${options.app}/${options.name}`,
+    tags: `app:${options.app},type:${type}`,
     skipFormat: true,
   })
   if (!generated) {
@@ -30,10 +18,10 @@ export async function generateApiLib(
 
   switch (type) {
     case 'data-access':
-      await generateApiLibDataAccess(tree, { app, name, label, adminCrud, modelName, pluralModelName })
+      await generateApiLibDataAccess(tree, options)
       break
     case 'feature':
-      await generateApiLibFeature(tree, { app, name, label, adminCrud, modelName, pluralModelName })
+      await generateApiLibFeature(tree, options)
       break
   }
 

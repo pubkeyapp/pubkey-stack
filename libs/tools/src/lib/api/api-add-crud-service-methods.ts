@@ -1,13 +1,13 @@
 import { Tree } from '@nrwl/devkit'
 import { names } from '@nx/devkit'
 import { dirname } from 'node:path'
-import { addExport } from './add-export'
-import { addNamedImport } from './add-named-import'
+import { addExport } from '../utils/add-export'
+import { addNamedImport } from '../utils/add-named-import'
 import { createCrudMethodNames } from './create-crud-method-names'
 import { getDtoNames } from './get-dto-names'
 import { getInputTypeContent } from './get-input-type-content'
 import { getObjectTypeContent } from './get-object-type-content'
-import { updateSourceFile } from './update-source-file'
+import { updateSourceFile } from '../utils/update-source-file'
 
 export function apiAddCrudServiceMethods(
   tree: Tree,

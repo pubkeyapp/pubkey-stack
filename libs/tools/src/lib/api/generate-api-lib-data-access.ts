@@ -1,36 +1,33 @@
 import { Tree } from '@nx/devkit'
 import { serviceGenerator } from '@nx/nest'
+import { NormalizedApiFeatureSchema } from '../../generators/api-feature/api-feature-schema'
 import { addExport } from '../utils/add-export'
-import { apiAddCrudServiceMethods } from '../utils/api-add-crud-service-methods'
-import { apiUpdateDataAccessModule } from '../utils/api-update-data-access-module'
-import { apiUpdateDataAccessService } from '../utils/api-update-data-access-service'
-import { getApiDataAccessModuleInfo } from '../utils/get-api-data-access-module-info'
-import { GenerateApiLibOptions } from './generate-api-lib'
+import { apiAddCrudServiceMethods } from './api-add-crud-service-methods'
+import { apiUpdateDataAccessModule } from './api-update-data-access-module'
+import { apiUpdateDataAccessService } from './api-update-data-access-service'
+import { getApiDataAccessModuleInfo } from './get-api-data-access-module-info'
 
-export async function generateApiLibDataAccess(
-  tree: Tree,
-  { app, name, label, adminCrud, pluralModelName, modelName }: Omit<GenerateApiLibOptions, 'type'>,
-) {
+export async function generateApiLibDataAccess(tree: Tree, options: NormalizedApiFeatureSchema) {
   // We create the services for this data-access module
   await serviceGenerator(tree, {
-    name: `${app}-${name}`,
-    project: `${app}-${name}-data-access`,
+    name: `${options.app}-${options.name}`,
+    project: `${options.app}-${options.name}-data-access`,
     flat: true,
     directory: 'lib',
   })
 
-  if (adminCrud) {
+  if (!options.skipAdminCrud) {
     await serviceGenerator(tree, {
-      name: `${app}-${name}-admin`,
-      project: `${app}-${name}-data-access`,
+      name: `${options.app}-${options.name}-admin`,
+      project: `${options.app}-${options.name}-data-access`,
       flat: true,
       directory: 'lib',
     })
   }
 
   // We get the module info for the core and target modules
-  const coreModule = getApiDataAccessModuleInfo(tree, app, 'core')
-  const targetModule = getApiDataAccessModuleInfo(tree, app, name)
+  const coreModule = getApiDataAccessModuleInfo(tree, options.app, 'core')
+  const targetModule = getApiDataAccessModuleInfo(tree, options.app, options.name)
 
   apiUpdateDataAccessModule(tree, targetModule.modulePath, {
     exportClass: targetModule.serviceClassName,
@@ -44,14 +41,14 @@ export async function generateApiLibDataAccess(
     importPackage: coreModule.importPath,
     importProperty: 'core',
     targetClass: targetModule.serviceClassName,
-    adminServiceFile: adminCrud ? targetModule.adminServiceFile : undefined,
-    adminServiceClass: adminCrud ? targetModule.adminServiceClassName : undefined,
+    adminServiceFile: !options.skipAdminCrud ? targetModule.adminServiceFile : undefined,
+    adminServiceClass: !options.skipAdminCrud ? targetModule.adminServiceClassName : undefined,
   })
 
-  addExport(tree, `${targetModule.project.sourceRoot}/index.ts`, `./lib/${app}-${name}.service`)
+  addExport(tree, `${targetModule.project.sourceRoot}/index.ts`, `./lib/${options.app}-${options.name}.service`)
 
-  if (adminCrud) {
-    addExport(tree, `${targetModule.project.sourceRoot}/index.ts`, `./lib/${app}-${name}-admin.service`)
+  if (!options.skipAdminCrud) {
+    addExport(tree, `${targetModule.project.sourceRoot}/index.ts`, `./lib/${options.app}-${options.name}-admin.service`)
     apiUpdateDataAccessService(tree, targetModule.adminServicePath, {
       importClass: coreModule.serviceClassName,
       importPackage: coreModule.importPath,
@@ -60,10 +57,10 @@ export async function generateApiLibDataAccess(
     })
 
     apiAddCrudServiceMethods(tree, targetModule.adminServicePath, {
-      modelName: modelName ?? '',
-      pluralModelName: pluralModelName ?? '',
+      modelName: options.modelName,
+      pluralModelName: options.pluralModelName,
       targetClass: targetModule.adminServiceClassName,
-      label,
+      label: options.label,
     })
   }
 }

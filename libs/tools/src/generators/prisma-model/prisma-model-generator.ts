@@ -1,8 +1,8 @@
 import { Tree } from '@nx/devkit'
-import { addPrismaModel } from '../../lib/utils/create-mock-prisma-schema'
+import { addPrismaModel } from '../../lib/prisma/create-mock-prisma-schema'
 
-import { getPrismaModels } from '../../lib/utils/get-prisma-models'
-import { normalizePrismaModelSchema } from '../../lib/utils/normalize-prisma-model-schema'
+import { getPrismaModels } from '../../lib/prisma/get-prisma-models'
+import { normalizePrismaModelSchema } from '../../lib/prisma/normalize-prisma-model-schema'
 import { PrismaModelGeneratorSchema } from './prisma-model-schema'
 
 export async function prismaModelGenerator(tree: Tree, rawOptions: PrismaModelGeneratorSchema) {

@@ -1,46 +1,18 @@
 import { Tree } from '@nrwl/devkit'
+import { NormalizedApiFeatureSchema } from '../../generators/api-feature/api-feature-schema'
 import { generateApiLib } from './generate-api-lib'
 
-export interface ApiFeatureSchema {
-  app?: string
-  name: string
-  label?: string
-  modelName?: string
-  pluralModelName?: string
-  skipAdminCrud?: boolean
-  skipDataAccess?: boolean
-  skipFeature?: boolean
-  skipUtil?: boolean
-}
-
-export async function generateApiFeature(tree: Tree, options: ApiFeatureSchema) {
-  const app = options.app ?? 'api'
-  const name = options.name
-  const label = options.label ?? 'name'
-
+export async function generateApiFeature(tree: Tree, options: NormalizedApiFeatureSchema) {
   if (!options.skipDataAccess) {
-    await generateApiLib(tree, {
-      app,
-      name,
-      label,
-      type: 'data-access',
-      adminCrud: !options.skipAdminCrud,
-      modelName: options.modelName,
-      pluralModelName: options.pluralModelName,
-    })
+    await generateApiLib(tree, 'data-access', options)
   }
   if (!options.skipFeature) {
-    await generateApiLib(tree, {
-      app,
-      name,
-      label,
-      type: 'feature',
-      adminCrud: !options.skipAdminCrud,
-      modelName: options.modelName,
-      pluralModelName: options.pluralModelName,
-    })
+    await generateApiLib(tree, 'feature', options)
   }
   if (!options.skipUtil) {
-    await generateApiLib(tree, { app, name, label, type: 'util' })
+    await generateApiLib(tree, 'util', options)
+  }
+  if (!options.skipSdk) {
+    // throw new Error('generateApiFeature: skipSdk is not implemented')
   }
 }

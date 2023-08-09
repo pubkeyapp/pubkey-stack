@@ -1,9 +1,9 @@
 import { Tree } from '@nx/devkit'
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing'
 
-import { createMockPrismaSchema } from '../../lib/utils/create-mock-prisma-schema'
-import { getPrismaModels } from '../../lib/utils/get-prisma-models'
-import { normalizePrismaModelSchema } from '../../lib/utils/normalize-prisma-model-schema'
+import { createMockPrismaSchema } from '../../lib/prisma/create-mock-prisma-schema'
+import { getPrismaModels } from '../../lib/prisma/get-prisma-models'
+import { normalizePrismaModelSchema } from '../../lib/prisma/normalize-prisma-model-schema'
 
 import { prismaModelGenerator } from './prisma-model-generator'
 import { PrismaModelGeneratorSchema } from './prisma-model-schema'

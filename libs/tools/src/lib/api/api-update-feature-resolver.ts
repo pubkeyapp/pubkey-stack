@@ -1,7 +1,8 @@
 import { Tree } from '@nrwl/devkit'
-import { addConstructor } from './add-constructor'
-import { addNamedImport } from './add-named-import'
-import { updateSourceFile } from './update-source-file'
+
+import { addConstructors } from '../utils/add-constructors'
+import { addNamedImport } from '../utils/add-named-import'
+import { updateSourceFile } from '../utils/update-source-file'
 
 export function apiUpdateFeatureResolver(
   tree: Tree,
@@ -21,7 +22,7 @@ export function apiUpdateFeatureResolver(
   updateSourceFile(tree, path, (source) => {
     addNamedImport(source, dataAccessPackage, dataAccessClass)
 
-    addConstructor(source, dataAccessClass, importProperty, targetClass)
+    addConstructors(source, targetClass, [{ name: importProperty, type: dataAccessClass, private: true }])
 
     return source
   })

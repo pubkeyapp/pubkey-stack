@@ -1,8 +1,8 @@
 import { names, Tree } from '@nx/devkit'
-import { getLib } from './get-lib'
+import { getApiLib } from './get-api-lib'
 
 export function getApiDataAccessModuleInfo(tree: Tree, app: string, name: string) {
-  const lib = getLib(tree, app, name, 'data-access')
+  const lib = getApiLib(tree, app, name, 'data-access')
   const modulePath = `${lib.project.sourceRoot}/lib/${lib.project.name}.module.ts`
 
   if (!tree.exists(modulePath)) {

@@ -1,6 +1,6 @@
 import { Tree } from '@nrwl/devkit'
-import { addNamedImport } from './add-named-import'
-import { updateSourceFile } from './update-source-file'
+import { addNamedImport } from '../utils/add-named-import'
+import { updateSourceFile } from '../utils/update-source-file'
 
 export function apiUpdateCoreFeatureModule(
   tree: Tree,

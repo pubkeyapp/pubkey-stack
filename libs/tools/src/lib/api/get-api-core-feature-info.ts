@@ -1,8 +1,8 @@
 import { names, Tree } from '@nx/devkit'
-import { getLib } from './get-lib'
+import { getApiLib } from './get-api-lib'
 
 export function getApiCoreFeatureInfo(tree: Tree, app: string) {
-  const lib = getLib(tree, app, 'core', 'feature')
+  const lib = getApiLib(tree, app, 'core', 'feature')
   const modulePath = `${lib.project.sourceRoot}/lib/${lib.project.name}.module.ts`
 
   if (!tree.exists(modulePath)) {

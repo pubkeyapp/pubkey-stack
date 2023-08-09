@@ -1,7 +1,8 @@
 import { Tree } from '@nrwl/devkit'
-import { addConstructors } from './add-constructor'
-import { addNamedImport } from './add-named-import'
-import { updateSourceFile } from './update-source-file'
+
+import { addConstructors } from '../utils/add-constructors'
+import { addNamedImport } from '../utils/add-named-import'
+import { updateSourceFile } from '../utils/update-source-file'
 
 export function apiUpdateDataAccessService(
   tree: Tree,
