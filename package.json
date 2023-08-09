@@ -5,8 +5,8 @@
   "scripts": {
     "build": "yarn build:web && yarn prisma generate && yarn build:api",
     "build:api": "nx build api",
-    "build:web": "nx build web",
     "build:sdk": "graphql-codegen --config codegen.ts",
+    "build:web": "nx build web",
     "dev:api": "nx serve api",
     "dev:sdk": "yarn build:sdk --watch",
     "dev:services": "docker compose up",
@@ -18,9 +18,10 @@
     "e2e:all": "nx run-many --target=e2e --all",
     "format:all": "nx format:write --all",
     "lint:all": "nx run-many --target=lint --all",
-    "test:all": "nx run-many --target=test --all",
     "prestart": "yarn prisma db push",
-    "start": "NODE_ENV=production node dist/apps/api/main.js"
+    "setup": "yarn nx generate setup",
+    "start": "NODE_ENV=production node dist/apps/api/main.js",
+    "test:all": "nx run-many --target=test --all"
   },
   "private": true,
   "dependencies": {
@@ -137,6 +138,7 @@
     "lint-staged": "^13.2.3",
     "nx": "16.6.0",
     "nx-cloud": "16.2.0",
+    "pg": "^8.11.2",
     "prettier": "^2.8.8",
     "prisma": "^5.1.1",
     "react-refresh": "^0.14.0",

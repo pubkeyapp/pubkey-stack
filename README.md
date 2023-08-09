@@ -18,6 +18,14 @@ cd pubkey-stack
 yarn
 ```
 
+### Automatic setup
+
+You can run the automatic setup script to create the `.env` file, test the setup and push the database schema.
+
+```bash
+yarn setup
+```
+
 ### Environment variables
 
 Copy the `.env.example` file to `.env` and fill in the missing values.
