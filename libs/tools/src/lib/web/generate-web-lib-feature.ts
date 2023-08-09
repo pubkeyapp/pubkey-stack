@@ -41,8 +41,8 @@ export const WebAdmin${className}Routes = lazy(() => import('./lib/web-admin-${f
     const adminRoutesContent = tree.read(adminRoutes).toString('utf-8')
 
     // Find admin shell routes and add the new route
-    const placeholderLink = `GENERATE_ADMIN_DASHBOARD_LINK`
-    const placeholderRoute = `GENERATE_ADMIN_DASHBOARD_ROUTE`
+    const placeholderLink = `// GENERATE_ADMIN_DASHBOARD_LINK`
+    const placeholderRoute = `// GENERATE_ADMIN_DASHBOARD_ROUTE`
 
     if (!adminRoutesContent.includes(placeholderLink) || !adminRoutesContent.includes(placeholderRoute)) {
       // Skipping generation because the placeholder is missing
@@ -51,7 +51,7 @@ export const WebAdmin${className}Routes = lazy(() => import('./lib/web-admin-${f
     }
 
     const itemLink = `{ label: '${className}s', icon: IconUsers, link: '/admin/${fileName}s' }`
-    const itemRoute = `{ path: '${fileName}s/*', element: <WebDev${className}Routes /> }`
+    const itemRoute = `{ path: '${fileName}s/*', element: <WebAdmin${className}Routes /> }`
 
     tree.write(
       adminRoutes,
