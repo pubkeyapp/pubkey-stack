@@ -1,9 +1,8 @@
-import { Box, Button, Group, Title } from '@mantine/core'
-import { PubKeyLogoRounded } from '@pubkeyapp/logo'
+import { Button, Group, Title } from '@mantine/core'
 import { LoginInput } from '@pubkey-stack/sdk'
 import { useWebAuth } from '@pubkey-stack/web/auth/data-access'
-import { AuthUiLoginForm } from '@pubkey-stack/web/auth/ui'
-import { UiFull, UiLoader, UiStack } from '@pubkey-stack/web/ui/core'
+import { AuthUiLoginForm, AuthUiPage } from '@pubkey-stack/web/auth/ui'
+import { UiLoader, UiStack } from '@pubkey-stack/web/ui/core'
 import { WebUserUiAvatar } from '@pubkey-stack/web/user/ui'
 import { IconBrandDiscord } from '@tabler/icons-react'
 import { useState } from 'react'
@@ -34,30 +33,16 @@ export default function WebAuthLoginFeature() {
 
   const { authDiscordEnabled, authPasswordEnabled, authRegisterEnabled } = appConfig
 
-  if (!authDiscordEnabled && !authRegisterEnabled && !authPasswordEnabled) {
-    return (
-      <UiFull>
-        <UiStack spacing="xl">
-          <Group position="center">
-            <PubKeyLogoRounded size={48} />
-            <Title>PubKey</Title>
-          </Group>
-          <Group position="center">
-            <Title>Login is disabled</Title>
-          </Group>
-        </UiStack>
-      </UiFull>
-    )
-  }
+  const noAuthEnabled = !authDiscordEnabled && !authRegisterEnabled && !authPasswordEnabled
 
   return (
-    <UiFull>
-      <Box miw={400} p="lg">
-        <UiStack spacing={48}>
-          <Group position="center">
-            <PubKeyLogoRounded size={48} />
-            <Title>PubKey</Title>
-          </Group>
+    <AuthUiPage>
+      {noAuthEnabled ? (
+        <Group position="center">
+          <Title>Login is disabled</Title>
+        </Group>
+      ) : (
+        <UiStack>
           {user && (
             <Button
               radius="md"
@@ -97,7 +82,7 @@ export default function WebAuthLoginFeature() {
             </AuthUiLoginForm>
           ) : null}
         </UiStack>
-      </Box>
-    </UiFull>
+      )}
+    </AuthUiPage>
   )
 }

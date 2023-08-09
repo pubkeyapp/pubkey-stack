@@ -1,9 +1,8 @@
-import { Button, Group, Stack, Title } from '@mantine/core'
-import { PubKeyLogoRounded } from '@pubkeyapp/logo'
+import { Button, Group, Title } from '@mantine/core'
 import { RegisterInput } from '@pubkey-stack/sdk'
 import { useWebAuth } from '@pubkey-stack/web/auth/data-access'
-import { AuthUiRegisterForm } from '@pubkey-stack/web/auth/ui'
-import { UiCard, UiFull, UiLoader, UiStack } from '@pubkey-stack/web/ui/core'
+import { AuthUiPage, AuthUiRegisterForm } from '@pubkey-stack/web/auth/ui'
+import { UiLoader } from '@pubkey-stack/web/ui/core'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -29,48 +28,30 @@ export default function WebAuthRegisterFeature() {
   }
 
   const { authPasswordEnabled, authRegisterEnabled } = appConfig
-
-  if (!authRegisterEnabled && !authPasswordEnabled) {
-    return (
-      <UiFull>
-        <UiStack spacing="xl">
-          <Group position="center">
-            <PubKeyLogoRounded size={48} />
-            <Title>PubKey</Title>
-          </Group>
-          <Group position="center">
-            <Title>Registration is disabled</Title>
-          </Group>
-        </UiStack>
-      </UiFull>
-    )
-  }
+  const noAuthEnabled = !authRegisterEnabled && !authPasswordEnabled
 
   return (
-    <UiFull>
-      <UiCard miw={400} p="lg">
-        <Stack>
-          <Group position="center">
-            <Title>Register</Title>
-          </Group>
-          {authRegisterEnabled ? (
-            <AuthUiRegisterForm submit={registerHandler}>
-              <Group position="apart">
-                <Button loading={loading} type="submit">
-                  Register
-                </Button>
-                <Button disabled={loading} component={Link} to="/login" variant="default">
-                  Login
-                </Button>
-              </Group>
-            </AuthUiRegisterForm>
-          ) : authPasswordEnabled ? (
+    <AuthUiPage>
+      {noAuthEnabled ? (
+        <Group position="center">
+          <Title>Registration is disabled</Title>
+        </Group>
+      ) : authRegisterEnabled ? (
+        <AuthUiRegisterForm submit={registerHandler}>
+          <Group position="apart">
+            <Button loading={loading} type="submit">
+              Register
+            </Button>
             <Button disabled={loading} component={Link} to="/login" variant="default">
               Login
             </Button>
-          ) : null}
-        </Stack>
-      </UiCard>
-    </UiFull>
+          </Group>
+        </AuthUiRegisterForm>
+      ) : authPasswordEnabled ? (
+        <Button disabled={loading} component={Link} to="/login" variant="default">
+          Login
+        </Button>
+      ) : null}
+    </AuthUiPage>
   )
 }

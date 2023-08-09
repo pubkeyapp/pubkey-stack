@@ -1,5 +1,5 @@
 import { Anchor, Burger, Container, createStyles, Group, Header, Paper, rem, Transition } from '@mantine/core'
-import { PubKeyLogo } from '@pubkeyapp/logo'
+import { UiLogoMark } from '@pubkey-stack/web/ui/core'
 import { ComponentType } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { UiHeaderProfile } from './ui-header-profile'
@@ -109,9 +109,7 @@ export function UiHeader({ icon: Icon, opened, links, close, toggle, text }: UiH
         <Group>
           <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
           <Anchor component={Link} to="/dashboard" replace underline={false}>
-            <Group spacing="xs">
-              <PubKeyLogo size={28} />
-            </Group>
+            <UiLogoMark size={28} />
           </Anchor>
           <Group spacing={5} className={classes.links}>
             {items}
