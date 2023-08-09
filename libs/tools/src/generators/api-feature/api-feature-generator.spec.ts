@@ -7,7 +7,7 @@ import { ApiFeatureGeneratorSchema } from './api-feature-schema'
 
 describe('api-feature generator', () => {
   let tree: Tree
-  const options: ApiFeatureGeneratorSchema = { app: 'api', name: 'test', label: 'name' }
+  const options: ApiFeatureGeneratorSchema = { app: 'api', name: 'test', label: 'name', skipSdk: true }
 
   beforeEach(() => {
     tree = createTreeWithEmptyWorkspace()
@@ -26,30 +26,28 @@ describe('api-feature generator', () => {
     })
 
     const basePathDataAccess = `libs/${options.app}/${options.name}/data-access/src`
-    const dataAccessBarrel = `${basePathDataAccess}/index.ts`
-    expect(tree.exists(dataAccessBarrel)).toBeTruthy()
-    expect(tree.read(dataAccessBarrel).toString()).toMatchSnapshot()
-
-    const dataAccessService = `${basePathDataAccess}/lib/${options.app}-${options.name}.service.ts`
-    expect(tree.exists(dataAccessService)).toBeTruthy()
-    expect(tree.read(dataAccessService).toString()).toMatchSnapshot()
-
-    const dataAccessAdminService = `${basePathDataAccess}/lib/${options.app}-${options.name}-admin.service.ts`
-    expect(tree.exists(dataAccessAdminService)).toBeTruthy()
-    expect(tree.read(dataAccessAdminService).toString()).toMatchSnapshot()
-
     const basePathFeature = `libs/${options.app}/${options.name}/feature/src`
-    const featureBarrel = `${basePathFeature}/index.ts`
-    expect(tree.exists(featureBarrel)).toBeTruthy()
-    expect(tree.read(featureBarrel).toString()).toMatchSnapshot()
 
-    const dataAccessResolver = `${basePathFeature}/lib/${options.app}-${options.name}.resolver.ts`
-    expect(tree.exists(dataAccessResolver)).toBeTruthy()
-    expect(tree.read(dataAccessResolver).toString()).toMatchSnapshot()
+    const files = [
+      `${basePathDataAccess}/index.ts`,
+      `${basePathDataAccess}/lib/${options.app}-${options.name}-admin.service.ts`,
+      `${basePathDataAccess}/lib/${options.app}-${options.name}-data-access.module.ts`,
+      `${basePathDataAccess}/lib/${options.app}-${options.name}.service.ts`,
+      `${basePathDataAccess}/lib/dto/admin-create-${options.name}.input.ts`,
+      `${basePathDataAccess}/lib/dto/admin-find-many-${options.name}.input.ts`,
+      `${basePathDataAccess}/lib/dto/admin-update-${options.name}.input.ts`,
+      `${basePathDataAccess}/lib/helpers/parse-admin-find-many-${options.name}.ts`,
+      `${basePathDataAccess}/lib/entity/${options.name}.entity.ts`,
+      `${basePathFeature}/index.ts`,
+      `${basePathFeature}/lib/${options.app}-${options.name}-admin.resolver.ts`,
+      `${basePathFeature}/lib/${options.app}-${options.name}-feature.module.ts`,
+      `${basePathFeature}/lib/${options.app}-${options.name}.resolver.ts`,
+    ]
 
-    const dataAccessAdminResolver = `${basePathFeature}/lib/${options.app}-${options.name}-admin.resolver.ts`
-    expect(tree.exists(dataAccessAdminResolver)).toBeTruthy()
-    expect(tree.read(dataAccessAdminResolver).toString()).toMatchSnapshot()
+    files.forEach((file) => {
+      expect(tree.exists(file)).toBeTruthy()
+      expect(tree.read(file).toString()).toMatchSnapshot()
+    })
   })
 
   it('should generate the feature libraries with util lib', async () => {

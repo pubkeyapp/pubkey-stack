@@ -17,6 +17,8 @@ export async function generateApiLibFeature(tree: Tree, options: NormalizedApiFe
     project: `${options.app}-${options.name}-feature`,
     flat: true,
     directory: 'lib',
+    unitTestRunner: 'none',
+    skipFormat: true,
   })
 
   if (!options.skipAdminCrud) {
@@ -25,6 +27,8 @@ export async function generateApiLibFeature(tree: Tree, options: NormalizedApiFe
       project: `${options.app}-${options.name}-feature`,
       flat: true,
       directory: 'lib',
+      unitTestRunner: 'none',
+      skipFormat: true,
     })
   }
 

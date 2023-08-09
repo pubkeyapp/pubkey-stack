@@ -4,6 +4,12 @@ export function getObjectTypeContent(name: string, label: string) {
 @ObjectType()
 export class ${name} {
   @Field()
+  id!: string
+  @Field({ nullable: true })
+  createdAt?: Date
+  @Field({ nullable: true })
+  updatedAt?: Date
+  @Field()
   ${label}!: string
 }`
 }

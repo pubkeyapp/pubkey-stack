@@ -1,8 +1,10 @@
 import { Tree } from '@nrwl/devkit'
 import { NormalizedApiFeatureSchema } from '../../generators/api-feature/api-feature-schema'
 import { generateApiLib } from './generate-api-lib'
+import { generateSdkFile } from './generate-sdk-file'
 
 export async function generateApiFeature(tree: Tree, options: NormalizedApiFeatureSchema) {
+  // FIXME: Make sure we can run this feature twice. If the libraries already exist we should skip them
   if (!options.skipDataAccess) {
     await generateApiLib(tree, 'data-access', options)
   }
@@ -13,6 +15,6 @@ export async function generateApiFeature(tree: Tree, options: NormalizedApiFeatu
     await generateApiLib(tree, 'util', options)
   }
   if (!options.skipSdk) {
-    // throw new Error('generateApiFeature: skipSdk is not implemented')
+    await generateSdkFile(tree, options)
   }
 }

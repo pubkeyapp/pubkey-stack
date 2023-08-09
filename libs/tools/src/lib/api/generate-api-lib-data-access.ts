@@ -14,6 +14,8 @@ export async function generateApiLibDataAccess(tree: Tree, options: NormalizedAp
     project: `${options.app}-${options.name}-data-access`,
     flat: true,
     directory: 'lib',
+    unitTestRunner: 'none',
+    skipFormat: true,
   })
 
   if (!options.skipAdminCrud) {
@@ -22,6 +24,8 @@ export async function generateApiLibDataAccess(tree: Tree, options: NormalizedAp
       project: `${options.app}-${options.name}-data-access`,
       flat: true,
       directory: 'lib',
+      unitTestRunner: 'none',
+      skipFormat: true,
     })
   }
 

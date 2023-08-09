@@ -22,15 +22,12 @@ export function apiAddCrudResolverMethods(
     targetClass: string
   },
 ) {
-  const { modelClassName, updateInputClass, createInputClass } = getDtoNames({
+  const { findManyInputClass, modelClassName, updateInputClass, createInputClass } = getDtoNames({
     modelName,
   })
 
-  const { findManyMethod, findOneMethod, createMethod, updateMethod, deleteMethod } = createCrudMethodNames(
-    modelName,
-    pluralModelName,
-    'admin',
-  )
+  const { findManyMethod, findManyCountMethod, findOneMethod, createMethod, updateMethod, deleteMethod } =
+    createCrudMethodNames(modelName, pluralModelName, 'admin')
 
   const statement = `return this.service`
   const idProperty = names(`${modelName}-id`).propertyName
@@ -38,9 +35,15 @@ export function apiAddCrudResolverMethods(
   updateSourceFile(tree, path, (source) => {
     addNamedImport(source, authDataAccessImportPath, ['ApiAuthGraphqlGuard', 'CtxUser'])
     addNamedImport(source, authDataAccessImportPath.replace('auth/', 'user/'), ['User'])
+    addNamedImport(source, authDataAccessImportPath.replace('auth/', 'core/'), ['Paging'])
     addNamedImport(source, '@nestjs/graphql', ['Mutation', 'Query', 'Args'])
     addNamedImport(source, '@nestjs/common', ['UseGuards'])
-    addNamedImport(source, dataAccessImportPath, [createInputClass, updateInputClass, modelClassName])
+    addNamedImport(source, dataAccessImportPath, [
+      createInputClass,
+      findManyInputClass,
+      modelClassName,
+      updateInputClass,
+    ])
 
     source.getClass(targetClass).addDecorator({
       name: 'UseGuards',
@@ -55,7 +58,7 @@ export function apiAddCrudResolverMethods(
         statements: [`${statement}.${createMethod.replace('adminC', 'admin.c')}(user.id, input)`],
       },
       {
-        decorators: [{ name: `Mutation`, arguments: [`() => ${modelClassName}`, '{ nullable: true }'] }],
+        decorators: [{ name: `Mutation`, arguments: [`() => Boolean`, '{ nullable: true }'] }],
         name: deleteMethod,
         parameters: [ctxUserArgs(), idPropertyArgs(idProperty)],
         statements: [`${statement}.${deleteMethod.replace('adminD', 'admin.d')}(user.id, ${idProperty})`],
@@ -63,8 +66,14 @@ export function apiAddCrudResolverMethods(
       {
         decorators: [{ name: 'Query', arguments: [`() => [${modelClassName}]`, '{ nullable: true }'] }],
         name: findManyMethod,
-        parameters: [ctxUserArgs()],
-        statements: [`${statement}.${findManyMethod.replace('adminF', 'admin.f')}(user.id)`],
+        parameters: [ctxUserArgs(), inputArgs(findManyInputClass)],
+        statements: [`${statement}.${findManyMethod.replace('adminF', 'admin.f')}(user.id, input)`],
+      },
+      {
+        decorators: [{ name: 'Query', arguments: [`() => Paging`, '{ nullable: true }'] }],
+        name: findManyCountMethod,
+        parameters: [ctxUserArgs(), inputArgs(findManyInputClass)],
+        statements: [`${statement}.${findManyCountMethod.replace('adminF', 'admin.f')}(user.id, input)`],
       },
       {
         decorators: [{ name: 'Query', arguments: [`() => ${modelClassName}`, '{ nullable: true }'] }],
