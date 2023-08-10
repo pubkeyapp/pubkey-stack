@@ -1,0 +1,51 @@
+name: E2E
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+env:
+  API_URL: http://localhost:3000/api
+  DATABASE_URL: postgresql://pubkeystack:pubkeystack@localhost:5432/pubkeystack?schema=public
+  DATABASE_PROVISION: true
+  DATABASE_RESET: true
+  HOST: 127.0.0.1
+  DISCORD_CLIENT_ID: 1234567890
+  DISCORD_CLIENT_SECRET: 1234567890
+  JWT_SECRET: 1dfe5003518560c6362eab48f8220edf8708bbc67efbd4ed8cdf621965e938ee
+  PORT: 3000
+
+jobs:
+  main-e2e:
+    runs-on: ubuntu-22.04
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: pubkeystack
+          POSTGRES_PASSWORD: pubkeystack
+          POSTGRES_DB: pubkeystack
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+      redis:
+        image: redis:7-alpine
+        ports: ['6379:6379']
+        options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout [main]
+        with:
+          fetch-depth: 0
+      - uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: yarn install --frozen-lockfile
+      - run: yarn prisma generate
+      - run: yarn nx run-many --target=build --all --parallel --skip-nx-cache --verbose
+      - run: yarn nx e2e api-e2e --skip-nx-cache --verbose
