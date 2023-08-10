@@ -87,7 +87,6 @@ export function UiHeader({ icon: Icon, opened, links, close, toggle, text }: UiH
 
   const items = links.map((link) => {
     const active = location.pathname.startsWith(link.link)
-    console.log('pathname', location.pathname, 'link', link.link, 'active', active)
     return (
       <Anchor
         component={Link}

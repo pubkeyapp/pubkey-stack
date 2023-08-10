@@ -1,7 +1,7 @@
 import { UiBack, UiAdminPage, UiError, UiLoader, UiStack, UiTabRoutes } from '@<%= npmScope %>/<%= app %>/ui/core'
-import { useAdminFindOne<%= modelClassName %> } from '@<%= npmScope %>/<%= app %>/<%= modelPropertyName %>/data-access'
+import { useAdminFindOne<%= modelClassName %> } from '@<%= npmScope %>/<%= app %>/<%= modelFileName %>/data-access'
 import { useParams } from 'react-router-dom'
-import { WebAdmin<%= modelClassName %>DetailSettingsTab } from './web-admin-<%= modelPropertyName %>-detail-settings.tab'
+import { WebAdmin<%= modelClassName %>DetailSettingsTab } from './web-admin-<%= modelFileName %>-detail-settings.tab'
 
 export function WebAdmin<%= modelClassName %>DetailFeature() {
   const { <%= modelPropertyName %>Id } = useParams<{ <%= modelPropertyName %>Id: string }>() as { <%= modelPropertyName %>Id: string }

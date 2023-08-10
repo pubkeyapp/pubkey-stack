@@ -37,7 +37,7 @@ export function apiAddCrudServiceMethods(
   const { createMethod, deleteMethod, findManyCountMethod, findManyMethod, findOneMethod, updateMethod } =
     createCrudMethodNames(modelName, pluralModelName)
 
-  const statement = `this.core.data.${modelName}`
+  const statement = `this.core.data.${names(modelName).propertyName}`
   const idProperty = names(`${modelName}-id`).propertyName
 
   // Create the DTO's for the create and update methods

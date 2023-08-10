@@ -1,5 +1,5 @@
 import { Avatar } from '@mantine/core'
-import { Identity, IdentityProvider } from '@pubkey-stack/sdk'
+import { Identity, IdentityProvider } from '@solana-collective/sdk'
 import { IconCurrencySolana } from '@tabler/icons-react'
 
 export function IdentityUiAvatar({ item }: { item: Identity }) {
@@ -8,9 +8,8 @@ export function IdentityUiAvatar({ item }: { item: Identity }) {
       <Avatar
         radius={100}
         styles={(theme) => ({
-          root: {
-            background: theme.fn.linearGradient(45, '#9945FF', '#14F195'),
-          },
+          root: { background: theme.fn.linearGradient(45, '#9945FF', '#14F195') },
+          placeholder: { background: 'transparent', color: 'white' },
         })}
       >
         <IconCurrencySolana size={28} />

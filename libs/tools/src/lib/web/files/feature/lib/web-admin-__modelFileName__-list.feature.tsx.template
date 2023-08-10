@@ -1,8 +1,8 @@
 import { Button, Group } from '@mantine/core'
 import { <%= modelClassName %> } from '@<%= npmScope %>/sdk'
 import { UiBack, UiAdminPage, UiAlert, UiLoader, UiPagination, UiSearchField } from '@<%= npmScope %>/<%= app %>/ui/core'
-import { useAdminFindMany<%= modelClassName %> } from '@<%= npmScope %>/<%= app %>/<%= modelPropertyName %>/data-access'
-import { AdminUi<%= modelClassName %>Table } from '@<%= npmScope %>/<%= app %>/<%= modelPropertyName %>/ui'
+import { useAdminFindMany<%= modelClassName %> } from '@<%= npmScope %>/<%= app %>/<%= modelFileName %>/data-access'
+import { AdminUi<%= modelClassName %>Table } from '@<%= npmScope %>/<%= app %>/<%= modelFileName %>/ui'
 import { Link } from 'react-router-dom'
 
 export function WebAdmin<%= modelClassName %>ListFeature() {
