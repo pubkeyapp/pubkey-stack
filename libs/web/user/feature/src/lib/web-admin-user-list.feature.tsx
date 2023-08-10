@@ -1,12 +1,12 @@
 import { Button, Group, Select } from '@mantine/core'
 import { User, UserRole, UserStatus } from '@pubkey-stack/sdk'
 import { UiBack, UiAdminPage, UiAlert, UiLoader, UiPagination, UiSearchField } from '@pubkey-stack/web/ui/core'
-import { useAdminUsers } from '@pubkey-stack/web/user/data-access'
+import { useAdminFindManyUser } from '@pubkey-stack/web/user/data-access'
 import { AdminUiUserTable, userRoleOptions, userStatusOptions } from '@pubkey-stack/web/user/ui'
 import { Link } from 'react-router-dom'
 
 export function WebAdminUserListFeature() {
-  const { deleteUser, pagination, query, role, setRole, setSearch, setStatus, status } = useAdminUsers()
+  const { deleteUser, pagination, query, role, setRole, setSearch, setStatus, status } = useAdminFindManyUser()
 
   return (
     <UiAdminPage

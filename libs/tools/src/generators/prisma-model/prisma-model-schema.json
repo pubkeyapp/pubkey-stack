@@ -15,7 +15,7 @@
     },
     "label": {
       "type": "string",
-      "description": "Field to use as the label for the model. Generally 'name' or 'title'.",
+      "description": "The label field for the model. Generally 'name' or 'title'.",
       "default": "name"
     }
   },

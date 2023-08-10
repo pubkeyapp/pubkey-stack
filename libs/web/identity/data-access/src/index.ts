@@ -1,2 +1,2 @@
-export * from './lib/use-admin-identities'
-export * from './lib/use-user-identities'
+export * from './lib/use-admin-find-many-identity'
+export * from './lib/use-user-find-many-identity'

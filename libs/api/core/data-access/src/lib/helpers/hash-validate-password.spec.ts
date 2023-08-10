@@ -1,6 +1,6 @@
-import { hashPassword, validatePassword } from './api-core.helpers'
+import { hashPassword, validatePassword } from './hash-validate-password'
 
-describe('ApiCoreHelpers', () => {
+describe('hash-validate-password', () => {
   describe('password hashing ', () => {
     it('should return hash the password', () => {
       expect(hashPassword('password')).toEqual(expect.any(String))

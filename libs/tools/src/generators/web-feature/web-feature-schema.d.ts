@@ -5,7 +5,6 @@ export interface NormalizedWebFeatureSchema {
   name: string
   label: string
   modelName: string
-  pluralModelName: string
   skipAdminCrud: boolean
   skipDataAccess: boolean
   skipFeature: boolean

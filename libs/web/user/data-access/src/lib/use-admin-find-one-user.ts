@@ -7,7 +7,7 @@ export function useAdminUser(userId: string) {
   const sdk = useWebSdk()
   const query = useQuery(
     ['admin', 'users', 'get', userId],
-    () => sdk.adminGetUser({ userId }).then((res) => res.data),
+    () => sdk.adminFindOneUser({ userId }).then((res) => res.data),
     { retry: 0 },
   )
   const user = query.data?.item ?? undefined

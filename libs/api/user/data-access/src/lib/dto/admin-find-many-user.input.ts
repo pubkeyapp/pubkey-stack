@@ -3,7 +3,7 @@ import { UserRole } from '../entity/user-role.entity'
 import { UserStatus } from '../entity/user-status.entity'
 
 @InputType()
-export class AdminFindUsersInput {
+export class AdminFindManyUserInput {
   @Field({ nullable: true })
   search?: string
   @Field(() => UserRole, { nullable: true })

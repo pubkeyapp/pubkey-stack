@@ -1,4 +1,4 @@
-import { AdminCreateUserInput, AdminFindUsersInput, UserRole, UserStatus } from '@pubkey-stack/sdk'
+import { AdminCreateUserInput, AdminFindManyUserInput, UserRole, UserStatus } from '@pubkey-stack/sdk'
 import { useWebSdk } from '@pubkey-stack/web/shell/data-access'
 
 import { useUiPagination } from '@pubkey-stack/web/ui/core'
@@ -6,7 +6,7 @@ import { showNotificationError, showNotificationSuccess } from '@pubkey-stack/we
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
-export function useAdminUsers() {
+export function useAdminFindManyUser() {
   const sdk = useWebSdk()
   const [role, setRole] = useState<UserRole | undefined>(undefined)
   const [status, setStatus] = useState<UserStatus | undefined>(undefined)
@@ -14,8 +14,10 @@ export function useAdminUsers() {
   const [skip, setSkip] = useState(0)
   const [search, setSearch] = useState<string>('')
 
-  const input: AdminFindUsersInput = { role, skip, status, take, search }
-  const query = useQuery(['admin', 'users', 'find', input], () => sdk.adminFindUsers({ input }).then((res) => res.data))
+  const input: AdminFindManyUserInput = { role, skip, status, take, search }
+  const query = useQuery(['admin', 'users', 'find', input], () =>
+    sdk.adminFindManyUser({ input }).then((res) => res.data),
+  )
   const total = query.data?.count?.total ?? 0
 
   return {

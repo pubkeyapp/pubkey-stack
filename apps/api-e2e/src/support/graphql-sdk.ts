@@ -25,8 +25,10 @@ export async function getIdentityChallenge(user: TestUser) {
   const cookie = await getUserCookie(user)
   return sdk.userRequestIdentityChallenge(
     {
-      provider: IdentityProvider.Solana,
-      providerId: user.solana.publicKey,
+      input: {
+        provider: IdentityProvider.Solana,
+        providerId: user.solana.publicKey,
+      },
     },
     { cookie },
   )

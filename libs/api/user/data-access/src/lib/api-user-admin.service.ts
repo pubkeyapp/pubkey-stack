@@ -1,18 +1,17 @@
-import { ApiCoreService, hashPassword, Paging, slugifyId } from '@pubkey-stack/api/core/data-access'
 import { Injectable, Logger } from '@nestjs/common'
 import { User as PrismaUser } from '@prisma/client'
+import { ApiCoreService, hashPassword, Paging, slugifyId } from '@pubkey-stack/api/core/data-access'
 import { AdminCreateUserInput } from './dto/admin-create-user.input'
-import { AdminFindUsersInput } from './dto/admin-find-users.input'
+import { AdminFindManyUserInput } from './dto/admin-find-many-user.input'
 import { AdminUpdateUserInput } from './dto/admin-update-user.input'
-import { parseAdminFindUsersInput } from './helpers/parse-admin-find-users.input'
+import { parseAdminFindManyUserInput } from './helpers/parse-admin-find-many-user.input'
 
 @Injectable()
 export class ApiUserAdminService {
   private readonly logger = new Logger(ApiUserAdminService.name)
   constructor(private readonly core: ApiCoreService) {}
 
-  async adminCreateUser(adminId: string, input: AdminCreateUserInput): Promise<PrismaUser> {
-    await this.core.ensureUserAdmin(adminId)
+  async createUser(input: AdminCreateUserInput): Promise<PrismaUser> {
     const exists = await this.core.data.user.findUnique({
       where: { username: input.username },
     })
@@ -27,9 +26,8 @@ export class ApiUserAdminService {
     })
   }
 
-  async adminDeleteUser(adminId: string, userId: string): Promise<boolean> {
-    await this.core.ensureUserAdmin(adminId)
-    const exists = await this.adminGetUser(adminId, userId)
+  async deleteUser(userId: string): Promise<boolean> {
+    const exists = await this.findOneUser(userId)
     if (!exists) {
       throw new Error(`User ${userId} not found`)
     }
@@ -43,19 +41,15 @@ export class ApiUserAdminService {
     return !!deleted
   }
 
-  async adminFindUsers(adminId: string, input: AdminFindUsersInput): Promise<PrismaUser[]> {
-    await this.core.ensureUserAdmin(adminId)
-
-    const { where, orderBy, take, skip } = parseAdminFindUsersInput(input)
+  async findManyUser(input: AdminFindManyUserInput): Promise<PrismaUser[]> {
+    const { where, orderBy, take, skip } = parseAdminFindManyUserInput(input)
     const items = await this.core.data.user.findMany({ where, orderBy, take, skip })
 
     return items ?? []
   }
 
-  async adminFindUsersCount(adminId: string, input: AdminFindUsersInput): Promise<Paging> {
-    await this.core.ensureUserAdmin(adminId)
-
-    const { where, orderBy, take, skip } = parseAdminFindUsersInput(input)
+  async findManyUserCount(input: AdminFindManyUserInput): Promise<Paging> {
+    const { where, orderBy, take, skip } = parseAdminFindManyUserInput(input)
     const [count, total] = await Promise.all([
       this.core.data.user.count({ where, orderBy, take, skip }),
       this.core.data.user.count({ where, orderBy }),
@@ -64,8 +58,7 @@ export class ApiUserAdminService {
     return { count, skip, take, total }
   }
 
-  async adminGetUser(adminId: string, userId: string): Promise<PrismaUser> {
-    await this.core.ensureUserAdmin(adminId)
+  async findOneUser(userId: string): Promise<PrismaUser> {
     const found = await this.core.data.user.findUnique({
       where: { id: userId },
     })
@@ -75,9 +68,8 @@ export class ApiUserAdminService {
     return found
   }
 
-  async adminUpdateUser(adminId: string, userId: string, input: AdminUpdateUserInput): Promise<PrismaUser> {
-    await this.core.ensureUserAdmin(adminId)
-    const exists = await this.adminGetUser(adminId, userId)
+  async updateUser(userId: string, input: AdminUpdateUserInput): Promise<PrismaUser> {
+    const exists = await this.findOneUser(userId)
 
     if (!exists) {
       throw new Error(`User ${userId} not found`)

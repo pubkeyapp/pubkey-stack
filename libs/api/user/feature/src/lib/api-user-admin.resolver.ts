@@ -1,47 +1,47 @@
-import { ApiAuthGraphqlGuard, CtxUser } from '@pubkey-stack/api/auth/data-access'
+import { UseGuards } from '@nestjs/common'
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { ApiAuthGraphQLAdminGuard } from '@pubkey-stack/api/auth/data-access'
 import { Paging } from '@pubkey-stack/api/core/data-access'
 import {
   AdminCreateUserInput,
-  AdminFindUsersInput,
+  AdminFindManyUserInput,
   AdminUpdateUserInput,
-  ApiUserAdminService,
+  ApiUserService,
   User,
 } from '@pubkey-stack/api/user/data-access'
-import { UseGuards } from '@nestjs/common'
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 
 @Resolver()
-@UseGuards(ApiAuthGraphqlGuard)
+@UseGuards(ApiAuthGraphQLAdminGuard)
 export class ApiUserAdminResolver {
-  constructor(private readonly service: ApiUserAdminService) {}
+  constructor(private readonly service: ApiUserService) {}
 
   @Mutation(() => User, { nullable: true })
-  adminCreateUser(@CtxUser() user: User, @Args('input') input: AdminCreateUserInput) {
-    return this.service.adminCreateUser(user.id!, input)
+  adminCreateUser(@Args('input') input: AdminCreateUserInput) {
+    return this.service.admin.createUser(input)
   }
 
   @Mutation(() => Boolean, { nullable: true })
-  adminDeleteUser(@CtxUser() user: User, @Args('userId') userId: string) {
-    return this.service.adminDeleteUser(user.id!, userId)
+  adminDeleteUser(@Args('userId') userId: string) {
+    return this.service.admin.deleteUser(userId)
   }
 
   @Query(() => [User], { nullable: true })
-  adminFindUsers(@CtxUser() user: User, @Args('input') input: AdminFindUsersInput) {
-    return this.service.adminFindUsers(user.id!, input)
+  adminFindManyUser(@Args('input') input: AdminFindManyUserInput) {
+    return this.service.admin.findManyUser(input)
   }
 
   @Query(() => Paging, { nullable: true })
-  adminFindUsersCount(@CtxUser() user: User, @Args('input') input: AdminFindUsersInput) {
-    return this.service.adminFindUsersCount(user.id!, input)
+  adminFindManyUserCount(@Args('input') input: AdminFindManyUserInput) {
+    return this.service.admin.findManyUserCount(input)
   }
 
   @Query(() => User, { nullable: true })
-  adminGetUser(@CtxUser() user: User, @Args('userId') userId: string) {
-    return this.service.adminGetUser(user.id!, userId)
+  adminFindOneUser(@Args('userId') userId: string) {
+    return this.service.admin.findOneUser(userId)
   }
 
   @Mutation(() => User, { nullable: true })
-  adminUpdateUser(@CtxUser() user: User, @Args('userId') userId: string, @Args('input') input: AdminUpdateUserInput) {
-    return this.service.adminUpdateUser(user.id!, userId, input)
+  adminUpdateUser(@Args('userId') userId: string, @Args('input') input: AdminUpdateUserInput) {
+    return this.service.admin.updateUser(userId, input)
   }
 }

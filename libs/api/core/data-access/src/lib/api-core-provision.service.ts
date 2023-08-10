@@ -1,8 +1,9 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common'
 import { Prisma, UserStatus } from '@prisma/client'
 import { fakeUsers, provisionUsers } from './api-core-provision-data'
-import { hashPassword, slugifyId } from './api-core.helpers'
+import { hashPassword } from './helpers/hash-validate-password'
 import { ApiCoreService } from './api-core.service'
+import { slugifyId } from './helpers/slugify-id'
 
 @Injectable()
 export class ApiCoreProvisionService implements OnModuleInit {

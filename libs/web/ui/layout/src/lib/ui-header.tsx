@@ -108,7 +108,7 @@ export function UiHeader({ icon: Icon, opened, links, close, toggle, text }: UiH
         <Group>
           <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
           <Anchor component={Link} to="/dashboard" replace underline={false}>
-            <UiLogoMark size={28} />
+            <UiLogoMark size={36} />
           </Anchor>
           <Group spacing={5} className={classes.links}>
             {items}

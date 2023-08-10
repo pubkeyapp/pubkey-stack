@@ -8,7 +8,7 @@ export function useUserIdentities() {
   const sdk = useWebSdk()
   const query = useQuery({
     queryKey: ['user', 'identities'],
-    queryFn: () => sdk.userFindIdentities().then((res) => res?.data),
+    queryFn: () => sdk.userFindManyIdentity().then((res) => res?.data),
   })
 
   const grouped: { provider: IdentityProvider; items: Identity[] }[] = useMemo(() => {

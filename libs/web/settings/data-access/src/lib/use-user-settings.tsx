@@ -1,14 +1,14 @@
 import { UserUpdateUserInput } from '@pubkey-stack/sdk'
 import { useWebAuth } from '@pubkey-stack/web/auth/data-access'
-import { useUserProfile } from '@pubkey-stack/web/profile/data-access'
 import { useMeQuery, useWebSdk } from '@pubkey-stack/web/shell/data-access'
 import { showNotificationError } from '@pubkey-stack/web/ui/notifications'
+import { useUserFineOneUser } from '@pubkey-stack/web/user/data-access'
 
 export function useUserSettings() {
   const sdk = useWebSdk()
   const meQuery = useMeQuery(sdk)
   const { user } = useWebAuth()
-  const { query } = useUserProfile(user?.username as string)
+  const { query } = useUserFineOneUser(user?.username as string)
 
   return {
     user: query.data?.item,

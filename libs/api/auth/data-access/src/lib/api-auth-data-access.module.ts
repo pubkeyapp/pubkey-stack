@@ -4,7 +4,7 @@ import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
 import { ApiAuthService } from './api-auth.service'
 import { ApiAuthDiscordGuard } from './guards/api-auth-discord.guard'
-import { ApiAuthGraphqlGuard } from './guards/api-auth-graphql.guard'
+import { ApiAuthGraphQLUserGuard } from './guards/api-auth-graphql-user-guard.service'
 import { ApiAuthJwtStrategy } from './strategies/api-auth-jwt.strategy'
 import { DiscordStrategy } from './strategies/discord.strategy'
 
@@ -18,7 +18,7 @@ import { DiscordStrategy } from './strategies/discord.strategy'
     }),
     PassportModule,
   ],
-  providers: [ApiAuthDiscordGuard, ApiAuthGraphqlGuard, ApiAuthJwtStrategy, ApiAuthService, DiscordStrategy],
+  providers: [ApiAuthDiscordGuard, ApiAuthGraphQLUserGuard, ApiAuthJwtStrategy, ApiAuthService, DiscordStrategy],
   exports: [ApiAuthService],
 })
 export class ApiAuthDataAccessModule {}

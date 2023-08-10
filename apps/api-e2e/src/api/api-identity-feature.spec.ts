@@ -1,6 +1,6 @@
 import { IdentityProvider } from '@pubkey-stack/sdk'
 import * as bs58 from 'bs58'
-import { alice, getAliceCookie, getIdentityChallenge, getUserKeypair, sdk, signMessage } from '../support'
+import { alice, getAliceCookie, getIdentityChallenge, sdk, signMessage } from '../support'
 
 describe('api-identity-feature', () => {
   describe('api-identity-user-resolver', () => {
@@ -20,7 +20,7 @@ describe('api-identity-feature', () => {
 
       try {
         await sdk.userRequestIdentityChallenge(
-          { provider: IdentityProvider.Discord, providerId: alice.solana.publicKey },
+          { input: { provider: IdentityProvider.Discord, providerId: alice.solana.publicKey } },
           { cookie },
         )
       } catch (e) {
@@ -33,7 +33,10 @@ describe('api-identity-feature', () => {
       expect.assertions(1)
 
       try {
-        await sdk.userRequestIdentityChallenge({ provider: IdentityProvider.Solana, providerId: 'test' }, { cookie })
+        await sdk.userRequestIdentityChallenge(
+          { input: { provider: IdentityProvider.Solana, providerId: 'test' } },
+          { cookie },
+        )
       } catch (e) {
         expect(e.message).toEqual('Invalid Solana public key.')
       }
@@ -49,10 +52,12 @@ describe('api-identity-feature', () => {
       const cookie = await getAliceCookie()
       const res = await sdk.userVerifyIdentityChallenge(
         {
-          provider: IdentityProvider.Solana,
-          providerId: alice.solana.publicKey,
-          challenge,
-          signature: bs58.encode(signature),
+          input: {
+            provider: IdentityProvider.Solana,
+            providerId: alice.solana.publicKey,
+            challenge,
+            signature: bs58.encode(signature),
+          },
         },
         { cookie },
       )
@@ -76,10 +81,12 @@ describe('api-identity-feature', () => {
       try {
         await sdk.userVerifyIdentityChallenge(
           {
-            provider: IdentityProvider.Solana,
-            providerId: alice.solana.publicKey,
-            challenge: challenge.replace('A', 'B'),
-            signature: bs58.encode(signature),
+            input: {
+              provider: IdentityProvider.Solana,
+              providerId: alice.solana.publicKey,
+              challenge: challenge.replace('A', 'B'),
+              signature: bs58.encode(signature),
+            },
           },
           { cookie },
         )
@@ -100,10 +107,12 @@ describe('api-identity-feature', () => {
       try {
         await sdk.userVerifyIdentityChallenge(
           {
-            provider: IdentityProvider.Solana,
-            providerId: alice.solana.publicKey,
-            challenge,
-            signature: bs58.encode(signature).replace('A', 'B'),
+            input: {
+              provider: IdentityProvider.Solana,
+              providerId: alice.solana.publicKey,
+              challenge,
+              signature: bs58.encode(signature).replace('A', 'B'),
+            },
           },
           { cookie },
         )

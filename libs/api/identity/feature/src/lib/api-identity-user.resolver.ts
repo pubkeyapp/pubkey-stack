@@ -1,6 +1,6 @@
 import { UseGuards } from '@nestjs/common'
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { ApiAuthGraphqlGuard, CtxUser } from '@pubkey-stack/api/auth/data-access'
+import { ApiAuthGraphQLUserGuard, CtxUser } from '@pubkey-stack/api/auth/data-access'
 import { BaseContext } from '@pubkey-stack/api/core/data-access'
 import {
   ApiIdentityService,
@@ -13,7 +13,7 @@ import {
 import { User } from '@pubkey-stack/api/user/data-access'
 
 @Resolver()
-@UseGuards(ApiAuthGraphqlGuard)
+@UseGuards(ApiAuthGraphQLUserGuard)
 export class ApiIdentityUserResolver {
   constructor(private readonly service: ApiIdentityService) {}
 
@@ -32,11 +32,7 @@ export class ApiIdentityUserResolver {
   }
 
   @Mutation(() => Identity, { nullable: true })
-  userLinkIdentity(
-    @CtxUser() user: User,
-
-    @Args('input') input: LinkIdentityInput,
-  ) {
+  userLinkIdentity(@CtxUser() user: User, @Args('input') input: LinkIdentityInput) {
     return this.service.user.linkIdentity(user.id, input)
   }
 
@@ -44,14 +40,13 @@ export class ApiIdentityUserResolver {
   userVerifyIdentityChallenge(
     @Context() ctx: BaseContext,
     @CtxUser() user: User,
-
     @Args('input') input: VerifyIdentityChallengeInput,
   ) {
     return this.service.user.verifyIdentityChallenge(ctx, user.id, input)
   }
 
   @Query(() => [Identity], { nullable: true })
-  userFindIdentities(@CtxUser() user: User) {
-    return this.service.user.findIdentities(user.id)
+  userFindManyIdentity(@CtxUser() user: User) {
+    return this.service.user.findManyIdentity(user.id)
   }
 }

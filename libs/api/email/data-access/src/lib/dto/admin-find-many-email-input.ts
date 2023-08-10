@@ -1,7 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
-export class AdminFindEmailsInput {
+export class AdminFindManyEmailInput {
   @Field()
   ownerId!: string
 }

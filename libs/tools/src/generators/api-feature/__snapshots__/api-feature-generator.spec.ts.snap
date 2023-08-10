@@ -202,7 +202,7 @@ exports[`api-feature generator should generate the feature libraries 10`] = `
 exports[`api-feature generator should generate the feature libraries 11`] = `
 "import { Resolver } from '@nestjs/graphql';
 import { ApiTestService } from '@proj/api/test/data-access';
-import { ApiAuthGraphqlGuard, CtxUser } from '@proj/api/auth/data-access';
+import { ApiAuthGraphqlUserGuard, CtxUser } from '@proj/api/auth/data-access';
 import { User } from '@proj/api/user/data-access';
 import { Paging } from '@proj/api/core/data-access';
 import { Mutation, Query, Args } from '@nestjs/graphql';
@@ -215,7 +215,7 @@ import {
 } from '@proj/api/test/data-access';
 
 @Resolver()
-@UseGuards(ApiAuthGraphqlGuard)
+@UseGuards(ApiAuthGraphqlUserGuard)
 export class ApiTestAdminResolver {
   constructor(private readonly service: ApiTestService) {}
 

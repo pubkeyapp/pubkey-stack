@@ -5,6 +5,10 @@
 export function responseMiddleware<T>(response: T) {
   if (response instanceof Error) {
     const error: { response: { errors: { message: string }[] } } = JSON.parse(JSON.stringify(response, undefined, 2))
-    throw new Error(error.response.errors[0].message)
+
+    if (error.response?.errors?.length) {
+      throw new Error(error.response.errors[0].message)
+    }
+    throw new Error(`Unknown error: ${error}`)
   }
 }

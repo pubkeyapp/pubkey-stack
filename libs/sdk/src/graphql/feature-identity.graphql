@@ -22,8 +22,8 @@ fragment IdentityChallengeDetails on IdentityChallenge {
   verified
 }
 
-query adminFindIdentities($input: AdminFindIdentitiesInput!) {
-  items: adminFindIdentities(input: $input) {
+query adminFindManyIdentity($input: AdminFindManyIdentityInput!) {
+  items: adminFindManyIdentity(input: $input) {
     ...IdentityDetails
     challenges {
       ...IdentityChallengeDetails
@@ -44,8 +44,8 @@ mutation adminDeleteIdentity($identityId: String!) {
   deleted: adminDeleteIdentity(identityId: $identityId)
 }
 
-query userFindIdentities {
-  items: userFindIdentities {
+query userFindManyIdentity {
+  items: userFindManyIdentity {
     ...IdentityDetails
   }
 }

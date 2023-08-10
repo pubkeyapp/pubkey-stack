@@ -1,5 +1,5 @@
 import { modals } from '@mantine/modals'
-import { AdminCreateIdentityInput, AdminFindIdentitiesInput, Identity, IdentityProvider } from '@pubkey-stack/sdk'
+import { AdminCreateIdentityInput, AdminFindManyIdentityInput, Identity, IdentityProvider } from '@pubkey-stack/sdk'
 import { useWebSdk } from '@pubkey-stack/web/shell/data-access'
 import { showNotificationError, showNotificationSuccess } from '@pubkey-stack/web/ui/notifications'
 import { useQuery } from '@tanstack/react-query'
@@ -8,13 +8,13 @@ import { useState } from 'react'
 export function useAdminIdentities({ ownerId, provider }: { ownerId?: string; provider?: IdentityProvider }) {
   const sdk = useWebSdk()
 
-  const [input] = useState<AdminFindIdentitiesInput>({
+  const [input] = useState<AdminFindManyIdentityInput>({
     ownerId: ownerId,
     provider: provider,
   })
 
   const query = useQuery(['admin', 'identities', 'find', input], () =>
-    sdk.adminFindIdentities({ input }).then((res) => res.data),
+    sdk.adminFindManyIdentity({ input }).then((res) => res.data),
   )
 
   return {

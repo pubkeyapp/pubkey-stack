@@ -8,8 +8,8 @@ fragment EmailDetails on Email {
   verified
 }
 
-query adminFindEmails($input: AdminFindEmailsInput!) {
-  items: adminFindEmails(input: $input) {
+query adminFindManyEmail($input: AdminFindManyEmailInput!) {
+  items: adminFindManyEmail(input: $input) {
     ...EmailDetails
   }
 }

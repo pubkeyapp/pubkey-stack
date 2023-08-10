@@ -61,7 +61,6 @@ export async function generateApiLibFeature(tree: Tree, options: NormalizedApiFe
       authDataAccessImportPath: dataAccessModule.importPath.replace(options.name, 'auth'),
       dataAccessImportPath: dataAccessModule.importPath,
       modelName: options.modelName,
-      pluralModelName: options.pluralModelName,
       targetClass: targetModule.adminResolverClassName,
     })
   }

@@ -39,16 +39,16 @@ export type AdminCreateUserInput = {
   username: Scalars['String']['input']
 }
 
-export type AdminFindEmailsInput = {
+export type AdminFindManyEmailInput = {
   ownerId: Scalars['String']['input']
 }
 
-export type AdminFindIdentitiesInput = {
+export type AdminFindManyIdentityInput = {
   ownerId?: InputMaybe<Scalars['String']['input']>
   provider?: InputMaybe<IdentityProvider>
 }
 
-export type AdminFindUsersInput = {
+export type AdminFindManyUserInput = {
   role?: InputMaybe<UserRole>
   search?: InputMaybe<Scalars['String']['input']>
   skip?: InputMaybe<Scalars['Int']['input']>
@@ -221,50 +221,50 @@ export type Paging = {
 
 export type Query = {
   __typename?: 'Query'
-  adminFindEmails?: Maybe<Array<Email>>
-  adminFindIdentities?: Maybe<Array<Identity>>
-  adminFindUsers?: Maybe<Array<User>>
-  adminFindUsersCount?: Maybe<Paging>
-  adminGetUser?: Maybe<User>
+  adminFindManyEmail?: Maybe<Array<Email>>
+  adminFindManyIdentity?: Maybe<Array<Identity>>
+  adminFindManyUser?: Maybe<Array<User>>
+  adminFindManyUserCount?: Maybe<Paging>
+  adminFindOneUser?: Maybe<User>
   appConfig: AppConfig
   me?: Maybe<User>
   uptime: Scalars['Float']['output']
-  userFindIdentities?: Maybe<Array<Identity>>
-  userFindUsers?: Maybe<Array<User>>
-  userFindUsersCount?: Maybe<Paging>
-  userGetUserByUsername?: Maybe<User>
+  userFindManyIdentity?: Maybe<Array<Identity>>
+  userFindManyUser?: Maybe<Array<User>>
+  userFindManyUserCount?: Maybe<Paging>
+  userFindOneUser?: Maybe<User>
   userRequestIdentityChallenge?: Maybe<IdentityChallenge>
 }
 
-export type QueryAdminFindEmailsArgs = {
-  input: AdminFindEmailsInput
+export type QueryAdminFindManyEmailArgs = {
+  input: AdminFindManyEmailInput
 }
 
-export type QueryAdminFindIdentitiesArgs = {
-  input: AdminFindIdentitiesInput
+export type QueryAdminFindManyIdentityArgs = {
+  input: AdminFindManyIdentityInput
 }
 
-export type QueryAdminFindUsersArgs = {
-  input: AdminFindUsersInput
+export type QueryAdminFindManyUserArgs = {
+  input: AdminFindManyUserInput
 }
 
-export type QueryAdminFindUsersCountArgs = {
-  input: AdminFindUsersInput
+export type QueryAdminFindManyUserCountArgs = {
+  input: AdminFindManyUserInput
 }
 
-export type QueryAdminGetUserArgs = {
+export type QueryAdminFindOneUserArgs = {
   userId: Scalars['String']['input']
 }
 
-export type QueryUserFindUsersArgs = {
-  input: UserFindUsersInput
+export type QueryUserFindManyUserArgs = {
+  input: UserFindManyUserInput
 }
 
-export type QueryUserFindUsersCountArgs = {
-  input: UserFindUsersInput
+export type QueryUserFindManyUserCountArgs = {
+  input: UserFindManyUserInput
 }
 
-export type QueryUserGetUserByUsernameArgs = {
+export type QueryUserFindOneUserArgs = {
   username: Scalars['String']['input']
 }
 
@@ -296,7 +296,7 @@ export type User = {
   username?: Maybe<Scalars['String']['output']>
 }
 
-export type UserFindUsersInput = {
+export type UserFindManyUserInput = {
   search?: InputMaybe<Scalars['String']['input']>
   skip?: InputMaybe<Scalars['Int']['input']>
   take?: InputMaybe<Scalars['Int']['input']>
@@ -433,11 +433,11 @@ export type EmailDetailsFragment = {
   verified?: boolean | null
 }
 
-export type AdminFindEmailsQueryVariables = Exact<{
-  input: AdminFindEmailsInput
+export type AdminFindManyEmailQueryVariables = Exact<{
+  input: AdminFindManyEmailInput
 }>
 
-export type AdminFindEmailsQuery = {
+export type AdminFindManyEmailQuery = {
   __typename?: 'Query'
   items?: Array<{
     __typename?: 'Email'
@@ -520,11 +520,11 @@ export type IdentityChallengeDetailsFragment = {
   verified: boolean
 }
 
-export type AdminFindIdentitiesQueryVariables = Exact<{
-  input: AdminFindIdentitiesInput
+export type AdminFindManyIdentityQueryVariables = Exact<{
+  input: AdminFindManyIdentityInput
 }>
 
-export type AdminFindIdentitiesQuery = {
+export type AdminFindManyIdentityQuery = {
   __typename?: 'Query'
   items?: Array<{
     __typename?: 'Identity'
@@ -590,9 +590,9 @@ export type AdminDeleteIdentityMutationVariables = Exact<{
 
 export type AdminDeleteIdentityMutation = { __typename?: 'Mutation'; deleted?: boolean | null }
 
-export type UserFindIdentitiesQueryVariables = Exact<{ [key: string]: never }>
+export type UserFindManyIdentityQueryVariables = Exact<{ [key: string]: never }>
 
-export type UserFindIdentitiesQuery = {
+export type UserFindManyIdentityQuery = {
   __typename?: 'Query'
   items?: Array<{
     __typename?: 'Identity'
@@ -688,11 +688,38 @@ export type UserDetailsFragment = {
   username?: string | null
 }
 
-export type AdminFindUsersQueryVariables = Exact<{
-  input: AdminFindUsersInput
+export type AdminCreateUserMutationVariables = Exact<{
+  input: AdminCreateUserInput
 }>
 
-export type AdminFindUsersQuery = {
+export type AdminCreateUserMutation = {
+  __typename?: 'Mutation'
+  created?: {
+    __typename?: 'User'
+    avatarUrl?: string | null
+    createdAt?: Date | null
+    developer?: boolean | null
+    id: string
+    name?: string | null
+    profileUrl?: string | null
+    role?: UserRole | null
+    status?: UserStatus | null
+    updatedAt?: Date | null
+    username?: string | null
+  } | null
+}
+
+export type AdminDeleteUserMutationVariables = Exact<{
+  userId: Scalars['String']['input']
+}>
+
+export type AdminDeleteUserMutation = { __typename?: 'Mutation'; deleted?: boolean | null }
+
+export type AdminFindManyUserQueryVariables = Exact<{
+  input: AdminFindManyUserInput
+}>
+
+export type AdminFindManyUserQuery = {
   __typename?: 'Query'
   count?: {
     __typename?: 'Paging'
@@ -716,34 +743,13 @@ export type AdminFindUsersQuery = {
   }> | null
 }
 
-export type AdminGetUserQueryVariables = Exact<{
+export type AdminFindOneUserQueryVariables = Exact<{
   userId: Scalars['String']['input']
 }>
 
-export type AdminGetUserQuery = {
+export type AdminFindOneUserQuery = {
   __typename?: 'Query'
   item?: {
-    __typename?: 'User'
-    avatarUrl?: string | null
-    createdAt?: Date | null
-    developer?: boolean | null
-    id: string
-    name?: string | null
-    profileUrl?: string | null
-    role?: UserRole | null
-    status?: UserStatus | null
-    updatedAt?: Date | null
-    username?: string | null
-  } | null
-}
-
-export type AdminCreateUserMutationVariables = Exact<{
-  input: AdminCreateUserInput
-}>
-
-export type AdminCreateUserMutation = {
-  __typename?: 'Mutation'
-  created?: {
     __typename?: 'User'
     avatarUrl?: string | null
     createdAt?: Date | null
@@ -780,17 +786,11 @@ export type AdminUpdateUserMutation = {
   } | null
 }
 
-export type AdminDeleteUserMutationVariables = Exact<{
-  userId: Scalars['String']['input']
+export type UserFindManyUserQueryVariables = Exact<{
+  input: UserFindManyUserInput
 }>
 
-export type AdminDeleteUserMutation = { __typename?: 'Mutation'; deleted?: boolean | null }
-
-export type UserFindUsersQueryVariables = Exact<{
-  input: UserFindUsersInput
-}>
-
-export type UserFindUsersQuery = {
+export type UserFindManyUserQuery = {
   __typename?: 'Query'
   count?: {
     __typename?: 'Paging'
@@ -814,11 +814,11 @@ export type UserFindUsersQuery = {
   }> | null
 }
 
-export type UserGetUserByUsernameQueryVariables = Exact<{
+export type UserFindOneUserQueryVariables = Exact<{
   username: Scalars['String']['input']
 }>
 
-export type UserGetUserByUsernameQuery = {
+export type UserFindOneUserQuery = {
   __typename?: 'Query'
   item?: {
     __typename?: 'User'
@@ -964,9 +964,9 @@ export const AppConfigDocument = gql`
   }
   ${AppConfigDetailsFragmentDoc}
 `
-export const AdminFindEmailsDocument = gql`
-  query adminFindEmails($input: AdminFindEmailsInput!) {
-    items: adminFindEmails(input: $input) {
+export const AdminFindManyEmailDocument = gql`
+  query adminFindManyEmail($input: AdminFindManyEmailInput!) {
+    items: adminFindManyEmail(input: $input) {
       ...EmailDetails
     }
   }
@@ -993,9 +993,9 @@ export const AdminDeleteEmailDocument = gql`
     deleted: adminDeleteEmail(emailId: $emailId)
   }
 `
-export const AdminFindIdentitiesDocument = gql`
-  query adminFindIdentities($input: AdminFindIdentitiesInput!) {
-    items: adminFindIdentities(input: $input) {
+export const AdminFindManyIdentityDocument = gql`
+  query adminFindManyIdentity($input: AdminFindManyIdentityInput!) {
+    items: adminFindManyIdentity(input: $input) {
       ...IdentityDetails
       challenges {
         ...IdentityChallengeDetails
@@ -1022,9 +1022,9 @@ export const AdminDeleteIdentityDocument = gql`
     deleted: adminDeleteIdentity(identityId: $identityId)
   }
 `
-export const UserFindIdentitiesDocument = gql`
-  query userFindIdentities {
-    items: userFindIdentities {
+export const UserFindManyIdentityDocument = gql`
+  query userFindManyIdentity {
+    items: userFindManyIdentity {
       ...IdentityDetails
     }
   }
@@ -1059,29 +1059,34 @@ export const UserLinkIdentityDocument = gql`
   }
   ${IdentityDetailsFragmentDoc}
 `
-export const AdminFindUsersDocument = gql`
-  query adminFindUsers($input: AdminFindUsersInput!) {
-    count: adminFindUsersCount(input: $input) {
+export const AdminCreateUserDocument = gql`
+  mutation adminCreateUser($input: AdminCreateUserInput!) {
+    created: adminCreateUser(input: $input) {
+      ...UserDetails
+    }
+  }
+  ${UserDetailsFragmentDoc}
+`
+export const AdminDeleteUserDocument = gql`
+  mutation adminDeleteUser($userId: String!) {
+    deleted: adminDeleteUser(userId: $userId)
+  }
+`
+export const AdminFindManyUserDocument = gql`
+  query adminFindManyUser($input: AdminFindManyUserInput!) {
+    count: adminFindManyUserCount(input: $input) {
       ...PagingDetails
     }
-    items: adminFindUsers(input: $input) {
+    items: adminFindManyUser(input: $input) {
       ...UserDetails
     }
   }
   ${PagingDetailsFragmentDoc}
   ${UserDetailsFragmentDoc}
 `
-export const AdminGetUserDocument = gql`
-  query adminGetUser($userId: String!) {
-    item: adminGetUser(userId: $userId) {
-      ...UserDetails
-    }
-  }
-  ${UserDetailsFragmentDoc}
-`
-export const AdminCreateUserDocument = gql`
-  mutation adminCreateUser($input: AdminCreateUserInput!) {
-    created: adminCreateUser(input: $input) {
+export const AdminFindOneUserDocument = gql`
+  query adminFindOneUser($userId: String!) {
+    item: adminFindOneUser(userId: $userId) {
       ...UserDetails
     }
   }
@@ -1095,26 +1100,21 @@ export const AdminUpdateUserDocument = gql`
   }
   ${UserDetailsFragmentDoc}
 `
-export const AdminDeleteUserDocument = gql`
-  mutation adminDeleteUser($userId: String!) {
-    deleted: adminDeleteUser(userId: $userId)
-  }
-`
-export const UserFindUsersDocument = gql`
-  query userFindUsers($input: UserFindUsersInput!) {
-    count: userFindUsersCount(input: $input) {
+export const UserFindManyUserDocument = gql`
+  query userFindManyUser($input: UserFindManyUserInput!) {
+    count: userFindManyUserCount(input: $input) {
       ...PagingDetails
     }
-    items: userFindUsers(input: $input) {
+    items: userFindManyUser(input: $input) {
       ...UserDetails
     }
   }
   ${PagingDetailsFragmentDoc}
   ${UserDetailsFragmentDoc}
 `
-export const UserGetUserByUsernameDocument = gql`
-  query userGetUserByUsername($username: String!) {
-    item: userGetUserByUsername(username: $username) {
+export const UserFindOneUserDocument = gql`
+  query userFindOneUser($username: String!) {
+    item: userFindOneUser(username: $username) {
       ...UserDetails
     }
   }
@@ -1142,25 +1142,25 @@ const RegisterDocumentString = print(RegisterDocument)
 const MeDocumentString = print(MeDocument)
 const UptimeDocumentString = print(UptimeDocument)
 const AppConfigDocumentString = print(AppConfigDocument)
-const AdminFindEmailsDocumentString = print(AdminFindEmailsDocument)
+const AdminFindManyEmailDocumentString = print(AdminFindManyEmailDocument)
 const AdminCreateEmailDocumentString = print(AdminCreateEmailDocument)
 const AdminUpdateEmailDocumentString = print(AdminUpdateEmailDocument)
 const AdminDeleteEmailDocumentString = print(AdminDeleteEmailDocument)
-const AdminFindIdentitiesDocumentString = print(AdminFindIdentitiesDocument)
+const AdminFindManyIdentityDocumentString = print(AdminFindManyIdentityDocument)
 const AdminCreateIdentityDocumentString = print(AdminCreateIdentityDocument)
 const AdminDeleteIdentityDocumentString = print(AdminDeleteIdentityDocument)
-const UserFindIdentitiesDocumentString = print(UserFindIdentitiesDocument)
+const UserFindManyIdentityDocumentString = print(UserFindManyIdentityDocument)
 const UserDeleteIdentityDocumentString = print(UserDeleteIdentityDocument)
 const UserRequestIdentityChallengeDocumentString = print(UserRequestIdentityChallengeDocument)
 const UserVerifyIdentityChallengeDocumentString = print(UserVerifyIdentityChallengeDocument)
 const UserLinkIdentityDocumentString = print(UserLinkIdentityDocument)
-const AdminFindUsersDocumentString = print(AdminFindUsersDocument)
-const AdminGetUserDocumentString = print(AdminGetUserDocument)
 const AdminCreateUserDocumentString = print(AdminCreateUserDocument)
-const AdminUpdateUserDocumentString = print(AdminUpdateUserDocument)
 const AdminDeleteUserDocumentString = print(AdminDeleteUserDocument)
-const UserFindUsersDocumentString = print(UserFindUsersDocument)
-const UserGetUserByUsernameDocumentString = print(UserGetUserByUsernameDocument)
+const AdminFindManyUserDocumentString = print(AdminFindManyUserDocument)
+const AdminFindOneUserDocumentString = print(AdminFindOneUserDocument)
+const AdminUpdateUserDocumentString = print(AdminUpdateUserDocument)
+const UserFindManyUserDocumentString = print(UserFindManyUserDocument)
+const UserFindOneUserDocumentString = print(UserFindOneUserDocument)
 const UserUpdateUserDocumentString = print(UserUpdateUserDocument)
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
@@ -1245,17 +1245,17 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         'query',
       )
     },
-    adminFindEmails(
-      variables: AdminFindEmailsQueryVariables,
+    adminFindManyEmail(
+      variables: AdminFindManyEmailQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: AdminFindEmailsQuery; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{ data: AdminFindManyEmailQuery; extensions?: any; headers: Dom.Headers; status: number }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.rawRequest<AdminFindEmailsQuery>(AdminFindEmailsDocumentString, variables, {
+          client.rawRequest<AdminFindManyEmailQuery>(AdminFindManyEmailDocumentString, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
-        'adminFindEmails',
+        'adminFindManyEmail',
         'query',
       )
     },
@@ -1301,17 +1301,17 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         'mutation',
       )
     },
-    adminFindIdentities(
-      variables: AdminFindIdentitiesQueryVariables,
+    adminFindManyIdentity(
+      variables: AdminFindManyIdentityQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: AdminFindIdentitiesQuery; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{ data: AdminFindManyIdentityQuery; extensions?: any; headers: Dom.Headers; status: number }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.rawRequest<AdminFindIdentitiesQuery>(AdminFindIdentitiesDocumentString, variables, {
+          client.rawRequest<AdminFindManyIdentityQuery>(AdminFindManyIdentityDocumentString, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
-        'adminFindIdentities',
+        'adminFindManyIdentity',
         'query',
       )
     },
@@ -1343,17 +1343,17 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         'mutation',
       )
     },
-    userFindIdentities(
-      variables?: UserFindIdentitiesQueryVariables,
+    userFindManyIdentity(
+      variables?: UserFindManyIdentityQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: UserFindIdentitiesQuery; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{ data: UserFindManyIdentityQuery; extensions?: any; headers: Dom.Headers; status: number }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.rawRequest<UserFindIdentitiesQuery>(UserFindIdentitiesDocumentString, variables, {
+          client.rawRequest<UserFindManyIdentityQuery>(UserFindManyIdentityDocumentString, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
-        'userFindIdentities',
+        'userFindManyIdentity',
         'query',
       )
     },
@@ -1413,34 +1413,6 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         'mutation',
       )
     },
-    adminFindUsers(
-      variables: AdminFindUsersQueryVariables,
-      requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: AdminFindUsersQuery; extensions?: any; headers: Dom.Headers; status: number }> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.rawRequest<AdminFindUsersQuery>(AdminFindUsersDocumentString, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'adminFindUsers',
-        'query',
-      )
-    },
-    adminGetUser(
-      variables: AdminGetUserQueryVariables,
-      requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: AdminGetUserQuery; extensions?: any; headers: Dom.Headers; status: number }> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.rawRequest<AdminGetUserQuery>(AdminGetUserDocumentString, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'adminGetUser',
-        'query',
-      )
-    },
     adminCreateUser(
       variables: AdminCreateUserMutationVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
@@ -1452,20 +1424,6 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'adminCreateUser',
-        'mutation',
-      )
-    },
-    adminUpdateUser(
-      variables: AdminUpdateUserMutationVariables,
-      requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: AdminUpdateUserMutation; extensions?: any; headers: Dom.Headers; status: number }> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.rawRequest<AdminUpdateUserMutation>(AdminUpdateUserDocumentString, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'adminUpdateUser',
         'mutation',
       )
     },
@@ -1483,31 +1441,73 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         'mutation',
       )
     },
-    userFindUsers(
-      variables: UserFindUsersQueryVariables,
+    adminFindManyUser(
+      variables: AdminFindManyUserQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: UserFindUsersQuery; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{ data: AdminFindManyUserQuery; extensions?: any; headers: Dom.Headers; status: number }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.rawRequest<UserFindUsersQuery>(UserFindUsersDocumentString, variables, {
+          client.rawRequest<AdminFindManyUserQuery>(AdminFindManyUserDocumentString, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
-        'userFindUsers',
+        'adminFindManyUser',
         'query',
       )
     },
-    userGetUserByUsername(
-      variables: UserGetUserByUsernameQueryVariables,
+    adminFindOneUser(
+      variables: AdminFindOneUserQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: UserGetUserByUsernameQuery; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{ data: AdminFindOneUserQuery; extensions?: any; headers: Dom.Headers; status: number }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.rawRequest<UserGetUserByUsernameQuery>(UserGetUserByUsernameDocumentString, variables, {
+          client.rawRequest<AdminFindOneUserQuery>(AdminFindOneUserDocumentString, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
-        'userGetUserByUsername',
+        'adminFindOneUser',
+        'query',
+      )
+    },
+    adminUpdateUser(
+      variables: AdminUpdateUserMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<{ data: AdminUpdateUserMutation; extensions?: any; headers: Dom.Headers; status: number }> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.rawRequest<AdminUpdateUserMutation>(AdminUpdateUserDocumentString, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'adminUpdateUser',
+        'mutation',
+      )
+    },
+    userFindManyUser(
+      variables: UserFindManyUserQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<{ data: UserFindManyUserQuery; extensions?: any; headers: Dom.Headers; status: number }> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.rawRequest<UserFindManyUserQuery>(UserFindManyUserDocumentString, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'userFindManyUser',
+        'query',
+      )
+    },
+    userFindOneUser(
+      variables: UserFindOneUserQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<{ data: UserFindOneUserQuery; extensions?: any; headers: Dom.Headers; status: number }> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.rawRequest<UserFindOneUserQuery>(UserFindOneUserDocumentString, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'userFindOneUser',
         'query',
       )
     },

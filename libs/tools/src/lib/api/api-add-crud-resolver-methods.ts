@@ -1,9 +1,9 @@
 import { Tree } from '@nrwl/devkit'
 import { names } from '@nx/devkit'
 import { addNamedImport } from '../utils/add-named-import'
+import { updateSourceFile } from '../utils/update-source-file'
 import { createCrudMethodNames } from './create-crud-method-names'
 import { getDtoNames } from './get-dto-names'
-import { updateSourceFile } from '../utils/update-source-file'
 
 export function apiAddCrudResolverMethods(
   tree: Tree,
@@ -12,13 +12,11 @@ export function apiAddCrudResolverMethods(
     authDataAccessImportPath,
     dataAccessImportPath,
     modelName,
-    pluralModelName,
     targetClass,
   }: {
     authDataAccessImportPath: string
     dataAccessImportPath: string
     modelName: string
-    pluralModelName: string
     targetClass: string
   },
 ) {
@@ -27,13 +25,13 @@ export function apiAddCrudResolverMethods(
   })
 
   const { findManyMethod, findManyCountMethod, findOneMethod, createMethod, updateMethod, deleteMethod } =
-    createCrudMethodNames(modelName, pluralModelName, 'admin')
+    createCrudMethodNames(modelName, 'admin')
 
   const statement = `return this.service`
   const idProperty = names(`${modelName}-id`).propertyName
 
   updateSourceFile(tree, path, (source) => {
-    addNamedImport(source, authDataAccessImportPath, ['ApiAuthGraphqlGuard', 'CtxUser'])
+    addNamedImport(source, authDataAccessImportPath, ['ApiAuthGraphqlUserGuard', 'CtxUser'])
     addNamedImport(source, authDataAccessImportPath.replace('auth/', 'user/'), ['User'])
     addNamedImport(source, authDataAccessImportPath.replace('auth/', 'core/'), ['Paging'])
     addNamedImport(source, '@nestjs/graphql', ['Mutation', 'Query', 'Args'])
@@ -47,7 +45,7 @@ export function apiAddCrudResolverMethods(
 
     source.getClass(targetClass).addDecorator({
       name: 'UseGuards',
-      arguments: ['ApiAuthGraphqlGuard'],
+      arguments: ['ApiAuthGraphqlUserGuard'],
     })
 
     source.getClass(targetClass).addMethods([

@@ -1,6 +1,6 @@
 import {
   AdminCreateUserInput,
-  AdminFindUsersInput,
+  AdminFindManyUserInput,
   AdminUpdateUserInput,
   User,
   UserRole,
@@ -91,9 +91,9 @@ describe('api-user-feature', () => {
         const createdRes = await sdk.adminCreateUser({ input: createInput }, { cookie })
         const userId = createdRes.data.created.id
 
-        const input: AdminFindUsersInput = {}
+        const input: AdminFindManyUserInput = {}
 
-        const res = await sdk.adminFindUsers({ input }, { cookie })
+        const res = await sdk.adminFindManyUser({ input }, { cookie })
 
         expect(res.data.count.total).toBeGreaterThan(4)
         expect(res.data.items.length).toBeGreaterThan(4)
@@ -109,11 +109,11 @@ describe('api-user-feature', () => {
         const createdRes = await sdk.adminCreateUser({ input: createInput }, { cookie })
         const userId = createdRes.data.created.id
 
-        const input: AdminFindUsersInput = {
+        const input: AdminFindManyUserInput = {
           search: userId,
         }
 
-        const res = await sdk.adminFindUsers({ input }, { cookie })
+        const res = await sdk.adminFindManyUser({ input }, { cookie })
 
         expect(res.data.count.total).toBe(1)
         expect(res.data.items.length).toBe(1)
@@ -128,7 +128,7 @@ describe('api-user-feature', () => {
         const createdRes = await sdk.adminCreateUser({ input: createInput }, { cookie })
         const userId = createdRes.data.created.id
 
-        const res = await sdk.adminGetUser({ userId }, { cookie })
+        const res = await sdk.adminFindOneUser({ userId }, { cookie })
 
         expect(res.data.item.id).toBe(userId)
       })
@@ -145,7 +145,7 @@ describe('api-user-feature', () => {
 
         expect(res.data.deleted).toBe(true)
 
-        const findRes = await sdk.adminFindUsers({ input: { search: userId } }, { cookie })
+        const findRes = await sdk.adminFindManyUser({ input: { search: userId } }, { cookie })
         expect(findRes.data.count.total).toBe(0)
         expect(findRes.data.items.length).toBe(0)
       })
@@ -167,7 +167,7 @@ describe('api-user-feature', () => {
         try {
           await sdk.adminCreateUser({ input }, { cookie })
         } catch (e) {
-          expect(e.message).toBe('Unauthorized: Not an admin')
+          expect(e.message).toBe('Unauthorized: User is not Admin')
         }
       })
 
@@ -176,25 +176,25 @@ describe('api-user-feature', () => {
         try {
           await sdk.adminUpdateUser({ userId: 'alice', input: {} }, { cookie })
         } catch (e) {
-          expect(e.message).toBe('Unauthorized: Not an admin')
+          expect(e.message).toBe('Unauthorized: User is not Admin')
         }
       })
 
       it('should not find a list of users (find all)', async () => {
         expect.assertions(1)
         try {
-          await sdk.adminFindUsers({ input: {} }, { cookie })
+          await sdk.adminFindManyUser({ input: {} }, { cookie })
         } catch (e) {
-          expect(e.message).toBe('Unauthorized: Not an admin')
+          expect(e.message).toBe('Unauthorized: User is not Admin')
         }
       })
 
       it('should not find a user by id', async () => {
         expect.assertions(1)
         try {
-          await sdk.adminGetUser({ userId: 'alice' }, { cookie })
+          await sdk.adminFindOneUser({ userId: 'alice' }, { cookie })
         } catch (e) {
-          expect(e.message).toBe('Unauthorized: Not an admin')
+          expect(e.message).toBe('Unauthorized: User is not Admin')
         }
       })
 
@@ -203,7 +203,7 @@ describe('api-user-feature', () => {
         try {
           await sdk.adminDeleteUser({ userId: 'alice' }, { cookie })
         } catch (e) {
-          expect(e.message).toBe('Unauthorized: Not an admin')
+          expect(e.message).toBe('Unauthorized: User is not Admin')
         }
       })
     })

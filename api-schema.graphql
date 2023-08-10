@@ -18,16 +18,16 @@ input AdminCreateUserInput {
   username: String!
 }
 
-input AdminFindEmailsInput {
+input AdminFindManyEmailInput {
   ownerId: String!
 }
 
-input AdminFindIdentitiesInput {
+input AdminFindManyIdentityInput {
   ownerId: String
   provider: IdentityProvider
 }
 
-input AdminFindUsersInput {
+input AdminFindManyUserInput {
   role: UserRole
   search: String
   skip: Int = 0
@@ -145,18 +145,18 @@ type Paging {
 }
 
 type Query {
-  adminFindEmails(input: AdminFindEmailsInput!): [Email!]
-  adminFindIdentities(input: AdminFindIdentitiesInput!): [Identity!]
-  adminFindUsers(input: AdminFindUsersInput!): [User!]
-  adminFindUsersCount(input: AdminFindUsersInput!): Paging
-  adminGetUser(userId: String!): User
+  adminFindManyEmail(input: AdminFindManyEmailInput!): [Email!]
+  adminFindManyIdentity(input: AdminFindManyIdentityInput!): [Identity!]
+  adminFindManyUser(input: AdminFindManyUserInput!): [User!]
+  adminFindManyUserCount(input: AdminFindManyUserInput!): Paging
+  adminFindOneUser(userId: String!): User
   appConfig: AppConfig!
   me: User
   uptime: Float!
-  userFindIdentities: [Identity!]
-  userFindUsers(input: UserFindUsersInput!): [User!]
-  userFindUsersCount(input: UserFindUsersInput!): Paging
-  userGetUserByUsername(username: String!): User
+  userFindManyIdentity: [Identity!]
+  userFindManyUser(input: UserFindManyUserInput!): [User!]
+  userFindManyUserCount(input: UserFindManyUserInput!): Paging
+  userFindOneUser(username: String!): User
   userRequestIdentityChallenge(input: RequestIdentityChallengeInput!): IdentityChallenge
 }
 
@@ -183,7 +183,7 @@ type User {
   username: String
 }
 
-input UserFindUsersInput {
+input UserFindManyUserInput {
   search: String
   skip: Int = 0
   take: Int = 10

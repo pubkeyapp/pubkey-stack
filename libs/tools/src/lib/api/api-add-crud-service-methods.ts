@@ -14,12 +14,7 @@ import { getObjectTypeContent } from './get-object-type-content'
 export function apiAddCrudServiceMethods(
   tree: Tree,
   path: string,
-  {
-    modelName,
-    pluralModelName,
-    label,
-    targetClass,
-  }: { modelName: string; pluralModelName: string; label: string; targetClass: string },
+  { modelName, label, targetClass }: { modelName: string; label: string; targetClass: string },
 ) {
   const {
     createInputClass,
@@ -35,7 +30,7 @@ export function apiAddCrudServiceMethods(
   })
 
   const { createMethod, deleteMethod, findManyCountMethod, findManyMethod, findOneMethod, updateMethod } =
-    createCrudMethodNames(modelName, pluralModelName)
+    createCrudMethodNames(modelName)
 
   const statement = `this.core.data.${names(modelName).propertyName}`
   const idProperty = names(`${modelName}-id`).propertyName

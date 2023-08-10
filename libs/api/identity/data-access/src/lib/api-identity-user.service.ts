@@ -17,7 +17,6 @@ export class ApiIdentityUserService {
   constructor(private readonly core: ApiCoreService) {}
 
   async deleteIdentity(userId: string, identityId: string): Promise<boolean> {
-    await this.core.ensureUserActive(userId)
     const found = await this.core.data.identity.findFirst({ where: { id: identityId, ownerId: userId } })
     if (!found) {
       throw new Error(`Identity ${identityId} not found`)
@@ -30,8 +29,7 @@ export class ApiIdentityUserService {
     return true
   }
 
-  async findIdentities(userId: string): Promise<PrismaIdentity[]> {
-    await this.core.ensureUserActive(userId)
+  async findManyIdentity(userId: string): Promise<PrismaIdentity[]> {
     const items = await this.core.data.identity.findMany({
       where: { ownerId: userId },
       orderBy: [{ provider: 'asc' }, { providerId: 'asc' }],
@@ -47,7 +45,6 @@ export class ApiIdentityUserService {
     userId: string,
     { provider, providerId }: RequestIdentityChallengeInput,
   ) {
-    await this.core.ensureUserActive(userId)
     // Make sure we can link the given provider
     this.ensureLinkProvider(provider)
     // Make sure the providerId is valid
@@ -77,7 +74,6 @@ export class ApiIdentityUserService {
     userId: string,
     { provider, providerId, challenge, signature }: VerifyIdentityChallengeInput,
   ) {
-    await this.core.ensureUserActive(userId)
     // Make sure we can link the given provider
     this.ensureLinkProvider(provider)
     // Make sure the providerId is valid
@@ -167,7 +163,6 @@ export class ApiIdentityUserService {
   }
 
   async linkIdentity(userId: string, { provider, providerId }: LinkIdentityInput) {
-    await this.core.ensureUserActive(userId)
     // Make sure we can link the given provider
     this.ensureLinkProvider(provider)
     // Make sure the identity does not exist

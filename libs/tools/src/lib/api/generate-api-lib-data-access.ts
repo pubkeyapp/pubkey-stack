@@ -62,7 +62,6 @@ export async function generateApiLibDataAccess(tree: Tree, options: NormalizedAp
 
     apiAddCrudServiceMethods(tree, targetModule.adminServicePath, {
       modelName: options.modelName,
-      pluralModelName: options.pluralModelName,
       targetClass: targetModule.adminServiceClassName,
       label: options.label,
     })

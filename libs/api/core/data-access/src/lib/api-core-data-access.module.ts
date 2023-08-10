@@ -7,13 +7,12 @@ import { ServeStaticModule } from '@nestjs/serve-static'
 import { join } from 'path'
 
 import { ApiCoreConfigService } from './api-core-config.service'
-import { ApiCoreDataService } from './api-core-data.service'
 import { ApiCoreProvisionService } from './api-core-provision.service'
-import { serveStaticFactory } from './api-core.helpers'
 import { ApiCoreService } from './api-core.service'
 import { configuration } from './config/configuration'
 import { validationSchema } from './config/validation-schema'
 import { AppContext } from './entity/app-context'
+import { serveStaticFactory } from './helpers/serve-static-factory'
 
 @Module({
   imports: [
@@ -40,7 +39,7 @@ import { AppContext } from './entity/app-context'
     ScheduleModule.forRoot(),
     ServeStaticModule.forRootAsync({ useFactory: serveStaticFactory() }),
   ],
-  providers: [ApiCoreService, ApiCoreConfigService, ApiCoreDataService, ApiCoreProvisionService],
+  providers: [ApiCoreService, ApiCoreConfigService, ApiCoreProvisionService],
   exports: [ApiCoreService],
 })
 export class ApiCoreDataAccessModule {}

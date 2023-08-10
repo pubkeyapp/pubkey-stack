@@ -1,31 +1,31 @@
-import { ApiAuthGraphqlGuard, CtxUser } from '@pubkey-stack/api/auth/data-access'
-import { Paging } from '@pubkey-stack/api/core/data-access'
-import { ApiUserUserService, User, UserFindUsersInput, UserUpdateUserInput } from '@pubkey-stack/api/user/data-access'
 import { UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { ApiAuthGraphQLUserGuard, CtxUser } from '@pubkey-stack/api/auth/data-access'
+import { Paging } from '@pubkey-stack/api/core/data-access'
+import { ApiUserService, User, UserFindManyUserInput, UserUpdateUserInput } from '@pubkey-stack/api/user/data-access'
 
 @Resolver()
-@UseGuards(ApiAuthGraphqlGuard)
+@UseGuards(ApiAuthGraphQLUserGuard)
 export class ApiUserUserResolver {
-  constructor(private readonly service: ApiUserUserService) {}
+  constructor(private readonly service: ApiUserService) {}
 
   @Query(() => [User], { nullable: true })
-  userFindUsers(@CtxUser() user: User, @Args('input') input: UserFindUsersInput) {
-    return this.service.userFindUsers(user.id as string, input)
-  }
-
-  @Query(() => User, { nullable: true })
-  userGetUserByUsername(@CtxUser() user: User, @Args('username') username: string) {
-    return this.service.userGetUserByUsername(user.id as string, username)
+  userFindManyUser(@Args('input') input: UserFindManyUserInput) {
+    return this.service.user.findManyUser(input)
   }
 
   @Query(() => Paging, { nullable: true })
-  userFindUsersCount(@CtxUser() user: User, @Args('input') input: UserFindUsersInput) {
-    return this.service.userFindUsersCount(user.id as string, input)
+  userFindManyUserCount(@Args('input') input: UserFindManyUserInput) {
+    return this.service.user.findManyUserCount(input)
+  }
+
+  @Query(() => User, { nullable: true })
+  userFindOneUser(@Args('username') username: string) {
+    return this.service.user.findOneUser(username)
   }
 
   @Mutation(() => User, { nullable: true })
   userUpdateUser(@CtxUser() user: User, @Args('input') input: UserUpdateUserInput) {
-    return this.service.userUpdateUser(user.id as string, input)
+    return this.service.user.updateUser(user.id as string, input)
   }
 }

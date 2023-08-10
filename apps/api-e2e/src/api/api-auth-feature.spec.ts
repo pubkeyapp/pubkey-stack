@@ -58,10 +58,9 @@ describe('api-auth-feature', () => {
         expect(res.data.register.status).toBe(UserStatus.Created)
         expect((res.data.register as { password?: string }).password).toBeUndefined()
 
-        const meRes = await sdk.me(undefined, {
-          cookie: res.headers.get('set-cookie'),
-        })
+        const meRes = await sdk.me(undefined, { cookie: res.headers.get('set-cookie') })
         expect(meRes.data.me.username).toBe(input.username)
+        expect(meRes.data.me.status).toBe(UserStatus.Created)
         expect((meRes.data.me as { password?: string }).password).toBeUndefined()
       })
     })
@@ -70,9 +69,7 @@ describe('api-auth-feature', () => {
       it('should not log in with a short password', async () => {
         expect.assertions(1)
         try {
-          await sdk.login({
-            input: { username: 'alice', password: 'short' },
-          })
+          await sdk.login({ input: { username: 'alice', password: 'short' } })
         } catch (e) {
           expect(e.message).toContain('Password is too short.')
         }
@@ -81,9 +78,7 @@ describe('api-auth-feature', () => {
       it('should not log in with a wrong password', async () => {
         expect.assertions(1)
         try {
-          await sdk.login({
-            input: { username: 'alice', password: 'wrong password' },
-          })
+          await sdk.login({ input: { username: 'alice', password: 'wrong password' } })
         } catch (e) {
           expect(e.message).toContain('Password is incorrect.')
         }
@@ -92,9 +87,7 @@ describe('api-auth-feature', () => {
       it('should not log in with user with empty password', async () => {
         expect.assertions(1)
         try {
-          await sdk.login({
-            input: { username: 'charlie', password: 'does-not-have-a-password' },
-          })
+          await sdk.login({ input: { username: 'charlie', password: 'does-not-have-a-password' } })
         } catch (e) {
           expect(e.message).toContain('Login with username and password is not allowed.')
         }
@@ -103,9 +96,7 @@ describe('api-auth-feature', () => {
       it('should not log in with a non-existing user', async () => {
         expect.assertions(1)
         try {
-          await sdk.login({
-            input: { username: uniqueId('user'), password: 'wrong password' },
-          })
+          await sdk.login({ input: { username: uniqueId('user'), password: 'wrong password' } })
         } catch (e) {
           expect(e.message).toContain('User not found.')
         }
@@ -114,9 +105,7 @@ describe('api-auth-feature', () => {
       it('should not log in with an inactive user', async () => {
         expect.assertions(1)
         try {
-          await sdk.login({
-            input: { username: 'dave', password: 'password' },
-          })
+          await sdk.login({ input: { username: 'dave', password: 'password' } })
         } catch (e) {
           expect(e.message).toContain('User is inactive.')
         }

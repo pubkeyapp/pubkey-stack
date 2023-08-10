@@ -1,5 +1,5 @@
 import { Avatar } from '@mantine/core'
-import { Identity, IdentityProvider } from '@solana-collective/sdk'
+import { Identity, IdentityProvider } from '@pubkey-stack/sdk'
 import { IconCurrencySolana } from '@tabler/icons-react'
 
 export function IdentityUiAvatar({ item }: { item: Identity }) {
