@@ -1,4 +1,4 @@
-import { Tree } from '@nrwl/devkit'
+import { Tree } from '@nx/devkit'
 import { NormalizedApiFeatureSchema } from '../../generators/api-feature/api-feature-schema'
 import { generateApiLib } from './generate-api-lib'
 import { generateSdkFile } from './generate-sdk-file'

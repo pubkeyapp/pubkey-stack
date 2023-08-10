@@ -1,4 +1,4 @@
-import { Tree } from '@nrwl/devkit'
+import { Tree } from '@nx/devkit'
 import { NormalizedWebFeatureSchema } from '../../generators/web-feature/web-feature-schema'
 import { generateWebLib } from './generate-web-lib'
 

@@ -1,4 +1,4 @@
-import { Tree } from '@nrwl/devkit'
+import { Tree } from '@nx/devkit'
 import { updateSourceFile } from './update-source-file'
 
 export function addExport(tree: Tree, path: string, exportPath: string) {

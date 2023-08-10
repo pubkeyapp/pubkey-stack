@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { ApiCoreService } from '@pubkey-stack/api/core/data-access'
+import { ApiCoreService } from '@<%= npmScope %>/api/core/data-access'
 import { <%= admin.className %>Create<%= model.className %>Input } from './dto/<%= admin.fileName %>-create-<%= model.fileName %>.input'
 import { <%= admin.className %>FindMany<%= model.className %>Input } from './dto/<%= admin.fileName %>-find-many-<%= model.fileName %>.input'
 import { <%= admin.className %>Update<%= model.className %>Input } from './dto/<%= admin.fileName %>-update-<%= model.fileName %>.input'

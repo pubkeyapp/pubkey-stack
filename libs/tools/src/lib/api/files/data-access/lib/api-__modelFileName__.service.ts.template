@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { ApiCoreService } from '@pubkey-stack/api/core/data-access'
+import { ApiCoreService } from '@<%= npmScope %>/api/core/data-access'
 import { Api<%= model.className %><%= admin.className %>Service } from './api-<%= model.fileName %>-<%= admin.fileName %>.service'
 
 @Injectable()

@@ -1,4 +1,4 @@
-import { Tree } from '@nrwl/devkit'
+import { Tree } from '@nx/devkit'
 import { addNamedImport } from '../utils/add-named-import'
 import { updateSourceFile } from '../utils/update-source-file'
 

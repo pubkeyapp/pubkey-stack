@@ -12,7 +12,7 @@ export * from './lib/dto/admin-update-test.input';
 
 exports[`api-feature generator should generate the feature libraries 2`] = `
 "import { Injectable } from '@nestjs/common';
-import { ApiCoreService } from '@pubkey-stack/api/core/data-access';
+import { ApiCoreService } from '@proj/api/core/data-access';
 import { AdminCreateTestInput } from './dto/admin-create-test.input';
 import { AdminFindManyTestInput } from './dto/admin-find-many-test.input';
 import { AdminUpdateTestInput } from './dto/admin-update-test.input';
@@ -80,7 +80,7 @@ export class ApiTestDataAccessModule {}
 
 exports[`api-feature generator should generate the feature libraries 4`] = `
 "import { Injectable } from '@nestjs/common';
-import { ApiCoreService } from '@pubkey-stack/api/core/data-access';
+import { ApiCoreService } from '@proj/api/core/data-access';
 import { ApiTestAdminService } from './api-test-admin.service';
 
 @Injectable()

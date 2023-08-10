@@ -1,4 +1,4 @@
-import { Tree } from '@nrwl/devkit'
+import { Tree } from '@nx/devkit'
 import { Project, SourceFile } from 'ts-morph'
 
 export function getSourceFile(tree: Tree, path: string): SourceFile {
