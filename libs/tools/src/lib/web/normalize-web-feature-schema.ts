@@ -1,16 +1,16 @@
-import { Inflectors } from 'en-inflectors'
+import { Tree } from '@nx/devkit'
 import { NormalizedWebFeatureSchema, WebFeatureGeneratorSchema } from '../../generators/web-feature/web-feature-schema'
 
-export function normalizeWebFeatureSchema(schema: WebFeatureGeneratorSchema): NormalizedWebFeatureSchema {
+export function normalizeWebFeatureSchema(tree: Tree, schema: WebFeatureGeneratorSchema): NormalizedWebFeatureSchema {
   const modelName = schema.name
-  const pluralModelName = new Inflectors(modelName).toPlural().toLowerCase()
+  const npmScope = tree.read('nx.json', 'utf-8')?.match(/"npmScope": "(.*)"/)?.[1]
 
   return {
     app: schema.app ?? 'web',
     name: schema.name,
     label: schema.label ?? 'name',
     modelName,
-    pluralModelName,
+    npmScope,
     skipAdminCrud: schema.skipAdminCrud ?? false,
     skipDataAccess: schema.skipDataAccess ?? false,
     skipFeature: schema.skipFeature ?? false,

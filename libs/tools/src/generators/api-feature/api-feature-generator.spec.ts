@@ -41,7 +41,6 @@ describe('api-feature generator', () => {
       `${basePathFeature}/index.ts`,
       `${basePathFeature}/lib/${options.app}-${options.name}-admin.resolver.ts`,
       `${basePathFeature}/lib/${options.app}-${options.name}-feature.module.ts`,
-      `${basePathFeature}/lib/${options.app}-${options.name}.resolver.ts`,
     ]
 
     files.forEach((file) => {

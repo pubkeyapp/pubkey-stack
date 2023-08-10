@@ -1,0 +1,43 @@
+import { Injectable } from '@nestjs/common'
+import { ApiCoreService } from '@pubkey-stack/api/core/data-access'
+import { <%= admin.className %>Create<%= model.className %>Input } from './dto/<%= admin.fileName %>-create-<%= model.fileName %>.input'
+import { <%= admin.className %>FindMany<%= model.className %>Input } from './dto/<%= admin.fileName %>-find-many-<%= model.fileName %>.input'
+import { <%= admin.className %>Update<%= model.className %>Input } from './dto/<%= admin.fileName %>-update-<%= model.fileName %>.input'
+import { parse<%= admin.className %>FindMany<%= model.className %> } from './helpers/parse-<%= admin.fileName %>-find-many-<%= model.fileName %>'
+
+@Injectable()
+export class Api<%= model.className %><%= admin.className %>Service {
+  constructor(private readonly core: ApiCoreService) {}
+
+  async create<%= model.className %>(input: <%= admin.className %>Create<%= model.className %>Input) {
+    return this.core.data.<%= model.propertyName %>.create({ data: input })
+  }
+
+  async delete<%= model.className %>(<%= model.propertyName %>Id: string) {
+    const deleted = await this.core.data.<%= model.propertyName %>.delete({ where: { id: <%= model.propertyName %>Id } })
+    return !!deleted
+  }
+
+  async findMany<%= model.className %>(input: <%= admin.className %>FindMany<%= model.className %>Input) {
+    const { where, orderBy, take, skip } = parse<%= admin.className %>FindMany<%= model.className %>(input)
+    const items = await this.core.data.<%= model.propertyName %>.findMany({ where, orderBy, take, skip })
+    return items ?? []
+  }
+
+  async findMany<%= model.className %>Count(input: <%= admin.className %>FindMany<%= model.className %>Input) {
+    const { where, orderBy, take, skip } = parse<%= admin.className %>FindMany<%= model.className %>(input)
+    const [count, total] = await Promise.all([
+      this.core.data.<%= model.propertyName %>.count({ where, orderBy, take, skip }),
+      this.core.data.<%= model.propertyName %>.count({ where, orderBy }),
+    ])
+    return { count, skip, take, total }
+  }
+
+  async findOne<%= model.className %>(<%= model.propertyName %>Id: string) {
+    return this.core.data.<%= model.propertyName %>.findUnique({ where: { id: <%= model.propertyName %>Id } })
+  }
+
+  async update<%= model.className %>(<%= model.propertyName %>Id: string, input: <%= admin.className %>Update<%= model.className %>Input) {
+    return this.core.data.<%= model.propertyName %>.update({ where: { id: <%= model.propertyName %>Id }, data: input })
+  }
+}

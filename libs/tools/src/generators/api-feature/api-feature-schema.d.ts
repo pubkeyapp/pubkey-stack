@@ -5,6 +5,7 @@ export interface NormalizedApiFeatureSchema {
   name: string
   label: string
   modelName: string
+  npmScope: string
   skipAdminCrud: boolean
   skipDataAccess: boolean
   skipFeature: boolean

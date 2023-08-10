@@ -3,17 +3,16 @@
 exports[`api-feature generator should generate the feature libraries 1`] = `
 "export * from './lib/api-test-data-access.module';
 export * from './lib/api-test.service';
-export * from './lib/api-test-admin.service';
+export * from './lib/entity/test.entity';
 export * from './lib/dto/admin-create-test.input';
 export * from './lib/dto/admin-find-many-test.input';
 export * from './lib/dto/admin-update-test.input';
-export * from './lib/entity/test.entity';
 "
 `;
 
 exports[`api-feature generator should generate the feature libraries 2`] = `
 "import { Injectable } from '@nestjs/common';
-import { ApiCoreService } from '@proj/api/core/data-access';
+import { ApiCoreService } from '@pubkey-stack/api/core/data-access';
 import { AdminCreateTestInput } from './dto/admin-create-test.input';
 import { AdminFindManyTestInput } from './dto/admin-find-many-test.input';
 import { AdminUpdateTestInput } from './dto/admin-update-test.input';
@@ -23,19 +22,16 @@ import { parseAdminFindManyTest } from './helpers/parse-admin-find-many-test';
 export class ApiTestAdminService {
   constructor(private readonly core: ApiCoreService) {}
 
-  async createTest(adminId: string, input: AdminCreateTestInput) {
-    await this.core.ensureUserAdmin(adminId);
+  async createTest(input: AdminCreateTestInput) {
     return this.core.data.test.create({ data: input });
   }
 
-  async deleteTest(adminId: string, testId: string) {
-    await this.core.ensureUserAdmin(adminId);
+  async deleteTest(testId: string) {
     const deleted = await this.core.data.test.delete({ where: { id: testId } });
     return !!deleted;
   }
 
-  async findManyTests(adminId: string, input: AdminFindManyTestInput) {
-    await this.core.ensureUserAdmin(adminId);
+  async findManyTest(input: AdminFindManyTestInput) {
     const { where, orderBy, take, skip } = parseAdminFindManyTest(input);
     const items = await this.core.data.test.findMany({
       where,
@@ -46,8 +42,7 @@ export class ApiTestAdminService {
     return items ?? [];
   }
 
-  async findManyTestsCount(adminId: string, input: AdminFindManyTestInput) {
-    await this.core.ensureUserAdmin(adminId);
+  async findManyTestCount(input: AdminFindManyTestInput) {
     const { where, orderBy, take, skip } = parseAdminFindManyTest(input);
     const [count, total] = await Promise.all([
       this.core.data.test.count({ where, orderBy, take, skip }),
@@ -56,17 +51,11 @@ export class ApiTestAdminService {
     return { count, skip, take, total };
   }
 
-  async findOneTest(adminId: string, testId: string) {
-    await this.core.ensureUserAdmin(adminId);
+  async findOneTest(testId: string) {
     return this.core.data.test.findUnique({ where: { id: testId } });
   }
 
-  async updateTest(
-    adminId: string,
-    testId: string,
-    input: AdminUpdateTestInput
-  ) {
-    await this.core.ensureUserAdmin(adminId);
+  async updateTest(testId: string, input: AdminUpdateTestInput) {
     return this.core.data.test.update({ where: { id: testId }, data: input });
   }
 }
@@ -75,9 +64,10 @@ export class ApiTestAdminService {
 
 exports[`api-feature generator should generate the feature libraries 3`] = `
 "import { Module } from '@nestjs/common';
-import { ApiTestService } from './api-test.service';
-import { ApiTestAdminService } from './api-test-admin.service';
 import { ApiCoreDataAccessModule } from '@proj/api/core/data-access';
+import { ApiTestAdminService } from './api-test-admin.service';
+
+import { ApiTestService } from './api-test.service';
 
 @Module({
   imports: [ApiCoreDataAccessModule],
@@ -90,7 +80,7 @@ export class ApiTestDataAccessModule {}
 
 exports[`api-feature generator should generate the feature libraries 4`] = `
 "import { Injectable } from '@nestjs/common';
-import { ApiCoreService } from '@proj/api/core/data-access';
+import { ApiCoreService } from '@pubkey-stack/api/core/data-access';
 import { ApiTestAdminService } from './api-test-admin.service';
 
 @Injectable()
@@ -202,8 +192,7 @@ exports[`api-feature generator should generate the feature libraries 10`] = `
 exports[`api-feature generator should generate the feature libraries 11`] = `
 "import { Resolver } from '@nestjs/graphql';
 import { ApiTestService } from '@proj/api/test/data-access';
-import { ApiAuthGraphqlUserGuard, CtxUser } from '@proj/api/auth/data-access';
-import { User } from '@proj/api/user/data-access';
+import { ApiAuthGraphQLUserGuard } from '@proj/api/auth/data-access';
 import { Paging } from '@proj/api/core/data-access';
 import { Mutation, Query, Args } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
@@ -215,51 +204,41 @@ import {
 } from '@proj/api/test/data-access';
 
 @Resolver()
-@UseGuards(ApiAuthGraphqlUserGuard)
+@UseGuards(ApiAuthGraphQLUserGuard)
 export class ApiTestAdminResolver {
   constructor(private readonly service: ApiTestService) {}
 
   @Mutation(() => Test, { nullable: true })
-  adminCreateTest(
-    @CtxUser() user: User,
-    @Args('input') input: AdminCreateTestInput
-  ) {
-    return this.service.admin.createTest(user.id, input);
+  adminCreateTest(@Args('input') input: AdminCreateTestInput) {
+    return this.service.admin.createTest(input);
   }
 
   @Mutation(() => Boolean, { nullable: true })
-  adminDeleteTest(@CtxUser() user: User, @Args('testId') testId: string) {
-    return this.service.admin.deleteTest(user.id, testId);
+  adminDeleteTest(@Args('projectId') projectId: string) {
+    return this.service.admin.deleteTest(projectId);
   }
 
   @Query(() => [Test], { nullable: true })
-  adminFindManyTests(
-    @CtxUser() user: User,
-    @Args('input') input: AdminFindManyTestInput
-  ) {
-    return this.service.admin.findManyTests(user.id, input);
+  adminFindManyTest(@Args('input') input: AdminFindManyTestInput) {
+    return this.service.admin.findManyTest(input);
   }
 
   @Query(() => Paging, { nullable: true })
-  adminFindManyTestsCount(
-    @CtxUser() user: User,
-    @Args('input') input: AdminFindManyTestInput
-  ) {
-    return this.service.admin.findManyTestsCount(user.id, input);
+  adminFindManyTestCount(@Args('input') input: AdminFindManyTestInput) {
+    return this.service.admin.findManyTestCount(input);
   }
 
   @Query(() => Test, { nullable: true })
-  adminFindOneTest(@CtxUser() user: User, @Args('testId') testId: string) {
-    return this.service.admin.findOneTest(user.id, testId);
+  adminFindOneTest(@Args('projectId') projectId: string) {
+    return this.service.admin.findOneTest(projectId);
   }
 
   @Mutation(() => Test, { nullable: true })
   adminUpdateTest(
-    @CtxUser() user: User,
-    @Args('testId') testId: string,
+    @Args('projectId') projectId: string,
     @Args('input') input: AdminUpdateTestInput
   ) {
-    return this.service.admin.updateTest(user.id, testId, input);
+    return this.service.admin.updateTest(projectId, input);
   }
 }
 "
@@ -267,25 +246,13 @@ export class ApiTestAdminResolver {
 
 exports[`api-feature generator should generate the feature libraries 12`] = `
 "import { Module } from '@nestjs/common';
-import { ApiTestResolver } from './api-test.resolver';
-import { ApiTestAdminResolver } from './api-test-admin.resolver';
 import { ApiTestDataAccessModule } from '@proj/api/test/data-access';
+import { ApiTestAdminResolver } from './api-test-admin.resolver';
 
 @Module({
   imports: [ApiTestDataAccessModule],
-  providers: [ApiTestResolver, ApiTestAdminResolver],
+  providers: [ApiTestAdminResolver],
 })
 export class ApiTestFeatureModule {}
-"
-`;
-
-exports[`api-feature generator should generate the feature libraries 13`] = `
-"import { Resolver } from '@nestjs/graphql';
-import { ApiTestService } from '@proj/api/test/data-access';
-
-@Resolver()
-export class ApiTestResolver {
-  constructor(private readonly service: ApiTestService) {}
-}
 "
 `;

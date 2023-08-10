@@ -30,11 +30,11 @@ function sdkTemplate(name: string, label: string) {
   updatedAt
 }
 
-query adminFindMany${className}s($input: AdminFindMany${className}Input!) {
-  count: adminFindMany${className}sCount(input: $input) {
+query adminFindMany${className}($input: AdminFindMany${className}Input!) {
+  count: adminFindMany${className}Count(input: $input) {
     ...PagingDetails
   }
-  items: adminFindMany${className}s(input: $input) {
+  items: adminFindMany${className}(input: $input) {
     ...${className}Details
   }
 }

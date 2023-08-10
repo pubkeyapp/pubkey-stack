@@ -4,7 +4,7 @@ import { generateWebFeature, normalizeWebFeatureSchema } from '../../lib/web'
 import { WebFeatureGeneratorSchema } from './web-feature-schema'
 
 export async function webFeatureGenerator(tree: Tree, rawOptions: WebFeatureGeneratorSchema) {
-  const options = normalizeWebFeatureSchema(rawOptions)
+  const options = normalizeWebFeatureSchema(tree, rawOptions)
   ensureNxProjectExists(tree, options.app)
   await generateWebFeature(tree, options)
   await formatFiles(tree)

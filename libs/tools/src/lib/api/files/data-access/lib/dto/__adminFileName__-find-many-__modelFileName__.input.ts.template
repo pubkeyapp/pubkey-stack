@@ -1,13 +1,11 @@
-export function getInputTypeFindMany(name: string) {
-  return `import { Field, InputType, Int } from '@nestjs/graphql'
+import { Field, InputType, Int } from '@nestjs/graphql'
 
 @InputType()
-export class ${name} {
+export class <%= admin.className %>FindMany<%= model.className %>Input {
   @Field({ nullable: true })
   search?: string
   @Field(() => Int, { nullable: true, defaultValue: 0 })
   skip?: number
   @Field(() => Int, { nullable: true, defaultValue: 10 })
   take?: number
-}`
 }

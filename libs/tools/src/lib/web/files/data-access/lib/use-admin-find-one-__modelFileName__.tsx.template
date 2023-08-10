@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query'
 export function useAdminFindOne<%= modelClassName %>(<%= modelPropertyName %>Id: string) {
   const sdk = useWebSdk()
   const query = useQuery(
-    ['admin', '<%= modelPropertyName %>s', 'get', <%= modelPropertyName %>Id],
+    ['admin', 'find-one-<%= modelPropertyName %>', <%= modelPropertyName %>Id],
     () => sdk.adminFindOne<%= modelClassName %>({ <%= modelPropertyName %>Id }).then((res) => res.data),
     { retry: 0 },
   )

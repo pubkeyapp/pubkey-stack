@@ -13,7 +13,7 @@ export function useAdminFindMany<%= modelClassName %>(props?: Partial<AdminFindM
   const [search, setSearch] = useState<string>(props?.search ?? '')
 
   const input: AdminFindMany<%= modelClassName %>Input = { skip, take, search }
-  const query = useQuery(['admin', '<%= modelPropertyName %>s', 'find', input], () => sdk.adminFindMany<%= modelClassName %>s({ input }).then((res) => res.data))
+  const query = useQuery(['admin', 'find-many-<%= modelPropertyName %>', input], () => sdk.adminFindMany<%= modelClassName %>({ input }).then((res) => res.data))
   const total = query.data?.count?.total ?? 0
 
   return {

@@ -1,41 +1,19 @@
-import { names, Tree } from '@nx/devkit'
-import { getApiLib } from './get-api-lib'
+import { names, readProjectConfiguration, Tree } from '@nx/devkit'
+import { NormalizedApiFeatureSchema } from '../../generators/api-feature/api-feature-schema'
+import { getImportPath } from '../utils/get-import-path'
 
-export function getApiFeatureModuleInfo(tree: Tree, app: string, name: string) {
-  const lib = getApiLib(tree, app, name, 'feature')
-  const modulePath = `${lib.project.sourceRoot}/lib/${lib.project.name}.module.ts`
+export function getApiFeatureModuleInfo(tree: Tree, options: NormalizedApiFeatureSchema) {
+  const project = readProjectConfiguration(tree, `${options.app}-${options.name}-feature`)
 
-  if (!tree.exists(modulePath)) {
-    throw new Error(`getApiFeatureModuleInfo: ${modulePath} does not exist in ${lib.project.sourceRoot}`)
-  }
-
-  const { className: moduleClassName } = names(`${lib.project.name}-module`)
-
-  const resolverPath = `${lib.project.sourceRoot}/lib/${app}-${name}.resolver.ts`
-
-  if (!tree.exists(resolverPath)) {
-    throw new Error(`getApiFeatureModuleInfo: ${resolverPath} does not exist in ${lib.project.sourceRoot}`)
-  }
-
-  const { className: resolverName } = names(`${app}-${name}-resolver`)
-
-  // Optional admin service name and path
-  const adminResolverFile = `${app}-${name}-admin.resolver.ts`
-  const adminResolverPath = `${lib.project.sourceRoot}/lib/${adminResolverFile}`
-  let adminResolverClassName: string | undefined
-
-  if (tree.exists(adminResolverPath)) {
-    adminResolverClassName = names(adminResolverFile.replace('.ts', '')).className
-  }
+  const featureProjectRoot = project.sourceRoot
+  const featureImportPath = getImportPath(tree, `${featureProjectRoot}/index.ts`)
+  const featureModulePath = `${featureProjectRoot}/lib/${project.name}.module.ts`
+  const featureModuleClassName = names(`${project.name}-module`).className
 
   return {
-    ...lib,
-    modulePath,
-    moduleClassName,
-    resolverPath,
-    resolverName,
-    adminResolverPath,
-    adminResolverFile,
-    adminResolverClassName,
+    featureImportPath,
+    featureProjectRoot,
+    featureModulePath,
+    featureModuleClassName,
   }
 }

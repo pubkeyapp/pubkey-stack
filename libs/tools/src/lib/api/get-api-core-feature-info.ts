@@ -1,15 +1,13 @@
-import { names, Tree } from '@nx/devkit'
-import { getApiLib } from './get-api-lib'
+import { readProjectConfiguration, Tree } from '@nx/devkit'
 
 export function getApiCoreFeatureInfo(tree: Tree, app: string) {
-  const lib = getApiLib(tree, app, 'core', 'feature')
-  const modulePath = `${lib.project.sourceRoot}/lib/${lib.project.name}.module.ts`
+  const project = readProjectConfiguration(tree, `${app}-core-feature`)
 
-  if (!tree.exists(modulePath)) {
-    throw new Error(`getApiCoreFeatureInfo: ${modulePath} does not exist in ${lib.project.sourceRoot}`)
+  const coreFeatureModulePath = `${project.sourceRoot}/lib/${project.name}.module.ts`
+
+  if (!tree.exists(coreFeatureModulePath)) {
+    throw new Error(`getApiCoreFeatureInfo: ${coreFeatureModulePath} does not exist in ${project.sourceRoot}`)
   }
 
-  const { className: moduleClassName } = names(`${lib.project.name}-module`)
-
-  return { ...lib, modulePath, moduleClassName }
+  return { coreFeatureModulePath }
 }
