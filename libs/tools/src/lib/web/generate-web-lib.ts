@@ -19,7 +19,7 @@ export async function generateWebLib(tree: Tree, type: WebLibType, options: Norm
   if (!generated) {
     throw new Error(`Failed to generate ${type} library`)
   }
-  const npmScope = tree.read('nx.json', 'utf-8')?.match(/\"npmScope\": \"(.*)\"/)?.[1]
+  const npmScope = tree.read('nx.json', 'utf-8')?.match(/"npmScope": "(.*)"/)?.[1]
 
   if (!npmScope) {
     throw new Error('Could not find npmScope in nx.json')

@@ -1,4 +1,4 @@
-import { Avatar, Button, Group, Menu, rem, useMantineColorScheme, useMantineTheme } from '@mantine/core'
+import { Avatar, Button, Group, Menu, rem, useMantineColorScheme } from '@mantine/core'
 import { UserRole } from '@pubkey-stack/sdk'
 import { useWebAuth } from '@pubkey-stack/web/auth/data-access'
 import {
@@ -17,7 +17,6 @@ export function UiHeaderProfile() {
   const { user, logout } = useWebAuth()
   const { colorScheme, toggleColorScheme } = useMantineColorScheme()
   const [open, setOpen] = useState(false)
-  const theme = useMantineTheme()
   return (
     <Menu
       width={260}
