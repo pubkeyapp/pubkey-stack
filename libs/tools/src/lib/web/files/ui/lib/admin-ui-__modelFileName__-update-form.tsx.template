@@ -8,7 +8,7 @@ export interface AdminUiUpdate<%= modelClassName %>FormProps {
 }
 
 export function AdminUiUpdate<%= modelClassName %>Form({ submit, <%= modelPropertyName %> }: AdminUiUpdate<%= modelClassName %>FormProps) {
-  const model = {
+  const model: AdminUpdate<%= modelClassName %>Input = {
     <%= label %>: <%= modelPropertyName %>.<%= label %> ?? '',
   }
 
