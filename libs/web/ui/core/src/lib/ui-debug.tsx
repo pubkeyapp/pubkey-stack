@@ -14,7 +14,7 @@ export function UiDebug({ data, hideButton, open }: { data: string | unknown; op
         fz="xs"
         m={0}
         p={theme.spacing.xs}
-        sx={{ overflow: 'auto', textOverflow: 'ellipsis' }}
+        sx={{ overflow: 'auto', textOverflow: 'ellipsis', maxWidth: '100%' }}
         withBorder
       >
         {hideButton ? null : (
