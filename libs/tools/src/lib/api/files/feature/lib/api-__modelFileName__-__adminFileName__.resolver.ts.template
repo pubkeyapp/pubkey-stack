@@ -1,6 +1,6 @@
 import { Resolver } from '@nestjs/graphql'
 import { <%= app.className %><%= model.className %>Service } from '@<%= npmScope %>/<%= app.fileName %>/<%= model.fileName %>/data-access'
-import { <%= app.className %>AuthGraphQLUserGuard } from '@<%= npmScope %>/<%= app.fileName %>/auth/data-access'
+import { <%= app.className %>AuthGraphQLAdminGuard } from '@<%= npmScope %>/<%= app.fileName %>/auth/data-access'
 import { Paging } from '@<%= npmScope %>/<%= app.fileName %>/core/data-access'
 import { Mutation, Query, Args } from '@nestjs/graphql'
 import { UseGuards } from '@nestjs/common'
@@ -12,7 +12,7 @@ import {
 } from '@<%= npmScope %>/<%= app.fileName %>/<%= model.fileName %>/data-access'
 
 @Resolver()
-@UseGuards(<%= app.className %>AuthGraphQLUserGuard)
+@UseGuards(<%= app.className %>AuthGraphQLAdminGuard)
 export class <%= app.className %><%= model.className %><%= admin.className %>Resolver {
   constructor(private readonly service: <%= app.className %><%= model.className %>Service) {}
 
@@ -22,8 +22,8 @@ export class <%= app.className %><%= model.className %><%= admin.className %>Res
   }
 
   @Mutation(() => Boolean, { nullable: true })
-  <%= admin.propertyName %>Delete<%= model.className %>(@Args('projectId') projectId: string) {
-    return this.service.<%= admin.propertyName %>.delete<%= model.className %>(projectId)
+  <%= admin.propertyName %>Delete<%= model.className %>(@Args('<%= model.propertyName %>Id') <%= model.propertyName %>Id: string) {
+    return this.service.<%= admin.propertyName %>.delete<%= model.className %>(<%= model.propertyName %>Id)
   }
 
   @Query(() => [<%= model.className %>], { nullable: true })
@@ -37,12 +37,12 @@ export class <%= app.className %><%= model.className %><%= admin.className %>Res
   }
 
   @Query(() => <%= model.className %>, { nullable: true })
-  <%= admin.propertyName %>FindOne<%= model.className %>(@Args('projectId') projectId: string) {
-    return this.service.<%= admin.propertyName %>.findOne<%= model.className %>(projectId)
+  <%= admin.propertyName %>FindOne<%= model.className %>(@Args('<%= model.propertyName %>Id') <%= model.propertyName %>Id: string) {
+    return this.service.<%= admin.propertyName %>.findOne<%= model.className %>(<%= model.propertyName %>Id)
   }
 
   @Mutation(() => <%= model.className %>, { nullable: true })
-  <%= admin.propertyName %>Update<%= model.className %>(@Args('projectId') projectId: string, @Args('input') input: <%= admin.className %>Update<%= model.className %>Input) {
-    return this.service.<%= admin.propertyName %>.update<%= model.className %>(projectId, input)
+  <%= admin.propertyName %>Update<%= model.className %>(@Args('<%= model.propertyName %>Id') <%= model.propertyName %>Id: string, @Args('input') input: <%= admin.className %>Update<%= model.className %>Input) {
+    return this.service.<%= admin.propertyName %>.update<%= model.className %>(<%= model.propertyName %>Id, input)
   }
 }

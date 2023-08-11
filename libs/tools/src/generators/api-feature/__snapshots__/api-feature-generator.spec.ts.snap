@@ -192,7 +192,7 @@ exports[`api-feature generator should generate the feature libraries 10`] = `
 exports[`api-feature generator should generate the feature libraries 11`] = `
 "import { Resolver } from '@nestjs/graphql';
 import { ApiTestService } from '@proj/api/test/data-access';
-import { ApiAuthGraphQLUserGuard } from '@proj/api/auth/data-access';
+import { ApiAuthGraphQLAdminGuard } from '@proj/api/auth/data-access';
 import { Paging } from '@proj/api/core/data-access';
 import { Mutation, Query, Args } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
@@ -204,7 +204,7 @@ import {
 } from '@proj/api/test/data-access';
 
 @Resolver()
-@UseGuards(ApiAuthGraphQLUserGuard)
+@UseGuards(ApiAuthGraphQLAdminGuard)
 export class ApiTestAdminResolver {
   constructor(private readonly service: ApiTestService) {}
 
@@ -214,8 +214,8 @@ export class ApiTestAdminResolver {
   }
 
   @Mutation(() => Boolean, { nullable: true })
-  adminDeleteTest(@Args('projectId') projectId: string) {
-    return this.service.admin.deleteTest(projectId);
+  adminDeleteTest(@Args('testId') testId: string) {
+    return this.service.admin.deleteTest(testId);
   }
 
   @Query(() => [Test], { nullable: true })
@@ -229,16 +229,16 @@ export class ApiTestAdminResolver {
   }
 
   @Query(() => Test, { nullable: true })
-  adminFindOneTest(@Args('projectId') projectId: string) {
-    return this.service.admin.findOneTest(projectId);
+  adminFindOneTest(@Args('testId') testId: string) {
+    return this.service.admin.findOneTest(testId);
   }
 
   @Mutation(() => Test, { nullable: true })
   adminUpdateTest(
-    @Args('projectId') projectId: string,
+    @Args('testId') testId: string,
     @Args('input') input: AdminUpdateTestInput
   ) {
-    return this.service.admin.updateTest(projectId, input);
+    return this.service.admin.updateTest(testId, input);
   }
 }
 "
