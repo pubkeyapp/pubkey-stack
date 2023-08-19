@@ -19,6 +19,7 @@ export function IdentityUiSolanaLinkButton({ items, label, refresh, ...props }: 
       onClick={() => {
         modals.open({
           title: 'Link Wallet',
+          zIndex: 1,
           children: (
             <SolanaClusterProvider autoConnect={false}>
               <IdentityUiSolanaLinkProvider identities={items ?? []} refresh={refresh}>

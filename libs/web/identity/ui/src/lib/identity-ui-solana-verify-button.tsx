@@ -17,6 +17,7 @@ export function IdentityUiSolanaVerifyButton({ identity, refresh }: { identity: 
         onClick={() => {
           modals.open({
             title: 'Verify Identity',
+            zIndex: 1,
             children: (
               <SolanaClusterProvider autoConnect={true}>
                 <IdentityUiSolanaLinkProvider identities={[]} refresh={refresh}>

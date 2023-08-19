@@ -15,7 +15,7 @@ export function ClusterProvider({ children }: { children: ReactNode }) {
   const [cluster, setCluster] = useLocalStorage<string>({
     defaultValue,
     getInitialValueInEffect: true,
-    key: 'pubkey-cluster',
+    key: 'solana-cluster',
   })
   const value: ClusterProviderContext = {
     cluster: cluster,
