@@ -3,6 +3,14 @@
   "ignorePatterns": ["**/*"],
   "plugins": ["@nx"],
   "overrides": [
+    // Opinionated defaults, feel free to change in your own projects
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        // Only allow function declarations and not const fn = () => {}
+        "func-style": ["error", "declaration"]
+      }
+    },
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {

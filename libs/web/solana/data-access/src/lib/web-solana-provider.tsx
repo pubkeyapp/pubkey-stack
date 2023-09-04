@@ -55,7 +55,9 @@ export function SolanaProvider({
   )
 }
 
-export const useSolana = () => useContext(SolanaContext)
+export function useSolana() {
+  return useContext(SolanaContext)
+}
 
 export function SolanaClusterProvider({ autoConnect, children }: { autoConnect?: boolean; children: ReactNode }) {
   return (

@@ -53,7 +53,9 @@ export function runPrismaSetup() {
   })
 }
 
-export const sleep = (ms = 1000) => new Promise((resolve) => setTimeout(resolve, ms))
+export function sleep(ms = 1000) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
 
 export async function ensurePostgresConnection(databaseUrl: string): Promise<boolean> {
   const MAX_RETRIES = 30

@@ -23,8 +23,9 @@ export function UiThemeProvider({ children }: { children: ReactNode }) {
     getInitialValueInEffect: true,
   })
 
-  const toggleColorScheme = (value?: ColorScheme) =>
-    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'))
+  function toggleColorScheme(value?: ColorScheme) {
+    return setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'))
+  }
 
   useHotkeys([['mod+J', () => toggleColorScheme()]])
 
@@ -54,4 +55,6 @@ export function UiThemeProvider({ children }: { children: ReactNode }) {
   )
 }
 
-export const useUiTheme = () => useContext(Context)
+export function useUiTheme() {
+  return useContext(Context)
+}

@@ -10,14 +10,15 @@ export function WebAdminUserCreateFeature() {
   const navigate = useNavigate()
   const { createUser } = useAdminFindManyUser()
 
-  const submit = async (input: AdminCreateUserInput) =>
-    createUser(input)
+  async function submit(input: AdminCreateUserInput) {
+    return createUser(input)
       .then((res) => navigate(`/admin/users/${res?.id}`))
       .then(() => true)
       .catch((err) => {
         showNotificationError(err.message)
         return false
       })
+  }
 
   return (
     <UiAdminPage leftAction={<UiBack />} title="Create User">

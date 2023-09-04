@@ -152,4 +152,6 @@ export function WebAuthProvider({ children }: { children: ReactNode }) {
   return <Context.Provider value={value}>{children}</Context.Provider>
 }
 
-export const useWebAuth = () => useContext(Context)
+export function useWebAuth() {
+  return useContext(Context)
+}

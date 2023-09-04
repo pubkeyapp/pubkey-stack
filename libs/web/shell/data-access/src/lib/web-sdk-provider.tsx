@@ -9,4 +9,6 @@ export function WebSdkProvider({ children }: { children: ReactNode }) {
   return <WebSdkContext.Provider value={sdk}>{children}</WebSdkContext.Provider>
 }
 
-export const useWebSdk = () => useContext(WebSdkContext)
+export function useWebSdk() {
+  return useContext(WebSdkContext)
+}

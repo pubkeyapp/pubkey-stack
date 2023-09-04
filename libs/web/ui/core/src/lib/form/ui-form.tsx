@@ -37,7 +37,7 @@ export function UiForm<T>({
     validate,
   })
 
-  const handleSubmit = async (values: T) => {
+  async function handleSubmit(values: T) {
     const input = cleanupValues({ fields, values })
     const result = await submit(input)
 

@@ -38,25 +38,27 @@ export interface ApiCoreConfig {
   webUrl: string
 }
 
-export const configuration = (): ApiCoreConfig => ({
-  apiUrl: process.env['API_URL'] as string,
-  authDiscordEnabled: process.env['AUTH_DISCORD_ENABLED'] === 'true',
-  authPasswordEnabled: process.env['AUTH_PASSWORD_ENABLED'] === 'true',
-  authRegisterEnabled: process.env['AUTH_REGISTER_ENABLED'] === 'true',
-  cookieDomains,
-  cookieName: '__session',
-  corsOrigins,
-  environment: (process.env['NODE_ENV'] as Env) || 'development',
-  databaseProvision: process.env['DATABASE_PROVISION'] === 'true',
-  databaseRandomData: process.env['DATABASE_RANDOM_DATA'] === 'true',
-  databaseReset: process.env['DATABASE_RESET'] === 'true',
-  discordAdminIds: getFromEnvironment('DISCORD_ADMIN_IDS'),
-  discordClientId: process.env['DISCORD_CLIENT_ID'] as string,
-  discordClientSecret: process.env['DISCORD_CLIENT_SECRET'] as string,
-  host: process.env['HOST'] as string,
-  port: parseInt(process.env['PORT'] as string, 10) || 3000,
-  webUrl: WEB_URL,
-})
+export function configuration(): ApiCoreConfig {
+  return {
+    apiUrl: process.env['API_URL'] as string,
+    authDiscordEnabled: process.env['AUTH_DISCORD_ENABLED'] === 'true',
+    authPasswordEnabled: process.env['AUTH_PASSWORD_ENABLED'] === 'true',
+    authRegisterEnabled: process.env['AUTH_REGISTER_ENABLED'] === 'true',
+    cookieDomains,
+    cookieName: '__session',
+    corsOrigins,
+    environment: (process.env['NODE_ENV'] as Env) || 'development',
+    databaseProvision: process.env['DATABASE_PROVISION'] === 'true',
+    databaseRandomData: process.env['DATABASE_RANDOM_DATA'] === 'true',
+    databaseReset: process.env['DATABASE_RESET'] === 'true',
+    discordAdminIds: getFromEnvironment('DISCORD_ADMIN_IDS'),
+    discordClientId: process.env['DISCORD_CLIENT_ID'] as string,
+    discordClientSecret: process.env['DISCORD_CLIENT_SECRET'] as string,
+    host: process.env['HOST'] as string,
+    port: parseInt(process.env['PORT'] as string, 10) || 3000,
+    webUrl: WEB_URL,
+  }
+}
 
 // Get the cookie domains from the ENV
 function getCookieDomains() {

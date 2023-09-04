@@ -114,4 +114,6 @@ export function IdentityUiSolanaLinkProvider({
   return <LinkSolanaContext.Provider value={value}>{children}</LinkSolanaContext.Provider>
 }
 
-export const useLinkSolana = () => useContext(LinkSolanaContext)
+export function useLinkSolana() {
+  return useContext(LinkSolanaContext)
+}
