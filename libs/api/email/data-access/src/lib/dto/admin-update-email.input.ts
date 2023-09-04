@@ -4,7 +4,6 @@ import { Field, InputType } from '@nestjs/graphql'
 export class AdminUpdateEmailInput {
   @Field({ nullable: true })
   private?: boolean
-
   @Field({ nullable: true })
   default?: boolean
   @Field({ nullable: true })

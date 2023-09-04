@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { UserRole } from '../entity/user-role.entity'
-import { UserStatus } from '../entity/user-status.entity'
+import { UserRole } from '../entity/user-role.enum'
+import { UserStatus } from '../entity/user-status.enum'
 
 @InputType()
 export class AdminUpdateUserInput {
