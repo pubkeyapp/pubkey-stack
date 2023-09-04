@@ -31,11 +31,13 @@ function sdkTemplate(name: string, label: string) {
 }
 
 query adminFindMany${className}($input: AdminFindMany${className}Input!) {
-  count: adminFindMany${className}Count(input: $input) {
-    ...PagingDetails
-  }
-  items: adminFindMany${className}(input: $input) {
-    ...${className}Details
+  paging: adminFindMany${className}(input: $input) {
+    data {
+      ...${className}Details
+    }
+    meta {
+      ...PagingMetaDetails
+    }
   }
 }
 

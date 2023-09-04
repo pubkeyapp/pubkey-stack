@@ -4,6 +4,7 @@ exports[`api-feature generator should generate the feature libraries 1`] = `
 "export * from './lib/api-test-data-access.module';
 export * from './lib/api-test.service';
 export * from './lib/entity/test.entity';
+export * from './lib/entity/test-paging.entity';
 export * from './lib/dto/admin-create-test.input';
 export * from './lib/dto/admin-find-many-test.input';
 export * from './lib/dto/admin-update-test.input';
@@ -16,6 +17,7 @@ import { ApiCoreService } from '@proj/api/core/data-access';
 import { AdminCreateTestInput } from './dto/admin-create-test.input';
 import { AdminFindManyTestInput } from './dto/admin-find-many-test.input';
 import { AdminUpdateTestInput } from './dto/admin-update-test.input';
+import { TestPaging } from './entity/test-paging.entity';
 import { parseAdminFindManyTest } from './helpers/parse-admin-find-many-test';
 
 @Injectable()
@@ -31,24 +33,12 @@ export class ApiTestAdminService {
     return !!deleted;
   }
 
-  async findManyTest(input: AdminFindManyTestInput) {
-    const { where, orderBy, take, skip } = parseAdminFindManyTest(input);
-    const items = await this.core.data.test.findMany({
-      where,
-      orderBy,
-      take,
-      skip,
-    });
-    return items ?? [];
-  }
-
-  async findManyTestCount(input: AdminFindManyTestInput) {
-    const { where, orderBy, take, skip } = parseAdminFindManyTest(input);
-    const [count, total] = await Promise.all([
-      this.core.data.test.count({ where, orderBy, take, skip }),
-      this.core.data.test.count({ where, orderBy }),
-    ]);
-    return { count, skip, take, total };
+  async findManyTest(input: AdminFindManyTestInput): Promise<TestPaging> {
+    const { where, orderBy, limit, page } = parseAdminFindManyTest(input);
+    const [data, meta] = await this.core.data.test
+      .paginate({ where, orderBy })
+      .withPages({ limit, page });
+    return { data, meta };
   }
 
   async findOneTest(testId: string) {
@@ -106,15 +96,12 @@ export class AdminCreateTestInput {
 
 exports[`api-feature generator should generate the feature libraries 6`] = `
 "import { Field, InputType, Int } from '@nestjs/graphql';
+import { PagingInput } from '@proj/api/core/data-access';
 
 @InputType()
-export class AdminFindManyTestInput {
+export class AdminFindManyTestInput extends PagingInput() {
   @Field({ nullable: true })
   search?: string;
-  @Field(() => Int, { nullable: true, defaultValue: 0 })
-  skip?: number;
-  @Field(() => Int, { nullable: true, defaultValue: 10 })
-  take?: number;
 }
 "
 `;
@@ -135,9 +122,9 @@ exports[`api-feature generator should generate the feature libraries 8`] = `
 import { AdminFindManyTestInput } from '../dto/admin-find-many-test.input';
 
 export function parseAdminFindManyTest(input: AdminFindManyTestInput): {
+  limit: number;
   orderBy: Prisma.TestOrderByWithRelationInput;
-  skip?: number;
-  take?: number;
+  page: number;
   where: Prisma.TestWhereInput;
 } {
   const where: Prisma.TestWhereInput = {};
@@ -150,10 +137,10 @@ export function parseAdminFindManyTest(input: AdminFindManyTestInput): {
   }
 
   return {
-    where,
-    skip: input.skip ?? 0,
-    take: input.take ?? 10,
+    limit: input.limit ?? 10,
     orderBy: { name: 'asc' },
+    page: input.page ?? 1,
+    where,
   };
 }
 "
@@ -185,13 +172,13 @@ exports[`api-feature generator should generate the feature libraries 11`] = `
 "import { Resolver } from '@nestjs/graphql';
 import { ApiTestService } from '@proj/api/test/data-access';
 import { ApiAuthGraphQLAdminGuard } from '@proj/api/auth/data-access';
-import { Paging } from '@proj/api/core/data-access';
 import { Mutation, Query, Args } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import {
   AdminCreateTestInput,
   AdminFindManyTestInput,
   Test,
+  TestPaging,
   AdminUpdateTestInput,
 } from '@proj/api/test/data-access';
 
@@ -210,14 +197,9 @@ export class ApiTestAdminResolver {
     return this.service.admin.deleteTest(testId);
   }
 
-  @Query(() => [Test], { nullable: true })
+  @Query(() => TestPaging, { nullable: true })
   adminFindManyTest(@Args('input') input: AdminFindManyTestInput) {
     return this.service.admin.findManyTest(input);
-  }
-
-  @Query(() => Paging, { nullable: true })
-  adminFindManyTestCount(@Args('input') input: AdminFindManyTestInput) {
-    return this.service.admin.findManyTestCount(input);
   }
 
   @Query(() => Test, { nullable: true })

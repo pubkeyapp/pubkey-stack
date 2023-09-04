@@ -2,9 +2,9 @@ import { Prisma } from '@prisma/client'
 import { <%= admin.className %>FindMany<%= model.className %>Input } from '../dto/<%= admin.fileName %>-find-many-<%= model.fileName %>.input'
 
 export function parse<%= admin.className %>FindMany<%= model.className %>(input: <%= admin.className %>FindMany<%= model.className %>Input): {
+  limit: number
   orderBy: Prisma.<%= model.className %>OrderByWithRelationInput
-  skip?: number
-  take?: number
+  page: number
   where: Prisma.<%= model.className %>WhereInput
 } {
   const where: Prisma.<%= model.className %>WhereInput = {}
@@ -17,9 +17,9 @@ export function parse<%= admin.className %>FindMany<%= model.className %>(input:
   }
 
   return {
-    where,
-    skip: input.skip ?? 0,
-    take: input.take ?? 10,
+    limit: input.limit ?? 10,
     orderBy: { <%= label.propertyName %>: 'asc' },
+    page: input.page ?? 1,
+    where,
   }
 }

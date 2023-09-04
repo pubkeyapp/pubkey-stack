@@ -1,13 +1,13 @@
 import { Resolver } from '@nestjs/graphql'
 import { <%= app.className %><%= model.className %>Service } from '@<%= npmScope %>/<%= app.fileName %>/<%= model.fileName %>/data-access'
 import { <%= app.className %>AuthGraphQLAdminGuard } from '@<%= npmScope %>/<%= app.fileName %>/auth/data-access'
-import { Paging } from '@<%= npmScope %>/<%= app.fileName %>/core/data-access'
 import { Mutation, Query, Args } from '@nestjs/graphql'
 import { UseGuards } from '@nestjs/common'
 import {
   <%= admin.className %>Create<%= model.className %>Input,
   <%= admin.className %>FindMany<%= model.className %>Input,
   <%= model.className %>,
+  <%= model.className %>Paging,
   <%= admin.className %>Update<%= model.className %>Input,
 } from '@<%= npmScope %>/<%= app.fileName %>/<%= model.fileName %>/data-access'
 
@@ -26,14 +26,9 @@ export class <%= app.className %><%= model.className %><%= admin.className %>Res
     return this.service.<%= admin.propertyName %>.delete<%= model.className %>(<%= model.propertyName %>Id)
   }
 
-  @Query(() => [<%= model.className %>], { nullable: true })
+  @Query(() => <%= model.className %>Paging, { nullable: true })
   <%= admin.propertyName %>FindMany<%= model.className %>(@Args('input') input: <%= admin.className %>FindMany<%= model.className %>Input) {
     return this.service.<%= admin.propertyName %>.findMany<%= model.className %>(input)
-  }
-
-  @Query(() => Paging, { nullable: true })
-  <%= admin.propertyName %>FindMany<%= model.className %>Count(@Args('input') input: <%= admin.className %>FindMany<%= model.className %>Input) {
-    return this.service.<%= admin.propertyName %>.findMany<%= model.className %>Count(input)
   }
 
   @Query(() => <%= model.className %>, { nullable: true })

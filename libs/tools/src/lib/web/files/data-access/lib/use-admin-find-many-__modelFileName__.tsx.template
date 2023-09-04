@@ -8,13 +8,13 @@ import { useState } from 'react'
 
 export function useAdminFindMany<%= modelClassName %>(props?: Partial<AdminFindMany<%= modelClassName %>Input>) {
   const sdk = useWebSdk()
-  const [take, setTake] = useState(props?.take ?? 10)
-  const [skip, setSkip] = useState(props?.skip ?? 0)
+  const [limit, setLimit] = useState(10)
+  const [page, setPage] = useState(1)
   const [search, setSearch] = useState<string>(props?.search ?? '')
 
-  const input: AdminFindMany<%= modelClassName %>Input = { skip, take, search }
+  const input: AdminFindMany<%= modelClassName %>Input = { page, limit, search }
   const query = useQuery(['admin', 'find-many-<%= modelPropertyName %>', input], () => sdk.adminFindMany<%= modelClassName %>({ input }).then((res) => res.data))
-  const total = query.data?.count?.total ?? 0
+  const total = query.data?.paging?.meta?.totalCount ?? 0
 
   return {
     create<%= modelClassName %>: (input: AdminCreate<%= modelClassName %>Input) =>
@@ -41,10 +41,10 @@ export function useAdminFindMany<%= modelClassName %>(props?: Partial<AdminFindM
     query,
     setSearch,
     pagination: useUiPagination({
-      skip,
-      setSkip,
-      take,
-      setTake,
+      page,
+      setPage,
+      limit,
+      setLimit,
       total,
     }),
   }

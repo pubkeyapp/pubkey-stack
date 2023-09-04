@@ -24,16 +24,16 @@ export function WebAdmin<%= modelClassName %>ListFeature() {
 
       {query.isLoading ? (
         <UiLoader />
-      ) : query?.data?.items?.length ? (
+      ) : query?.data?.paging?.data?.length ? (
         <AdminUi<%= modelClassName %>Table
           delete<%= modelClassName %>={(<%= modelPropertyName %>) => {
             if (!window.confirm('Are you sure?')) return
             return delete<%= modelClassName %>(<%= modelPropertyName %>.id)
           }}
-          <%= modelPropertyName %>s={query?.data?.items as <%= modelClassName %>[]}
+          <%= modelPropertyName %>s={query?.data?.paging?.data ?? []}
         />
       ) : (
-        <UiAlert message="<%= modelClassName %> not found" />
+        <UiAlert message="No results" />
       )}
 
       <UiPagination pagination={pagination} />

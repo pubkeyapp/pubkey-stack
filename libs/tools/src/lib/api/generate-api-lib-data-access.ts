@@ -12,6 +12,7 @@ export async function generateApiLibDataAccess(tree: Tree, options: NormalizedAp
   const dataAccessExports: string[] = [
     `./lib/${options.app}-${options.name}.service`,
     `./lib/entity/${substitutions.model.fileName}.entity`,
+    `./lib/entity/${substitutions.model.fileName}-paging.entity`,
   ]
 
   if (!options.skipAdminCrud) {
