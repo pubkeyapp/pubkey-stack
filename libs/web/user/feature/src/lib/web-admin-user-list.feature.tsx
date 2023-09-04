@@ -1,6 +1,6 @@
 import { Button, Group, Select } from '@mantine/core'
-import { User, UserRole, UserStatus } from '@pubkey-stack/sdk'
-import { UiBack, UiAdminPage, UiAlert, UiLoader, UiPagination, UiSearchField } from '@pubkey-stack/web/ui/core'
+import { UserRole, UserStatus } from '@pubkey-stack/sdk'
+import { UiAdminPage, UiAlert, UiBack, UiLoader, UiPagination, UiSearchField } from '@pubkey-stack/web/ui/core'
 import { useAdminFindManyUser } from '@pubkey-stack/web/user/data-access'
 import { AdminUiUserTable, userRoleOptions, userStatusOptions } from '@pubkey-stack/web/user/ui'
 import { Link } from 'react-router-dom'
@@ -23,7 +23,7 @@ export function WebAdminUserListFeature() {
         <Select
           value={role?.toString() ?? ''}
           onChange={(role) => {
-            pagination.setSkip(0)
+            pagination.setPage(1)
             setRole(role === '' ? undefined : (role as UserRole))
           }}
           data={[{ value: '', label: 'Filter by role' }, ...userRoleOptions()]}
@@ -31,7 +31,7 @@ export function WebAdminUserListFeature() {
         <Select
           value={status?.toString() ?? ''}
           onChange={(status) => {
-            pagination.setSkip(0)
+            pagination.setPage(1)
             setStatus(status === '' ? undefined : (status as UserStatus))
           }}
           data={[{ value: '', label: 'Filter by status' }, ...userStatusOptions()]}
@@ -40,13 +40,13 @@ export function WebAdminUserListFeature() {
 
       {query.isLoading ? (
         <UiLoader />
-      ) : query?.data?.items?.length ? (
+      ) : query?.data?.paging?.data?.length ? (
         <AdminUiUserTable
           deleteUser={(user) => {
             if (!window.confirm('Are you sure?')) return
             return deleteUser(user.id)
           }}
-          users={query?.data?.items as User[]}
+          users={query?.data?.paging?.data ?? []}
         />
       ) : (
         <UiAlert message="User not found" />

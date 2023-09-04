@@ -3,38 +3,35 @@ import { usePagination } from '@mantine/hooks'
 import { useMemo } from 'react'
 
 export function useUiPagination({
-  skip,
-  take,
+  page,
+  limit,
   total,
-  setTake,
-  setSkip,
+  setLimit,
+  setPage,
 }: {
   total: number
-  take: number
-  skip: number
-  setTake: (take: number) => void
-  setSkip: (skip: number) => void
+  limit: number
+  page: number
+  setLimit: (limit: number) => void
+  setPage: (page: number) => void
 }) {
-  return { skip, take, total, setTake, setSkip }
+  return { page, limit, total, setLimit, setPage }
 }
 
 export type UiPaginationProps = ReturnType<typeof useUiPagination>
 
 export function UiPagination({
-  pagination: { total, skip, setSkip, setTake, take },
+  pagination: { total, page, setPage, setLimit, limit },
 }: {
   pagination: UiPaginationProps
 }) {
-  const page = useMemo(() => (skip ?? 0) / (take ?? 0) + 1, [skip, take])
   const pagination = usePagination({
     page,
     total: total ?? 0,
     initialPage: 1,
-    onChange: (page) => {
-      setSkip((page - 1) * (take ?? 0))
-    },
+    onChange: setPage,
   })
-  const pages = useMemo(() => Math.ceil(total / (take ?? 0)), [total, take])
+  const pages = useMemo(() => Math.ceil(total / (limit ?? 0)), [total, limit])
 
   return (
     <Group position="apart">
@@ -47,10 +44,10 @@ export function UiPagination({
       />
       <Select
         sx={{ width: 90 }}
-        value={take.toString()}
+        value={limit.toString()}
         onChange={(value) => {
-          setSkip(0)
-          setTake(parseInt(value ?? '10'))
+          setPage(1)
+          setLimit(parseInt(value ?? '10'))
         }}
         data={[
           { value: '5', label: '5' },

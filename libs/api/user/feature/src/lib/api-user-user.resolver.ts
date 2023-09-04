@@ -1,22 +1,22 @@
 import { UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { ApiAuthGraphQLUserGuard, CtxUser } from '@pubkey-stack/api/auth/data-access'
-import { Paging } from '@pubkey-stack/api/core/data-access'
-import { ApiUserService, User, UserFindManyUserInput, UserUpdateUserInput } from '@pubkey-stack/api/user/data-access'
+import {
+  ApiUserService,
+  User,
+  UserFindManyUserInput,
+  UserPaging,
+  UserUpdateUserInput,
+} from '@pubkey-stack/api/user/data-access'
 
 @Resolver()
 @UseGuards(ApiAuthGraphQLUserGuard)
 export class ApiUserUserResolver {
   constructor(private readonly service: ApiUserService) {}
 
-  @Query(() => [User], { nullable: true })
+  @Query(() => UserPaging, { nullable: true })
   userFindManyUser(@Args('input') input: UserFindManyUserInput) {
     return this.service.user.findManyUser(input)
-  }
-
-  @Query(() => Paging, { nullable: true })
-  userFindManyUserCount(@Args('input') input: UserFindManyUserInput) {
-    return this.service.user.findManyUserCount(input)
   }
 
   @Query(() => User, { nullable: true })

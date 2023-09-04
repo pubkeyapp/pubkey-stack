@@ -4,11 +4,14 @@ fragment AppConfigDetails on AppConfig {
   authRegisterEnabled
 }
 
-fragment PagingDetails on Paging {
-  count
-  skip
-  take
-  total
+fragment PagingMetaDetails on PagingMeta {
+  currentPage
+  isFirstPage
+  isLastPage
+  nextPage
+  pageCount
+  previousPage
+  totalCount
 }
 
 query uptime {

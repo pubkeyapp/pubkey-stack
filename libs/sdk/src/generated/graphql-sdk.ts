@@ -49,11 +49,11 @@ export type AdminFindManyIdentityInput = {
 }
 
 export type AdminFindManyUserInput = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  page?: InputMaybe<Scalars['Int']['input']>
   role?: InputMaybe<UserRole>
   search?: InputMaybe<Scalars['String']['input']>
-  skip?: InputMaybe<Scalars['Int']['input']>
   status?: InputMaybe<UserStatus>
-  take?: InputMaybe<Scalars['Int']['input']>
 }
 
 export type AdminUpdateEmailInput = {
@@ -211,27 +211,28 @@ export type MutationUserVerifyIdentityChallengeArgs = {
   input: VerifyIdentityChallengeInput
 }
 
-export type Paging = {
-  __typename?: 'Paging'
-  count?: Maybe<Scalars['Int']['output']>
-  skip?: Maybe<Scalars['Int']['output']>
-  take?: Maybe<Scalars['Int']['output']>
-  total?: Maybe<Scalars['Int']['output']>
+export type PagingMeta = {
+  __typename?: 'PagingMeta'
+  currentPage: Scalars['Int']['output']
+  isFirstPage: Scalars['Boolean']['output']
+  isLastPage: Scalars['Boolean']['output']
+  nextPage?: Maybe<Scalars['Int']['output']>
+  pageCount?: Maybe<Scalars['Int']['output']>
+  previousPage?: Maybe<Scalars['Int']['output']>
+  totalCount?: Maybe<Scalars['Int']['output']>
 }
 
 export type Query = {
   __typename?: 'Query'
   adminFindManyEmail?: Maybe<Array<Email>>
   adminFindManyIdentity?: Maybe<Array<Identity>>
-  adminFindManyUser?: Maybe<Array<User>>
-  adminFindManyUserCount?: Maybe<Paging>
+  adminFindManyUser?: Maybe<UserPaging>
   adminFindOneUser?: Maybe<User>
   appConfig: AppConfig
   me?: Maybe<User>
   uptime: Scalars['Float']['output']
   userFindManyIdentity?: Maybe<Array<Identity>>
-  userFindManyUser?: Maybe<Array<User>>
-  userFindManyUserCount?: Maybe<Paging>
+  userFindManyUser?: Maybe<UserPaging>
   userFindOneUser?: Maybe<User>
   userRequestIdentityChallenge?: Maybe<IdentityChallenge>
 }
@@ -248,19 +249,11 @@ export type QueryAdminFindManyUserArgs = {
   input: AdminFindManyUserInput
 }
 
-export type QueryAdminFindManyUserCountArgs = {
-  input: AdminFindManyUserInput
-}
-
 export type QueryAdminFindOneUserArgs = {
   userId: Scalars['String']['input']
 }
 
 export type QueryUserFindManyUserArgs = {
-  input: UserFindManyUserInput
-}
-
-export type QueryUserFindManyUserCountArgs = {
   input: UserFindManyUserInput
 }
 
@@ -300,6 +293,12 @@ export type UserFindManyUserInput = {
   search?: InputMaybe<Scalars['String']['input']>
   skip?: InputMaybe<Scalars['Int']['input']>
   take?: InputMaybe<Scalars['Int']['input']>
+}
+
+export type UserPaging = {
+  __typename?: 'UserPaging'
+  data: Array<User>
+  meta: PagingMeta
 }
 
 export enum UserRole {
@@ -398,12 +397,15 @@ export type AppConfigDetailsFragment = {
   authRegisterEnabled: boolean
 }
 
-export type PagingDetailsFragment = {
-  __typename?: 'Paging'
-  count?: number | null
-  skip?: number | null
-  take?: number | null
-  total?: number | null
+export type PagingMetaDetailsFragment = {
+  __typename?: 'PagingMeta'
+  currentPage: number
+  isFirstPage: boolean
+  isLastPage: boolean
+  nextPage?: number | null
+  pageCount?: number | null
+  previousPage?: number | null
+  totalCount?: number | null
 }
 
 export type UptimeQueryVariables = Exact<{ [key: string]: never }>
@@ -721,26 +723,32 @@ export type AdminFindManyUserQueryVariables = Exact<{
 
 export type AdminFindManyUserQuery = {
   __typename?: 'Query'
-  count?: {
-    __typename?: 'Paging'
-    count?: number | null
-    skip?: number | null
-    take?: number | null
-    total?: number | null
+  paging?: {
+    __typename?: 'UserPaging'
+    data: Array<{
+      __typename?: 'User'
+      avatarUrl?: string | null
+      createdAt?: Date | null
+      developer?: boolean | null
+      id: string
+      name?: string | null
+      profileUrl?: string | null
+      role?: UserRole | null
+      status?: UserStatus | null
+      updatedAt?: Date | null
+      username?: string | null
+    }>
+    meta: {
+      __typename?: 'PagingMeta'
+      currentPage: number
+      isFirstPage: boolean
+      isLastPage: boolean
+      nextPage?: number | null
+      pageCount?: number | null
+      previousPage?: number | null
+      totalCount?: number | null
+    }
   } | null
-  items?: Array<{
-    __typename?: 'User'
-    avatarUrl?: string | null
-    createdAt?: Date | null
-    developer?: boolean | null
-    id: string
-    name?: string | null
-    profileUrl?: string | null
-    role?: UserRole | null
-    status?: UserStatus | null
-    updatedAt?: Date | null
-    username?: string | null
-  }> | null
 }
 
 export type AdminFindOneUserQueryVariables = Exact<{
@@ -792,26 +800,32 @@ export type UserFindManyUserQueryVariables = Exact<{
 
 export type UserFindManyUserQuery = {
   __typename?: 'Query'
-  count?: {
-    __typename?: 'Paging'
-    count?: number | null
-    skip?: number | null
-    take?: number | null
-    total?: number | null
+  paging?: {
+    __typename?: 'UserPaging'
+    data: Array<{
+      __typename?: 'User'
+      avatarUrl?: string | null
+      createdAt?: Date | null
+      developer?: boolean | null
+      id: string
+      name?: string | null
+      profileUrl?: string | null
+      role?: UserRole | null
+      status?: UserStatus | null
+      updatedAt?: Date | null
+      username?: string | null
+    }>
+    meta: {
+      __typename?: 'PagingMeta'
+      currentPage: number
+      isFirstPage: boolean
+      isLastPage: boolean
+      nextPage?: number | null
+      pageCount?: number | null
+      previousPage?: number | null
+      totalCount?: number | null
+    }
   } | null
-  items?: Array<{
-    __typename?: 'User'
-    avatarUrl?: string | null
-    createdAt?: Date | null
-    developer?: boolean | null
-    id: string
-    name?: string | null
-    profileUrl?: string | null
-    role?: UserRole | null
-    status?: UserStatus | null
-    updatedAt?: Date | null
-    username?: string | null
-  }> | null
 }
 
 export type UserFindOneUserQueryVariables = Exact<{
@@ -863,12 +877,15 @@ export const AppConfigDetailsFragmentDoc = gql`
     authRegisterEnabled
   }
 `
-export const PagingDetailsFragmentDoc = gql`
-  fragment PagingDetails on Paging {
-    count
-    skip
-    take
-    total
+export const PagingMetaDetailsFragmentDoc = gql`
+  fragment PagingMetaDetails on PagingMeta {
+    currentPage
+    isFirstPage
+    isLastPage
+    nextPage
+    pageCount
+    previousPage
+    totalCount
   }
 `
 export const EmailDetailsFragmentDoc = gql`
@@ -1074,15 +1091,17 @@ export const AdminDeleteUserDocument = gql`
 `
 export const AdminFindManyUserDocument = gql`
   query adminFindManyUser($input: AdminFindManyUserInput!) {
-    count: adminFindManyUserCount(input: $input) {
-      ...PagingDetails
-    }
-    items: adminFindManyUser(input: $input) {
-      ...UserDetails
+    paging: adminFindManyUser(input: $input) {
+      data {
+        ...UserDetails
+      }
+      meta {
+        ...PagingMetaDetails
+      }
     }
   }
-  ${PagingDetailsFragmentDoc}
   ${UserDetailsFragmentDoc}
+  ${PagingMetaDetailsFragmentDoc}
 `
 export const AdminFindOneUserDocument = gql`
   query adminFindOneUser($userId: String!) {
@@ -1102,15 +1121,17 @@ export const AdminUpdateUserDocument = gql`
 `
 export const UserFindManyUserDocument = gql`
   query userFindManyUser($input: UserFindManyUserInput!) {
-    count: userFindManyUserCount(input: $input) {
-      ...PagingDetails
-    }
-    items: userFindManyUser(input: $input) {
-      ...UserDetails
+    paging: userFindManyUser(input: $input) {
+      data {
+        ...UserDetails
+      }
+      meta {
+        ...PagingMetaDetails
+      }
     }
   }
-  ${PagingDetailsFragmentDoc}
   ${UserDetailsFragmentDoc}
+  ${PagingMetaDetailsFragmentDoc}
 `
 export const UserFindOneUserDocument = gql`
   query userFindOneUser($username: String!) {

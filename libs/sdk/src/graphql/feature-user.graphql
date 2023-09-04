@@ -22,11 +22,13 @@ mutation adminDeleteUser($userId: String!) {
 }
 
 query adminFindManyUser($input: AdminFindManyUserInput!) {
-  count: adminFindManyUserCount(input: $input) {
-    ...PagingDetails
-  }
-  items: adminFindManyUser(input: $input) {
-    ...UserDetails
+  paging: adminFindManyUser(input: $input) {
+    data {
+      ...UserDetails
+    }
+    meta {
+      ...PagingMetaDetails
+    }
   }
 }
 
@@ -43,11 +45,13 @@ mutation adminUpdateUser($userId: String!, $input: AdminUpdateUserInput!) {
 }
 
 query userFindManyUser($input: UserFindManyUserInput!) {
-  count: userFindManyUserCount(input: $input) {
-    ...PagingDetails
-  }
-  items: userFindManyUser(input: $input) {
-    ...UserDetails
+  paging: userFindManyUser(input: $input) {
+    data {
+      ...UserDetails
+    }
+    meta {
+      ...PagingMetaDetails
+    }
   }
 }
 

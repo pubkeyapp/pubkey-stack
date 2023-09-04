@@ -1,11 +1,8 @@
-import { Field, InputType, Int } from '@nestjs/graphql'
+import { Field, InputType } from '@nestjs/graphql'
+import { PagingInput } from '@pubkey-stack/api/core/data-access'
 
 @InputType()
-export class UserFindManyUserInput {
+export class UserFindManyUserInput extends PagingInput() {
   @Field({ nullable: true })
   search?: string
-  @Field(() => Int, { nullable: true, defaultValue: 0 })
-  skip?: number
-  @Field(() => Int, { nullable: true, defaultValue: 10 })
-  take?: number
 }

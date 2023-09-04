@@ -15,11 +15,11 @@ export class User {
   @Field(() => UserStatus, { nullable: true })
   status?: UserStatus
   @Field({ nullable: true })
-  avatarUrl?: string
+  avatarUrl?: string | null
   @Field({ nullable: true })
-  developer?: boolean
+  developer!: boolean
   @Field({ nullable: true })
-  name?: string
+  name?: string | null
   @Field({ nullable: true })
-  username?: string
+  username!: string
 }

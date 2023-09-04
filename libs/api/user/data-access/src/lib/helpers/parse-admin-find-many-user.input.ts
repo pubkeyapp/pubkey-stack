@@ -2,9 +2,9 @@ import { Prisma } from '@prisma/client'
 import { AdminFindManyUserInput } from '../dto/admin-find-many-user.input'
 
 export function parseAdminFindManyUserInput(input: AdminFindManyUserInput): {
+  limit: number
   orderBy: Prisma.UserOrderByWithRelationInput
-  skip?: number
-  take?: number
+  page: number
   where: Prisma.UserWhereInput
 } {
   const where: Prisma.UserWhereInput = {}
@@ -26,9 +26,9 @@ export function parseAdminFindManyUserInput(input: AdminFindManyUserInput): {
   }
 
   return {
-    where,
-    skip: input.skip ?? 0,
-    take: input.take ?? 10,
+    limit: input.limit ?? 10,
     orderBy: { updatedAt: 'desc' },
+    page: input.page ?? 1,
+    where,
   }
 }

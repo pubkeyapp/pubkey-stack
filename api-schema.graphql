@@ -28,11 +28,11 @@ input AdminFindManyIdentityInput {
 }
 
 input AdminFindManyUserInput {
+  limit: Int = 10
+  page: Int = 1
   role: UserRole
   search: String
-  skip: Int = 0
   status: UserStatus
-  take: Int = 10
 }
 
 input AdminUpdateEmailInput {
@@ -137,25 +137,26 @@ type Mutation {
   userVerifyIdentityChallenge(input: VerifyIdentityChallengeInput!): IdentityChallenge
 }
 
-type Paging {
-  count: Int
-  skip: Int
-  take: Int
-  total: Int
+type PagingMeta {
+  currentPage: Int!
+  isFirstPage: Boolean!
+  isLastPage: Boolean!
+  nextPage: Int
+  pageCount: Int
+  previousPage: Int
+  totalCount: Int
 }
 
 type Query {
   adminFindManyEmail(input: AdminFindManyEmailInput!): [Email!]
   adminFindManyIdentity(input: AdminFindManyIdentityInput!): [Identity!]
-  adminFindManyUser(input: AdminFindManyUserInput!): [User!]
-  adminFindManyUserCount(input: AdminFindManyUserInput!): Paging
+  adminFindManyUser(input: AdminFindManyUserInput!): UserPaging
   adminFindOneUser(userId: String!): User
   appConfig: AppConfig!
   me: User
   uptime: Float!
   userFindManyIdentity: [Identity!]
-  userFindManyUser(input: UserFindManyUserInput!): [User!]
-  userFindManyUserCount(input: UserFindManyUserInput!): Paging
+  userFindManyUser(input: UserFindManyUserInput!): UserPaging
   userFindOneUser(username: String!): User
   userRequestIdentityChallenge(input: RequestIdentityChallengeInput!): IdentityChallenge
 }
@@ -187,6 +188,11 @@ input UserFindManyUserInput {
   search: String
   skip: Int = 0
   take: Int = 10
+}
+
+type UserPaging {
+  data: [User!]!
+  meta: PagingMeta!
 }
 
 enum UserRole {

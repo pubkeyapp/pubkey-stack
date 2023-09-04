@@ -95,10 +95,10 @@ describe('api-user-feature', () => {
 
         const res = await sdk.adminFindManyUser({ input }, { cookie })
 
-        expect(res.data.count.total).toBeGreaterThan(4)
-        expect(res.data.items.length).toBeGreaterThan(4)
+        expect(res.data.paging.meta.totalCount).toBeGreaterThan(4)
+        expect(res.data.paging.data.length).toBeGreaterThan(4)
         // First item should be the one we created above
-        expect(res.data.items[0].id).toBe(userId)
+        expect(res.data.paging.data[0].id).toBe(userId)
       })
 
       it('should find a list of users (find new one)', async () => {
@@ -115,9 +115,9 @@ describe('api-user-feature', () => {
 
         const res = await sdk.adminFindManyUser({ input }, { cookie })
 
-        expect(res.data.count.total).toBe(1)
-        expect(res.data.items.length).toBe(1)
-        expect(res.data.items[0].id).toBe(userId)
+        expect(res.data.paging.meta.totalCount).toBe(1)
+        expect(res.data.paging.data.length).toBe(1)
+        expect(res.data.paging.data[0].id).toBe(userId)
       })
 
       it('should find a user by id', async () => {
@@ -146,8 +146,8 @@ describe('api-user-feature', () => {
         expect(res.data.deleted).toBe(true)
 
         const findRes = await sdk.adminFindManyUser({ input: { search: userId } }, { cookie })
-        expect(findRes.data.count.total).toBe(0)
-        expect(findRes.data.items.length).toBe(0)
+        expect(findRes.data.paging.meta.totalCount).toBe(0)
+        expect(findRes.data.paging.data.length).toBe(0)
       })
     })
 

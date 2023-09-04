@@ -13,7 +13,8 @@ export function useUserFindManyUser(input: UserFindManyUserInput) {
   )
 
   return {
-    items: query.data?.items,
+    data: query.data?.paging?.data ?? [],
+    meta: query.data?.paging?.meta,
     query,
   }
 }

@@ -10,15 +10,15 @@ export function useAdminFindManyUser() {
   const sdk = useWebSdk()
   const [role, setRole] = useState<UserRole | undefined>(undefined)
   const [status, setStatus] = useState<UserStatus | undefined>(undefined)
-  const [take, setTake] = useState(10)
-  const [skip, setSkip] = useState(0)
+  const [limit, setLimit] = useState(10)
+  const [page, setPage] = useState(1)
   const [search, setSearch] = useState<string>('')
 
-  const input: AdminFindManyUserInput = { role, skip, status, take, search }
+  const input: AdminFindManyUserInput = { limit, page, role, search, status }
   const query = useQuery(['admin', 'users', 'find', input], () =>
     sdk.adminFindManyUser({ input }).then((res) => res.data),
   )
-  const total = query.data?.count?.total ?? 0
+  const total = query.data?.paging?.meta?.totalCount ?? 0
 
   return {
     createUser: (input: AdminCreateUserInput) =>
@@ -49,10 +49,10 @@ export function useAdminFindManyUser() {
     setStatus,
     status,
     pagination: useUiPagination({
-      skip,
-      setSkip,
-      take,
-      setTake,
+      page,
+      setPage,
+      limit,
+      setLimit,
       total,
     }),
   }

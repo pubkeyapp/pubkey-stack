@@ -1,13 +1,13 @@
 import { UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { ApiAuthGraphQLAdminGuard } from '@pubkey-stack/api/auth/data-access'
-import { Paging } from '@pubkey-stack/api/core/data-access'
 import {
   AdminCreateUserInput,
   AdminFindManyUserInput,
   AdminUpdateUserInput,
   ApiUserService,
   User,
+  UserPaging,
 } from '@pubkey-stack/api/user/data-access'
 
 @Resolver()
@@ -25,14 +25,9 @@ export class ApiUserAdminResolver {
     return this.service.admin.deleteUser(userId)
   }
 
-  @Query(() => [User], { nullable: true })
+  @Query(() => UserPaging, { nullable: true })
   adminFindManyUser(@Args('input') input: AdminFindManyUserInput) {
     return this.service.admin.findManyUser(input)
-  }
-
-  @Query(() => Paging, { nullable: true })
-  adminFindManyUserCount(@Args('input') input: AdminFindManyUserInput) {
-    return this.service.admin.findManyUserCount(input)
   }
 
   @Query(() => User, { nullable: true })

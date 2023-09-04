@@ -1,9 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { User as PrismaUser } from '@prisma/client'
-import { ApiCoreService, hashPassword, Paging, slugifyId } from '@pubkey-stack/api/core/data-access'
+import { ApiCoreService, hashPassword, slugifyId } from '@pubkey-stack/api/core/data-access'
 import { AdminCreateUserInput } from './dto/admin-create-user.input'
 import { AdminFindManyUserInput } from './dto/admin-find-many-user.input'
 import { AdminUpdateUserInput } from './dto/admin-update-user.input'
+import { UserPaging } from './entity/user-paging.entity'
 import { parseAdminFindManyUserInput } from './helpers/parse-admin-find-many-user.input'
 
 @Injectable()
@@ -41,21 +42,10 @@ export class ApiUserAdminService {
     return !!deleted
   }
 
-  async findManyUser(input: AdminFindManyUserInput): Promise<PrismaUser[]> {
-    const { where, orderBy, take, skip } = parseAdminFindManyUserInput(input)
-    const items = await this.core.data.user.findMany({ where, orderBy, take, skip })
-
-    return items ?? []
-  }
-
-  async findManyUserCount(input: AdminFindManyUserInput): Promise<Paging> {
-    const { where, orderBy, take, skip } = parseAdminFindManyUserInput(input)
-    const [count, total] = await Promise.all([
-      this.core.data.user.count({ where, orderBy, take, skip }),
-      this.core.data.user.count({ where, orderBy }),
-    ])
-
-    return { count, skip, take, total }
+  async findManyUser(input: AdminFindManyUserInput): Promise<UserPaging> {
+    const { where, orderBy, limit, page } = parseAdminFindManyUserInput(input)
+    const [data, meta] = await this.core.data.user.paginate({ where, orderBy }).withPages({ limit, page })
+    return { data, meta }
   }
 
   async findOneUser(userId: string): Promise<PrismaUser> {
