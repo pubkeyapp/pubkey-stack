@@ -185,9 +185,9 @@ type User {
 }
 
 input UserFindManyUserInput {
+  limit: Int = 10
+  page: Int = 1
   search: String
-  skip: Int = 0
-  take: Int = 10
 }
 
 type UserPaging {
