@@ -134,25 +134,12 @@ exports[`api-feature generator should generate the feature libraries 8`] = `
 "import { Prisma } from '@prisma/client';
 import { AdminFindManyTestInput } from '../dto/admin-find-many-test.input';
 
-export interface ParseAdminFindManyTestParsed {
+export function parseAdminFindManyTest(input: AdminFindManyTestInput): {
   orderBy: Prisma.TestOrderByWithRelationInput;
   skip?: number;
   take?: number;
   where: Prisma.TestWhereInput;
-}
-
-export function parseAdminFindManyTest(
-  input: AdminFindManyTestInput
-): ParseAdminFindManyTestParsed {
-  return {
-    where: getWhereInput(input),
-    skip: input.skip ?? 0,
-    take: input.take ?? 10,
-    orderBy: { name: 'asc' },
-  };
-}
-
-function getWhereInput(input: AdminFindManyTestInput): Prisma.TestWhereInput {
+} {
   const where: Prisma.TestWhereInput = {};
 
   if (input.search) {
@@ -162,7 +149,12 @@ function getWhereInput(input: AdminFindManyTestInput): Prisma.TestWhereInput {
     ];
   }
 
-  return where;
+  return {
+    where,
+    skip: input.skip ?? 0,
+    take: input.take ?? 10,
+    orderBy: { name: 'asc' },
+  };
 }
 "
 `;
