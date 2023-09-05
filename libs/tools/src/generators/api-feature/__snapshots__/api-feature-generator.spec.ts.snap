@@ -18,7 +18,7 @@ import { AdminCreateTestInput } from './dto/admin-create-test.input';
 import { AdminFindManyTestInput } from './dto/admin-find-many-test.input';
 import { AdminUpdateTestInput } from './dto/admin-update-test.input';
 import { TestPaging } from './entity/test-paging.entity';
-import { parseAdminFindManyTest } from './helpers/parse-admin-find-many-test';
+import { getAdminTestWhereInput } from './helpers/get-admin-test-where.input';
 
 @Injectable()
 export class ApiTestAdminService {
@@ -34,11 +34,13 @@ export class ApiTestAdminService {
   }
 
   async findManyTest(input: AdminFindManyTestInput): Promise<TestPaging> {
-    const { where, orderBy, limit, page } = parseAdminFindManyTest(input);
-    const [data, meta] = await this.core.data.test
-      .paginate({ where, orderBy })
-      .withPages({ limit, page });
-    return { data, meta };
+    return this.core.data.test
+      .paginate({
+        orderBy: { name: 'asc' },
+        where: getAdminTestWhereInput(input),
+      })
+      .withPages({ limit: input.limit, page: input.page })
+      .then(([data, meta]) => ({ data, meta }));
   }
 
   async findOneTest(testId: string) {
@@ -121,12 +123,9 @@ exports[`api-feature generator should generate the feature libraries 8`] = `
 "import { Prisma } from '@prisma/client';
 import { AdminFindManyTestInput } from '../dto/admin-find-many-test.input';
 
-export function parseAdminFindManyTest(input: AdminFindManyTestInput): {
-  limit: number;
-  orderBy: Prisma.TestOrderByWithRelationInput;
-  page: number;
-  where: Prisma.TestWhereInput;
-} {
+export function getAdminTestWhereInput(
+  input: AdminFindManyTestInput
+): Prisma.TestWhereInput {
   const where: Prisma.TestWhereInput = {};
 
   if (input.search) {
@@ -136,12 +135,7 @@ export function parseAdminFindManyTest(input: AdminFindManyTestInput): {
     ];
   }
 
-  return {
-    limit: input.limit ?? 10,
-    orderBy: { name: 'asc' },
-    page: input.page ?? 1,
-    where,
-  };
+  return where;
 }
 "
 `;
@@ -164,11 +158,21 @@ export class Test {
 `;
 
 exports[`api-feature generator should generate the feature libraries 10`] = `
-"export * from './lib/api-test-feature.module';
+"import { ObjectType } from '@nestjs/graphql';
+import { PagingResponse } from '@proj/api/core/data-access';
+import { Test } from './test.entity';
+
+@ObjectType()
+export class TestPaging extends PagingResponse<Test>(Test) {}
 "
 `;
 
 exports[`api-feature generator should generate the feature libraries 11`] = `
+"export * from './lib/api-test-feature.module';
+"
+`;
+
+exports[`api-feature generator should generate the feature libraries 12`] = `
 "import { Resolver } from '@nestjs/graphql';
 import { ApiTestService } from '@proj/api/test/data-access';
 import { ApiAuthGraphQLAdminGuard } from '@proj/api/auth/data-access';
@@ -218,7 +222,7 @@ export class ApiTestAdminResolver {
 "
 `;
 
-exports[`api-feature generator should generate the feature libraries 12`] = `
+exports[`api-feature generator should generate the feature libraries 13`] = `
 "import { Module } from '@nestjs/common';
 import { ApiTestDataAccessModule } from '@proj/api/test/data-access';
 import { ApiTestAdminResolver } from './api-test-admin.resolver';

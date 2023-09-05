@@ -3,7 +3,7 @@ import { ApiCoreService } from '@pubkey-stack/api/core/data-access'
 import { UserFindManyUserInput } from './dto/user-find-many-user.input'
 import { UserUpdateUserInput } from './dto/user-update-user.input'
 import { UserPaging } from './entity/user-paging.entity'
-import { parseUserFindManyUserInput } from './helpers/parse-user-find-many-user.input'
+import { getUserUserWhereInput } from './helpers/get-user-user-where.input'
 
 @Injectable()
 export class ApiUserUserService {
@@ -11,9 +11,13 @@ export class ApiUserUserService {
   constructor(private readonly core: ApiCoreService) {}
 
   async findManyUser(input: UserFindManyUserInput): Promise<UserPaging> {
-    const { where, orderBy, limit, page } = parseUserFindManyUserInput(input)
-    const [data, meta] = await this.core.data.user.paginate({ where, orderBy }).withPages({ limit, page })
-    return { data, meta }
+    return this.core.data.user
+      .paginate({
+        orderBy: { updatedAt: 'desc' },
+        where: getUserUserWhereInput(input),
+      })
+      .withPages({ limit: input.limit, page: input.page })
+      .then(([data, meta]) => ({ data, meta }))
   }
 
   async updateUser(userId: string, input: UserUpdateUserInput) {

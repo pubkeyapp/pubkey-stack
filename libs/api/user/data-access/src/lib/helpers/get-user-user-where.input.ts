@@ -1,12 +1,7 @@
 import { Prisma } from '@prisma/client'
 import { UserFindManyUserInput } from '../dto/user-find-many-user.input'
 
-export function parseUserFindManyUserInput(input: UserFindManyUserInput): {
-  limit: number
-  orderBy: Prisma.UserOrderByWithRelationInput
-  page: number
-  where: Prisma.UserWhereInput
-} {
+export function getUserUserWhereInput(input: UserFindManyUserInput): Prisma.UserWhereInput {
   const where: Prisma.UserWhereInput = {}
 
   if (input.search) {
@@ -17,10 +12,5 @@ export function parseUserFindManyUserInput(input: UserFindManyUserInput): {
     ]
   }
 
-  return {
-    limit: input.limit ?? 10,
-    orderBy: { updatedAt: 'desc' },
-    page: input.page ?? 1,
-    where,
-  }
+  return where
 }

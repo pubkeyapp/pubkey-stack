@@ -4,7 +4,7 @@ import { <%= admin.className %>Create<%= model.className %>Input } from './dto/<
 import { <%= admin.className %>FindMany<%= model.className %>Input } from './dto/<%= admin.fileName %>-find-many-<%= model.fileName %>.input'
 import { <%= admin.className %>Update<%= model.className %>Input } from './dto/<%= admin.fileName %>-update-<%= model.fileName %>.input'
 import { <%= model.className %>Paging } from './entity/<%= model.fileName %>-paging.entity'
-import { parse<%= admin.className %>FindMany<%= model.className %> } from './helpers/parse-<%= admin.fileName %>-find-many-<%= model.fileName %>'
+import { get<%= admin.className %><%= model.className %>WhereInput } from './helpers/get-<%= admin.fileName %>-<%= model.fileName %>-where.input'
 
 @Injectable()
 export class Api<%= model.className %><%= admin.className %>Service {
@@ -20,9 +20,13 @@ export class Api<%= model.className %><%= admin.className %>Service {
   }
 
   async findMany<%= model.className %>(input: <%= admin.className %>FindMany<%= model.className %>Input): Promise<<%= model.className %>Paging> {
-    const { where, orderBy, limit, page } = parse<%= admin.className %>FindMany<%= model.className %>(input)
-    const [data, meta] = await this.core.data.<%= model.propertyName %>.paginate({ where, orderBy }).withPages({ limit, page })
-    return { data, meta }
+    return this.core.data.<%= model.propertyName %>
+      .paginate({
+        orderBy: { <%= label.propertyName %>: 'asc' },
+        where: get<%= admin.className %><%= model.className %>WhereInput(input),
+      })
+      .withPages({ limit: input.limit, page: input.page })
+      .then(([data, meta]) => ({ data, meta }))
   }
 
   async findOne<%= model.className %>(<%= model.propertyName %>Id: string) {

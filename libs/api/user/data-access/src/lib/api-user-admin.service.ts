@@ -5,7 +5,7 @@ import { AdminCreateUserInput } from './dto/admin-create-user.input'
 import { AdminFindManyUserInput } from './dto/admin-find-many-user.input'
 import { AdminUpdateUserInput } from './dto/admin-update-user.input'
 import { UserPaging } from './entity/user-paging.entity'
-import { parseAdminFindManyUserInput } from './helpers/parse-admin-find-many-user.input'
+import { getAdminUserWhereInput } from './helpers/get-admin-user-where.input'
 
 @Injectable()
 export class ApiUserAdminService {
@@ -43,9 +43,13 @@ export class ApiUserAdminService {
   }
 
   async findManyUser(input: AdminFindManyUserInput): Promise<UserPaging> {
-    const { where, orderBy, limit, page } = parseAdminFindManyUserInput(input)
-    const [data, meta] = await this.core.data.user.paginate({ where, orderBy }).withPages({ limit, page })
-    return { data, meta }
+    return this.core.data.user
+      .paginate({
+        orderBy: { updatedAt: 'desc' },
+        where: getAdminUserWhereInput(input),
+      })
+      .withPages({ limit: input.limit, page: input.page })
+      .then(([data, meta]) => ({ data, meta }))
   }
 
   async findOneUser(userId: string): Promise<PrismaUser> {
