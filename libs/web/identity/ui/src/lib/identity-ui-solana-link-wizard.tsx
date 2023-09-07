@@ -1,17 +1,18 @@
-import { Button, Stepper } from '@mantine/core'
+import { Button, Stepper, Switch } from '@mantine/core'
 import { modals } from '@mantine/modals'
-import { WalletMultiButton } from '@pubkeyapp/wallet-adapter-mantine-ui'
-import { ellipsify, IdentityProvider } from '@pubkey-stack/sdk'
+import { ellipsify, Identity, IdentityProvider } from '@pubkey-stack/sdk'
+import { useIdentitySolana } from '@pubkey-stack/web/identity/data-access'
 import { UiStack, UiWarn } from '@pubkey-stack/web/ui/core'
 import { showNotificationError } from '@pubkey-stack/web/ui/notifications'
+import { WalletMultiButton } from '@pubkeyapp/wallet-adapter-mantine-ui'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useEffect, useState } from 'react'
-import { useLinkSolana } from './identity-ui-solana-link-provider'
 
-export function IdentityUiSolanaLinkWizard() {
-  const { identities, linkAndSign } = useLinkSolana()
+export function IdentityUiSolanaLinkWizard({ identities }: { identities: Identity[] }) {
+  const { linkAndSign } = useIdentitySolana()
   const { connected, publicKey, disconnect } = useWallet()
   const [signing, setSigning] = useState(false)
+  const [useLedger, setUseLedger] = useState(false)
   const provider = IdentityProvider.Solana
 
   const exists = identities?.some((item) => item.providerId === publicKey?.toBase58())
@@ -85,12 +86,18 @@ export function IdentityUiSolanaLinkWizard() {
         <Stepper.Step loading={signing} label="Step 2: Link Identity" description="Link and Verify Identity">
           {provider && connected && publicKey ? (
             <UiStack>
+              <Switch
+                size="lg"
+                checked={useLedger}
+                onChange={() => setUseLedger(!useLedger)}
+                label="Verify with Ledger"
+              />
               <Button
                 loading={signing}
                 size="lg"
                 onClick={() => {
                   setSigning(true)
-                  linkAndSign(publicKey.toString())
+                  linkAndSign({ publicKey: publicKey.toString(), useLedger })
                     .then(() => {
                       modals.closeAll()
                       setActive(2)

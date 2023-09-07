@@ -1,15 +1,17 @@
-import { Button, Stepper } from '@mantine/core'
+import { Button, Stepper, Switch } from '@mantine/core'
 import { modals } from '@mantine/modals'
-import { WalletMultiButton } from '@pubkeyapp/wallet-adapter-mantine-ui'
 import { ellipsify, Identity, IdentityProvider } from '@pubkey-stack/sdk'
+import { useIdentitySolana } from '@pubkey-stack/web/identity/data-access'
 import { UiStack, UiWarn } from '@pubkey-stack/web/ui/core'
 import { showNotificationError } from '@pubkey-stack/web/ui/notifications'
+import { WalletMultiButton } from '@pubkeyapp/wallet-adapter-mantine-ui'
+import { useWallet } from '@solana/wallet-adapter-react'
 import { useEffect, useMemo, useState } from 'react'
-import { useLinkSolana } from './identity-ui-solana-link-provider'
 
 export function IdentityUiSolanaVerifyWizard({ identity, refresh }: { identity: Identity; refresh: () => void }) {
-  const { connected, publicKey, verifyAndSign } = useLinkSolana()
-
+  const { connected, publicKey } = useWallet()
+  const { verifyAndSign } = useIdentitySolana()
+  const [useLedger, setUseLedger] = useState(false)
   const [requesting, setRequesting] = useState(false)
 
   const canVerify = useMemo(
@@ -25,9 +27,9 @@ export function IdentityUiSolanaVerifyWizard({ identity, refresh }: { identity: 
 
   function request() {
     setRequesting(true)
-    verifyAndSign(identity.providerId)
+    verifyAndSign({ publicKey: identity.providerId, useLedger })
       .catch((err) => {
-        console.log('error verifying identity', err)
+        console.log('Error verifying identity', err)
         showNotificationError('Error verifying identity')
       })
       .finally(() => {
@@ -55,6 +57,12 @@ export function IdentityUiSolanaVerifyWizard({ identity, refresh }: { identity: 
       >
         {canVerify ? (
           <UiStack>
+            <Switch
+              size="lg"
+              checked={useLedger}
+              onChange={() => setUseLedger(!useLedger)}
+              label="Verify with Ledger"
+            />
             <Button size="lg" onClick={() => request()} loading={requesting}>
               Verify and Sign
             </Button>

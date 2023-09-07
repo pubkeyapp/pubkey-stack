@@ -39,7 +39,5 @@ export function getUserKeypair(user: TestUser): Keypair {
 }
 
 export function signMessage(user: TestUser, message: string) {
-  const msg = Uint8Array.from(Buffer.from(message))
-
-  return nacl.sign.detached(msg, Uint8Array.from(user.solana.secret))
+  return nacl.sign.detached(new TextEncoder().encode(message), Uint8Array.from(user.solana.secret))
 }

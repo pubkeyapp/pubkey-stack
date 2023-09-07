@@ -117,7 +117,7 @@ describe('api-identity-feature', () => {
           { cookie },
         )
       } catch (e) {
-        expect(e.message).toContain('Identity challenge verification failed.')
+        expect(e.message).toContain('Signature verification failed')
       }
     })
 

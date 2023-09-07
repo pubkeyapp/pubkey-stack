@@ -323,6 +323,7 @@ export type VerifyIdentityChallengeInput = {
   provider: IdentityProvider
   providerId: Scalars['String']['input']
   signature: Scalars['String']['input']
+  useLedger?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 export type LoginMutationVariables = Exact<{

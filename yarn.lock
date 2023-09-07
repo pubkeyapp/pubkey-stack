@@ -3365,10 +3365,15 @@
   dependencies:
     "@noble/hashes" "1.3.1"
 
-"@noble/hashes@1.3.1", "@noble/hashes@^1.3.0":
+"@noble/hashes@1.3.1":
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/@noble/hashes/-/hashes-1.3.1.tgz#8831ef002114670c603c458ab8b11328406953a9"
   integrity sha512-EbqwksQwz9xDRGfDST86whPBgM65E0OH/pCgqW0GBVzO22bNE+NuIbeTb714+IfSjU3aRk47EUvXIb5bTsenKA==
+
+"@noble/hashes@^1.3.1":
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/@noble/hashes/-/hashes-1.3.2.tgz#6f26dbc8fbc7205873ce3cee2f690eba0d421b39"
+  integrity sha512-MVC8EAQp7MvEcm30KWENFjgR+Mkmf+D189XJTkFIlwohU5hcBbn1ZkKq7KVTi2Hme3PMGF390DaL52beVrIihQ==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -3925,15 +3930,20 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@pubkeyapp/logo@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@pubkeyapp/logo/-/logo-1.2.0.tgz#1c7499777c8f508e335b68d4340dd650c92e4b21"
-  integrity sha512-xhDvQ4iRW2YjkusW8vKCdX5C13RjI8/brsuM1sezLLkzjK32mFQEKuJ89Zaf8qT6ieUEjv1HWf7mXd131SQtZQ==
+"@pubkeyapp/logo@^1.3.3":
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/@pubkeyapp/logo/-/logo-1.3.3.tgz#6ed6760bcdfb1ed6bd25c0185afa2d8c2214442d"
+  integrity sha512-fXz86XAtGK6HT5XgmrAE26JK/ap7OjRDS7SPZVs9GomsqWaayKxTHKPBEMmldr6V2dIwW1LYJUWb+xB2Tvmq2w==
 
-"@pubkeyapp/wallet-adapter-mantine-ui@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@pubkeyapp/wallet-adapter-mantine-ui/-/wallet-adapter-mantine-ui-1.2.0.tgz#5fdf8560c8b3214f592089613e702401a331fc8a"
-  integrity sha512-4jBRfEdZ/wj+P0zCWCQXxb4gyIZVgm3EStstFyVZVno1slojHTjNWSzvZvs6lmje4+uRG2+DU+4ycnb1tD5UjQ==
+"@pubkeyapp/solana-verify-wallet@^1.3.3":
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/@pubkeyapp/solana-verify-wallet/-/solana-verify-wallet-1.3.3.tgz#5519fb0010a09a0db242a5e1d2a7685d6b8da3c5"
+  integrity sha512-37JhosEYn9lSzaiSPyCotgAopBCzLHes+F1teSLdS+wb17LDu/7oB5VVhW9ieFEdyHokgXZX4iVLK7MVv67DsQ==
+
+"@pubkeyapp/wallet-adapter-mantine-ui@^1.3.3":
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/@pubkeyapp/wallet-adapter-mantine-ui/-/wallet-adapter-mantine-ui-1.3.3.tgz#75533fc02e774bdc6f388f5f348b650d38270f6f"
+  integrity sha512-tke7dqyH8jOfe06xYzE01zasuDrbve+gSAGpyPeOGw1mvfysAV+1ZeECtjiQBNKYrwIO4GcCFrDEUxNwu11Z/Q==
 
 "@radix-ui/number@1.0.0":
   version "1.0.0"
@@ -4211,14 +4221,14 @@
     "@wallet-standard/app" "^1.0.1"
     "@wallet-standard/base" "^1.0.1"
 
-"@solana/web3.js@^1.78.3":
-  version "1.78.3"
-  resolved "https://registry.yarnpkg.com/@solana/web3.js/-/web3.js-1.78.3.tgz#1214f17f51612e403c4dc7844c7a9694938bfbab"
-  integrity sha512-qhpnyIlrj/4Czw1dBFZK6KgZBk5FwuJhvMl0C7m94jhl90yDC8b6w4svKwPjhB+OOrdQAzHyRp0+ocEs/Liw7w==
+"@solana/web3.js@^1.78.4":
+  version "1.78.4"
+  resolved "https://registry.yarnpkg.com/@solana/web3.js/-/web3.js-1.78.4.tgz#e8ca9abe4ec2af5fc540c1d272efee24aaffedb3"
+  integrity sha512-up5VG1dK+GPhykmuMIozJZBbVqpm77vbOG6/r5dS7NBGZonwHfTLdBbsYc3rjmaQ4DpCXUa3tUc4RZHRORvZrw==
   dependencies:
     "@babel/runtime" "^7.22.6"
     "@noble/curves" "^1.0.0"
-    "@noble/hashes" "^1.3.0"
+    "@noble/hashes" "^1.3.1"
     "@solana/buffer-layout" "^4.0.0"
     agentkeepalive "^4.3.0"
     bigint-buffer "^1.1.5"
@@ -14262,6 +14272,11 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
   integrity sha512-KXXFFdAbFXY4geFIwoyNK+f5Z1b7swfXABfL7HXCmoIWMKU3dmS26672A4EeQtDzLKy7SXmfBu51JolvEKwtGA==
+
+tweetnacl@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-1.0.3.tgz#ac0af71680458d8a6378d0d0d050ab1407d35596"
+  integrity sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==
 
 type-check@^0.4.0, type-check@~0.4.0:
   version "0.4.0"

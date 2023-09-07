@@ -11,4 +11,6 @@ export class VerifyIdentityChallengeInput {
   challenge!: string
   @Field()
   signature!: string
+  @Field({ nullable: true, defaultValue: false })
+  useLedger!: boolean
 }

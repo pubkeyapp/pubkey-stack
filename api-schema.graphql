@@ -217,4 +217,5 @@ input VerifyIdentityChallengeInput {
   provider: IdentityProvider!
   providerId: String!
   signature: String!
+  useLedger: Boolean = false
 }
