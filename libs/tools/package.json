@@ -3,11 +3,11 @@
   "version": "0.0.1",
   "dependencies": {
     "@mrleebo/prisma-ast": "^0.7.0",
-    "@nx/devkit": "16.6.0",
-    "@nx/nest": "16.6.0",
-    "@nx/react": "16.6.0",
-    "@nx/linter": "16.6.0",
-    "dotenv": "^10.0.0",
+    "@nx/devkit": "16.8.1",
+    "@nx/nest": "16.8.1",
+    "@nx/react": "16.8.1",
+    "@nx/linter": "16.8.1",
+    "dotenv": "16.1.4",
     "pg": "^8.11.2",
     "tslib": "^2.3.0",
     "ts-morph": "^19.0.0"
