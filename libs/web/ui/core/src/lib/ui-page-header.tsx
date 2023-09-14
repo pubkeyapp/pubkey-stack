@@ -1,19 +1,16 @@
 import { Group, Text } from '@mantine/core'
 import { ReactNode } from 'react'
-import { UiCard } from './ui-card'
+import { UiCard, UiCardProps } from './ui-card'
 import { UiGroup } from './ui-group'
 
-export function UiPageHeader({
-  children,
-  title,
-  actions,
-}: {
+export interface UiPageHeaderProps extends UiCardProps {
   children?: ReactNode
-  title: string
+  title: ReactNode
   actions?: ReactNode
-}) {
+}
+export function UiPageHeader({ children, title, actions, ...props }: UiPageHeaderProps) {
   return (
-    <UiCard>
+    <UiCard {...props}>
       <UiGroup>
         <Text size="xl" weight={700}>
           {title}

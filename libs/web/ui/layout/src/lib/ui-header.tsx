@@ -1,6 +1,5 @@
 import { Anchor, Burger, Container, createStyles, Group, Header, Paper, rem, Transition } from '@mantine/core'
 import { UiLogoMark } from '@pubkey-stack/web/ui/core'
-import { ComponentType } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { UiHeaderProfile } from './ui-header-profile'
 
@@ -73,15 +72,13 @@ const useStyles = createStyles((theme) => ({
 }))
 
 export interface UiHeaderProps {
-  text: string
-  icon: ComponentType<{ size: number }>
   opened: boolean
   close: () => void
   toggle: () => void
   links: { link: string; label: string }[]
 }
 
-export function UiHeader({ icon: Icon, opened, links, close, toggle, text }: UiHeaderProps) {
+export function UiHeader({ opened, links, close, toggle }: UiHeaderProps) {
   const location = useLocation()
   const { classes, cx } = useStyles()
 
@@ -94,9 +91,7 @@ export function UiHeader({ icon: Icon, opened, links, close, toggle, text }: UiH
         to={link.link}
         underline={false}
         className={cx(classes.link, { [classes.linkActive]: active })}
-        onClick={(event) => {
-          close()
-        }}
+        onClick={() => close()}
       >
         {link.label}
       </Anchor>

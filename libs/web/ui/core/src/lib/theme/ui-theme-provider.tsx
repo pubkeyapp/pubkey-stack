@@ -9,14 +9,17 @@ import { DefaultUiTheme } from './default-ui-theme'
 export interface UiProviderContext {
   colorScheme: ColorScheme
   toggleColorScheme: (colorScheme?: ColorScheme) => void
-  isSmall: boolean
+  maxSm: boolean
+  maxXs: boolean
 }
 
 const Context = createContext<UiProviderContext>({} as UiProviderContext)
 
 export function UiThemeProvider({ children }: { children: ReactNode }) {
   const theme = useMantineTheme()
-  const isSmall = useMediaQuery(`(max-width: ${theme.breakpoints.md})`)
+  const isMd = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`)
+  const maxSm = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`)
+  const maxXs = useMediaQuery(`(max-width: ${theme.breakpoints.xs})`)
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: 'mantine-color-scheme',
     defaultValue: 'dark',
@@ -32,7 +35,8 @@ export function UiThemeProvider({ children }: { children: ReactNode }) {
   const value: UiProviderContext = {
     colorScheme,
     toggleColorScheme,
-    isSmall,
+    maxSm,
+    maxXs,
   }
   return (
     <Context.Provider value={value}>

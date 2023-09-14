@@ -8,6 +8,7 @@
     "build:sdk": "graphql-codegen --config codegen.ts",
     "build:web": "nx build web",
     "dev:api": "nx serve api",
+    "dev:demo": "nx serve demo",
     "dev:sdk": "yarn build:sdk --watch",
     "dev:services": "docker compose up",
     "dev:services:stop": "docker compose down",

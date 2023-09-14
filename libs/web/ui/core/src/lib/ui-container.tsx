@@ -2,10 +2,10 @@ import { Container, ContainerProps } from '@mantine/core'
 import { useUiTheme } from './theme'
 
 export function UiContainer(props: ContainerProps) {
-  const { isSmall } = useUiTheme()
+  const { maxSm } = useUiTheme()
 
   return (
-    <Container fluid={isSmall} px={isSmall ? 0 : undefined} py={isSmall ? undefined : 'sm'} {...props}>
+    <Container fluid={maxSm} px={maxSm ? 0 : undefined} py={maxSm ? undefined : 'sm'} {...props}>
       {props.children}
     </Container>
   )

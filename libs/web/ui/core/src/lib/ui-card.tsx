@@ -7,12 +7,12 @@ export interface UiCardProps extends PaperProps {
   title?: ReactNode
 }
 export function UiCard({ loading, title, ...props }: UiCardProps) {
-  const { isSmall } = useUiTheme()
+  const { maxSm } = useUiTheme()
 
   return (
-    <Paper p={isSmall ? 'xs' : 'md'} withBorder {...props}>
+    <Paper p={maxSm ? 'xs' : 'md'} withBorder {...props}>
       {title ? (
-        <Box mb={isSmall ? 'xs' : 'md'}>{typeof title === 'string' ? <UiCardTitle>{title}</UiCardTitle> : title}</Box>
+        <Box mb={maxSm ? 'xs' : 'md'}>{typeof title === 'string' ? <UiCardTitle>{title}</UiCardTitle> : title}</Box>
       ) : null}
       {loading ? <Skeleton visible={loading}>{props.children}</Skeleton> : props.children}
     </Paper>
