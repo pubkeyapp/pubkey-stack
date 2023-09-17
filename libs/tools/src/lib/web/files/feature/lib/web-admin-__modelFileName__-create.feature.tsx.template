@@ -14,7 +14,7 @@ export function WebAdmin<%= modelClassName %>CreateFeature() {
     return create<%= modelClassName %>(input)
       .then((res) => {
          if (res) {
-           navigate(`/admin/<%= modelFileName %>s/${res?.id}`)
+           navigate(`/admin/<%= modelFileNamePlural %>/${res?.id}`)
          }
        })
       .then(() => true)

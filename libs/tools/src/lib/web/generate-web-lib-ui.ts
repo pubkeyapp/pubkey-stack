@@ -5,7 +5,7 @@ import { addExports } from '../utils/add-export'
 import { getWebModuleInfo } from './get-web-module-info'
 
 export async function generateWebLibUi(tree: Tree, options: NormalizedWebFeatureSchema, npmScope: string) {
-  const { project, barrel, className, fileName, propertyName } = getWebModuleInfo(
+  const { project, barrel, className, fileName, propertyName, propertyNamePlural } = getWebModuleInfo(
     tree,
     options.app,
     'ui',
@@ -21,6 +21,7 @@ export async function generateWebLibUi(tree: Tree, options: NormalizedWebFeature
       modelClassName: className,
       modelFileName: fileName,
       modelPropertyName: propertyName,
+      modelPropertyNamePlural: propertyNamePlural,
       npmScope,
     })
     addExports(tree, barrel, [

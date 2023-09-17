@@ -6,21 +6,19 @@ import { updateSourceFile } from '../utils/update-source-file'
 import { getWebModuleInfo } from './get-web-module-info'
 
 export async function generateWebLibFeature(tree: Tree, options: NormalizedWebFeatureSchema, npmScope: string) {
-  const { project, barrel, className, fileName, propertyName } = getWebModuleInfo(
-    tree,
-    options.app,
-    'feature',
-    options.name,
-    options.modelName,
-  )
+  const { project, barrel, className, classNamePlural, fileName, fileNamePlural, propertyName, propertyNamePlural } =
+    getWebModuleInfo(tree, options.app, 'feature', options.name, options.modelName)
 
   if (!options.skipAdminCrud) {
     generateFiles(tree, join(__dirname, './files/feature'), project.sourceRoot, {
       app: options.app,
       label: options.label,
       modelClassName: className,
+      modelClassNamePlural: classNamePlural,
       modelFileName: fileName,
+      modelFileNamePlural: fileNamePlural,
       modelPropertyName: propertyName,
+      modelPropertyNamePlural: propertyNamePlural,
       npmScope,
     })
 
@@ -50,8 +48,8 @@ export const WebAdmin${className}Routes = lazy(() => import('./lib/web-admin-${f
       return
     }
 
-    const itemLink = `{ label: '${className}s', icon: IconUsers, link: '/admin/${fileName}s' }`
-    const itemRoute = `{ path: '${fileName}s/*', element: <WebAdmin${className}Routes /> }`
+    const itemLink = `{ label: '${classNamePlural}', icon: IconUsers, link: '/admin/${fileNamePlural}' }`
+    const itemRoute = `{ path: '${fileNamePlural}/*', element: <WebAdmin${className}Routes /> }`
 
     tree.write(
       adminRoutes,

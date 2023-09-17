@@ -7,10 +7,10 @@ import { Link } from 'react-router-dom'
 
 export function AdminUi<%= modelClassName %>Table({
   delete<%= modelClassName %>,
-  <%= modelPropertyName %>s = [],
+  <%= modelPropertyNamePlural %> = [],
 }: {
   delete<%= modelClassName %>: (<%= modelPropertyName %>: <%= modelClassName %>) => void
-  <%= modelPropertyName %>s: <%= modelClassName %>[]
+  <%= modelPropertyNamePlural %>: <%= modelClassName %>[]
 }) {
   return (
     <ScrollArea>
@@ -23,7 +23,7 @@ export function AdminUi<%= modelClassName %>Table({
             accessor: '<%= label %>',
             render: (item) => (
               <UiGroup position="left" spacing={4} align="baseline">
-                <Anchor component={Link} to={`/admin/<%= modelPropertyName %>s/${item.id}`} size="sm" weight={500}>
+                <Anchor component={Link} to={`/admin/<%= modelPropertyNamePlural %>/${item.id}`} size="sm" weight={500}>
                   {item.<%= label %>}
                 </Anchor>
               </UiGroup>
@@ -35,7 +35,7 @@ export function AdminUi<%= modelClassName %>Table({
             textAlignment: 'right',
             render: (item) => (
               <Group spacing={0} position="right" noWrap>
-                <ActionIcon color="brand" component={Link} to={`/admin/<%= modelPropertyName %>s/${item.id}/settings`}>
+                <ActionIcon color="brand" component={Link} to={`/admin/<%= modelPropertyNamePlural %>/${item.id}/settings`}>
                   <IconPencil size={16} />
                 </ActionIcon>
                 <ActionIcon color="red" onClick={() => delete<%= modelClassName %>(item)}>
@@ -45,7 +45,7 @@ export function AdminUi<%= modelClassName %>Table({
             ),
           },
         ]}
-        records={<%= modelPropertyName %>s}
+        records={<%= modelPropertyNamePlural %>}
       />
     </ScrollArea>
   )

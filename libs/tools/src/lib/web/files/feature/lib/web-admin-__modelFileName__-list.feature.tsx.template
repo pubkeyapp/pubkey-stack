@@ -9,7 +9,7 @@ export function WebAdmin<%= modelClassName %>ListFeature() {
 
   return (
     <UiAdminPage
-      title="<%= modelClassName %>s"
+      title="<%= modelClassNamePlural %>"
       leftAction={<UiBack />}
       rightAction={
         <Group>
@@ -32,10 +32,10 @@ export function WebAdmin<%= modelClassName %>ListFeature() {
             if (!window.confirm('Are you sure?')) return
             return delete<%= modelClassName %>(<%= modelPropertyName %>.id)
           }}
-          <%= modelPropertyName %>s={items}
+          <%= modelPropertyNamePlural %>={items}
         />
       ) : (
-        <UiAlert message="No results" />
+        <UiAlert message="No <%= modelPropertyNamePlural %> found" />
       )}
 
       <UiPagination pagination={pagination} />

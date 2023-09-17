@@ -1,4 +1,5 @@
 import { names, Tree } from '@nx/devkit'
+import * as pluralize from 'pluralize'
 import { WebLibType } from '../types/web-feature'
 import { getWebLib } from './get-web-lib'
 
@@ -11,12 +12,20 @@ export function getWebModuleInfo(tree: Tree, app: string, type: WebLibType, name
   }
 
   const { className, fileName, propertyName } = names(modelName)
+  const {
+    className: classNamePlural,
+    fileName: fileNamePlural,
+    propertyName: propertyNamePlural,
+  } = names(pluralize.plural(modelName))
 
   return {
     ...lib,
     barrel,
     className,
+    classNamePlural,
     fileName,
+    fileNamePlural,
     propertyName,
+    propertyNamePlural,
   }
 }
