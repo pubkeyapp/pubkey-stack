@@ -2,6 +2,7 @@ import { Avatar, Button, Group, Menu, rem, useMantineColorScheme } from '@mantin
 import { UserRole } from '@pubkey-stack/sdk'
 import { useWebAuth } from '@pubkey-stack/web/auth/data-access'
 import {
+  IconBug,
   IconChevronDown,
   IconLogout,
   IconMoonStars,
@@ -17,6 +18,9 @@ export function UiHeaderProfile() {
   const { user, logout } = useWebAuth()
   const { colorScheme, toggleColorScheme } = useMantineColorScheme()
   const [open, setOpen] = useState(false)
+  const isAdmin = user?.role === UserRole.Admin
+  const isDeveloper = user?.developer ?? false
+
   return (
     <Menu
       width={260}
@@ -42,13 +46,16 @@ export function UiHeaderProfile() {
         <Menu.Item component={Link} to="/settings" icon={<IconSettings size="0.9rem" stroke={1.5} />}>
           Your settings
         </Menu.Item>
-        {user?.role === UserRole.Admin && (
-          <>
-            <Menu.Divider />
-            <Menu.Item component={Link} to="/admin" icon={<IconShield size="0.9rem" stroke={1.5} />}>
-              Admin
-            </Menu.Item>
-          </>
+        {isAdmin || isDeveloper ? <Menu.Divider /> : null}
+        {isAdmin && (
+          <Menu.Item component={Link} to="/admin" icon={<IconShield size="0.9rem" stroke={1.5} />}>
+            Admin
+          </Menu.Item>
+        )}{' '}
+        {isDeveloper && (
+          <Menu.Item component={Link} to="/admin/development" icon={<IconBug size="0.9rem" stroke={1.5} />}>
+            Development
+          </Menu.Item>
         )}
         <Menu.Divider />
         <Menu.Item

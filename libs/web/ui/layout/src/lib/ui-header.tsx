@@ -104,7 +104,7 @@ export function UiHeader({ icon: Icon, opened, links, close, toggle, text }: UiH
   })
   return (
     <Header height={{ base: 50, md: 70 }} className={classes.root}>
-      <Container className={classes.header}>
+      <Container size="xl" className={classes.header}>
         <Group align="center">
           {items.length ? <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" /> : null}
           <Anchor component={Link} to="/dashboard" replace underline={false} display="flex">

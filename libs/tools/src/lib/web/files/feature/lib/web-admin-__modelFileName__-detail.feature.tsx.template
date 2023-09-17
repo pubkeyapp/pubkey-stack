@@ -1,32 +1,37 @@
-import { UiBack, UiAdminPage, UiError, UiLoader, UiStack, UiTabRoutes } from '@<%= npmScope %>/<%= app %>/ui/core'
+import { Group } from '@mantine/core'
+import { UiBack, UiAdminPage, UiError, UiLoader, UiTabRoutes } from '@<%= npmScope %>/<%= app %>/ui/core'
 import { useAdminFindOne<%= modelClassName %> } from '@<%= npmScope %>/<%= app %>/<%= modelFileName %>/data-access'
 import { useParams } from 'react-router-dom'
+import { WebAdmin<%= modelClassName %>DetailOverviewTab } from './web-admin-<%= modelFileName %>-detail-overview.tab'
 import { WebAdmin<%= modelClassName %>DetailSettingsTab } from './web-admin-<%= modelFileName %>-detail-settings.tab'
 
 export function WebAdmin<%= modelClassName %>DetailFeature() {
   const { <%= modelPropertyName %>Id } = useParams<{ <%= modelPropertyName %>Id: string }>() as { <%= modelPropertyName %>Id: string }
   const { query, <%= modelPropertyName %> } = useAdminFindOne<%= modelClassName %>(<%= modelPropertyName %>Id)
 
-  return (
-    <UiAdminPage leftAction={<UiBack />} title={<%= modelPropertyName %>?.<%= label %> ?? '...'}>
-      <UiStack>
-        {query.isLoading ? (
-          <UiLoader />
-        ) : <%= modelPropertyName %> ? (
-          <UiTabRoutes
-            tabs={[
-              {
-                value: 'settings',
-                label: 'Settings',
-                component: <WebAdmin<%= modelClassName %>DetailSettingsTab <%= modelPropertyName %>Id={<%= modelPropertyName %>Id} />,
-              },
+  if (query.isLoading) {
+    return <UiLoader />
+  }
+  if (!<%= modelPropertyName %>) {
+    return <UiError message="<%= modelClassName %> not found." />
+  }
 
-            ]}
-          />
-        ) : (
-          <UiError message="<%= modelClassName %> not found" />
-        )}
-      </UiStack>
+  return (
+    <UiAdminPage leftAction={<UiBack />} title={<Group>{<%= modelPropertyName %>.<%= label %>}</Group> }>
+      <UiTabRoutes
+        tabs={[
+          {
+            value: 'overview',
+            label: 'Overview',
+            component: <WebAdmin<%= modelClassName %>DetailOverviewTab <%= modelPropertyName %>Id={<%= modelPropertyName %>Id} />,
+          },
+          {
+            value: 'settings',
+            label: 'Settings',
+            component: <WebAdmin<%= modelClassName %>DetailSettingsTab <%= modelPropertyName %>Id={<%= modelPropertyName %>Id} />,
+          },
+        ]}
+      />
     </UiAdminPage>
   )
 }

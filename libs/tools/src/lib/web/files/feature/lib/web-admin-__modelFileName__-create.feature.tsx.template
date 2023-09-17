@@ -12,7 +12,11 @@ export function WebAdmin<%= modelClassName %>CreateFeature() {
 
   async function submit(input: AdminCreate<%= modelClassName %>Input) {
     return create<%= modelClassName %>(input)
-      .then((res) => navigate(`/admin/<%= modelFileName %>s/${res?.id}`))
+      .then((res) => {
+         if (res) {
+           navigate(`/admin/<%= modelFileName %>s/${res?.id}`)
+         }
+       })
       .then(() => true)
       .catch((err) => {
         showNotificationError(err.message)

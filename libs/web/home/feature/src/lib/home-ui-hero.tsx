@@ -1,4 +1,5 @@
 import { Button, Container, createStyles, Group, rem, Text } from '@mantine/core'
+import { IconBrandGithub, IconRocket } from '@tabler/icons-react'
 import { Link } from 'react-router-dom'
 
 const useStyles = createStyles((theme) => ({
@@ -71,29 +72,37 @@ export function HomeUiHero() {
     <div className={classes.wrapper}>
       <Container size={700} className={classes.inner}>
         <h1 className={classes.title}>
-          <Text component="span" color="#5865F2" inherit>
-            Discord
-          </Text>{' '}
-          access gates
-          <br />
-          Using{' '}
-          <Text component="span" variant="gradient" gradient={{ from: 'blue', to: 'cyan' }} inherit>
-            PubKey
+          Welcome to <br />
+          <Text component="span" variant="gradient" gradient={{ from: 'blue', to: 'pink', deg: 135 }} inherit>
+            PubKey Stack.
           </Text>
-          .
         </h1>
 
         <Text className={classes.description} color="dimmed">
-          PubKey is a simple and secure way to gate your content on Discord. It's free and open source.
+          This is the PubKey Stack starter project.
         </Text>
 
         <Group className={classes.controls}>
-          <Button component={Link} to="/dashboard" size="xl" className={classes.control} color="brand">
-            Enter
+          <Button
+            component={Link}
+            to="/dashboard"
+            size="xl"
+            className={classes.control}
+            color="brand"
+            leftIcon={<IconRocket />}
+          >
+            Get started
           </Button>
 
-          <Button component={Link} to="/learn-more" size="xl" variant="default" className={classes.control}>
-            Learn more
+          <Button
+            component={'a'}
+            href="https://github.com/pubkeyapp/pubkey-stack"
+            size="xl"
+            variant="default"
+            leftIcon={<IconBrandGithub />}
+            className={classes.control}
+          >
+            Star on GitHub
           </Button>
         </Group>
       </Container>

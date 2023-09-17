@@ -1,7 +1,7 @@
 import { WebDevAdminRoutes } from '@pubkey-stack/web/dev/feature'
 import { UiContainer, UiDashboard, UiNotFound } from '@pubkey-stack/web/ui/core'
 import { WebAdminUserRoutes } from '@pubkey-stack/web/user/feature'
-import { IconBug, IconUsers } from '@tabler/icons-react'
+import { IconUsers } from '@tabler/icons-react'
 import { Navigate, useRoutes } from 'react-router-dom'
 
 export default function WebAdminRoutes() {
@@ -13,7 +13,6 @@ export default function WebAdminRoutes() {
         <UiContainer>
           <UiDashboard
             links={[
-              { label: 'Development', icon: IconBug, link: '/admin/development' },
               { label: 'Users', icon: IconUsers, link: '/admin/users' },
               // GENERATE_ADMIN_DASHBOARD_LINK
             ]}
@@ -24,6 +23,6 @@ export default function WebAdminRoutes() {
     { path: 'development/*', element: <WebDevAdminRoutes /> },
     { path: 'users/*', element: <WebAdminUserRoutes /> },
     // GENERATE_ADMIN_DASHBOARD_ROUTE
-    { path: '*', element: <UiNotFound /> },
+    { path: '*', element: <UiNotFound to="/admin" /> },
   ])
 }

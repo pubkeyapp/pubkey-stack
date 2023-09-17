@@ -1,13 +1,20 @@
-import { UiAlert, UiCard } from '@<%= npmScope %>/<%= app %>/ui/core'
+import { UiCard, UiError, UiLoader } from '@<%= npmScope %>/<%= app %>/ui/core'
 import { useAdminFindOne<%= modelClassName %> } from '@<%= npmScope %>/<%= app %>/<%= modelFileName %>/data-access'
 import { AdminUiUpdate<%= modelClassName %>Form } from '@<%= npmScope %>/<%= app %>/<%= modelFileName %>/ui'
 
 export function WebAdmin<%= modelClassName %>DetailSettingsTab({ <%= modelPropertyName %>Id }: { <%= modelPropertyName %>Id: string }) {
-  const { <%= modelPropertyName %>, update<%= modelClassName %> } = useAdminFindOne<%= modelClassName %>(<%= modelPropertyName %>Id)
+  const { <%= modelPropertyName %>, query, update<%= modelClassName %> } = useAdminFindOne<%= modelClassName %>(<%= modelPropertyName %>Id)
 
-  return (
+  if (query.isLoading) {
+    return <UiLoader />
+  }
+  if (!<%= modelPropertyName %>) {
+    return <UiError message="<%= modelClassName %> not found." />
+  }
+
+return (
     <UiCard>
-      {<%= modelPropertyName %> ? <AdminUiUpdate<%= modelClassName %>Form <%= modelPropertyName %>={<%= modelPropertyName %>} submit={update<%= modelClassName %>} /> : <UiAlert message="<%= modelClassName %> not found." />}
+      <AdminUiUpdate<%= modelClassName %>Form <%= modelPropertyName %>={<%= modelPropertyName %>} submit={update<%= modelClassName %>} />
     </UiCard>
   )
 }

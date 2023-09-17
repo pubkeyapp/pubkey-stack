@@ -38,7 +38,7 @@ export const useStyles = createStyles((theme) => ({
   },
 }))
 
-export function UiNotFound() {
+export function UiNotFound({ to = '/' }: { to?: string }) {
   const { classes } = useStyles()
 
   return (
@@ -50,8 +50,8 @@ export function UiNotFound() {
         URL.
       </Text>
       <Group position="center">
-        <Button variant="subtle" size="md" component={Link} to={'/'}>
-          Take me back to home page
+        <Button variant="subtle" size="md" component={Link} to={to}>
+          Take me back!
         </Button>
       </Group>
     </Container>
