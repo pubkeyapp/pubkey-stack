@@ -45,7 +45,7 @@ export class ApiUserAdminService {
   async findManyUser(input: AdminFindManyUserInput): Promise<UserPaging> {
     return this.core.data.user
       .paginate({
-        orderBy: { updatedAt: 'desc' },
+        orderBy: { createdAt: 'desc' },
         where: getAdminUserWhereInput(input),
       })
       .withPages({ limit: input.limit, page: input.page })

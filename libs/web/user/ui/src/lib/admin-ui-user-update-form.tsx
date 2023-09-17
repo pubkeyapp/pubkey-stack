@@ -1,18 +1,10 @@
 import { Button, Group } from '@mantine/core'
-import { AdminUpdateUserInput, User, UserRole, UserStatus } from '@pubkey-stack/sdk'
+import { AdminUpdateUserInput, getEnumOptions, User, UserRole, UserStatus } from '@pubkey-stack/sdk'
 import { formFieldCheckbox, formFieldSelect, formFieldText, UiForm, UiFormField } from '@pubkey-stack/web/ui/core'
 
 export interface AdminUiUpdateUserFormProps {
   submit: (res: AdminUpdateUserInput) => Promise<boolean>
   user: User
-}
-
-export function userRoleOptions(): { label: string; value: UserRole }[] {
-  return Object.keys(UserRole).map((key: string) => ({ label: key, value: UserRole[key as UserRole] }))
-}
-
-export function userStatusOptions(): { label: string; value: UserStatus }[] {
-  return Object.keys(UserStatus).map((key: string) => ({ label: key, value: UserStatus[key as UserStatus] }))
 }
 
 export function AdminUiUpdateUserForm({ submit, user }: AdminUiUpdateUserFormProps) {
@@ -26,8 +18,8 @@ export function AdminUiUpdateUserForm({ submit, user }: AdminUiUpdateUserFormPro
   }
 
   const fields: UiFormField<AdminUpdateUserInput>[] = [
-    formFieldSelect('role', { label: 'Role', options: userRoleOptions() }),
-    formFieldSelect('status', { label: 'Status', options: userStatusOptions() }),
+    formFieldSelect('role', { label: 'Role', options: getEnumOptions(UserRole) }),
+    formFieldSelect('status', { label: 'Status', options: getEnumOptions(UserStatus) }),
     formFieldText('username', { label: 'Username' }),
     formFieldText('name', { label: 'Name' }),
     formFieldText('avatarUrl', { label: 'Avatar URL' }),

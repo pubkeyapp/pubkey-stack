@@ -1,16 +1,9 @@
 import { Button, Group } from '@mantine/core'
-import { AdminCreateIdentityInput, IdentityProvider } from '@pubkey-stack/sdk'
+import { AdminCreateIdentityInput, getEnumOptions, IdentityProvider } from '@pubkey-stack/sdk'
 import { formFieldSelect, formFieldText, UiForm, UiFormField } from '@pubkey-stack/web/ui/core'
 
 export interface AuthUiIdentityCreateFormProps {
   submit: (res: AdminCreateIdentityInput) => Promise<boolean>
-}
-
-export function identityProviderOptions(): { label: string; value: IdentityProvider }[] {
-  return Object.keys(IdentityProvider).map((key: string) => ({
-    label: key,
-    value: IdentityProvider[key as IdentityProvider],
-  }))
 }
 
 export function AuthUiIdentityCreateForm({ submit }: AuthUiIdentityCreateFormProps) {
@@ -26,7 +19,7 @@ export function AuthUiIdentityCreateForm({ submit }: AuthUiIdentityCreateFormPro
     }),
     formFieldSelect('provider', {
       label: 'Provider',
-      options: identityProviderOptions(),
+      options: getEnumOptions(IdentityProvider),
     }),
   ]
 

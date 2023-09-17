@@ -13,7 +13,7 @@ export class ApiUserUserService {
   async findManyUser(input: UserFindManyUserInput): Promise<UserPaging> {
     return this.core.data.user
       .paginate({
-        orderBy: { updatedAt: 'desc' },
+        orderBy: { createdAt: 'desc' },
         where: getUserUserWhereInput(input),
       })
       .withPages({ limit: input.limit, page: input.page })

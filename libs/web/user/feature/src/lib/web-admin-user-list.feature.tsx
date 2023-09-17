@@ -1,5 +1,5 @@
 import { Button, Group, Select } from '@mantine/core'
-import { UserRole, UserStatus } from '@pubkey-stack/sdk'
+import { getEnumOptions, UserRole, UserStatus } from '@pubkey-stack/sdk'
 import {
   UiAdminPage,
   UiAlert,
@@ -10,7 +10,7 @@ import {
   UiSearchField,
 } from '@pubkey-stack/web/ui/core'
 import { useAdminFindManyUser } from '@pubkey-stack/web/user/data-access'
-import { AdminUiUserTable, userRoleOptions, userStatusOptions } from '@pubkey-stack/web/user/ui'
+import { AdminUiUserTable } from '@pubkey-stack/web/user/ui'
 import { Link } from 'react-router-dom'
 
 export function WebAdminUserListFeature() {
@@ -37,7 +37,7 @@ export function WebAdminUserListFeature() {
             pagination.setPage(1)
             setRole(role === '' ? undefined : (role as UserRole))
           }}
-          data={[{ value: '', label: 'Filter by role' }, ...userRoleOptions()]}
+          data={[{ value: '', label: 'Filter by role' }, ...getEnumOptions(UserRole)]}
         />
         <Select
           value={status?.toString() ?? ''}
@@ -45,7 +45,7 @@ export function WebAdminUserListFeature() {
             pagination.setPage(1)
             setStatus(status === '' ? undefined : (status as UserStatus))
           }}
-          data={[{ value: '', label: 'Filter by status' }, ...userStatusOptions()]}
+          data={[{ value: '', label: 'Filter by status' }, ...getEnumOptions(UserStatus)]}
         />
       </Group>
 
