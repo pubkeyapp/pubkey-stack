@@ -5,7 +5,7 @@ import { showNotificationError, showNotificationSuccess } from '@pubkey-stack/we
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
-export function useAdminIdentities({ ownerId, provider }: { ownerId?: string; provider?: IdentityProvider }) {
+export function useAdminFindManyIdentity({ ownerId, provider }: { ownerId?: string; provider?: IdentityProvider }) {
   const sdk = useWebSdk()
 
   const [input] = useState<AdminFindManyIdentityInput>({

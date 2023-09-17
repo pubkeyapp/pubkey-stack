@@ -1,1 +1,1 @@
-export * from './lib/web-settings-ui-profile-form'
+export * from './lib/web-ui-settings-profile-form'

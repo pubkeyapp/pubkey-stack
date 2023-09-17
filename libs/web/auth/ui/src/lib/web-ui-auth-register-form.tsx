@@ -2,12 +2,13 @@ import { RegisterInput } from '@pubkey-stack/sdk'
 import { formFieldPassword, formFieldText, UiForm, UiFormField } from '@pubkey-stack/web/ui/core'
 import { ReactNode, useState } from 'react'
 
-export interface AuthUiRegisterFormProps {
+export function WebUiAuthRegisterForm({
+  children,
+  submit,
+}: {
   children?: ReactNode
   submit: (res: RegisterInput) => Promise<boolean>
-}
-
-export function AuthUiRegisterForm({ children, submit }: AuthUiRegisterFormProps) {
+}) {
   const [model] = useState<RegisterInput>({
     username: '',
     password: '',

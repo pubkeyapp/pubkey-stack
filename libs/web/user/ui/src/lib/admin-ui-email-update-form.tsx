@@ -2,12 +2,13 @@ import { AdminUpdateEmailInput, Email } from '@pubkey-stack/sdk'
 import { formFieldCheckbox, formFieldText, UiForm, UiFormField } from '@pubkey-stack/web/ui/core'
 import { Button, Group } from '@mantine/core'
 
-export interface AuthUiEmailUpdateFormProps {
+export function AuthUiEmailUpdateForm({
+  email,
+  submit,
+}: {
   email: Email
   submit: (emailId: string, input: AdminUpdateEmailInput) => Promise<boolean>
-}
-
-export function AuthUiEmailUpdateForm({ email, submit }: AuthUiEmailUpdateFormProps) {
+}) {
   const model: AdminUpdateEmailInput = {
     email: email.email ?? '',
     verified: email.verified ?? false,

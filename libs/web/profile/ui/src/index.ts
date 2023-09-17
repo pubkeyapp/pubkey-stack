@@ -1,1 +1,1 @@
-export * from './lib/web-profile-ui-user'
+export * from './lib/web-ui-profile-user'

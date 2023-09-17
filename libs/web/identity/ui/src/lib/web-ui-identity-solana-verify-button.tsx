@@ -4,9 +4,9 @@ import { ellipsify, Identity } from '@pubkey-stack/sdk'
 import { IdentityProviderSolana } from '@pubkey-stack/web/identity/data-access'
 import { SolanaClusterProvider } from '@pubkey-stack/web/solana/data-access'
 import { IconAlertCircle } from '@tabler/icons-react'
-import { IdentityUiSolanaVerifyWizard } from './identity-ui-solana-verify-wizard'
+import { WebUiIdentitySolanaVerifyWizard } from './web-ui-identity-solana-verify-wizard'
 
-export function IdentityUiSolanaVerifyButton({ identity, refresh }: { identity: Identity; refresh: () => void }) {
+export function WebUiIdentitySolanaVerifyButton({ identity, refresh }: { identity: Identity; refresh: () => void }) {
   return (
     <Tooltip label={`Verify ${ellipsify(identity.providerId)} by signing a message with your wallet.`}>
       <Button
@@ -21,7 +21,7 @@ export function IdentityUiSolanaVerifyButton({ identity, refresh }: { identity: 
             children: (
               <SolanaClusterProvider autoConnect={true}>
                 <IdentityProviderSolana refresh={refresh}>
-                  <IdentityUiSolanaVerifyWizard identity={identity} refresh={refresh} />
+                  <WebUiIdentitySolanaVerifyWizard identity={identity} refresh={refresh} />
                 </IdentityProviderSolana>
               </SolanaClusterProvider>
             ),

@@ -1,7 +1,7 @@
 import { Button } from '@mantine/core'
-import { WebProfileUiUser } from '@pubkey-stack/web/profile/ui'
+import { WebUiProfileUser } from '@pubkey-stack/web/profile/ui'
 import { useUserSettings } from '@pubkey-stack/web/settings/data-access'
-import { WebSettingsUiProfileForm } from '@pubkey-stack/web/settings/ui'
+import { WebUiSettingsProfileForm } from '@pubkey-stack/web/settings/ui'
 import { UiCard, UiContainer, UiLoader, UiStack, UiTabRoutes, UiWarn } from '@pubkey-stack/web/ui/core'
 import { Link } from 'react-router-dom'
 import { WebSettingsIdentityList } from './web-settings-identity-list'
@@ -20,7 +20,7 @@ export default function WebSettingsRoutes() {
   return (
     <UiContainer size="xs">
       <UiStack>
-        <WebProfileUiUser
+        <WebUiProfileUser
           user={user}
           action={
             <Button size="xs" variant="light" component={Link} to={`/profile`}>
@@ -35,7 +35,7 @@ export default function WebSettingsRoutes() {
               value: 'profile',
               component: (
                 <UiCard>
-                  <WebSettingsUiProfileForm user={user} submit={updateUser} />
+                  <WebUiSettingsProfileForm user={user} submit={updateUser} />
                 </UiCard>
               ),
             },

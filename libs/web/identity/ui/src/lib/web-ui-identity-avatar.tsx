@@ -2,7 +2,7 @@ import { Avatar } from '@mantine/core'
 import { Identity, IdentityProvider } from '@pubkey-stack/sdk'
 import { IconCurrencySolana } from '@tabler/icons-react'
 
-export function IdentityUiAvatar({ item }: { item: Identity }) {
+export function WebUiIdentityAvatar({ item }: { item: Identity }) {
   if (item.provider === IdentityProvider.Solana) {
     return (
       <Avatar

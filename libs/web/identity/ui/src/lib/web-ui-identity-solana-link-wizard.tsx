@@ -8,7 +8,7 @@ import { WalletMultiButton } from '@pubkeyapp/wallet-adapter-mantine-ui'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useEffect, useState } from 'react'
 
-export function IdentityUiSolanaLinkWizard({ identities }: { identities: Identity[] }) {
+export function WebUiIdentitySolanaLinkWizard({ identities }: { identities: Identity[] }) {
   const { linkAndSign } = useIdentitySolana()
   const { connected, publicKey, disconnect } = useWallet()
   const [signing, setSigning] = useState(false)

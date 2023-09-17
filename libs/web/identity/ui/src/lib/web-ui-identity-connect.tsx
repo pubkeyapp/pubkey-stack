@@ -1,19 +1,19 @@
 import { Alert } from '@mantine/core'
 import { IdentityProvider } from '@pubkey-stack/sdk'
-import { useUserIdentities } from '@pubkey-stack/web/identity/data-access'
+import { useUserFindManyIdentity } from '@pubkey-stack/web/identity/data-access'
 import { UiDashboardContainer } from '@pubkey-stack/web/ui/core'
 
-import { IdentityUiDiscordLinkButton } from './identity-ui-discord-link-button'
-import { IdentityUiIcon } from './identity-ui-icon'
-import { IdentityUiSolanaLinkButton } from './identity-ui-solana-link-button'
+import { WebUiIdentityDiscordLinkButton } from './web-ui-identity-discord-link-button'
+import { WebUiIdentityIcon } from './web-ui-identity-icon'
+import { WebUiIdentitySolanaLinkButton } from './web-ui-identity-solana-link-button'
 
-export function IdentityUiConnect() {
-  const { hasDiscord, hasSolana, items, query } = useUserIdentities()
+export function WebUiIdentityConnect() {
+  const { hasDiscord, hasSolana, items, query } = useUserFindManyIdentity()
   return (
     <UiDashboardContainer>
       {hasDiscord ? (
         <Alert
-          icon={<IdentityUiIcon provider={IdentityProvider.Discord} />}
+          icon={<WebUiIdentityIcon provider={IdentityProvider.Discord} />}
           title="Connected"
           color="green"
           variant="outline"
@@ -21,11 +21,11 @@ export function IdentityUiConnect() {
           Discord account is connected
         </Alert>
       ) : (
-        <IdentityUiDiscordLinkButton />
+        <WebUiIdentityDiscordLinkButton />
       )}
       {hasSolana ? (
         <Alert
-          icon={<IdentityUiIcon provider={IdentityProvider.Solana} />}
+          icon={<WebUiIdentityIcon provider={IdentityProvider.Solana} />}
           title="Connected"
           color="green"
           variant="outline"
@@ -33,12 +33,12 @@ export function IdentityUiConnect() {
           Solana wallet is connected
         </Alert>
       ) : (
-        <IdentityUiSolanaLinkButton
+        <WebUiIdentitySolanaLinkButton
           disabled={hasSolana}
           label="Link Solana Wallet"
           size="xl"
           fullWidth
-          leftIcon={<IdentityUiIcon provider={IdentityProvider.Solana} />}
+          leftIcon={<WebUiIdentityIcon provider={IdentityProvider.Solana} />}
           items={items ?? []}
           refresh={() => query.refetch()}
         />

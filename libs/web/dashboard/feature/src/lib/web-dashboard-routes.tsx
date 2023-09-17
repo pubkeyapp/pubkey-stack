@@ -1,10 +1,10 @@
 import { Button } from '@mantine/core'
 import { useWebAuth } from '@pubkey-stack/web/auth/data-access'
-import { useUserIdentities } from '@pubkey-stack/web/identity/data-access'
+import { useUserFindManyIdentity } from '@pubkey-stack/web/identity/data-access'
 import {
-  IdentityUiConnect,
-  IdentityUiDiscordLinkButton,
-  IdentityUiIdentityGroupList,
+  WebUiIdentityConnect,
+  WebUiIdentityDiscordLinkButton,
+  WebUiIdentityIdentityGroupList,
 } from '@pubkey-stack/web/identity/ui'
 
 import { UiContainer, UiDashboardContainer, UiPageHeader, UiStack } from '@pubkey-stack/web/ui/core'
@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom'
 
 export default function WebDashboardRoutes() {
   const { user } = useWebAuth()
-  const { expiredDiscord, hasDiscord, hasSolana, grouped } = useUserIdentities()
+  const { expiredDiscord, hasDiscord, hasSolana, grouped } = useUserFindManyIdentity()
 
   const connectIdentities = !hasDiscord || !hasSolana
 
@@ -21,10 +21,10 @@ export default function WebDashboardRoutes() {
   return (
     <UiContainer h="100%">
       {connectIdentities ? (
-        <IdentityUiConnect />
+        <WebUiIdentityConnect />
       ) : expiredDiscord ? (
         <UiDashboardContainer>
-          <IdentityUiDiscordLinkButton />
+          <WebUiIdentityDiscordLinkButton />
         </UiDashboardContainer>
       ) : (
         <UiStack spacing={64} pb={128}>
@@ -37,7 +37,7 @@ export default function WebDashboardRoutes() {
                 </Button>
               }
             />
-            <IdentityUiIdentityGroupList grouped={grouped} />
+            <WebUiIdentityIdentityGroupList grouped={grouped} />
           </UiStack>
         </UiStack>
       )}

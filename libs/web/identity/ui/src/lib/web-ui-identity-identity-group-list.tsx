@@ -1,11 +1,11 @@
 import { Group, Text } from '@mantine/core'
 import { Identity, IdentityProvider } from '@pubkey-stack/sdk'
 import { UiStack } from '@pubkey-stack/web/ui/core'
-import { IdentityUiIcon } from './identity-ui-icon'
-import { IdentityUiIdentityList } from './identity-ui-identity-list'
-import { IdentityUiSolanaLinkButton } from './identity-ui-solana-link-button'
+import { WebUiIdentityIcon } from './web-ui-identity-icon'
+import { WebUiIdentityIdentityList } from './web-ui-identity-identity-list'
+import { WebUiIdentitySolanaLinkButton } from './web-ui-identity-solana-link-button'
 
-export function IdentityUiIdentityGroupList({
+export function WebUiIdentityIdentityGroupList({
   deleteIdentity,
   refresh,
   grouped,
@@ -20,14 +20,14 @@ export function IdentityUiIdentityGroupList({
         <UiStack key={group.provider}>
           <Group mx="xl" position="apart">
             <Group>
-              <IdentityUiIcon provider={group.provider} />
+              <WebUiIdentityIcon provider={group.provider} />
               <Text size="xl">{group.provider}</Text>
             </Group>
             {refresh && group.provider === IdentityProvider.Solana && (
-              <IdentityUiSolanaLinkButton items={group.items ?? []} refresh={refresh} />
+              <WebUiIdentitySolanaLinkButton items={group.items ?? []} refresh={refresh} />
             )}
           </Group>
-          {<IdentityUiIdentityList items={group.items} refresh={refresh} deleteIdentity={deleteIdentity} />}
+          {<WebUiIdentityIdentityList items={group.items} refresh={refresh} deleteIdentity={deleteIdentity} />}
         </UiStack>
       ))}
     </UiStack>

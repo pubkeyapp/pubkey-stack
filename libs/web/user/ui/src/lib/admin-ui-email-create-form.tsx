@@ -2,11 +2,7 @@ import { AdminCreateEmailInput } from '@pubkey-stack/sdk'
 import { formFieldText, UiForm, UiFormField } from '@pubkey-stack/web/ui/core'
 import { Button, Group } from '@mantine/core'
 
-export interface AuthUiEmailCreateFormProps {
-  submit: (res: AdminCreateEmailInput) => Promise<boolean>
-}
-
-export function AuthUiEmailCreateForm({ submit }: AuthUiEmailCreateFormProps) {
+export function AuthUiEmailCreateForm({ submit }: { submit: (res: AdminCreateEmailInput) => Promise<boolean> }) {
   const model: AdminCreateEmailInput = {
     email: '',
     ownerId: '',

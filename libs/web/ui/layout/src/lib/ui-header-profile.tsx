@@ -1,7 +1,7 @@
 import { Button, Group, Menu, rem, useMantineColorScheme } from '@mantine/core'
 import { UserRole } from '@pubkey-stack/sdk'
 import { useWebAuth } from '@pubkey-stack/web/auth/data-access'
-import { WebUserUiAvatar } from '@pubkey-stack/web/user/ui'
+import { WebUiUserAvatar } from '@pubkey-stack/web/user/ui'
 import {
   IconBug,
   IconChevronDown,
@@ -35,7 +35,7 @@ export function UiHeaderProfile() {
       <Menu.Target>
         <Button py={0} pl={0} pr={4} variant={open ? 'light' : 'default'} radius="xl">
           <Group spacing={4} p={0}>
-            <WebUserUiAvatar user={user} alt={user?.username ?? 'User Avatar'} radius={100} size={34} />
+            <WebUiUserAvatar user={user} alt={user?.username ?? 'User Avatar'} radius={100} size={34} />
             <IconChevronDown size={rem(12)} stroke={1.5} />
           </Group>
         </Button>

@@ -7,7 +7,7 @@ export const USER_STATUS_COLORS: Record<UserStatus, string> = {
   [UserStatus.Inactive]: 'gray',
 }
 
-export function WebUserUiStatusBadge({ status }: { status: UserStatus }) {
+export function WebUiUserStatusBadge({ status }: { status: UserStatus }) {
   const theme = useMantineTheme()
   return (
     <Badge color={USER_STATUS_COLORS[status]} variant={theme.colorScheme === 'dark' ? 'light' : 'outline'}>

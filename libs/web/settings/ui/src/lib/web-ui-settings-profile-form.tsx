@@ -2,12 +2,13 @@ import { Button, Group } from '@mantine/core'
 import { User, UserUpdateUserInput } from '@pubkey-stack/sdk'
 import { formFieldText, UiForm, UiFormField } from '@pubkey-stack/web/ui/core'
 
-export interface WebProfileUiUpdateFormProps {
+export function WebUiSettingsProfileForm({
+  submit,
+  user,
+}: {
   submit: (res: UserUpdateUserInput) => Promise<boolean>
   user: User
-}
-
-export function WebSettingsUiProfileForm({ submit, user }: WebProfileUiUpdateFormProps) {
+}) {
   const model: UserUpdateUserInput = {
     avatarUrl: user.avatarUrl ?? user.avatarUrl ?? '',
     developer: user.developer ?? false,

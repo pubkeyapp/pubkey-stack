@@ -1,6 +1,6 @@
 import { Button, createStyles } from '@mantine/core'
 import { IdentityProvider } from '@pubkey-stack/sdk'
-import { IdentityUiIcon } from './identity-ui-icon'
+import { WebUiIdentityIcon } from './web-ui-identity-icon'
 
 const useStyles = createStyles((theme) => ({
   button: {
@@ -12,7 +12,7 @@ const useStyles = createStyles((theme) => ({
   },
 }))
 
-export function IdentityUiDiscordLinkButton() {
+export function WebUiIdentityDiscordLinkButton() {
   const { classes } = useStyles()
   return (
     <Button
@@ -20,7 +20,7 @@ export function IdentityUiDiscordLinkButton() {
       variant="filled"
       size="xl"
       fullWidth
-      leftIcon={<IdentityUiIcon provider={IdentityProvider.Discord} />}
+      leftIcon={<WebUiIdentityIcon provider={IdentityProvider.Discord} />}
       component={'a'}
       href="/api/auth/discord"
     >

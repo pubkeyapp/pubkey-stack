@@ -1,14 +1,16 @@
 import { Group, Paper, PaperProps, Text, useMantineTheme } from '@mantine/core'
 import { User } from '@pubkey-stack/sdk'
-import { WebUserUiAvatar } from '@pubkey-stack/web/user/ui'
+import { WebUiUserAvatar } from '@pubkey-stack/web/user/ui'
 import { ReactNode } from 'react'
 
-export interface WebProfileUiUserProps extends PaperProps {
+export function WebUiProfileUser({
+  action,
+  user,
+  ...props
+}: PaperProps & {
   action?: ReactNode
   user?: User
-}
-
-export function WebProfileUiUser({ action, user, ...props }: WebProfileUiUserProps) {
+}) {
   const theme = useMantineTheme()
   if (!user) return null
   return (
@@ -22,7 +24,7 @@ export function WebProfileUiUser({ action, user, ...props }: WebProfileUiUserPro
       {...props}
     >
       lala
-      <WebUserUiAvatar user={user} size={120} radius={120} mx="auto" />
+      <WebUiUserAvatar user={user} size={120} radius={120} mx="auto" />
       <Text ta="center" fz="lg" weight={500} mt="md">
         {user.username}
       </Text>

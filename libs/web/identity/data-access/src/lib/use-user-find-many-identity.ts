@@ -4,7 +4,7 @@ import { showNotificationError, showNotificationSuccess } from '@pubkey-stack/we
 import { useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 
-export function useUserIdentities() {
+export function useUserFindManyIdentity() {
   const sdk = useWebSdk()
   const query = useQuery({
     queryKey: ['user', 'find-many-identity'],

@@ -2,12 +2,13 @@ import { AdminCreateUserInput } from '@pubkey-stack/sdk'
 import { formFieldPassword, formFieldText, UiForm, UiFormField } from '@pubkey-stack/web/ui/core'
 import { ReactNode } from 'react'
 
-export interface AdminUiCreateUserFormProps {
+export function AdminUiCreateUserForm({
+  children,
+  submit,
+}: {
   children?: ReactNode
   submit: (res: AdminCreateUserInput) => Promise<boolean>
-}
-
-export function AdminUiCreateUserForm({ children, submit }: AdminUiCreateUserFormProps) {
+}) {
   const model: AdminCreateUserInput = {
     username: '',
     password: '',

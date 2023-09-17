@@ -3,15 +3,18 @@ import { modals } from '@mantine/modals'
 import { Identity } from '@pubkey-stack/sdk'
 import { IdentityProviderSolana } from '@pubkey-stack/web/identity/data-access'
 import { SolanaClusterProvider } from '@pubkey-stack/web/solana/data-access'
-import { IdentityUiSolanaLinkWizard } from './identity-ui-solana-link-wizard'
+import { WebUiIdentitySolanaLinkWizard } from './web-ui-identity-solana-link-wizard'
 
-export interface IdentityUiSolanaLinkButtonProps extends ButtonProps {
+export function WebUiIdentitySolanaLinkButton({
+  items,
+  label,
+  refresh,
+  ...props
+}: ButtonProps & {
   items?: Identity[]
   refresh: () => void
   label?: string
-}
-
-export function IdentityUiSolanaLinkButton({ items, label, refresh, ...props }: IdentityUiSolanaLinkButtonProps) {
+}) {
   return (
     <Button
       variant="light"
@@ -23,7 +26,7 @@ export function IdentityUiSolanaLinkButton({ items, label, refresh, ...props }: 
           children: (
             <SolanaClusterProvider autoConnect={false}>
               <IdentityProviderSolana refresh={refresh}>
-                <IdentityUiSolanaLinkWizard identities={items ?? []} />
+                <WebUiIdentitySolanaLinkWizard identities={items ?? []} />
               </IdentityProviderSolana>
             </SolanaClusterProvider>
           ),

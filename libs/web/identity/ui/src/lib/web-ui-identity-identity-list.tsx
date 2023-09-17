@@ -2,10 +2,10 @@ import { ActionIcon, Badge, Code, Group, Menu, Text } from '@mantine/core'
 import { ellipsify, Identity, IdentityProvider } from '@pubkey-stack/sdk'
 import { UiCard, UiDebugModal, UiExplorerIcon, UiGroup, UiStack, UiVerifiedBadge } from '@pubkey-stack/web/ui/core'
 import { IconDotsVertical, IconTrash } from '@tabler/icons-react'
-import { IdentityUiAvatar } from './identity-ui-avatar'
-import { IdentityUiSolanaVerifyButton } from './identity-ui-solana-verify-button'
+import { WebUiIdentityAvatar } from './web-ui-identity-avatar'
+import { WebUiIdentitySolanaVerifyButton } from './web-ui-identity-solana-verify-button'
 
-export function IdentityUiIdentityList({
+export function WebUiIdentityIdentityList({
   deleteIdentity,
   refresh,
   items,
@@ -20,7 +20,7 @@ export function IdentityUiIdentityList({
         <UiCard key={item.id}>
           <Group position="apart">
             <Group>
-              <IdentityUiAvatar item={item} />
+              <WebUiIdentityAvatar item={item} />
               <UiGroup>
                 {item.profile?.username ? (
                   <Text size="xl">{item.profile?.username}</Text>
@@ -30,7 +30,7 @@ export function IdentityUiIdentityList({
                 {item.verified ? (
                   <UiVerifiedBadge />
                 ) : refresh ? (
-                  <IdentityUiSolanaVerifyButton identity={item} refresh={refresh} />
+                  <WebUiIdentitySolanaVerifyButton identity={item} refresh={refresh} />
                 ) : (
                   <Badge variant="light" color="yellow">
                     Not verified

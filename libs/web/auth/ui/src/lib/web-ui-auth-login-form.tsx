@@ -2,12 +2,13 @@ import { LoginInput } from '@pubkey-stack/sdk'
 import { formFieldPassword, formFieldText, UiForm, UiFormField } from '@pubkey-stack/web/ui/core'
 import { ReactNode, useState } from 'react'
 
-export interface AuthUiLoginFormProps {
+export function WebUiAuthLoginForm({
+  children,
+  submit,
+}: {
   children?: ReactNode
   submit: (res: LoginInput) => Promise<boolean>
-}
-
-export function AuthUiLoginForm({ children, submit }: AuthUiLoginFormProps) {
+}) {
   const [model] = useState<LoginInput>({
     username: '',
     password: '',

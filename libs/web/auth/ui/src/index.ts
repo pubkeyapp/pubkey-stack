@@ -1,3 +1,3 @@
-export * from './lib/auth-ui-login-form'
-export * from './lib/auth-ui-page'
-export * from './lib/auth-ui-register-form'
+export * from './lib/web-ui-auth-login-form'
+export * from './lib/web-ui-auth-page'
+export * from './lib/web-ui-auth-register-form'

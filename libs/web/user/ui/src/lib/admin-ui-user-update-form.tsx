@@ -2,12 +2,13 @@ import { Button, Group } from '@mantine/core'
 import { AdminUpdateUserInput, getEnumOptions, User, UserRole, UserStatus } from '@pubkey-stack/sdk'
 import { formFieldCheckbox, formFieldSelect, formFieldText, UiForm, UiFormField } from '@pubkey-stack/web/ui/core'
 
-export interface AdminUiUpdateUserFormProps {
+export function AdminUiUpdateUserForm({
+  submit,
+  user,
+}: {
   submit: (res: AdminUpdateUserInput) => Promise<boolean>
   user: User
-}
-
-export function AdminUiUpdateUserForm({ submit, user }: AdminUiUpdateUserFormProps) {
+}) {
   const model = {
     avatarUrl: user.avatarUrl ?? user.avatarUrl ?? '',
     developer: user.developer ?? false,

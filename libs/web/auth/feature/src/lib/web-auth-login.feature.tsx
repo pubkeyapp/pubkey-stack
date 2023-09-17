@@ -1,9 +1,9 @@
 import { Button, Group, Title } from '@mantine/core'
 import { LoginInput } from '@pubkey-stack/sdk'
 import { useWebAuth } from '@pubkey-stack/web/auth/data-access'
-import { AuthUiLoginForm, AuthUiPage } from '@pubkey-stack/web/auth/ui'
+import { WebUiAuthLoginForm, WebUiAuthPage } from '@pubkey-stack/web/auth/ui'
 import { UiLoader, UiStack } from '@pubkey-stack/web/ui/core'
-import { WebUserUiAvatar } from '@pubkey-stack/web/user/ui'
+import { WebUiUserAvatar } from '@pubkey-stack/web/user/ui'
 import { IconBrandDiscord } from '@tabler/icons-react'
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
@@ -36,7 +36,7 @@ export default function WebAuthLoginFeature() {
   const noAuthEnabled = !authDiscordEnabled && !authRegisterEnabled && !authPasswordEnabled
 
   return (
-    <AuthUiPage>
+    <WebUiAuthPage>
       {noAuthEnabled ? (
         <Group position="center">
           <Title>Login is disabled</Title>
@@ -50,7 +50,7 @@ export default function WebAuthLoginFeature() {
               disabled={loading}
               fullWidth
               onClick={() => navigate(redirect)}
-              leftIcon={<WebUserUiAvatar user={user} size={28} />}
+              leftIcon={<WebUiUserAvatar user={user} size={28} />}
             >
               Continue as {user.username}
             </Button>
@@ -68,7 +68,7 @@ export default function WebAuthLoginFeature() {
             </Button>
           ) : null}
           {authPasswordEnabled ? (
-            <AuthUiLoginForm submit={loginHandler}>
+            <WebUiAuthLoginForm submit={loginHandler}>
               <Group position="apart">
                 <Button loading={loading} type="submit">
                   Login
@@ -79,10 +79,10 @@ export default function WebAuthLoginFeature() {
                   </Button>
                 ) : null}
               </Group>
-            </AuthUiLoginForm>
+            </WebUiAuthLoginForm>
           ) : null}
         </UiStack>
       )}
-    </AuthUiPage>
+    </WebUiAuthPage>
   )
 }

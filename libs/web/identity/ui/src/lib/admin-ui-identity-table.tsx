@@ -10,7 +10,7 @@ interface AdminIdentityTableProps {
   deleteIdentity: (identity: Identity) => void
 }
 
-export function IdentityUiAdminTable({ deleteIdentity, identities = [] }: AdminIdentityTableProps) {
+export function AdminUiIdentityTable({ deleteIdentity, identities = [] }: AdminIdentityTableProps) {
   return (
     <ScrollArea>
       <DataTable

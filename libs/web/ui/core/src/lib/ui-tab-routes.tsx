@@ -7,13 +7,16 @@ export interface UiTabRoute {
   label: ReactElement | string
   value: string
 }
-export interface UiTabRoutesProps extends Omit<TabsProps, 'children'> {
+
+export function UiTabRoutes({
+  grow = true,
+  tabs,
+  ...props
+}: Omit<TabsProps, 'children'> & {
   children?: ReactNode
   grow?: boolean
   tabs: UiTabRoute[]
-}
-
-export function UiTabRoutes({ grow = true, tabs, ...props }: UiTabRoutesProps) {
+}) {
   const navigate = useNavigate()
   const location = useLocation()
   // Set the active tab based on matching the location pathname with the tab value

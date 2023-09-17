@@ -8,7 +8,7 @@ import { WalletMultiButton } from '@pubkeyapp/wallet-adapter-mantine-ui'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useEffect, useMemo, useState } from 'react'
 
-export function IdentityUiSolanaVerifyWizard({ identity, refresh }: { identity: Identity; refresh: () => void }) {
+export function WebUiIdentitySolanaVerifyWizard({ identity, refresh }: { identity: Identity; refresh: () => void }) {
   const { connected, publicKey } = useWallet()
   const { verifyAndSign } = useIdentitySolana()
   const [useLedger, setUseLedger] = useState(false)

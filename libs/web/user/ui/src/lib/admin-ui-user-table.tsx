@@ -4,9 +4,9 @@ import { UiGroup } from '@pubkey-stack/web/ui/core'
 import { IconPencil, IconTrash, IconUser } from '@tabler/icons-react'
 import { DataTable } from 'mantine-datatable'
 import { Link } from 'react-router-dom'
-import { WebUserUiAvatar } from './web-user-ui-avatar'
-import { WebUserUiRoleBadge } from './web-user-ui-role-badge'
-import { WebUserUiStatusBadge } from './web-user-ui-status-badge'
+import { WebUiUserAvatar } from './web-ui-user-avatar'
+import { WebUiUserRoleBadge } from './web-ui-user-role-badge'
+import { WebUiUserStatusBadge } from './web-ui-user-status-badge'
 
 interface AdminUserTableProps {
   users: User[]
@@ -27,7 +27,7 @@ export function AdminUiUserTable({ deleteUser, users = [] }: AdminUserTableProps
               const link = `/admin/users/${item.id}`
               return (
                 <Group spacing="sm" p={4}>
-                  <WebUserUiAvatar size={40} user={item} radius={50} />
+                  <WebUiUserAvatar size={40} user={item} radius={50} />
                   <Stack spacing={1}>
                     <UiGroup position="left" spacing={4} align="baseline">
                       <Anchor component={Link} to={link} size="sm" weight={500}>
@@ -47,12 +47,12 @@ export function AdminUiUserTable({ deleteUser, users = [] }: AdminUserTableProps
           {
             accessor: 'role',
             textAlignment: 'center',
-            render: (item) => (item.role ? <WebUserUiRoleBadge role={item.role} /> : null),
+            render: (item) => (item.role ? <WebUiUserRoleBadge role={item.role} /> : null),
           },
           {
             accessor: 'status',
             textAlignment: 'center',
-            render: (item) => (item.status ? <WebUserUiStatusBadge status={item.status} /> : null),
+            render: (item) => (item.status ? <WebUiUserStatusBadge status={item.status} /> : null),
           },
           {
             accessor: 'actions',

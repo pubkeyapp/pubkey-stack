@@ -1,6 +1,5 @@
 import { Anchor, Burger, Container, createStyles, Group, Header, Paper, rem, Transition } from '@mantine/core'
 import { UiLogoMark } from '@pubkey-stack/web/ui/core'
-import { ComponentType } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { UiHeaderProfile } from './ui-header-profile'
 
@@ -72,16 +71,17 @@ const useStyles = createStyles((theme) => ({
   },
 }))
 
-export interface UiHeaderProps {
-  text: string
-  icon: ComponentType<{ size: number }>
+export function UiHeader({
+  opened,
+  links,
+  close,
+  toggle,
+}: {
   opened: boolean
   close: () => void
   toggle: () => void
   links: { link: string; label: string }[]
-}
-
-export function UiHeader({ icon: Icon, opened, links, close, toggle, text }: UiHeaderProps) {
+}) {
   const location = useLocation()
   const { classes, cx } = useStyles()
 
