@@ -14,7 +14,7 @@ import {
 export class ApiUserUserResolver {
   constructor(private readonly service: ApiUserService) {}
 
-  @Query(() => UserPaging, { nullable: true })
+  @Query(() => UserPaging)
   userFindManyUser(@Args('input') input: UserFindManyUserInput) {
     return this.service.user.findManyUser(input)
   }

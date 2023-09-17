@@ -2,9 +2,9 @@ import { Sdk } from '@pubkey-stack/sdk'
 import { useQuery } from '@tanstack/react-query'
 
 export function useMeQuery(sdk: Sdk) {
-  return useQuery(
-    ['me'],
-    async () => {
+  return useQuery({
+    queryKey: ['me'],
+    queryFn: async () => {
       try {
         const res = await sdk.me().then((res) => res?.data)
         console.log(`useMeQuery: logged in as ${res.me?.username}`)
@@ -14,8 +14,6 @@ export function useMeQuery(sdk: Sdk) {
         return null
       }
     },
-    {
-      retry: 0,
-    },
-  )
+    retry: 0,
+  })
 }

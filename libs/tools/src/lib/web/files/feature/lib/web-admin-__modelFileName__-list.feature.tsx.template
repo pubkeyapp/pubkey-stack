@@ -6,7 +6,7 @@ import { AdminUi<%= modelClassName %>Table } from '@<%= npmScope %>/<%= app %>/<
 import { Link } from 'react-router-dom'
 
 export function WebAdmin<%= modelClassName %>ListFeature() {
-  const { delete<%= modelClassName %>, pagination, query, setSearch } = useAdminFindMany<%= modelClassName %>()
+  const { delete<%= modelClassName %>, items, pagination, query, setSearch } = useAdminFindMany<%= modelClassName %>()
 
   return (
     <UiAdminPage
@@ -24,7 +24,7 @@ export function WebAdmin<%= modelClassName %>ListFeature() {
 
       {query.isLoading ? (
         <UiLoader />
-      ) : query?.data?.paging?.data?.length ? (
+      ) : items?.length ? (
         <AdminUi<%= modelClassName %>Table
           delete<%= modelClassName %>={(<%= modelPropertyName %>) => {
             if (!window.confirm('Are you sure?')) return

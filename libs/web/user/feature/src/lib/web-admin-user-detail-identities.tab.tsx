@@ -5,14 +5,14 @@ import { AuthUiIdentityCreateForm, IdentityUiAdminTable } from '@pubkey-stack/we
 import { UiAlert, UiLoader, UiStack } from '@pubkey-stack/web/ui/core'
 
 export function WebAdminUserDetailIdentitiesTab({ userId }: { userId: string }) {
-  const { identities, createIdentity, deleteIdentity, query } = useAdminIdentities({ ownerId: userId })
+  const { items, createIdentity, deleteIdentity, query } = useAdminIdentities({ ownerId: userId })
 
   if (query.isLoading) return <UiLoader />
 
   return (
     <UiStack>
-      {identities?.length ? (
-        <IdentityUiAdminTable identities={identities ?? []} deleteIdentity={deleteIdentity} />
+      {items?.length ? (
+        <IdentityUiAdminTable identities={items ?? []} deleteIdentity={deleteIdentity} />
       ) : (
         <UiAlert message="No identities found" />
       )}

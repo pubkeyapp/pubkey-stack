@@ -67,7 +67,7 @@ export function useAppConfig() {
   const sdk = useWebSdk()
 
   return useQuery({
-    queryKey: ['appConfig'],
+    queryKey: ['app-config'],
     queryFn: () => sdk.appConfig().then((res) => res.data),
   })
 }

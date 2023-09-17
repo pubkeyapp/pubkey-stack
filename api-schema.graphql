@@ -150,13 +150,13 @@ type PagingMeta {
 type Query {
   adminFindManyEmail(input: AdminFindManyEmailInput!): [Email!]
   adminFindManyIdentity(input: AdminFindManyIdentityInput!): [Identity!]
-  adminFindManyUser(input: AdminFindManyUserInput!): UserPaging
+  adminFindManyUser(input: AdminFindManyUserInput!): UserPaging!
   adminFindOneUser(userId: String!): User
   appConfig: AppConfig!
   me: User
   uptime: Float!
   userFindManyIdentity: [Identity!]
-  userFindManyUser(input: UserFindManyUserInput!): UserPaging
+  userFindManyUser(input: UserFindManyUserInput!): UserPaging!
   userFindOneUser(username: String!): User
   userRequestIdentityChallenge(input: RequestIdentityChallengeInput!): IdentityChallenge
 }

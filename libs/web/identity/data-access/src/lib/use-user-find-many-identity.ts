@@ -7,7 +7,7 @@ import { useMemo } from 'react'
 export function useUserIdentities() {
   const sdk = useWebSdk()
   const query = useQuery({
-    queryKey: ['user', 'identities'],
+    queryKey: ['user', 'find-many-identity'],
     queryFn: () => sdk.userFindManyIdentity().then((res) => res?.data),
   })
 
@@ -32,12 +32,12 @@ export function useUserIdentities() {
   const discordIdentity = items.find((x) => x.provider === IdentityProvider.Discord)
 
   return {
-    query,
-    grouped,
-    items,
     expiredDiscord: discordIdentity?.expired ?? false,
+    grouped,
     hasDiscord: !!discordIdentity,
     hasSolana: items.some((x) => x.provider === IdentityProvider.Solana),
+    items,
+    query,
     deleteIdentity(identityId: string) {
       if (!window.confirm('Are you sure?')) {
         return

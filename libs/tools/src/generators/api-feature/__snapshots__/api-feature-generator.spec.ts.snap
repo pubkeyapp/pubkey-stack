@@ -201,7 +201,7 @@ export class ApiTestAdminResolver {
     return this.service.admin.deleteTest(testId);
   }
 
-  @Query(() => TestPaging, { nullable: true })
+  @Query(() => TestPaging)
   adminFindManyTest(@Args('input') input: AdminFindManyTestInput) {
     return this.service.admin.findManyTest(input);
   }

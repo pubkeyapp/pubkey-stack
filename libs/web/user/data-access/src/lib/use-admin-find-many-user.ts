@@ -15,12 +15,28 @@ export function useAdminFindManyUser() {
   const [search, setSearch] = useState<string>('')
 
   const input: AdminFindManyUserInput = { limit, page, role, search, status }
-  const query = useQuery(['admin', 'users', 'find', input], () =>
-    sdk.adminFindManyUser({ input }).then((res) => res.data),
-  )
-  const total = query.data?.paging?.meta?.totalCount ?? 0
+  const query = useQuery({
+    queryKey: ['admin', 'find-many-user', input],
+    queryFn: () => sdk.adminFindManyUser({ input }).then((res) => res.data),
+  })
+  const total = query.data?.paging.meta?.totalCount ?? 0
+  const items = query.data?.paging.data ?? []
 
   return {
+    items,
+    query,
+    role,
+    status,
+    pagination: useUiPagination({
+      limit,
+      page,
+      total,
+      setLimit,
+      setPage,
+    }),
+    setRole,
+    setSearch,
+    setStatus,
     createUser: (input: AdminCreateUserInput) =>
       sdk
         .adminCreateUser({ input })
@@ -42,18 +58,5 @@ export function useAdminFindManyUser() {
         showNotificationSuccess('User deleted')
         return query.refetch()
       }),
-    query,
-    role,
-    setRole,
-    setSearch,
-    setStatus,
-    status,
-    pagination: useUiPagination({
-      page,
-      setPage,
-      limit,
-      setLimit,
-      total,
-    }),
   }
 }

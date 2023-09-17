@@ -12,9 +12,10 @@ export function useAdminFindManyEmail(userId: string) {
     ownerId: userId,
   })
 
-  const query = useQuery(['admin', 'emails', 'find', input], () =>
-    sdk.adminFindManyEmail({ input }).then((res) => res.data),
-  )
+  const query = useQuery({
+    queryKey: ['admin', 'find-many-email', input],
+    queryFn: () => sdk.adminFindManyEmail({ input }).then((res) => res.data),
+  })
 
   return {
     emails: query.data?.items ?? [],

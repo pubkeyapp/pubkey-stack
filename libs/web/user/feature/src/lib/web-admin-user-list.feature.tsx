@@ -6,7 +6,7 @@ import { AdminUiUserTable, userRoleOptions, userStatusOptions } from '@pubkey-st
 import { Link } from 'react-router-dom'
 
 export function WebAdminUserListFeature() {
-  const { deleteUser, pagination, query, role, setRole, setSearch, setStatus, status } = useAdminFindManyUser()
+  const { deleteUser, items, pagination, query, role, setRole, setSearch, setStatus, status } = useAdminFindManyUser()
 
   return (
     <UiAdminPage
@@ -40,13 +40,13 @@ export function WebAdminUserListFeature() {
 
       {query.isLoading ? (
         <UiLoader />
-      ) : query?.data?.paging?.data?.length ? (
+      ) : items?.length ? (
         <AdminUiUserTable
           deleteUser={(user) => {
             if (!window.confirm('Are you sure?')) return
             return deleteUser(user.id)
           }}
-          users={query?.data?.paging?.data ?? []}
+          users={items}
         />
       ) : (
         <UiAlert message="User not found" />

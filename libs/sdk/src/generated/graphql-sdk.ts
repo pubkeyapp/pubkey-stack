@@ -226,13 +226,13 @@ export type Query = {
   __typename?: 'Query'
   adminFindManyEmail?: Maybe<Array<Email>>
   adminFindManyIdentity?: Maybe<Array<Identity>>
-  adminFindManyUser?: Maybe<UserPaging>
+  adminFindManyUser: UserPaging
   adminFindOneUser?: Maybe<User>
   appConfig: AppConfig
   me?: Maybe<User>
   uptime: Scalars['Float']['output']
   userFindManyIdentity?: Maybe<Array<Identity>>
-  userFindManyUser?: Maybe<UserPaging>
+  userFindManyUser: UserPaging
   userFindOneUser?: Maybe<User>
   userRequestIdentityChallenge?: Maybe<IdentityChallenge>
 }
@@ -724,7 +724,7 @@ export type AdminFindManyUserQueryVariables = Exact<{
 
 export type AdminFindManyUserQuery = {
   __typename?: 'Query'
-  paging?: {
+  paging: {
     __typename?: 'UserPaging'
     data: Array<{
       __typename?: 'User'
@@ -749,7 +749,7 @@ export type AdminFindManyUserQuery = {
       previousPage?: number | null
       totalCount?: number | null
     }
-  } | null
+  }
 }
 
 export type AdminFindOneUserQueryVariables = Exact<{
@@ -801,7 +801,7 @@ export type UserFindManyUserQueryVariables = Exact<{
 
 export type UserFindManyUserQuery = {
   __typename?: 'Query'
-  paging?: {
+  paging: {
     __typename?: 'UserPaging'
     data: Array<{
       __typename?: 'User'
@@ -826,7 +826,7 @@ export type UserFindManyUserQuery = {
       previousPage?: number | null
       totalCount?: number | null
     }
-  } | null
+  }
 }
 
 export type UserFindOneUserQueryVariables = Exact<{

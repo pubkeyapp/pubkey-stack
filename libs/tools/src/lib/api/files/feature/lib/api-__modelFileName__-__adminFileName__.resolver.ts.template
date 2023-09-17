@@ -26,7 +26,7 @@ export class <%= app.className %><%= model.className %><%= admin.className %>Res
     return this.service.<%= admin.propertyName %>.delete<%= model.className %>(<%= model.propertyName %>Id)
   }
 
-  @Query(() => <%= model.className %>Paging, { nullable: true })
+  @Query(() => <%= model.className %>Paging)
   <%= admin.propertyName %>FindMany<%= model.className %>(@Args('input') input: <%= admin.className %>FindMany<%= model.className %>Input) {
     return this.service.<%= admin.propertyName %>.findMany<%= model.className %>(input)
   }

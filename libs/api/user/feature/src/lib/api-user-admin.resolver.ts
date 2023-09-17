@@ -25,7 +25,7 @@ export class ApiUserAdminResolver {
     return this.service.admin.deleteUser(userId)
   }
 
-  @Query(() => UserPaging, { nullable: true })
+  @Query(() => UserPaging)
   adminFindManyUser(@Args('input') input: AdminFindManyUserInput) {
     return this.service.admin.findManyUser(input)
   }

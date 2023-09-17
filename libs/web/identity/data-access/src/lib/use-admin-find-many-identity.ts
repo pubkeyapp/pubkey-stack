@@ -13,11 +13,14 @@ export function useAdminIdentities({ ownerId, provider }: { ownerId?: string; pr
     provider: provider,
   })
 
-  const query = useQuery(['admin', 'identities', 'find', input], () =>
-    sdk.adminFindManyIdentity({ input }).then((res) => res.data),
-  )
+  const query = useQuery({
+    queryKey: ['admin', 'find-many-identity', input],
+    queryFn: () => sdk.adminFindManyIdentity({ input }).then((res) => res.data),
+  })
 
   return {
+    items: query.data?.items ?? [],
+    query,
     createIdentity: async (input: AdminCreateIdentityInput) => {
       if (!ownerId) {
         showNotificationError('No owner ID')
@@ -50,7 +53,5 @@ export function useAdminIdentities({ ownerId, provider }: { ownerId?: string; pr
         return false
       })
     },
-    identities: query.data?.items ?? [],
-    query,
   }
 }

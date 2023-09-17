@@ -13,10 +13,24 @@ export function useAdminFindMany<%= modelClassName %>(props?: Partial<AdminFindM
   const [search, setSearch] = useState<string>(props?.search ?? '')
 
   const input: AdminFindMany<%= modelClassName %>Input = { page, limit, search }
-  const query = useQuery(['admin', 'find-many-<%= modelPropertyName %>', input], () => sdk.adminFindMany<%= modelClassName %>({ input }).then((res) => res.data))
+  const query = useQuery({
+    queryKey: ['admin', 'find-many-<%= modelFileName %>', input],
+    queryFn: () => sdk.adminFindMany<%= modelClassName %>({ input }).then((res) => res.data),
+    })
   const total = query.data?.paging?.meta?.totalCount ?? 0
+  const items = query.data?.paging.data ?? []
 
   return {
+    items,
+    query,
+    pagination: useUiPagination({
+      page,
+      setPage,
+      limit,
+      setLimit,
+      total,
+    }),
+    setSearch,
     create<%= modelClassName %>: (input: AdminCreate<%= modelClassName %>Input) =>
       sdk
         .adminCreate<%= modelClassName %>({ input })
@@ -38,14 +52,5 @@ export function useAdminFindMany<%= modelClassName %>(props?: Partial<AdminFindM
         showNotificationSuccess('<%= modelClassName %> deleted')
         return query.refetch()
       }),
-    query,
-    setSearch,
-    pagination: useUiPagination({
-      page,
-      setPage,
-      limit,
-      setLimit,
-      total,
-    }),
   }
 }
