@@ -19,6 +19,11 @@
       "factory": "./src/generators/web-feature/web-feature-generator",
       "schema": "./src/generators/web-feature/web-feature-schema.json",
       "description": "web-feature generator"
+    },
+    "api-e2e": {
+      "factory": "./src/generators/api-e2e/api-e2e-generator",
+      "schema": "./src/generators/api-feature/api-feature-schema.json",
+      "description": "api-e2e generator"
     }
   }
 }

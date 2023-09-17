@@ -2,15 +2,16 @@
   "name": "@pubkey-stack/tools",
   "version": "0.0.1",
   "dependencies": {
-    "@mrleebo/prisma-ast": "^0.7.0",
     "@nx/devkit": "16.8.1",
+    "@mrleebo/prisma-ast": "^0.7.0",
+    "@nx/linter": "16.8.1",
     "@nx/nest": "16.8.1",
     "@nx/react": "16.8.1",
-    "@nx/linter": "16.8.1",
     "dotenv": "16.3.1",
     "pg": "^8.11.2",
-    "tslib": "^2.3.0",
-    "ts-morph": "^19.0.0"
+    "pluralize": "^8.0.0",
+    "ts-morph": "^19.0.0",
+    "tslib": "^2.3.0"
   },
   "type": "commonjs",
   "main": "./src/index.js",

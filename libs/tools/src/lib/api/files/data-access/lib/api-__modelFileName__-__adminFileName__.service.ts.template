@@ -22,7 +22,7 @@ export class Api<%= model.className %><%= admin.className %>Service {
   async findMany<%= model.className %>(input: <%= admin.className %>FindMany<%= model.className %>Input): Promise<<%= model.className %>Paging> {
     return this.core.data.<%= model.propertyName %>
       .paginate({
-        orderBy: { <%= label.propertyName %>: 'asc' },
+        orderBy: { createdAt: 'desc' },
         where: get<%= admin.className %><%= model.className %>WhereInput(input),
       })
       .withPages({ limit: input.limit, page: input.page })

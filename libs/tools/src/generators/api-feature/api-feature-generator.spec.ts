@@ -25,10 +25,12 @@ describe('api-feature generator', () => {
       expect(config).toBeDefined()
     })
 
+    const basePathE2e = `apps/${options.app}-e2e/src`
     const basePathDataAccess = `libs/${options.app}/${options.name}/data-access/src`
     const basePathFeature = `libs/${options.app}/${options.name}/feature/src`
 
     const files = [
+      `${basePathE2e}/api/api-${options.name}-feature.spec.ts`,
       `${basePathDataAccess}/index.ts`,
       `${basePathDataAccess}/lib/${options.app}-${options.name}-admin.service.ts`,
       `${basePathDataAccess}/lib/${options.app}-${options.name}-data-access.module.ts`,

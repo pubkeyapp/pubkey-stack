@@ -8,6 +8,7 @@ export interface NormalizedApiFeatureSchema {
   npmScope: string
   skipAdminCrud: boolean
   skipDataAccess: boolean
+  skipE2e: boolean
   skipFeature: boolean
   skipSdk: boolean
   skipUtil: boolean

@@ -37,6 +37,11 @@
       "description": "Do not create a data access library for this feature.",
       "default": false
     },
+    "skipE2e": {
+      "type": "boolean",
+      "description": "Do not create an e2e test for this feature.",
+      "default": false
+    },
     "skipFeature": {
       "type": "boolean",
       "description": "Do not create a feature library for this feature.",
