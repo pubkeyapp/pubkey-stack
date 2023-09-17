@@ -1,9 +1,10 @@
 import { Group, Paper, PaperProps, Text, useMantineTheme } from '@mantine/core'
 import { User } from '@pubkey-stack/sdk'
-import { WebUiUserAvatar } from '@pubkey-stack/web/user/ui'
-import { ReactNode } from 'react'
 
-export function WebUiProfileUser({
+import { ReactNode } from 'react'
+import { WebUiUserAvatar } from './web-ui-user-avatar'
+
+export function WebUiUserProfile({
   action,
   user,
   ...props
@@ -23,7 +24,6 @@ export function WebUiProfileUser({
       }}
       {...props}
     >
-      lala
       <WebUiUserAvatar user={user} size={120} radius={120} mx="auto" />
       <Text ta="center" fz="lg" weight={500} mt="md">
         {user.username}

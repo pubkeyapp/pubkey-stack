@@ -2,9 +2,9 @@ import { UserUpdateUserInput } from '@pubkey-stack/sdk'
 import { useWebAuth } from '@pubkey-stack/web/auth/data-access'
 import { useMeQuery, useWebSdk } from '@pubkey-stack/web/shell/data-access'
 import { notifyError } from '@pubkey-stack/web/ui/notifications'
-import { useUserFineOneUser } from '@pubkey-stack/web/user/data-access'
+import { useUserFineOneUser } from './use-user-fine-one-user'
 
-export function useUserSettings() {
+export function useUserProfile() {
   const sdk = useWebSdk()
   const meQuery = useMeQuery(sdk)
   const { user } = useWebAuth()

@@ -13,7 +13,7 @@ export interface SolanaProviderContext {
 
 const SolanaContext = createContext<SolanaProviderContext>({} as SolanaProviderContext)
 
-export function SolanaProvider({
+function SolanaProvider({
   autoConnect = true,
   children,
 }: {

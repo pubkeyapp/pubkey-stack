@@ -6,7 +6,7 @@ import { SolanaClusterProvider } from '@pubkey-stack/web/solana/data-access'
 import { WebUiIdentitySolanaLinkWizard } from './web-ui-identity-solana-link-wizard'
 
 export function WebUiIdentitySolanaLinkButton({
-  items,
+  items = [],
   label,
   refresh,
   ...props

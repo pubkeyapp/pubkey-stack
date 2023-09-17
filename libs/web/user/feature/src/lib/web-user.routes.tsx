@@ -1,9 +1,9 @@
 import { useWebAuth } from '@pubkey-stack/web/auth/data-access'
 import { UiWarn } from '@pubkey-stack/web/ui/core'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { WebProfileDetailFeature } from './web-profile-detail.feature'
+import { WebUserDetailFeature } from './web-user-detail.feature'
 
-export default function WebProfileRoutes() {
+export default function WebUserRoutes() {
   const { user } = useWebAuth()
 
   if (!user?.username) {
@@ -13,7 +13,7 @@ export default function WebProfileRoutes() {
   return (
     <Routes>
       <Route index element={<Navigate to={user.username} replace />} />
-      <Route path=":username" element={<WebProfileDetailFeature />} />
+      <Route path=":username" element={<WebUserDetailFeature />} />
     </Routes>
   )
 }

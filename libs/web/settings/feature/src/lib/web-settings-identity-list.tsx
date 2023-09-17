@@ -7,7 +7,7 @@ export function WebSettingsIdentityList() {
 
   return (
     <UiStack>
-      {!hasSolana && <WebUiIdentitySolanaLinkButton items={items ?? []} refresh={() => query.refetch()} />}
+      {!hasSolana && <WebUiIdentitySolanaLinkButton refresh={() => query.refetch()} />}
       {query.isLoading ? (
         <UiLoader />
       ) : items.length === 0 ? (

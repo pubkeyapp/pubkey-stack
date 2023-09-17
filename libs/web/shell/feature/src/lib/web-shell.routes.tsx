@@ -1,9 +1,9 @@
 import { WebAuthLoginFeature, WebAuthRegisterFeature } from '@pubkey-stack/web/auth/feature'
 import { WebDashboardRoutes } from '@pubkey-stack/web/dashboard/feature'
 import { WebHomeRoutes } from '@pubkey-stack/web/home/feature'
-import { WebProfileRoutes } from '@pubkey-stack/web/profile/feature'
 import { WebSettingsRoutes } from '@pubkey-stack/web/settings/feature'
 import { UiNotFound } from '@pubkey-stack/web/ui/core'
+import { WebUserRoutes } from '@pubkey-stack/web/user/feature'
 import { lazy } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useGuardedRoutes } from './use-guarded-routes'
@@ -22,7 +22,7 @@ export function WebShellRoutes() {
     layout: [
       // Here you can add routes that are part of the main layout
       { path: '/dashboard', element: <WebDashboardRoutes /> },
-      { path: '/profile/*', element: <WebProfileRoutes /> },
+      { path: '/profile/*', element: <WebUserRoutes /> },
       { path: '/settings/*', element: <WebSettingsRoutes /> },
     ],
     full: [

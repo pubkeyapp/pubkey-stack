@@ -1,12 +1,12 @@
 import { Alert, Button } from '@mantine/core'
 import { useWebAuth } from '@pubkey-stack/web/auth/data-access'
-import { WebUiProfileUser } from '@pubkey-stack/web/profile/ui'
 import { UiContainer, UiLoader, UiStack, UiWarn } from '@pubkey-stack/web/ui/core'
 import { useUserFineOneUser } from '@pubkey-stack/web/user/data-access'
+import { WebUiUserProfile } from '@pubkey-stack/web/user/ui'
 import { IconMoodSmile } from '@tabler/icons-react'
 import { Link, useParams } from 'react-router-dom'
 
-export function WebProfileDetailFeature() {
+export function WebUserDetailFeature() {
   const { user: authUser } = useWebAuth()
   const { username } = useParams<{ username: string }>() as { username: string }
   const { user, query } = useUserFineOneUser(username)
@@ -24,7 +24,7 @@ export function WebProfileDetailFeature() {
   return (
     <UiContainer size="xs">
       <UiStack>
-        <WebUiProfileUser
+        <WebUiUserProfile
           user={user}
           action={
             isAuthUser ? (
