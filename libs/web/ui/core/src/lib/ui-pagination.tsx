@@ -43,7 +43,7 @@ export function UiPagination({
         onPreviousPage={() => pagination.previous()}
       />
       <Select
-        sx={{ width: 90 }}
+        style={{ width: 90 }}
         value={limit.toString()}
         onChange={(value) => {
           setPage(1)

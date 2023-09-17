@@ -11,7 +11,7 @@ export function UiSearchField({ placeholder = 'Search...', setSearch, searchValu
 
   return (
     <TextInput
-      sx={{ flexGrow: 1 }}
+      style={{ flexGrow: 1 }}
       placeholder={placeholder}
       value={value}
       onChange={(e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)}

@@ -6,7 +6,7 @@ export function UiDashboardContainer({ children }: { children: ReactNode }) {
     <Container
       size="xs"
       h="100%"
-      sx={{
+      style={{
         flexDirection: 'column',
         display: 'flex',
         justifyContent: 'center',
