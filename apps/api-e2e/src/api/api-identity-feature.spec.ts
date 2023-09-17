@@ -1,6 +1,7 @@
 import { IdentityProvider } from '@pubkey-stack/sdk'
 import * as bs58 from 'bs58'
 import { alice, getAliceCookie, getIdentityChallenge, sdk, signMessage } from '../support'
+import { breakStringSolana } from '../support/break-string'
 
 describe('api-identity-feature', () => {
   describe('api-identity-user-resolver', () => {
@@ -111,7 +112,8 @@ describe('api-identity-feature', () => {
               provider: IdentityProvider.Solana,
               providerId: alice.solana.publicKey,
               challenge,
-              signature: bs58.encode(signature).replace('A', 'B'),
+              // Break the signature
+              signature: breakStringSolana(bs58.encode(signature)),
             },
           },
           { cookie },
