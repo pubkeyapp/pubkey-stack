@@ -82,10 +82,11 @@ export class ApiAuthService {
 
     const user = await this.core.data.user.create({
       data: {
-        username,
-        status: UserStatus.Active,
         avatarUrl: (identity.profile as { avatarUrl?: string })?.avatarUrl,
+        developer: admin,
         role: admin ? UserRole.Admin : UserRole.User,
+        status: UserStatus.Active,
+        username,
         identities: {
           create: {
             ...identity,
