@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common'
-import { ApiCoreService } from '@<%= npmScope %>/api/core/data-access'
-import { Api<%= model.className %><%= admin.className %>Service } from './api-<%= model.fileName %>-<%= admin.fileName %>.service'
+import { <%= app.className %><%= admin.className %><%= model.className %>Service } from './<%= app.fileName %>-<%= admin.fileName %>-<%= model.fileName %>.service'
 
 @Injectable()
-export class Api<%= model.className %>Service {
-  constructor(private readonly core: ApiCoreService, readonly <%= admin.propertyName %>: Api<%= model.className %><%= admin.className %>Service) {}
+export class <%= app.className %><%= model.className %>Service {
+  constructor(readonly <%= admin.propertyName %>: <%= app.className %><%= admin.className %><%= model.className %>Service) {}
 }

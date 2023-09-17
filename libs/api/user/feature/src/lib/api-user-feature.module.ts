@@ -1,11 +1,11 @@
 import { ApiUserDataAccessModule } from '@pubkey-stack/api/user/data-access'
 import { Module } from '@nestjs/common'
-import { ApiUserAdminResolver } from './api-user-admin.resolver'
-import { ApiUserFieldResolver } from './api-user-field.resolver'
+import { ApiAdminUserResolver } from './api-admin-user.resolver'
+import { ApiUserResolver } from './api-user.resolver'
 import { ApiUserUserResolver } from './api-user-user.resolver'
 
 @Module({
   imports: [ApiUserDataAccessModule],
-  providers: [ApiUserFieldResolver, ApiUserAdminResolver, ApiUserUserResolver],
+  providers: [ApiUserResolver, ApiAdminUserResolver, ApiUserUserResolver],
 })
 export class ApiUserFeatureModule {}

@@ -1,9 +1,9 @@
 import { ApiEmailDataAccessModule } from '@pubkey-stack/api/email/data-access'
 import { Module } from '@nestjs/common'
-import { ApiEmailAdminResolver } from './api-email-admin.resolver'
+import { ApiAdminEmailResolver } from './api-admin-email.resolver'
 
 @Module({
   imports: [ApiEmailDataAccessModule],
-  providers: [ApiEmailAdminResolver],
+  providers: [ApiAdminEmailResolver],
 })
 export class ApiEmailFeatureModule {}

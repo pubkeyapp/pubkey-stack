@@ -1,5 +1,5 @@
 import { Field, InputType, Int } from '@nestjs/graphql'
-import { PagingInput } from '@<%= npmScope %>/api/core/data-access'
+import { PagingInput } from '@<%= npmScope %>/<%= app.fileName %>/core/data-access'
 
 @InputType()
 export class <%= admin.className %>FindMany<%= model.className %>Input extends PagingInput() {

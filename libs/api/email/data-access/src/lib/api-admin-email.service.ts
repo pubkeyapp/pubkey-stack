@@ -6,7 +6,7 @@ import { AdminFindManyEmailInput } from './dto/admin-find-many-email-input'
 import { AdminUpdateEmailInput } from './dto/admin-update-email.input'
 
 @Injectable()
-export class ApiEmailAdminService {
+export class ApiAdminEmailService {
   constructor(private readonly core: ApiCoreService) {}
 
   async createEmail(input: AdminCreateEmailInput): Promise<PrismaEmail> {

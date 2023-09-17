@@ -14,7 +14,7 @@ import { User } from '@pubkey-stack/api/user/data-access'
 
 @Resolver()
 @UseGuards(ApiAuthGraphQLUserGuard)
-export class ApiIdentityUserResolver {
+export class ApiUserIdentityResolver {
   constructor(private readonly service: ApiIdentityService) {}
 
   @Mutation(() => Boolean, { nullable: true })

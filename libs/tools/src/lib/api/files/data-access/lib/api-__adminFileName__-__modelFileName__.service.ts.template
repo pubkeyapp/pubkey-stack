@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { ApiCoreService } from '@<%= npmScope %>/api/core/data-access'
+import { <%= app.className %>CoreService } from '@<%= npmScope %>/<%= app.fileName %>/core/data-access'
 import { <%= admin.className %>Create<%= model.className %>Input } from './dto/<%= admin.fileName %>-create-<%= model.fileName %>.input'
 import { <%= admin.className %>FindMany<%= model.className %>Input } from './dto/<%= admin.fileName %>-find-many-<%= model.fileName %>.input'
 import { <%= admin.className %>Update<%= model.className %>Input } from './dto/<%= admin.fileName %>-update-<%= model.fileName %>.input'
@@ -7,8 +7,8 @@ import { <%= model.className %>Paging } from './entity/<%= model.fileName %>-pag
 import { get<%= admin.className %><%= model.className %>WhereInput } from './helpers/get-<%= admin.fileName %>-<%= model.fileName %>-where.input'
 
 @Injectable()
-export class Api<%= model.className %><%= admin.className %>Service {
-  constructor(private readonly core: ApiCoreService) {}
+export class <%= app.className %><%= admin.className %><%= model.className %>Service {
+  constructor(private readonly core: <%= app.className %>CoreService) {}
 
   async create<%= model.className %>(input: <%= admin.className %>Create<%= model.className %>Input) {
     return this.core.data.<%= model.propertyName %>.create({ data: input })

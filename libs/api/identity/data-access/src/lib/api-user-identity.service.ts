@@ -9,8 +9,8 @@ import { VerifyIdentityChallengeInput } from './dto/verify-identity-challenge-in
 import { sha256 } from './helpers/sha256'
 
 @Injectable()
-export class ApiIdentityUserService {
-  private readonly logger = new Logger(ApiIdentityUserService.name)
+export class ApiUserIdentityService {
+  private readonly logger = new Logger(ApiUserIdentityService.name)
   constructor(private readonly core: ApiCoreService) {}
 
   async deleteIdentity(userId: string, identityId: string): Promise<boolean> {

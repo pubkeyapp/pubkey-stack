@@ -8,10 +8,8 @@ export class Email {
   createdAt!: Date
   @Field()
   updatedAt!: Date
-
   @Field({ nullable: true })
   private?: boolean
-
   @Field({ nullable: true })
   default?: boolean
   @Field({ nullable: true })

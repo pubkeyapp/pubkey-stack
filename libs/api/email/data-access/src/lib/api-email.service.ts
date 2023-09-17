@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
-import { ApiEmailAdminService } from './api-email-admin.service'
+import { ApiAdminEmailService } from './api-admin-email.service'
 
 @Injectable()
 export class ApiEmailService {
-  constructor(readonly admin: ApiEmailAdminService) {}
+  constructor(readonly admin: ApiAdminEmailService) {}
 }

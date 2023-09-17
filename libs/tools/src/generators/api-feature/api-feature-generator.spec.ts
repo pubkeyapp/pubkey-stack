@@ -32,7 +32,7 @@ describe('api-feature generator', () => {
     const files = [
       `${basePathE2e}/api/api-${options.name}-feature.spec.ts`,
       `${basePathDataAccess}/index.ts`,
-      `${basePathDataAccess}/lib/${options.app}-${options.name}-admin.service.ts`,
+      `${basePathDataAccess}/lib/${options.app}-admin-${options.name}.service.ts`,
       `${basePathDataAccess}/lib/${options.app}-${options.name}-data-access.module.ts`,
       `${basePathDataAccess}/lib/${options.app}-${options.name}.service.ts`,
       `${basePathDataAccess}/lib/dto/admin-create-${options.name}.input.ts`,
@@ -42,7 +42,7 @@ describe('api-feature generator', () => {
       `${basePathDataAccess}/lib/entity/${options.name}.entity.ts`,
       `${basePathDataAccess}/lib/entity/${options.name}-paging.entity.ts`,
       `${basePathFeature}/index.ts`,
-      `${basePathFeature}/lib/${options.app}-${options.name}-admin.resolver.ts`,
+      `${basePathFeature}/lib/${options.app}-admin-${options.name}.resolver.ts`,
       `${basePathFeature}/lib/${options.app}-${options.name}-feature.module.ts`,
     ]
 

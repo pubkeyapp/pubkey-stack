@@ -2,7 +2,7 @@ import { Parent, ResolveField, Resolver } from '@nestjs/graphql'
 import { User } from '@pubkey-stack/api/user/data-access'
 
 @Resolver(() => User)
-export class ApiUserFieldResolver {
+export class ApiUserResolver {
   @ResolveField(() => String, { nullable: true })
   avatarUrl(@Parent() user: User) {
     return user.avatarUrl?.length ? user.avatarUrl : null

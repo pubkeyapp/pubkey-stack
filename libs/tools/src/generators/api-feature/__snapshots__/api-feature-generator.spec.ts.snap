@@ -223,7 +223,7 @@ import { TestPaging } from './entity/test-paging.entity';
 import { getAdminTestWhereInput } from './helpers/get-admin-test-where.input';
 
 @Injectable()
-export class ApiTestAdminService {
+export class ApiAdminTestService {
   constructor(private readonly core: ApiCoreService) {}
 
   async createTest(input: AdminCreateTestInput) {
@@ -259,13 +259,13 @@ export class ApiTestAdminService {
 exports[`api-feature generator should generate the feature libraries 4`] = `
 "import { Module } from '@nestjs/common';
 import { ApiCoreDataAccessModule } from '@proj/api/core/data-access';
-import { ApiTestAdminService } from './api-test-admin.service';
+import { ApiAdminTestService } from './api-admin-test.service';
 
 import { ApiTestService } from './api-test.service';
 
 @Module({
   imports: [ApiCoreDataAccessModule],
-  providers: [ApiTestService, ApiTestAdminService],
+  providers: [ApiTestService, ApiAdminTestService],
   exports: [ApiTestService],
 })
 export class ApiTestDataAccessModule {}
@@ -274,15 +274,11 @@ export class ApiTestDataAccessModule {}
 
 exports[`api-feature generator should generate the feature libraries 5`] = `
 "import { Injectable } from '@nestjs/common';
-import { ApiCoreService } from '@proj/api/core/data-access';
-import { ApiTestAdminService } from './api-test-admin.service';
+import { ApiAdminTestService } from './api-admin-test.service';
 
 @Injectable()
 export class ApiTestService {
-  constructor(
-    private readonly core: ApiCoreService,
-    readonly admin: ApiTestAdminService
-  ) {}
+  constructor(readonly admin: ApiAdminTestService) {}
 }
 "
 `;
@@ -390,7 +386,7 @@ import {
 
 @Resolver()
 @UseGuards(ApiAuthGraphQLAdminGuard)
-export class ApiTestAdminResolver {
+export class ApiAdminTestResolver {
   constructor(private readonly service: ApiTestService) {}
 
   @Mutation(() => Test, { nullable: true })
@@ -427,11 +423,11 @@ export class ApiTestAdminResolver {
 exports[`api-feature generator should generate the feature libraries 14`] = `
 "import { Module } from '@nestjs/common';
 import { ApiTestDataAccessModule } from '@proj/api/test/data-access';
-import { ApiTestAdminResolver } from './api-test-admin.resolver';
+import { ApiAdminTestResolver } from './api-admin-test.resolver';
 
 @Module({
   imports: [ApiTestDataAccessModule],
-  providers: [ApiTestAdminResolver],
+  providers: [ApiAdminTestResolver],
 })
 export class ApiTestFeatureModule {}
 "

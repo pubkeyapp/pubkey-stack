@@ -5,7 +5,7 @@ import { AdminCreateIdentityInput } from './dto/admin-create-identity.input'
 import { AdminFindManyIdentityInput } from './dto/admin-find-many-identity.input'
 
 @Injectable()
-export class ApiIdentityAdminService {
+export class ApiAdminIdentityService {
   constructor(private readonly core: ApiCoreService) {}
 
   async createIdentity(input: AdminCreateIdentityInput): Promise<PrismaIdentity> {

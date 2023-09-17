@@ -8,8 +8,8 @@ import { UserPaging } from './entity/user-paging.entity'
 import { getAdminUserWhereInput } from './helpers/get-admin-user-where.input'
 
 @Injectable()
-export class ApiUserAdminService {
-  private readonly logger = new Logger(ApiUserAdminService.name)
+export class ApiAdminUserService {
+  private readonly logger = new Logger(ApiAdminUserService.name)
   constructor(private readonly core: ApiCoreService) {}
 
   async createUser(input: AdminCreateUserInput): Promise<PrismaUser> {

@@ -11,7 +11,7 @@ import {
 
 @Resolver()
 @UseGuards(ApiAuthGraphQLAdminGuard)
-export class ApiEmailAdminResolver {
+export class ApiAdminEmailResolver {
   constructor(private readonly service: ApiEmailService) {}
 
   @Mutation(() => Email, { nullable: true })

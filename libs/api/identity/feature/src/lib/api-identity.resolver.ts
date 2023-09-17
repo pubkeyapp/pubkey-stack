@@ -3,7 +3,7 @@ import { IdentityProvider } from '@prisma/client'
 import { Identity } from '@pubkey-stack/api/identity/data-access'
 
 @Resolver(() => Identity)
-export class ApiIdentityFieldResolver {
+export class ApiIdentityResolver {
   @ResolveField(() => Boolean, { nullable: true })
   expired(@Parent() identity: Identity) {
     if (identity.provider !== IdentityProvider.Discord) return false

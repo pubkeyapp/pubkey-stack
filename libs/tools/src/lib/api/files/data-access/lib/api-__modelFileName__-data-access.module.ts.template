@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common'
 import { <%= app.className %>CoreDataAccessModule } from '@<%= npmScope %>/<%= app.fileName %>/core/data-access'
-<% if (adminCrud) { %>import { <%= app.className %><%= model.className %>AdminService } from './<%= app.fileName %>-<%= model.fileName %>-<%= admin.fileName %>.service'<% } %>
-<% if (userCrud) { %>import { <%= app.className %><%= model.className %>UserService } from './<%= app.fileName %>-<%= model.fileName %>-<%= user.fileName %>.service'<% } %>
+<% if (adminCrud) { %>import { <%= app.className %><%= admin.className %><%= model.className %>Service } from './<%= app.fileName %>-<%= admin.fileName %>-<%= model.fileName %>.service'<% } %>
+<% if (userCrud) { %>import { <%= app.className %><%= user.className %><%= model.className %>Service } from './<%= app.fileName %>-<%= user.fileName %>-<%= model.fileName %>.service'<% } %>
 import { <%= app.className %><%= model.className %>Service } from './<%= app.fileName %>-<%= model.fileName %>.service'
 
 @Module({
   imports: [<%= app.className %>CoreDataAccessModule],
   providers: [
     <%= app.className %><%= model.className %>Service,
-    <% if (adminCrud) { %><%= app.className %><%= model.className %><%= admin.className %>Service,<% } %>
-    <% if (userCrud) { %><%= app.className %><%= model.className %><%= user.className %>Service<% } %>
+    <% if (adminCrud) { %><%= app.className %><%= admin.className %><%= model.className %>Service,<% } %>
+    <% if (userCrud) { %><%= app.className %><%= user.className %><%= model.className %>Service<% } %>
   ],
   exports: [<%= app.className %><%= model.className %>Service],
 })
