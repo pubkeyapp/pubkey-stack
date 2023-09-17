@@ -33,7 +33,7 @@ describe('api-user-feature', () => {
         expect(user.status).toBe(UserStatus.Created)
         expect(user.role).toBe(UserRole.User)
         expect(user.username).toBe(input.username)
-        expect(user.avatarUrl).toContain(avatarUrl(user.username))
+        expect(user.avatarUrl).toBe(null)
         expect(user.name).toBeNull()
         expect(user.id).toBeDefined()
         expect(user.createdAt).toBeDefined()

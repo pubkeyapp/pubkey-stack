@@ -1,10 +1,10 @@
-import { ActionIcon, Anchor, Avatar, Group, ScrollArea, Stack, Text } from '@mantine/core'
+import { ActionIcon, Anchor, Group, ScrollArea, Stack, Text } from '@mantine/core'
 import { User } from '@pubkey-stack/sdk'
 import { UiGroup } from '@pubkey-stack/web/ui/core'
-
 import { IconPencil, IconTrash, IconUser } from '@tabler/icons-react'
 import { DataTable } from 'mantine-datatable'
 import { Link } from 'react-router-dom'
+import { WebUserUiAvatar } from './web-user-ui-avatar'
 import { WebUserUiRoleBadge } from './web-user-ui-role-badge'
 import { WebUserUiStatusBadge } from './web-user-ui-status-badge'
 
@@ -27,7 +27,7 @@ export function AdminUiUserTable({ deleteUser, users = [] }: AdminUserTableProps
               const link = `/admin/users/${item.id}`
               return (
                 <Group spacing="sm" p={4}>
-                  <Avatar component={Link} to={link} size={40} src={item?.avatarUrl} radius={50} />
+                  <WebUserUiAvatar size={40} user={item} radius={50} />
                   <Stack spacing={1}>
                     <UiGroup position="left" spacing={4} align="baseline">
                       <Anchor component={Link} to={link} size="sm" weight={500}>

@@ -1,5 +1,6 @@
-import { User } from '@pubkey-stack/sdk'
 import { Avatar, Tooltip } from '@mantine/core'
+import { User } from '@pubkey-stack/sdk'
+import { WebUserUiAvatar } from './web-user-ui-avatar'
 
 export function WebUserUiAvatars({ users = [] }: { users?: User[] }) {
   const count = users.length
@@ -11,7 +12,7 @@ export function WebUserUiAvatars({ users = [] }: { users?: User[] }) {
       <Avatar.Group spacing="sm">
         {visible.map((user) => (
           <Tooltip key={user.id} label={user?.username} withArrow>
-            <Avatar src={user?.avatarUrl} radius={100} />
+            <WebUserUiAvatar user={user} radius={100} />
           </Tooltip>
         ))}
         {overflow > 0 ? (
