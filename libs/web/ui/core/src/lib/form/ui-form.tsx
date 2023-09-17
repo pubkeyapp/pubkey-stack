@@ -1,5 +1,5 @@
 import { Alert, Checkbox, NumberInput, PasswordInput, Select, Stack, Textarea, TextInput } from '@mantine/core'
-import { DatePicker } from '@mantine/dates'
+import { DatePickerInput } from '@mantine/dates'
 import { useForm } from '@mantine/form'
 import React, { ReactNode, useEffect } from 'react'
 import { UiFormDate } from './ui-form-date'
@@ -72,9 +72,13 @@ export function UiForm<T>({
               )
             case UiFormFieldType.Date:
               return (
-                <DatePicker
+                <DatePickerInput
                   key={field.key?.toString()}
+                  description={field.description}
+                  disabled={field.disabled}
+                  label={field.label}
                   placeholder={field.placeholder ?? field.label}
+                  required={field.required}
                   maxDate={(field as UiFormDate<T>).maxDate}
                   minDate={(field as UiFormDate<T>).minDate}
                   {...form.getInputProps(field.key)}

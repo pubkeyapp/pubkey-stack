@@ -3,18 +3,18 @@ import { useAdminFindOne<%= modelClassName %> } from '@<%= npmScope %>/<%= app %
 import { AdminUiUpdate<%= modelClassName %>Form } from '@<%= npmScope %>/<%= app %>/<%= modelFileName %>/ui'
 
 export function WebAdmin<%= modelClassName %>DetailSettingsTab({ <%= modelPropertyName %>Id }: { <%= modelPropertyName %>Id: string }) {
-  const { <%= modelPropertyName %>, query, update<%= modelClassName %> } = useAdminFindOne<%= modelClassName %>(<%= modelPropertyName %>Id)
+  const { item, query, update<%= modelClassName %> } = useAdminFindOne<%= modelClassName %>({ <%= modelPropertyName %>Id })
 
   if (query.isLoading) {
     return <UiLoader />
   }
-  if (!<%= modelPropertyName %>) {
+  if (!item) {
     return <UiError message="<%= modelClassName %> not found." />
   }
 
 return (
     <UiCard>
-      <AdminUiUpdate<%= modelClassName %>Form <%= modelPropertyName %>={<%= modelPropertyName %>} submit={update<%= modelClassName %>} />
+      <AdminUiUpdate<%= modelClassName %>Form <%= modelPropertyName %>={item} submit={update<%= modelClassName %>} />
     </UiCard>
   )
 }

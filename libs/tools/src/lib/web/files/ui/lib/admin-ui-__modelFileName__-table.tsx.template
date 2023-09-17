@@ -5,12 +5,13 @@ import { IconPencil, IconTrash } from '@tabler/icons-react'
 import { DataTable } from 'mantine-datatable'
 import { Link } from 'react-router-dom'
 
-interface Admin<%= modelClassName %>TableProps {
-  <%= modelPropertyName %>s: <%= modelClassName %>[]
+export function AdminUi<%= modelClassName %>Table({
+  delete<%= modelClassName %>,
+  <%= modelPropertyName %>s = [],
+}: {
   delete<%= modelClassName %>: (<%= modelPropertyName %>: <%= modelClassName %>) => void
-}
-
-export function AdminUi<%= modelClassName %>Table({ delete<%= modelClassName %>, <%= modelPropertyName %>s = [] }: Admin<%= modelClassName %>TableProps) {
+  <%= modelPropertyName %>s: <%= modelClassName %>[]
+}) {
   return (
     <ScrollArea>
       <DataTable
@@ -20,16 +21,13 @@ export function AdminUi<%= modelClassName %>Table({ delete<%= modelClassName %>,
         columns={[
           {
             accessor: '<%= label %>',
-            render: (item) => {
-              const link = `/admin/<%= modelPropertyName %>s/${item.id}`
-              return (
-                <UiGroup position="left" spacing={4} align="baseline">
-                  <Anchor component={Link} to={link} size="sm" weight={500}>
-                    {item.<%= label %>}
-                  </Anchor>
-                </UiGroup>
-              )
-            },
+            render: (item) => (
+              <UiGroup position="left" spacing={4} align="baseline">
+                <Anchor component={Link} to={`/admin/<%= modelPropertyName %>s/${item.id}`} size="sm" weight={500}>
+                  {item.<%= label %>}
+                </Anchor>
+              </UiGroup>
+            ),
           },
           {
             accessor: 'actions',

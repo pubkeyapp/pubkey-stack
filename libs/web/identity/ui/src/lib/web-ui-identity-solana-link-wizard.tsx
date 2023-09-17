@@ -3,7 +3,7 @@ import { modals } from '@mantine/modals'
 import { ellipsify, Identity, IdentityProvider } from '@pubkey-stack/sdk'
 import { useIdentitySolana } from '@pubkey-stack/web/identity/data-access'
 import { UiStack, UiWarn } from '@pubkey-stack/web/ui/core'
-import { showNotificationError } from '@pubkey-stack/web/ui/notifications'
+import { notifyError } from '@pubkey-stack/web/ui/notifications'
 import { WalletMultiButton } from '@pubkeyapp/wallet-adapter-mantine-ui'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useEffect, useState } from 'react'
@@ -104,7 +104,7 @@ export function WebUiIdentitySolanaLinkWizard({ identities }: { identities: Iden
                     })
                     .catch((err) => {
                       console.log('error linking identity', err)
-                      showNotificationError('Error linking identity')
+                      notifyError('Error linking identity')
                     })
                     .finally(() => setSigning(false))
                 }}

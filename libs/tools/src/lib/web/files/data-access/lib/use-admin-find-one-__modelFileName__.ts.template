@@ -1,19 +1,19 @@
 import { AdminUpdate<%= modelClassName %>Input } from '@<%= npmScope %>/sdk'
 import { useWebSdk } from '@<%= npmScope %>/<%= app %>/shell/data-access'
-import { showNotificationError, showNotificationSuccess } from '@<%= npmScope %>/<%= app %>/ui/notifications'
+import { notifyError, notifySuccess } from '@<%= npmScope %>/<%= app %>/ui/notifications'
 import { useQuery } from '@tanstack/react-query'
 
-export function useAdminFindOne<%= modelClassName %>(<%= modelPropertyName %>Id: string) {
+export function useAdminFindOne<%= modelClassName %>({ <%= modelPropertyName %>Id }:{ <%= modelPropertyName %>Id: string }) {
   const sdk = useWebSdk()
   const query = useQuery({
     queryKey: ['admin', 'find-one-<%= modelFileName %>', <%= modelPropertyName %>Id],
     queryFn: () => sdk.adminFindOne<%= modelClassName %>({ <%= modelPropertyName %>Id }).then((res) => res.data),
     retry: 0
   })
-  const <%= modelPropertyName %> = query.data?.item ?? undefined
+  const item = query.data?.item ?? undefined
 
   return {
-    <%= modelPropertyName %>,
+    item,
     query,
     update<%= modelClassName %>: async (input: AdminUpdate<%= modelClassName %>Input) =>
       sdk
@@ -21,15 +21,15 @@ export function useAdminFindOne<%= modelClassName %>(<%= modelPropertyName %>Id:
         .then((res) => res.data)
         .then(async (res) => {
           if (res) {
-            showNotificationSuccess('<%= modelClassName %> updated')
+            notifySuccess('<%= modelClassName %> updated')
             await query.refetch()
             return true
           }
-          showNotificationError('<%= modelClassName %> not updated')
+          notifyError('<%= modelClassName %> not updated')
           return false
         })
         .catch((err) => {
-          showNotificationError(err.message)
+          notifyError(err.message)
           return false
         }),
   }

@@ -3,7 +3,7 @@ import { modals } from '@mantine/modals'
 import { ellipsify, Identity, IdentityProvider } from '@pubkey-stack/sdk'
 import { useIdentitySolana } from '@pubkey-stack/web/identity/data-access'
 import { UiStack, UiWarn } from '@pubkey-stack/web/ui/core'
-import { showNotificationError } from '@pubkey-stack/web/ui/notifications'
+import { notifyError } from '@pubkey-stack/web/ui/notifications'
 import { WalletMultiButton } from '@pubkeyapp/wallet-adapter-mantine-ui'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useEffect, useMemo, useState } from 'react'
@@ -30,7 +30,7 @@ export function WebUiIdentitySolanaVerifyWizard({ identity, refresh }: { identit
     verifyAndSign({ publicKey: identity.providerId, useLedger })
       .catch((err) => {
         console.log('Error verifying identity', err)
-        showNotificationError('Error verifying identity')
+        notifyError('Error verifying identity')
       })
       .finally(() => {
         setRequesting(false)

@@ -6,7 +6,6 @@ import {
   WebUiIdentityDiscordLinkButton,
   WebUiIdentityIdentityGroupList,
 } from '@pubkey-stack/web/identity/ui'
-
 import { UiContainer, UiDashboardContainer, UiPageHeader, UiStack } from '@pubkey-stack/web/ui/core'
 import { Link } from 'react-router-dom'
 

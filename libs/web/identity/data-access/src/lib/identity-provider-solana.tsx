@@ -1,6 +1,6 @@
 import { IdentityProvider } from '@pubkey-stack/sdk'
 import { useWebSdk } from '@pubkey-stack/web/shell/data-access'
-import { showNotificationError, showNotificationSuccess } from '@pubkey-stack/web/ui/notifications'
+import { notifyError, notifySuccess } from '@pubkey-stack/web/ui/notifications'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { createContext, ReactNode, useContext } from 'react'
 import { useCreateSignature } from './use-create-signature'
@@ -24,12 +24,12 @@ export function IdentityProviderSolana({ children, refresh }: { children: ReactN
     return sdk
       .userLinkIdentity({ input: { provider: IdentityProvider.Solana, providerId: publicKey } })
       .then((res) => {
-        showNotificationSuccess('Identity linked')
+        notifySuccess('Identity linked')
         refresh()
       })
       .catch((err) => {
         console.log('Error linking identity', err)
-        showNotificationError('Error linking identity')
+        notifyError('Error linking identity')
       })
   }
 
@@ -38,14 +38,14 @@ export function IdentityProviderSolana({ children, refresh }: { children: ReactN
       .userRequestIdentityChallenge({ input: { provider: IdentityProvider.Solana, providerId: publicKey } })
       .then((res) => {
         if (!res.data.challenge) {
-          showNotificationError('Error linking identity')
+          notifyError('Error linking identity')
           return
         }
         return res.data.challenge
       })
       .catch((err) => {
         console.log('error linking identity', err)
-        showNotificationError('Error linking identity')
+        notifyError('Error linking identity')
       })
   }
 
@@ -70,12 +70,12 @@ export function IdentityProviderSolana({ children, refresh }: { children: ReactN
         },
       })
       .then((res) => {
-        showNotificationSuccess('Identity verified')
+        notifySuccess('Identity verified')
         refresh()
       })
       .catch((err) => {
         console.log('error verifying identity', err)
-        showNotificationError('Error verifying identity')
+        notifyError('Error verifying identity')
       })
   }
 

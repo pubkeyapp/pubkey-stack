@@ -2,18 +2,18 @@ import { UiCard, UiError, UiDebug, UiLoader } from '@<%= npmScope %>/<%= app %>/
 import { useAdminFindOne<%= modelClassName %> } from '@<%= npmScope %>/<%= app %>/<%= modelFileName %>/data-access'
 
 export function WebAdmin<%= modelClassName %>DetailOverviewTab({ <%= modelPropertyName %>Id }: { <%= modelPropertyName %>Id: string }) {
-  const { <%= modelPropertyName %>, query } = useAdminFindOne<%= modelClassName %>(<%= modelPropertyName %>Id)
+  const { item, query } = useAdminFindOne<%= modelClassName %>({ <%= modelPropertyName %>Id })
 
   if (query.isLoading) {
     return <UiLoader />
   }
-  if (!<%= modelPropertyName %>) {
+  if (!item) {
     return <UiError message="<%= modelClassName %> not found." />
   }
 
   return (
     <UiCard>
-      <UiDebug data={<%= modelPropertyName %>} open />
+      <UiDebug data={item} open />
     </UiCard>
   )
 }

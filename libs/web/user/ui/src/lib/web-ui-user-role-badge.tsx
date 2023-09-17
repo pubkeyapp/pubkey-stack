@@ -1,5 +1,5 @@
-import { UserRole } from '@pubkey-stack/sdk'
 import { Badge, useMantineTheme } from '@mantine/core'
+import { UserRole } from '@pubkey-stack/sdk'
 
 export const USER_ROLE_COLORS: Record<UserRole, string> = {
   [UserRole.Admin]: 'pink',

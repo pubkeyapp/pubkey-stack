@@ -2,7 +2,6 @@ import { Alert } from '@mantine/core'
 import { IdentityProvider } from '@pubkey-stack/sdk'
 import { useUserFindManyIdentity } from '@pubkey-stack/web/identity/data-access'
 import { UiDashboardContainer } from '@pubkey-stack/web/ui/core'
-
 import { WebUiIdentityDiscordLinkButton } from './web-ui-identity-discord-link-button'
 import { WebUiIdentityIcon } from './web-ui-identity-icon'
 import { WebUiIdentitySolanaLinkButton } from './web-ui-identity-solana-link-button'

@@ -1,6 +1,6 @@
+import { Button, Group } from '@mantine/core'
 import { AdminUpdateEmailInput, Email } from '@pubkey-stack/sdk'
 import { formFieldCheckbox, formFieldText, UiForm, UiFormField } from '@pubkey-stack/web/ui/core'
-import { Button, Group } from '@mantine/core'
 
 export function AuthUiEmailUpdateForm({
   email,

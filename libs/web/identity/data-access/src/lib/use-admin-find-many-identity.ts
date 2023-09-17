@@ -1,7 +1,7 @@
 import { modals } from '@mantine/modals'
 import { AdminCreateIdentityInput, AdminFindManyIdentityInput, Identity, IdentityProvider } from '@pubkey-stack/sdk'
 import { useWebSdk } from '@pubkey-stack/web/shell/data-access'
-import { showNotificationError, showNotificationSuccess } from '@pubkey-stack/web/ui/notifications'
+import { notifyError, notifySuccess } from '@pubkey-stack/web/ui/notifications'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
@@ -23,33 +23,33 @@ export function useAdminFindManyIdentity({ ownerId, provider }: { ownerId?: stri
     query,
     createIdentity: async (input: AdminCreateIdentityInput) => {
       if (!ownerId) {
-        showNotificationError('No owner ID')
+        notifyError('No owner ID')
         return false
       }
       try {
         const res = await sdk.adminCreateIdentity({ input: { ...input, ownerId } })
 
         if (res) {
-          showNotificationSuccess('Identity created')
+          notifySuccess('Identity created')
           modals.closeAll()
           await query.refetch()
           return true
         }
-        showNotificationError('Error creating identity')
+        notifyError('Error creating identity')
         return false
       } catch (err) {
-        showNotificationError(`${err}`)
+        notifyError(`${err}`)
         return false
       }
     },
     deleteIdentity: (identity: Identity) => {
       return sdk.adminDeleteIdentity({ identityId: identity.id }).then(async (res) => {
         if (res) {
-          showNotificationSuccess('Identity deleted')
+          notifySuccess('Identity deleted')
           await query.refetch()
           return true
         }
-        showNotificationError('Error deleting identity')
+        notifyError('Error deleting identity')
         return false
       })
     },

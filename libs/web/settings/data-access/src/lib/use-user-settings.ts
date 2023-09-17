@@ -1,7 +1,7 @@
 import { UserUpdateUserInput } from '@pubkey-stack/sdk'
 import { useWebAuth } from '@pubkey-stack/web/auth/data-access'
 import { useMeQuery, useWebSdk } from '@pubkey-stack/web/shell/data-access'
-import { showNotificationError } from '@pubkey-stack/web/ui/notifications'
+import { notifyError } from '@pubkey-stack/web/ui/notifications'
 import { useUserFineOneUser } from '@pubkey-stack/web/user/data-access'
 
 export function useUserSettings() {
@@ -23,7 +23,7 @@ export function useUserSettings() {
           return !!res.data
         })
         .catch((err) => {
-          showNotificationError(err.message)
+          notifyError(err.message)
           return false
         })
     },

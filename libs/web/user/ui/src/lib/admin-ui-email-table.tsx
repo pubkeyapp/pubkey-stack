@@ -1,6 +1,5 @@
-import { Email } from '@pubkey-stack/sdk'
 import { ActionIcon, Group, ScrollArea, Stack, Text } from '@mantine/core'
-
+import { Email } from '@pubkey-stack/sdk'
 import { IconPencil, IconTrash } from '@tabler/icons-react'
 import { DataTable } from 'mantine-datatable'
 

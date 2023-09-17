@@ -1,4 +1,4 @@
-import { Flex, FlexProps, Loader } from '@mantine/core'
+import { Flex, Loader } from '@mantine/core'
 import { MantineNumberSize, MantineTheme } from '@mantine/styles'
 
 export function UiLoader({
@@ -13,14 +13,6 @@ export function UiLoader({
   return (
     <Flex h={type === 'full' ? '100vh' : '100%'} justify="center" align="center">
       <Loader size={size} variant={variant} />
-    </Flex>
-  )
-}
-
-export function UiFull({ children, ...props }: FlexProps) {
-  return (
-    <Flex h="100vh" justify="center" align="center" direction="column" {...props}>
-      {children}
     </Flex>
   )
 }

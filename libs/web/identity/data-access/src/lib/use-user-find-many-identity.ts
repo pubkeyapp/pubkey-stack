@@ -1,6 +1,6 @@
 import { Identity, IdentityProvider } from '@pubkey-stack/sdk'
 import { useWebSdk } from '@pubkey-stack/web/shell/data-access'
-import { showNotificationError, showNotificationSuccess } from '@pubkey-stack/web/ui/notifications'
+import { notifyError, notifySuccess } from '@pubkey-stack/web/ui/notifications'
 import { useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 
@@ -45,10 +45,10 @@ export function useUserFindManyIdentity() {
       sdk
         .userDeleteIdentity({ identityId })
         .then((res) => {
-          showNotificationSuccess('Identity deleted')
+          notifySuccess('Identity deleted')
         })
         .catch((res) => {
-          showNotificationError('Error deleting identity')
+          notifyError('Error deleting identity')
         })
         .finally(() => query.refetch())
     },

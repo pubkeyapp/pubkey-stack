@@ -1,5 +1,4 @@
 import { Button, Group } from '@mantine/core'
-import { <%= modelClassName %> } from '@<%= npmScope %>/sdk'
 import { UiBack, UiAdminPage, UiAlert, UiDebugModal, UiLoader, UiPagination, UiSearchField } from '@<%= npmScope %>/<%= app %>/ui/core'
 import { useAdminFindMany<%= modelClassName %> } from '@<%= npmScope %>/<%= app %>/<%= modelFileName %>/data-access'
 import { AdminUi<%= modelClassName %>Table } from '@<%= npmScope %>/<%= app %>/<%= modelFileName %>/ui'

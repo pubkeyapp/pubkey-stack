@@ -7,17 +7,17 @@ import { WebAdmin<%= modelClassName %>DetailSettingsTab } from './web-admin-<%= 
 
 export function WebAdmin<%= modelClassName %>DetailFeature() {
   const { <%= modelPropertyName %>Id } = useParams<{ <%= modelPropertyName %>Id: string }>() as { <%= modelPropertyName %>Id: string }
-  const { query, <%= modelPropertyName %> } = useAdminFindOne<%= modelClassName %>(<%= modelPropertyName %>Id)
+  const { item, query } = useAdminFindOne<%= modelClassName %>({ <%= modelPropertyName %>Id })
 
   if (query.isLoading) {
     return <UiLoader />
   }
-  if (!<%= modelPropertyName %>) {
+  if (!item) {
     return <UiError message="<%= modelClassName %> not found." />
   }
 
   return (
-    <UiAdminPage leftAction={<UiBack />} title={<Group>{<%= modelPropertyName %>.<%= label %>}</Group> }>
+    <UiAdminPage leftAction={<UiBack />} title={<Group>{item.<%= label %>}</Group> }>
       <UiTabRoutes
         tabs={[
           {

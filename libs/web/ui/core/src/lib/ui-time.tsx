@@ -16,11 +16,3 @@ export function UiTime({ datetime, prefix, tooltip, ...props }: UiTimeProps) {
 
   return tooltip ? <Tooltip label={datetime.toISOString()}>{element}</Tooltip> : element
 }
-
-export function UiStatus(props: TextProps) {
-  return (
-    <Text size="xs" color="dimmed" {...props}>
-      {props.children}
-    </Text>
-  )
-}
