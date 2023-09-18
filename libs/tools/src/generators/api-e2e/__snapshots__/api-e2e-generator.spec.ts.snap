@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`api-e2e generator should run successfully 1`] = `
-"import { AdminCreateTestInput, AdminFindManyTestInput, AdminUpdateTestInput, Test } from '@pubkey-stack/sdk'
+"import { AdminCreateTestInput, AdminFindManyTestInput, AdminUpdateTestInput, Test } from '@proj/sdk'
 import { getAliceCookie, getBobCookie, sdk, uniqueId } from '../support'
 
 describe('api-test-feature', () => {

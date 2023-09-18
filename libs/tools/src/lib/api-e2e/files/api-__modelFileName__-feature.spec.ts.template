@@ -1,4 +1,4 @@
-import { AdminCreate<%= model.className %>Input, AdminFindMany<%= model.className %>Input, AdminUpdate<%= model.className %>Input, <%= model.className %> } from '@pubkey-stack/sdk'
+import { AdminCreate<%= model.className %>Input, AdminFindMany<%= model.className %>Input, AdminUpdate<%= model.className %>Input, <%= model.className %> } from '@<%= npmScope %>/sdk'
 import { getAliceCookie, getBobCookie, sdk, uniqueId } from '../support'
 
 describe('api-<%= model.fileName %>-feature', () => {

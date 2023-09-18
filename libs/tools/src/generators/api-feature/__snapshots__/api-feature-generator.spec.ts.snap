@@ -6,7 +6,7 @@ exports[`api-feature generator should generate the feature libraries 1`] = `
   AdminFindManyTestInput,
   AdminUpdateTestInput,
   Test,
-} from '@pubkey-stack/sdk';
+} from '@proj/sdk';
 import { getAliceCookie, getBobCookie, sdk, uniqueId } from '../support';
 
 describe('api-test-feature', () => {
