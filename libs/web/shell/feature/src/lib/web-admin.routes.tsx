@@ -1,8 +1,19 @@
 import { WebDevAdminRoutes } from '@pubkey-stack/web/dev/feature'
-import { UiContainer, UiDashboard, UiNotFound } from '@pubkey-stack/web/ui/core'
+import { UiContainer, UiDashboard, UiDashboardItem, UiNotFound } from '@pubkey-stack/web/ui/core'
 import { WebAdminUserRoutes } from '@pubkey-stack/web/user/feature'
 import { IconUsers } from '@tabler/icons-react'
-import { Navigate, useRoutes } from 'react-router-dom'
+import { Navigate, RouteObject, useRoutes } from 'react-router-dom'
+
+const links: UiDashboardItem[] = [
+  // Admin Dashboard Links
+  { label: 'Users', icon: IconUsers, link: '/admin/users' },
+]
+
+const routes: RouteObject[] = [
+  // Admin Dashboard Routes
+  { path: 'development/*', element: <WebDevAdminRoutes /> },
+  { path: 'users/*', element: <WebAdminUserRoutes /> },
+]
 
 export default function WebAdminRoutes() {
   return useRoutes([
@@ -11,18 +22,11 @@ export default function WebAdminRoutes() {
       path: 'dashboard/*',
       element: (
         <UiContainer>
-          <UiDashboard
-            links={[
-              { label: 'Users', icon: IconUsers, link: '/admin/users' },
-              // GENERATE_ADMIN_DASHBOARD_LINK
-            ]}
-          />
+          <UiDashboard links={links} />
         </UiContainer>
       ),
     },
-    { path: 'development/*', element: <WebDevAdminRoutes /> },
-    { path: 'users/*', element: <WebAdminUserRoutes /> },
-    // GENERATE_ADMIN_DASHBOARD_ROUTE
+    ...routes,
     { path: '*', element: <UiNotFound to="/admin" /> },
   ])
 }

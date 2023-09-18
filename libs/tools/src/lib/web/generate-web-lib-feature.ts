@@ -1,6 +1,7 @@
 import { generateFiles, readProjectConfiguration, Tree } from '@nx/devkit'
 import { join } from 'node:path'
 import { NormalizedWebFeatureSchema } from '../../generators/web-feature/web-feature-schema'
+import { addArrayItem } from '../utils/add-array-item'
 import { addNamedImport } from '../utils/add-named-import'
 import { updateSourceFile } from '../utils/update-source-file'
 import { getWebModuleInfo } from './get-web-module-info'
@@ -36,27 +37,18 @@ export const WebAdmin${className}Routes = lazy(() => import('./lib/web-admin-${f
     }
 
     const adminRoutes = `${shellProject.sourceRoot}/lib/web-admin.routes.tsx`
-    const adminRoutesContent = tree.read(adminRoutes).toString('utf-8')
 
-    // Find admin shell routes and add the new route
-    const placeholderLink = `// GENERATE_ADMIN_DASHBOARD_LINK`
-    const placeholderRoute = `// GENERATE_ADMIN_DASHBOARD_ROUTE`
-
-    if (!adminRoutesContent.includes(placeholderLink) || !adminRoutesContent.includes(placeholderRoute)) {
-      // Skipping generation because the placeholder is missing
-      console.warn(`WARNING: Skipping generation of admin routes for ${options.app} because the placeholder is missing`)
-      return
-    }
-
-    const itemLink = `{ label: '${classNamePlural}', icon: IconUsers, link: '/admin/${fileNamePlural}' }`
-    const itemRoute = `{ path: '${fileNamePlural}/*', element: <WebAdmin${className}Routes /> }`
-
-    tree.write(
-      adminRoutes,
-      adminRoutesContent
-        .replace(placeholderLink, `${itemLink},\n${placeholderLink}`)
-        .replace(placeholderRoute, `${itemRoute},\n${placeholderRoute}`),
-    )
+    updateSourceFile(tree, adminRoutes, (source) => {
+      addArrayItem(source, {
+        name: 'links',
+        content: `{ label: '${classNamePlural}', icon: IconUsers, link: '/admin/${fileNamePlural}' },`,
+      })
+      addArrayItem(source, {
+        name: 'routes',
+        content: `{ path: '${fileNamePlural}/*', element: <WebAdmin${className}Routes /> },`,
+      })
+      return source
+    })
 
     updateSourceFile(tree, adminRoutes, (source) => {
       addNamedImport(source, `@${npmScope}/${options.app}/${options.name}/feature`, `WebAdmin${className}Routes`)
