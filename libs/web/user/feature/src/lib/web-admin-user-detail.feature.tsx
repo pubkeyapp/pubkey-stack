@@ -1,6 +1,7 @@
 import { Group } from '@mantine/core'
 import { UiAdminPage, UiBack, UiDebugModal, UiError, UiLoader, UiStack, UiTabRoutes } from '@pubkey-stack/web/ui/core'
 import { useAdminFindOneUser } from '@pubkey-stack/web/user/data-access'
+import { WebUiUserAvatar } from '@pubkey-stack/web/user/ui'
 import { useParams } from 'react-router-dom'
 import { WebAdminUserDetailEmailsTab } from './web-admin-user-detail-emails.tab'
 import { WebAdminUserDetailIdentitiesTab } from './web-admin-user-detail-identities.tab'
@@ -25,7 +26,11 @@ export function WebAdminUserDetailFeature() {
           <UiDebugModal data={item} />{' '}
         </Group>
       }
-      title={<Group>{item.username}</Group>}
+      title={
+        <Group spacing="xs">
+          <WebUiUserAvatar size="sm" user={item} /> {item.username}
+        </Group>
+      }
     >
       <UiStack>
         <UiTabRoutes
