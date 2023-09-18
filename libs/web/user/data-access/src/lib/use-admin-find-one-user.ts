@@ -10,10 +10,10 @@ export function useAdminFindOneUser({ userId }: { userId: string }) {
     queryFn: () => sdk.adminFindOneUser({ userId }).then((res) => res.data),
     retry: 0,
   })
-  const user = query.data?.item ?? undefined
+  const item = query.data?.item ?? undefined
 
   return {
-    user,
+    item,
     query,
     updateUser: async (input: AdminUpdateUserInput) =>
       sdk
