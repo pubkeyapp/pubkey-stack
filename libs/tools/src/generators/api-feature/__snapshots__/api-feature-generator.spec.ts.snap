@@ -295,7 +295,7 @@ export class AdminCreateTestInput {
 `;
 
 exports[`api-feature generator should generate the feature libraries 7`] = `
-"import { Field, InputType, Int } from '@nestjs/graphql';
+"import { Field, InputType } from '@nestjs/graphql';
 import { PagingInput } from '@proj/api/core/data-access';
 
 @InputType()
