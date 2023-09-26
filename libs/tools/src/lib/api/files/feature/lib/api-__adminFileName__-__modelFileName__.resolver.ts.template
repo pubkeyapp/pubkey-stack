@@ -1,5 +1,5 @@
 import { Resolver } from '@nestjs/graphql'
-import { <%= app.className %><%= model.className %>Service } from '@<%= npmScope %>/<%= app.fileName %>/<%= model.fileName %>/data-access'
+import { <%= app.className %><%= model.className %>Service } from '@<%= npmScope %>/<%= app.fileName %>-<%= model.fileName %>-data-access'
 import { <%= app.className %>AuthGraphQLAdminGuard } from '@<%= npmScope %>/<%= app.fileName %>/auth/data-access'
 import { Mutation, Query, Args } from '@nestjs/graphql'
 import { UseGuards } from '@nestjs/common'
@@ -9,7 +9,7 @@ import {
   <%= model.className %>,
   <%= model.className %>Paging,
   <%= admin.className %>Update<%= model.className %>Input,
-} from '@<%= npmScope %>/<%= app.fileName %>/<%= model.fileName %>/data-access'
+} from '@<%= npmScope %>/<%= app.fileName %>-<%= model.fileName %>-data-access'
 
 @Resolver()
 @UseGuards(<%= app.className %>AuthGraphQLAdminGuard)

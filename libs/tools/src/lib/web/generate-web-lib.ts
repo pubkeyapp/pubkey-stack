@@ -9,12 +9,13 @@ import { generateWebLibUi } from './generate-web-lib-ui'
 
 export async function generateWebLib(tree: Tree, type: WebLibType, options: NormalizedWebFeatureSchema) {
   const generated = await libraryGenerator(tree, {
-    linter: Linter.EsLint,
-    style: 'css',
-    name: type,
-    directory: `libs/${options.app}/${options.name}`,
+    name: `${options.app}-${options.name}-${type}`,
+    projectNameAndRootFormat: 'as-provided',
+    directory: `libs/${options.app}/${options.name}/${type}`,
     tags: `app:${options.app},type:${type}`,
     skipFormat: true,
+    linter: Linter.EsLint,
+    style: 'css',
   })
   if (!generated) {
     throw new Error(`Failed to generate ${type} library`)

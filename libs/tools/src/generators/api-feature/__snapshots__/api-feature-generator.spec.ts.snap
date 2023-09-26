@@ -372,7 +372,7 @@ exports[`api-feature generator should generate the feature libraries 12`] = `
 
 exports[`api-feature generator should generate the feature libraries 13`] = `
 "import { Resolver } from '@nestjs/graphql';
-import { ApiTestService } from '@proj/api/test/data-access';
+import { ApiTestService } from '@proj/api-test-data-access';
 import { ApiAuthGraphQLAdminGuard } from '@proj/api/auth/data-access';
 import { Mutation, Query, Args } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
@@ -382,7 +382,7 @@ import {
   Test,
   TestPaging,
   AdminUpdateTestInput,
-} from '@proj/api/test/data-access';
+} from '@proj/api-test-data-access';
 
 @Resolver()
 @UseGuards(ApiAuthGraphQLAdminGuard)
@@ -422,7 +422,7 @@ export class ApiAdminTestResolver {
 
 exports[`api-feature generator should generate the feature libraries 14`] = `
 "import { Module } from '@nestjs/common';
-import { ApiTestDataAccessModule } from '@proj/api/test/data-access';
+import { ApiTestDataAccessModule } from '@proj/api-test-data-access';
 import { ApiAdminTestResolver } from './api-admin-test.resolver';
 
 @Module({

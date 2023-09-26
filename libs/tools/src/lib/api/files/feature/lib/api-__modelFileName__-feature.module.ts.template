@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { <%= app.className %><%= model.className %>DataAccessModule } from '@<%= npmScope %>/<%= app.fileName %>/<%= model.fileName %>/data-access'
+import { <%= app.className %><%= model.className %>DataAccessModule } from '@<%= npmScope %>/<%= app.fileName %>-<%= model.fileName %>-data-access'
 <% if (adminCrud) { %> import { <%= app.className %><%= admin.className %><%= model.className %>Resolver } from './<%= app.fileName %>-<%= admin.fileName %>-<%= model.fileName %>.resolver' <% } %>
 
 @Module({

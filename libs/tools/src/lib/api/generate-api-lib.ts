@@ -7,8 +7,9 @@ import { generateApiLibFeature } from './generate-api-lib-feature'
 
 export async function generateApiLib(tree: Tree, type: ApiLibType, options: NormalizedApiFeatureSchema) {
   const generated = await libraryGenerator(tree, {
-    name: type,
-    directory: `libs/${options.app}/${options.name}`,
+    name: `${options.app}-${options.name}-${type}`,
+    projectNameAndRootFormat: 'as-provided',
+    directory: `libs/${options.app}/${options.name}/${type}`,
     tags: `app:${options.app},type:${type}`,
     skipFormat: true,
   })

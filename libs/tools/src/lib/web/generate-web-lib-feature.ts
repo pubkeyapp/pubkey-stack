@@ -51,7 +51,7 @@ export const WebAdmin${className}Routes = lazy(() => import('./lib/web-admin-${f
     })
 
     updateSourceFile(tree, adminRoutes, (source) => {
-      addNamedImport(source, `@${npmScope}/${options.app}/${options.name}/feature`, `WebAdmin${className}Routes`)
+      addNamedImport(source, `@${npmScope}/${options.app}-${options.name}-feature`, `WebAdmin${className}Routes`)
       return source
     })
   }
