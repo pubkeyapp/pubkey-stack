@@ -9,7 +9,7 @@ export interface UiTabRoute {
 }
 
 export function UiTabRoutes({
-  grow = true,
+  grow = false,
   tabs,
   ...props
 }: Omit<TabsProps, 'children'> & {
@@ -20,7 +20,7 @@ export function UiTabRoutes({
   const navigate = useNavigate()
   const location = useLocation()
   // Set the active tab based on matching the location pathname with the tab value
-  const activeTab = tabs.find((tab) => location.pathname.endsWith(tab.value))?.value
+  const activeTab = tabs.find((tab) => location.pathname.includes(`/${tab.value}`))?.value
   // Set default redirect route to the first tab
   const redirect = tabs.length && tabs[0].value !== '' ? tabs[0].value : undefined
 

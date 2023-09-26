@@ -1,7 +1,7 @@
 import { Button, Group } from '@mantine/core'
 import { modals } from '@mantine/modals'
 import { Email } from '@pubkey-stack/sdk'
-import { UiAlert, UiLoader, UiStack } from '@pubkey-stack/web-ui-core'
+import { UiInfo, UiLoader, UiStack } from '@pubkey-stack/web-ui-core'
 import { useAdminFindManyEmail } from '@pubkey-stack/web-user-data-access'
 import { AdminUiEmailTable, AuthUiEmailCreateForm, AuthUiEmailUpdateForm } from '@pubkey-stack/web-user-ui'
 
@@ -27,7 +27,7 @@ export function WebAdminUserDetailEmailsTab({ userId }: { userId: string }) {
           }}
         />
       ) : (
-        <UiAlert message="No emails found" />
+        <UiInfo message="No emails found" />
       )}
       <Group position="right">
         <Button

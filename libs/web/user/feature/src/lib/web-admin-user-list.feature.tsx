@@ -2,9 +2,9 @@ import { Button, Group, Select } from '@mantine/core'
 import { getEnumOptions, UserRole, UserStatus } from '@pubkey-stack/sdk'
 import {
   UiAdminPage,
-  UiAlert,
   UiBack,
   UiDebugModal,
+  UiInfo,
   UiLoader,
   UiPagination,
   UiSearchField,
@@ -60,7 +60,7 @@ export function WebAdminUserListFeature() {
           users={items}
         />
       ) : (
-        <UiAlert message="User not found" />
+        <UiInfo message="User not found" />
       )}
 
       <UiPagination pagination={pagination} />

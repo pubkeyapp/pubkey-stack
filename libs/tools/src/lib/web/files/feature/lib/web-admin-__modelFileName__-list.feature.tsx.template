@@ -1,5 +1,5 @@
 import { Button, Group } from '@mantine/core'
-import { UiBack, UiAdminPage, UiAlert, UiDebugModal, UiLoader, UiPagination, UiSearchField } from '@<%= npmScope %>/<%= app %>/ui/core'
+import { UiBack, UiAdminPage, UiInfo, UiDebugModal, UiLoader, UiPagination, UiSearchField } from '@<%= npmScope %>/<%= app %>/ui/core'
 import { useAdminFindMany<%= modelClassName %> } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-data-access'
 import { AdminUi<%= modelClassName %>Table } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-ui'
 import { Link } from 'react-router-dom'
@@ -35,7 +35,7 @@ export function WebAdmin<%= modelClassName %>ListFeature() {
           <%= modelPropertyNamePlural %>={items}
         />
       ) : (
-        <UiAlert message="No <%= modelPropertyNamePlural %> found" />
+        <UiInfo message="No <%= modelPropertyNamePlural %> found" />
       )}
 
       <UiPagination pagination={pagination} />
