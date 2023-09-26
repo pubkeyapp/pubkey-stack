@@ -83,6 +83,7 @@ type Identity {
   provider: IdentityProvider!
   providerId: String!
   updatedAt: DateTime!
+  url: String
   verified: Boolean
 }
 

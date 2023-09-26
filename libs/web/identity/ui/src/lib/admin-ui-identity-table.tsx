@@ -1,8 +1,9 @@
-import { ActionIcon, Group, ScrollArea, Stack, Text } from '@mantine/core'
-import { Identity } from '@pubkey-stack/sdk'
-import { UiDebugModal } from '@pubkey-stack/web-ui-core'
+import { ActionIcon, Anchor, Group, ScrollArea, Stack, Text } from '@mantine/core'
+import { ellipsify, Identity } from '@pubkey-stack/sdk'
+import { UiCopy, UiDebugModal } from '@pubkey-stack/web-ui-core'
 import { IconTrash } from '@tabler/icons-react'
 import { DataTable } from 'mantine-datatable'
+import { WebUiIdentityIcon } from './web-ui-identity-icon'
 
 interface AdminIdentityTableProps {
   identities: Identity[]
@@ -22,10 +23,11 @@ export function AdminUiIdentityTable({ deleteIdentity, identities = [] }: AdminI
             render: (item) => {
               return (
                 <Group spacing="sm" p={4}>
+                  <WebUiIdentityIcon provider={item.provider} />
                   <Stack spacing={1}>
-                    <Text size="sm" weight={500}>
-                      {item.providerId}
-                    </Text>
+                    <Anchor size="lg" weight={500} component="a" href={item.url ?? ''} target="_blank" rel="noreferrer">
+                      {ellipsify(item.name ?? item.providerId)}
+                    </Anchor>
                     <Text size="sm" color="dimmed">
                       {item.provider}
                     </Text>
@@ -41,6 +43,11 @@ export function AdminUiIdentityTable({ deleteIdentity, identities = [] }: AdminI
             render: (item) => (
               <Group spacing={0} position="right" noWrap>
                 <UiDebugModal data={item} />
+                <UiCopy
+                  styles={{ tooltip: { position: 'right' } }}
+                  text={item.providerId}
+                  tooltip="Copy the providerId"
+                />
                 <ActionIcon color="red" onClick={() => deleteIdentity(item)}>
                   <IconTrash size={16} />
                 </ActionIcon>

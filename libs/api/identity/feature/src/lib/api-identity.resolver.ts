@@ -1,6 +1,6 @@
 import { Parent, ResolveField, Resolver } from '@nestjs/graphql'
 import { IdentityProvider } from '@prisma/client'
-import { Identity } from '@pubkey-stack/api-identity-data-access'
+import { getIdentityUrl, Identity } from '@pubkey-stack/api-identity-data-access'
 
 @Resolver(() => Identity)
 export class ApiIdentityResolver {
@@ -13,6 +13,11 @@ export class ApiIdentityResolver {
 
   @ResolveField(() => String, { nullable: true })
   name(@Parent() identity: Identity) {
-    return identity.name ?? identity?.providerId
+    return identity.name ?? (identity.profile as { username?: string })?.username ?? identity?.providerId
+  }
+
+  @ResolveField(() => String, { nullable: true })
+  url(@Parent() identity: Identity) {
+    return getIdentityUrl(identity)
   }
 }

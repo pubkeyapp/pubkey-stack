@@ -2,10 +2,12 @@ fragment IdentityDetails on Identity {
   createdAt
   expired
   id
+  name
   profile
   provider
   providerId
   updatedAt
+  url
   verified
 }
 

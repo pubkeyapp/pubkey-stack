@@ -102,6 +102,7 @@ export type Identity = {
   provider: IdentityProvider
   providerId: Scalars['String']['output']
   updatedAt: Scalars['DateTime']['output']
+  url?: Maybe<Scalars['String']['output']>
   verified?: Maybe<Scalars['Boolean']['output']>
 }
 
@@ -502,10 +503,12 @@ export type IdentityDetailsFragment = {
   createdAt: Date
   expired?: boolean | null
   id: string
+  name?: string | null
   profile?: any | null
   provider: IdentityProvider
   providerId: string
   updatedAt: Date
+  url?: string | null
   verified?: boolean | null
 }
 
@@ -534,10 +537,12 @@ export type AdminFindManyIdentityQuery = {
     createdAt: Date
     expired?: boolean | null
     id: string
+    name?: string | null
     profile?: any | null
     provider: IdentityProvider
     providerId: string
     updatedAt: Date
+    url?: string | null
     verified?: boolean | null
     challenges?: Array<{
       __typename?: 'IdentityChallenge'
@@ -579,10 +584,12 @@ export type AdminCreateIdentityMutation = {
     createdAt: Date
     expired?: boolean | null
     id: string
+    name?: string | null
     profile?: any | null
     provider: IdentityProvider
     providerId: string
     updatedAt: Date
+    url?: string | null
     verified?: boolean | null
   } | null
 }
@@ -602,10 +609,12 @@ export type UserFindManyIdentityQuery = {
     createdAt: Date
     expired?: boolean | null
     id: string
+    name?: string | null
     profile?: any | null
     provider: IdentityProvider
     providerId: string
     updatedAt: Date
+    url?: string | null
     verified?: boolean | null
   }> | null
 }
@@ -669,10 +678,12 @@ export type UserLinkIdentityMutation = {
     createdAt: Date
     expired?: boolean | null
     id: string
+    name?: string | null
     profile?: any | null
     provider: IdentityProvider
     providerId: string
     updatedAt: Date
+    url?: string | null
     verified?: boolean | null
   } | null
 }
@@ -905,10 +916,12 @@ export const IdentityDetailsFragmentDoc = gql`
     createdAt
     expired
     id
+    name
     profile
     provider
     providerId
     updatedAt
+    url
     verified
   }
 `
