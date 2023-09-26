@@ -2,6 +2,7 @@
   "name": "@pubkey-stack/tools",
   "version": "0.0.1",
   "dependencies": {
+    "@clack/prompts": "^0.7.0",
     "@nx/devkit": "16.8.1",
     "@mrleebo/prisma-ast": "^0.7.0",
     "@nx/linter": "16.8.1",

@@ -8,7 +8,7 @@ on:
 
 env:
   API_URL: http://localhost:3000/api
-  DATABASE_URL: postgresql://pubkeystack:pubkeystack@localhost:5432/pubkeystack?schema=public
+  DATABASE_URL: postgresql://pubkey-stack:pubkey-stack@localhost:5432/pubkey-stack?schema=public
   DATABASE_PROVISION: true
   DATABASE_RESET: true
   PORT: 3000

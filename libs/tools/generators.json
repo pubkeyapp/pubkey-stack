@@ -15,6 +15,11 @@
       "schema": "./src/generators/prisma-model/prisma-model-schema.json",
       "description": "prisma-model generator"
     },
+    "rename": {
+      "factory": "./src/generators/rename/rename-generator",
+      "schema": "./src/generators/rename/rename-schema.json",
+      "description": "rename generator"
+    },
     "setup": {
       "factory": "./src/generators/setup/setup-generator",
       "schema": "./src/generators/setup/setup-schema.json",

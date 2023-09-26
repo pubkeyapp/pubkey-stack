@@ -8,7 +8,7 @@ on:
 
 env:
   API_URL: http://localhost:3000/api
-  DATABASE_URL: postgresql://pubkeystack:pubkeystack@localhost:5432/pubkeystack?schema=public
+  DATABASE_URL: postgresql://pubkey-stack:pubkey-stack@localhost:5432/pubkey-stack?schema=public
   DATABASE_PROVISION: true
   DATABASE_RESET: true
   HOST: 127.0.0.1
@@ -24,9 +24,9 @@ jobs:
       postgres:
         image: postgres:15-alpine
         env:
-          POSTGRES_USER: pubkeystack
-          POSTGRES_PASSWORD: pubkeystack
-          POSTGRES_DB: pubkeystack
+          POSTGRES_USER: pubkey-stack
+          POSTGRES_PASSWORD: pubkey-stack
+          POSTGRES_DB: pubkey-stack
         ports: ['5432:5432']
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
       redis:
