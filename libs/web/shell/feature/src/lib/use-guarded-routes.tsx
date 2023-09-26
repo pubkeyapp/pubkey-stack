@@ -1,7 +1,7 @@
 import { UserRole, UserStatus } from '@pubkey-stack/sdk'
-import { AuthGuard, UserRoleGuard, UserStatusGuard } from '@pubkey-stack/web/auth/data-access'
-import { UiError, UiFull, UiLoader, UiWarn } from '@pubkey-stack/web/ui/core'
-import { UiLayout } from '@pubkey-stack/web/ui/layout'
+import { AuthGuard, UserRoleGuard, UserStatusGuard } from '@pubkey-stack/web-auth-data-access'
+import { UiError, UiFull, UiLoader, UiWarn } from '@pubkey-stack/web-ui-core'
+import { UiLayout } from '@pubkey-stack/web-ui-layout'
 import { Navigate, Outlet, RouteObject, useRoutes } from 'react-router-dom'
 
 export function useGuardedRoutes({

@@ -1,7 +1,7 @@
 import { Button, Group, Menu, rem, useMantineColorScheme } from '@mantine/core'
 import { UserRole } from '@pubkey-stack/sdk'
-import { useWebAuth } from '@pubkey-stack/web/auth/data-access'
-import { WebUiUserAvatar } from '@pubkey-stack/web/user/ui'
+import { useWebAuth } from '@pubkey-stack/web-auth-data-access'
+import { WebUiUserAvatar } from '@pubkey-stack/web-user-ui'
 import {
   IconBug,
   IconChevronDown,

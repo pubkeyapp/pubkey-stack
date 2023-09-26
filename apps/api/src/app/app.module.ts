@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { ApiCoreFeatureModule } from '@pubkey-stack/api/core/feature'
+import { ApiCoreFeatureModule } from '@pubkey-stack/api-core-feature'
 
 @Module({
   imports: [ApiCoreFeatureModule],

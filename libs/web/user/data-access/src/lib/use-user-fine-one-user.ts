@@ -1,4 +1,4 @@
-import { useWebSdk } from '@pubkey-stack/web/shell/data-access'
+import { useWebSdk } from '@pubkey-stack/web-shell-data-access'
 import { useQuery } from '@tanstack/react-query'
 
 export function useUserFineOneUser(username: string) {

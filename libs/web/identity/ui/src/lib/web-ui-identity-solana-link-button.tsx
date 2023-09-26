@@ -1,8 +1,8 @@
 import { Button, ButtonProps } from '@mantine/core'
 import { modals } from '@mantine/modals'
 import { Identity } from '@pubkey-stack/sdk'
-import { IdentityProviderSolana } from '@pubkey-stack/web/identity/data-access'
-import { SolanaClusterProvider } from '@pubkey-stack/web/solana/data-access'
+import { IdentityProviderSolana } from '@pubkey-stack/web-identity-data-access'
+import { SolanaClusterProvider } from '@pubkey-stack/web-solana-data-access'
 import { WebUiIdentitySolanaLinkWizard } from './web-ui-identity-solana-link-wizard'
 
 export function WebUiIdentitySolanaLinkButton({

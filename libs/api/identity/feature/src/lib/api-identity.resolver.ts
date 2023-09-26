@@ -1,6 +1,6 @@
 import { Parent, ResolveField, Resolver } from '@nestjs/graphql'
 import { IdentityProvider } from '@prisma/client'
-import { Identity } from '@pubkey-stack/api/identity/data-access'
+import { Identity } from '@pubkey-stack/api-identity-data-access'
 
 @Resolver(() => Identity)
 export class ApiIdentityResolver {

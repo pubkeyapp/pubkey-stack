@@ -1,6 +1,6 @@
 import { IdentityProvider } from '@pubkey-stack/sdk'
-import { useWebSdk } from '@pubkey-stack/web/shell/data-access'
-import { notifyError, notifySuccess } from '@pubkey-stack/web/ui/notifications'
+import { useWebSdk } from '@pubkey-stack/web-shell-data-access'
+import { notifyError, notifySuccess } from '@pubkey-stack/web-ui-notifications'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { createContext, ReactNode, useContext } from 'react'
 import { useCreateSignature } from './use-create-signature'

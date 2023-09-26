@@ -1,6 +1,6 @@
 import { AppShell, useMantineTheme } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import { UiLoader } from '@pubkey-stack/web/ui/core'
+import { UiLoader } from '@pubkey-stack/web-ui-core'
 import { ReactNode, Suspense } from 'react'
 import { UiHeader } from './ui-header'
 

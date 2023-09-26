@@ -8,9 +8,9 @@ import {
   UiLoader,
   UiPagination,
   UiSearchField,
-} from '@pubkey-stack/web/ui/core'
-import { useAdminFindManyUser } from '@pubkey-stack/web/user/data-access'
-import { AdminUiUserTable } from '@pubkey-stack/web/user/ui'
+} from '@pubkey-stack/web-ui-core'
+import { useAdminFindManyUser } from '@pubkey-stack/web-user-data-access'
+import { AdminUiUserTable } from '@pubkey-stack/web-user-ui'
 import { Link } from 'react-router-dom'
 
 export function WebAdminUserListFeature() {

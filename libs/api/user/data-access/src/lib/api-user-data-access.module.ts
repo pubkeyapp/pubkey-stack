@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { ApiCoreDataAccessModule } from '@pubkey-stack/api/core/data-access'
+import { ApiCoreDataAccessModule } from '@pubkey-stack/api-core-data-access'
 import { ApiAdminUserService } from './api-admin-user.service'
 import { ApiUserUserService } from './api-user-user.service'
 import { ApiUserService } from './api-user.service'

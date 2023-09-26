@@ -1,12 +1,12 @@
 import { Button } from '@mantine/core'
-import { useWebAuth } from '@pubkey-stack/web/auth/data-access'
-import { useUserFindManyIdentity } from '@pubkey-stack/web/identity/data-access'
+import { useWebAuth } from '@pubkey-stack/web-auth-data-access'
+import { useUserFindManyIdentity } from '@pubkey-stack/web-identity-data-access'
 import {
   WebUiIdentityConnect,
   WebUiIdentityDiscordLinkButton,
   WebUiIdentityIdentityGroupList,
-} from '@pubkey-stack/web/identity/ui'
-import { UiContainer, UiDashboardContainer, UiPageHeader, UiStack } from '@pubkey-stack/web/ui/core'
+} from '@pubkey-stack/web-identity-ui'
+import { UiContainer, UiDashboardContainer, UiPageHeader, UiStack } from '@pubkey-stack/web-ui-core'
 import { Link } from 'react-router-dom'
 
 export default function WebDashboardRoutes() {

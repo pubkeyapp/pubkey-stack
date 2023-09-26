@@ -7,9 +7,9 @@ import {
   CtxUser,
   LoginInput,
   RegisterInput,
-} from '@pubkey-stack/api/auth/data-access'
-import { AppContext } from '@pubkey-stack/api/core/data-access'
-import { User } from '@pubkey-stack/api/user/data-access'
+} from '@pubkey-stack/api-auth-data-access'
+import { AppContext } from '@pubkey-stack/api-core-data-access'
+import { User } from '@pubkey-stack/api-user-data-access'
 
 @Resolver()
 export class ApiAuthResolver {

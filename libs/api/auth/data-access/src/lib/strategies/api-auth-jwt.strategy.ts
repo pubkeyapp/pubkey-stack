@@ -1,4 +1,4 @@
-import { ApiCoreService } from '@pubkey-stack/api/core/data-access'
+import { ApiCoreService } from '@pubkey-stack/api-core-data-access'
 import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
 import { UserStatus } from '@prisma/client'

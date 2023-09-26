@@ -1,8 +1,8 @@
 import { Button, Group, Title } from '@mantine/core'
 import { RegisterInput } from '@pubkey-stack/sdk'
-import { useWebAuth } from '@pubkey-stack/web/auth/data-access'
-import { WebUiAuthPage, WebUiAuthRegisterForm } from '@pubkey-stack/web/auth/ui'
-import { UiLoader } from '@pubkey-stack/web/ui/core'
+import { useWebAuth } from '@pubkey-stack/web-auth-data-access'
+import { WebUiAuthPage, WebUiAuthRegisterForm } from '@pubkey-stack/web-auth-ui'
+import { UiLoader } from '@pubkey-stack/web-ui-core'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 

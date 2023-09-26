@@ -1,4 +1,4 @@
-import { ApiCoreDataAccessModule } from '@pubkey-stack/api/core/data-access'
+import { ApiCoreDataAccessModule } from '@pubkey-stack/api-core-data-access'
 import { Module } from '@nestjs/common'
 import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'

@@ -1,9 +1,9 @@
 import { Button, Group } from '@mantine/core'
 import { AdminCreateUserInput } from '@pubkey-stack/sdk'
-import { UiAdminPage, UiBack, UiCard } from '@pubkey-stack/web/ui/core'
-import { notifyError } from '@pubkey-stack/web/ui/notifications'
-import { useAdminFindManyUser } from '@pubkey-stack/web/user/data-access'
-import { AdminUiCreateUserForm } from '@pubkey-stack/web/user/ui'
+import { UiAdminPage, UiBack, UiCard } from '@pubkey-stack/web-ui-core'
+import { notifyError } from '@pubkey-stack/web-ui-notifications'
+import { useAdminFindManyUser } from '@pubkey-stack/web-user-data-access'
+import { AdminUiCreateUserForm } from '@pubkey-stack/web-user-ui'
 import { useNavigate } from 'react-router-dom'
 
 export function WebAdminUserCreateFeature() {

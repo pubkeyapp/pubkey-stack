@@ -1,6 +1,6 @@
 import { AppConfig, LoginInput, RegisterInput, User } from '@pubkey-stack/sdk'
-import { useMeQuery, useWebSdk } from '@pubkey-stack/web/shell/data-access'
-import { notifyError, notifySuccess } from '@pubkey-stack/web/ui/notifications'
+import { useMeQuery, useWebSdk } from '@pubkey-stack/web-shell-data-access'
+import { notifyError, notifySuccess } from '@pubkey-stack/web-ui-notifications'
 import { useQuery } from '@tanstack/react-query'
 
 import { createContext, ReactNode, useContext, useEffect, useReducer } from 'react'

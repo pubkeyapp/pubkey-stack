@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { User as PrismaUser } from '@prisma/client'
-import { ApiCoreService, hashPassword, slugifyId } from '@pubkey-stack/api/core/data-access'
+import { ApiCoreService, hashPassword, slugifyId } from '@pubkey-stack/api-core-data-access'
 import { AdminCreateUserInput } from './dto/admin-create-user.input'
 import { AdminFindManyUserInput } from './dto/admin-find-many-user.input'
 import { AdminUpdateUserInput } from './dto/admin-update-user.input'

@@ -1,6 +1,6 @@
 import { ActionIcon, Group, ScrollArea, Stack, Text } from '@mantine/core'
 import { Identity } from '@pubkey-stack/sdk'
-import { UiDebugModal } from '@pubkey-stack/web/ui/core'
+import { UiDebugModal } from '@pubkey-stack/web-ui-core'
 import { IconTrash } from '@tabler/icons-react'
 import { DataTable } from 'mantine-datatable'
 

@@ -1,8 +1,8 @@
 import { Alert, Button } from '@mantine/core'
-import { useWebAuth } from '@pubkey-stack/web/auth/data-access'
-import { UiContainer, UiLoader, UiStack, UiWarn } from '@pubkey-stack/web/ui/core'
-import { useUserFineOneUser } from '@pubkey-stack/web/user/data-access'
-import { WebUiUserProfile } from '@pubkey-stack/web/user/ui'
+import { useWebAuth } from '@pubkey-stack/web-auth-data-access'
+import { UiContainer, UiLoader, UiStack, UiWarn } from '@pubkey-stack/web-ui-core'
+import { useUserFineOneUser } from '@pubkey-stack/web-user-data-access'
+import { WebUiUserProfile } from '@pubkey-stack/web-user-ui'
 import { IconMoodSmile } from '@tabler/icons-react'
 import { Link, useParams } from 'react-router-dom'
 

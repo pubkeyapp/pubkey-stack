@@ -1,5 +1,5 @@
-import { useWebAuth } from '@pubkey-stack/web/auth/data-access'
-import { UiWarn } from '@pubkey-stack/web/ui/core'
+import { useWebAuth } from '@pubkey-stack/web-auth-data-access'
+import { UiWarn } from '@pubkey-stack/web-ui-core'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { WebUserDetailFeature } from './web-user-detail.feature'
 

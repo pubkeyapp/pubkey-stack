@@ -1,8 +1,8 @@
 import { Button, Group } from '@mantine/core'
 import { modals } from '@mantine/modals'
-import { useAdminFindManyIdentity } from '@pubkey-stack/web/identity/data-access'
-import { AdminUiIdentityTable, AuthUiIdentityCreateForm } from '@pubkey-stack/web/identity/ui'
-import { UiAlert, UiLoader, UiStack } from '@pubkey-stack/web/ui/core'
+import { useAdminFindManyIdentity } from '@pubkey-stack/web-identity-data-access'
+import { AdminUiIdentityTable, AuthUiIdentityCreateForm } from '@pubkey-stack/web-identity-ui'
+import { UiAlert, UiLoader, UiStack } from '@pubkey-stack/web-ui-core'
 
 export function WebAdminUserDetailIdentitiesTab({ userId }: { userId: string }) {
   const { items, createIdentity, deleteIdentity, query } = useAdminFindManyIdentity({ ownerId: userId })

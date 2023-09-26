@@ -1,6 +1,6 @@
-import { WebDevAdminRoutes } from '@pubkey-stack/web/dev/feature'
-import { UiContainer, UiDashboard, UiDashboardItem, UiNotFound } from '@pubkey-stack/web/ui/core'
-import { WebAdminUserRoutes } from '@pubkey-stack/web/user/feature'
+import { WebDevAdminRoutes } from '@pubkey-stack/web-dev-feature'
+import { UiContainer, UiDashboard, UiDashboardItem, UiNotFound } from '@pubkey-stack/web-ui-core'
+import { WebAdminUserRoutes } from '@pubkey-stack/web-user-feature'
 import { IconUsers } from '@tabler/icons-react'
 import { Navigate, RouteObject, useRoutes } from 'react-router-dom'
 

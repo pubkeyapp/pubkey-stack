@@ -1,4 +1,4 @@
-import { ApiCoreService, AppConfig } from '@pubkey-stack/api/core/data-access'
+import { ApiCoreService, AppConfig } from '@pubkey-stack/api-core-data-access'
 import { Float, Query, Resolver } from '@nestjs/graphql'
 
 @Resolver()

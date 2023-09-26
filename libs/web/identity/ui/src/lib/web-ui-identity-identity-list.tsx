@@ -1,6 +1,6 @@
 import { ActionIcon, Badge, Code, Group, Menu, Text } from '@mantine/core'
 import { ellipsify, Identity, IdentityProvider } from '@pubkey-stack/sdk'
-import { UiCard, UiDebugModal, UiExplorerIcon, UiGroup, UiStack, UiVerifiedBadge } from '@pubkey-stack/web/ui/core'
+import { UiCard, UiDebugModal, UiExplorerIcon, UiGroup, UiStack, UiVerifiedBadge } from '@pubkey-stack/web-ui-core'
 import { IconDotsVertical, IconTrash } from '@tabler/icons-react'
 import { WebUiIdentityAvatar } from './web-ui-identity-avatar'
 import { WebUiIdentitySolanaVerifyButton } from './web-ui-identity-solana-verify-button'

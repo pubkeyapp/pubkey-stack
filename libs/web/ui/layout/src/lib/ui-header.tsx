@@ -1,5 +1,5 @@
 import { Anchor, Burger, Container, createStyles, Group, Header, Paper, rem, Transition } from '@mantine/core'
-import { UiLogoMark } from '@pubkey-stack/web/ui/core'
+import { UiLogoMark } from '@pubkey-stack/web-ui-core'
 import { Link, useLocation } from 'react-router-dom'
 import { UiHeaderProfile } from './ui-header-profile'
 

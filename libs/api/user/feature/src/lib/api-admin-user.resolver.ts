@@ -1,6 +1,6 @@
 import { UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { ApiAuthGraphQLAdminGuard } from '@pubkey-stack/api/auth/data-access'
+import { ApiAuthGraphQLAdminGuard } from '@pubkey-stack/api-auth-data-access'
 import {
   AdminCreateUserInput,
   AdminFindManyUserInput,
@@ -8,7 +8,7 @@ import {
   ApiUserService,
   User,
   UserPaging,
-} from '@pubkey-stack/api/user/data-access'
+} from '@pubkey-stack/api-user-data-access'
 
 @Resolver()
 @UseGuards(ApiAuthGraphQLAdminGuard)

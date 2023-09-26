@@ -1,4 +1,4 @@
-import { ApiCoreService } from '@pubkey-stack/api/core/data-access'
+import { ApiCoreService } from '@pubkey-stack/api-core-data-access'
 import { Controller, Get } from '@nestjs/common'
 
 @Controller()

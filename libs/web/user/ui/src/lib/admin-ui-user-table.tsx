@@ -1,6 +1,6 @@
 import { ActionIcon, Anchor, Group, ScrollArea, Stack, Text } from '@mantine/core'
 import { User } from '@pubkey-stack/sdk'
-import { UiGroup } from '@pubkey-stack/web/ui/core'
+import { UiGroup } from '@pubkey-stack/web-ui-core'
 import { IconPencil, IconTrash, IconUser } from '@tabler/icons-react'
 import { DataTable } from 'mantine-datatable'
 import { Link } from 'react-router-dom'

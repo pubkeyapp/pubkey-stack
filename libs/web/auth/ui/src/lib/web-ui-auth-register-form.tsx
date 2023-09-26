@@ -1,5 +1,5 @@
 import { RegisterInput } from '@pubkey-stack/sdk'
-import { formFieldPassword, formFieldText, UiForm, UiFormField } from '@pubkey-stack/web/ui/core'
+import { formFieldPassword, formFieldText, UiForm, UiFormField } from '@pubkey-stack/web-ui-core'
 import { ReactNode, useState } from 'react'
 
 export function WebUiAuthRegisterForm({

@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { Identity as PrismaIdentity, IdentityProvider } from '@prisma/client'
-import { ApiCoreService, BaseContext, getRequestDetails } from '@pubkey-stack/api/core/data-access'
+import { ApiCoreService, BaseContext, getRequestDetails } from '@pubkey-stack/api-core-data-access'
 import { verifySignature } from '@pubkeyapp/solana-verify-wallet'
 import { PublicKey } from '@solana/web3.js'
 import { LinkIdentityInput } from './dto/link-identity-input'

@@ -1,4 +1,4 @@
-import { ApiCoreService } from '@pubkey-stack/api/core/data-access'
+import { ApiCoreService } from '@pubkey-stack/api-core-data-access'
 import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { exec } from 'node:child_process'

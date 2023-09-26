@@ -1,4 +1,4 @@
-import { ApiUserDataAccessModule } from '@pubkey-stack/api/user/data-access'
+import { ApiUserDataAccessModule } from '@pubkey-stack/api-user-data-access'
 import { Module } from '@nestjs/common'
 import { ApiAdminUserResolver } from './api-admin-user.resolver'
 import { ApiUserResolver } from './api-user.resolver'

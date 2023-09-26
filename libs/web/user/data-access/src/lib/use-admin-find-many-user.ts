@@ -1,7 +1,7 @@
 import { AdminCreateUserInput, AdminFindManyUserInput, UserRole, UserStatus } from '@pubkey-stack/sdk'
-import { useWebSdk } from '@pubkey-stack/web/shell/data-access'
-import { useUiPagination } from '@pubkey-stack/web/ui/core'
-import { notifyError, notifySuccess } from '@pubkey-stack/web/ui/notifications'
+import { useWebSdk } from '@pubkey-stack/web-shell-data-access'
+import { useUiPagination } from '@pubkey-stack/web-ui-core'
+import { notifyError, notifySuccess } from '@pubkey-stack/web-ui-notifications'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 

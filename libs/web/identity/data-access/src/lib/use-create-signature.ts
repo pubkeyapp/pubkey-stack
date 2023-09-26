@@ -1,4 +1,4 @@
-import { useSolana } from '@pubkey-stack/web/solana/data-access'
+import { useSolana } from '@pubkey-stack/web-solana-data-access'
 import { CreateSignature, createSignature } from '@pubkeyapp/solana-verify-wallet'
 import { useAnchorWallet, useWallet } from '@solana/wallet-adapter-react'
 

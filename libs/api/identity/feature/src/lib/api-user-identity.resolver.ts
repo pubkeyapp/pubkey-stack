@@ -1,7 +1,7 @@
 import { UseGuards } from '@nestjs/common'
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { ApiAuthGraphQLUserGuard, CtxUser } from '@pubkey-stack/api/auth/data-access'
-import { BaseContext } from '@pubkey-stack/api/core/data-access'
+import { ApiAuthGraphQLUserGuard, CtxUser } from '@pubkey-stack/api-auth-data-access'
+import { BaseContext } from '@pubkey-stack/api-core-data-access'
 import {
   ApiIdentityService,
   Identity,
@@ -9,8 +9,8 @@ import {
   LinkIdentityInput,
   RequestIdentityChallengeInput,
   VerifyIdentityChallengeInput,
-} from '@pubkey-stack/api/identity/data-access'
-import { User } from '@pubkey-stack/api/user/data-access'
+} from '@pubkey-stack/api-identity-data-access'
+import { User } from '@pubkey-stack/api-user-data-access'
 
 @Resolver()
 @UseGuards(ApiAuthGraphQLUserGuard)

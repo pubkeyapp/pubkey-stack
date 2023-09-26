@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { Email as PrismaEmail } from '@prisma/client'
-import { ApiCoreService } from '@pubkey-stack/api/core/data-access'
+import { ApiCoreService } from '@pubkey-stack/api-core-data-access'
 import { AdminCreateEmailInput } from './dto/admin-create-email.input'
 import { AdminFindManyEmailInput } from './dto/admin-find-many-email-input'
 import { AdminUpdateEmailInput } from './dto/admin-update-email.input'

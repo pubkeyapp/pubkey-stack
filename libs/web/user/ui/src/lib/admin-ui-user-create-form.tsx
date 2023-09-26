@@ -1,5 +1,5 @@
 import { AdminCreateUserInput } from '@pubkey-stack/sdk'
-import { formFieldPassword, formFieldText, UiForm, UiFormField } from '@pubkey-stack/web/ui/core'
+import { formFieldPassword, formFieldText, UiForm, UiFormField } from '@pubkey-stack/web-ui-core'
 import { ReactNode } from 'react'
 
 export function AdminUiCreateUserForm({

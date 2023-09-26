@@ -1,4 +1,4 @@
-import { UiAlert, UiContainer, UiTabRoutes } from '@pubkey-stack/web/ui/core'
+import { UiAlert, UiContainer, UiTabRoutes } from '@pubkey-stack/web-ui-core'
 
 export default function WebDevAdminRoutes() {
   return (

@@ -1,4 +1,4 @@
-import { ApiAuthDataAccessModule } from '@pubkey-stack/api/auth/data-access'
+import { ApiAuthDataAccessModule } from '@pubkey-stack/api-auth-data-access'
 import { Module } from '@nestjs/common'
 import { ApiAuthController } from './api-auth.controller'
 import { ApiAuthResolver } from './api-auth.resolver'

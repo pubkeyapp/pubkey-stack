@@ -1,6 +1,6 @@
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common'
 
-import { ApiAuthDiscordGuard, ApiAuthService, AuthRequest } from '@pubkey-stack/api/auth/data-access'
+import { ApiAuthDiscordGuard, ApiAuthService, AuthRequest } from '@pubkey-stack/api-auth-data-access'
 import { Response } from 'express'
 
 @Controller('auth')

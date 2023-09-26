@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { Identity as PrismaIdentity } from '@prisma/client'
-import { ApiCoreService } from '@pubkey-stack/api/core/data-access'
+import { ApiCoreService } from '@pubkey-stack/api-core-data-access'
 import { AdminCreateIdentityInput } from './dto/admin-create-identity.input'
 import { AdminFindManyIdentityInput } from './dto/admin-find-many-identity.input'
 

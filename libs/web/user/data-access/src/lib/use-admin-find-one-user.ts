@@ -1,6 +1,6 @@
 import { AdminUpdateUserInput } from '@pubkey-stack/sdk'
-import { useWebSdk } from '@pubkey-stack/web/shell/data-access'
-import { notifyError, notifySuccess } from '@pubkey-stack/web/ui/notifications'
+import { useWebSdk } from '@pubkey-stack/web-shell-data-access'
+import { notifyError, notifySuccess } from '@pubkey-stack/web-ui-notifications'
 import { useQuery } from '@tanstack/react-query'
 
 export function useAdminFindOneUser({ userId }: { userId: string }) {

@@ -1,6 +1,6 @@
 import { Button, Group } from '@mantine/core'
 import { User, UserUpdateUserInput } from '@pubkey-stack/sdk'
-import { formFieldText, UiForm, UiFormField } from '@pubkey-stack/web/ui/core'
+import { formFieldText, UiForm, UiFormField } from '@pubkey-stack/web-ui-core'
 
 export function WebUiUserUpdateForm({
   submit,

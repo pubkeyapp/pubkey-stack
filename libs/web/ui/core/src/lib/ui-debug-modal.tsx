@@ -1,5 +1,5 @@
 import { ActionIcon, Modal, Tooltip } from '@mantine/core'
-import { useWebAuth } from '@pubkey-stack/web/auth/data-access'
+import { useWebAuth } from '@pubkey-stack/web-auth-data-access'
 import { IconBug } from '@tabler/icons-react'
 import React, { useState } from 'react'
 import { UiDebug } from './ui-debug'

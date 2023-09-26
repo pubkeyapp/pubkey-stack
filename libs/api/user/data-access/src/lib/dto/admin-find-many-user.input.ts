@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { PagingInput } from '@pubkey-stack/api/core/data-access'
+import { PagingInput } from '@pubkey-stack/api-core-data-access'
 import { UserRole } from '../entity/user-role.enum'
 import { UserStatus } from '../entity/user-status.enum'
 

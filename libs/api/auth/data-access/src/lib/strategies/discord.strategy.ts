@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
 import { IdentityProvider, Prisma } from '@prisma/client'
-import { ApiCoreService } from '@pubkey-stack/api/core/data-access'
+import { ApiCoreService } from '@pubkey-stack/api-core-data-access'
 
 import { Profile, Strategy } from 'passport-discord'
 import { ApiAuthService, AuthRequest } from '../api-auth.service'

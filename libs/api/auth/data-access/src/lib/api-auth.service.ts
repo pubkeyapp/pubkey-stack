@@ -7,7 +7,7 @@ import {
   hashPassword,
   slugifyId,
   validatePassword,
-} from '@pubkey-stack/api/core/data-access'
+} from '@pubkey-stack/api-core-data-access'
 import { Request } from 'express'
 import { LoginInput } from './dto/login.input'
 import { RegisterInput } from './dto/register.input'

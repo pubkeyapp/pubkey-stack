@@ -1,7 +1,7 @@
 import { Button } from '@mantine/core'
-import { UiCard, UiContainer, UiLoader, UiStack, UiTabRoutes, UiWarn } from '@pubkey-stack/web/ui/core'
-import { useUserProfile } from '@pubkey-stack/web/user/data-access'
-import { WebUiUserProfile, WebUiUserUpdateForm } from '@pubkey-stack/web/user/ui'
+import { UiCard, UiContainer, UiLoader, UiStack, UiTabRoutes, UiWarn } from '@pubkey-stack/web-ui-core'
+import { useUserProfile } from '@pubkey-stack/web-user-data-access'
+import { WebUiUserProfile, WebUiUserUpdateForm } from '@pubkey-stack/web-user-ui'
 import { Link } from 'react-router-dom'
 import { WebSettingsIdentityList } from './web-settings-identity-list'
 

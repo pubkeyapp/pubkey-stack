@@ -1,5 +1,5 @@
 import { Box, Group } from '@mantine/core'
-import { UiFull, UiLogoMark, UiStack } from '@pubkey-stack/web/ui/core'
+import { UiFull, UiLogoMark, UiStack } from '@pubkey-stack/web-ui-core'
 import { ReactNode } from 'react'
 
 export function WebUiAuthPage({ children }: { children: ReactNode }) {
