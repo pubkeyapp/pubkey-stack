@@ -1,9 +1,10 @@
 import { Tree } from '@nx/devkit'
+import { getNpmScope } from '@nx/js/src/utils/package-json/get-npm-scope'
 import { NormalizedWebFeatureSchema, WebFeatureGeneratorSchema } from '../../generators/web-feature/web-feature-schema'
 
 export function normalizeWebFeatureSchema(tree: Tree, schema: WebFeatureGeneratorSchema): NormalizedWebFeatureSchema {
   const modelName = schema.name
-  const npmScope = tree.read('nx.json', 'utf-8')?.match(/"npmScope": "(.*)"/)?.[1]
+  const npmScope = getNpmScope(tree)
 
   return {
     app: schema.app ?? 'web',

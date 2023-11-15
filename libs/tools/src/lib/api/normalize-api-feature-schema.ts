@@ -1,9 +1,10 @@
 import { Tree } from '@nx/devkit'
+import { getNpmScope } from '@nx/js/src/utils/package-json/get-npm-scope'
 import { ApiFeatureGeneratorSchema, NormalizedApiFeatureSchema } from '../../generators/api-feature/api-feature-schema'
 
 export function normalizeApiFeatureSchema(tree: Tree, schema: ApiFeatureGeneratorSchema): NormalizedApiFeatureSchema {
   const modelName = schema.name
-  const npmScope = tree.read('nx.json', 'utf-8')?.match(/"npmScope": "(.*)"/)?.[1]
+  const npmScope = getNpmScope(tree)
 
   return {
     app: schema.app ?? 'api',

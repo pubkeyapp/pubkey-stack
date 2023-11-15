@@ -1,5 +1,5 @@
 import { Tree } from '@nx/devkit'
-import { Linter } from '@nx/linter'
+import { Linter } from '@nx/eslint'
 import { applicationGenerator, componentGenerator, libraryGenerator } from '@nx/react'
 
 export async function createMockWebApp(tree: Tree, app: string) {

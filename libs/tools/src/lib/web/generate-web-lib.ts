@@ -1,5 +1,6 @@
 import { Tree } from '@nx/devkit'
-import { Linter } from '@nx/linter'
+import { Linter } from '@nx/eslint'
+import { getNpmScope } from '@nx/js/src/utils/package-json/get-npm-scope'
 import { libraryGenerator } from '@nx/react'
 import { NormalizedWebFeatureSchema } from '../../generators/web-feature/web-feature-schema'
 import { WebLibType } from '../types/web-feature'
@@ -20,10 +21,10 @@ export async function generateWebLib(tree: Tree, type: WebLibType, options: Norm
   if (!generated) {
     throw new Error(`Failed to generate ${type} library`)
   }
-  const npmScope = tree.read('nx.json', 'utf-8')?.match(/"npmScope": "(.*)"/)?.[1]
+  const npmScope = getNpmScope(tree)
 
   if (!npmScope) {
-    throw new Error('Could not find npmScope in nx.json')
+    throw new Error('Could not find npmScope.')
   }
 
   switch (type) {

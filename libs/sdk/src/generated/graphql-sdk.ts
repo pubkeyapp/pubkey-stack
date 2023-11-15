@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
-import { print } from 'graphql'
+import { GraphQLError, print } from 'graphql'
 import gql from 'graphql-tag'
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
@@ -1202,7 +1202,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     login(
       variables: LoginMutationVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: LoginMutation; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{ data: LoginMutation; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<LoginMutation>(LoginDocumentString, variables, {
@@ -1216,7 +1216,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     logout(
       variables?: LogoutMutationVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: LogoutMutation; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{ data: LogoutMutation; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<LogoutMutation>(LogoutDocumentString, variables, {
@@ -1230,7 +1230,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     register(
       variables: RegisterMutationVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: RegisterMutation; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{
+      data: RegisterMutation
+      errors?: GraphQLError[]
+      extensions?: any
+      headers: Headers
+      status: number
+    }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<RegisterMutation>(RegisterDocumentString, variables, {
@@ -1244,7 +1250,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     me(
       variables?: MeQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: MeQuery; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{ data: MeQuery; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<MeQuery>(MeDocumentString, variables, { ...requestHeaders, ...wrappedRequestHeaders }),
@@ -1255,7 +1261,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     uptime(
       variables?: UptimeQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: UptimeQuery; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{ data: UptimeQuery; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<UptimeQuery>(UptimeDocumentString, variables, {
@@ -1269,7 +1275,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     appConfig(
       variables?: AppConfigQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: AppConfigQuery; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{ data: AppConfigQuery; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<AppConfigQuery>(AppConfigDocumentString, variables, {
@@ -1283,7 +1289,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     adminFindManyEmail(
       variables: AdminFindManyEmailQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: AdminFindManyEmailQuery; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{
+      data: AdminFindManyEmailQuery
+      errors?: GraphQLError[]
+      extensions?: any
+      headers: Headers
+      status: number
+    }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<AdminFindManyEmailQuery>(AdminFindManyEmailDocumentString, variables, {
@@ -1297,7 +1309,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     adminCreateEmail(
       variables: AdminCreateEmailMutationVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: AdminCreateEmailMutation; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{
+      data: AdminCreateEmailMutation
+      errors?: GraphQLError[]
+      extensions?: any
+      headers: Headers
+      status: number
+    }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<AdminCreateEmailMutation>(AdminCreateEmailDocumentString, variables, {
@@ -1311,7 +1329,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     adminUpdateEmail(
       variables: AdminUpdateEmailMutationVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: AdminUpdateEmailMutation; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{
+      data: AdminUpdateEmailMutation
+      errors?: GraphQLError[]
+      extensions?: any
+      headers: Headers
+      status: number
+    }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<AdminUpdateEmailMutation>(AdminUpdateEmailDocumentString, variables, {
@@ -1325,7 +1349,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     adminDeleteEmail(
       variables: AdminDeleteEmailMutationVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: AdminDeleteEmailMutation; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{
+      data: AdminDeleteEmailMutation
+      errors?: GraphQLError[]
+      extensions?: any
+      headers: Headers
+      status: number
+    }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<AdminDeleteEmailMutation>(AdminDeleteEmailDocumentString, variables, {
@@ -1339,7 +1369,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     adminFindManyIdentity(
       variables: AdminFindManyIdentityQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: AdminFindManyIdentityQuery; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{
+      data: AdminFindManyIdentityQuery
+      errors?: GraphQLError[]
+      extensions?: any
+      headers: Headers
+      status: number
+    }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<AdminFindManyIdentityQuery>(AdminFindManyIdentityDocumentString, variables, {
@@ -1353,7 +1389,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     adminCreateIdentity(
       variables: AdminCreateIdentityMutationVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: AdminCreateIdentityMutation; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{
+      data: AdminCreateIdentityMutation
+      errors?: GraphQLError[]
+      extensions?: any
+      headers: Headers
+      status: number
+    }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<AdminCreateIdentityMutation>(AdminCreateIdentityDocumentString, variables, {
@@ -1367,7 +1409,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     adminDeleteIdentity(
       variables: AdminDeleteIdentityMutationVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: AdminDeleteIdentityMutation; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{
+      data: AdminDeleteIdentityMutation
+      errors?: GraphQLError[]
+      extensions?: any
+      headers: Headers
+      status: number
+    }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<AdminDeleteIdentityMutation>(AdminDeleteIdentityDocumentString, variables, {
@@ -1381,7 +1429,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     userFindManyIdentity(
       variables?: UserFindManyIdentityQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: UserFindManyIdentityQuery; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{
+      data: UserFindManyIdentityQuery
+      errors?: GraphQLError[]
+      extensions?: any
+      headers: Headers
+      status: number
+    }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<UserFindManyIdentityQuery>(UserFindManyIdentityDocumentString, variables, {
@@ -1395,7 +1449,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     userDeleteIdentity(
       variables: UserDeleteIdentityMutationVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: UserDeleteIdentityMutation; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{
+      data: UserDeleteIdentityMutation
+      errors?: GraphQLError[]
+      extensions?: any
+      headers: Headers
+      status: number
+    }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<UserDeleteIdentityMutation>(UserDeleteIdentityDocumentString, variables, {
@@ -1409,7 +1469,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     userRequestIdentityChallenge(
       variables: UserRequestIdentityChallengeQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: UserRequestIdentityChallengeQuery; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{
+      data: UserRequestIdentityChallengeQuery
+      errors?: GraphQLError[]
+      extensions?: any
+      headers: Headers
+      status: number
+    }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<UserRequestIdentityChallengeQuery>(UserRequestIdentityChallengeDocumentString, variables, {
@@ -1423,7 +1489,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     userVerifyIdentityChallenge(
       variables: UserVerifyIdentityChallengeMutationVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: UserVerifyIdentityChallengeMutation; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{
+      data: UserVerifyIdentityChallengeMutation
+      errors?: GraphQLError[]
+      extensions?: any
+      headers: Headers
+      status: number
+    }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<UserVerifyIdentityChallengeMutation>(UserVerifyIdentityChallengeDocumentString, variables, {
@@ -1437,7 +1509,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     userLinkIdentity(
       variables: UserLinkIdentityMutationVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: UserLinkIdentityMutation; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{
+      data: UserLinkIdentityMutation
+      errors?: GraphQLError[]
+      extensions?: any
+      headers: Headers
+      status: number
+    }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<UserLinkIdentityMutation>(UserLinkIdentityDocumentString, variables, {
@@ -1451,7 +1529,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     adminCreateUser(
       variables: AdminCreateUserMutationVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: AdminCreateUserMutation; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{
+      data: AdminCreateUserMutation
+      errors?: GraphQLError[]
+      extensions?: any
+      headers: Headers
+      status: number
+    }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<AdminCreateUserMutation>(AdminCreateUserDocumentString, variables, {
@@ -1465,7 +1549,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     adminDeleteUser(
       variables: AdminDeleteUserMutationVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: AdminDeleteUserMutation; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{
+      data: AdminDeleteUserMutation
+      errors?: GraphQLError[]
+      extensions?: any
+      headers: Headers
+      status: number
+    }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<AdminDeleteUserMutation>(AdminDeleteUserDocumentString, variables, {
@@ -1479,7 +1569,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     adminFindManyUser(
       variables: AdminFindManyUserQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: AdminFindManyUserQuery; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{
+      data: AdminFindManyUserQuery
+      errors?: GraphQLError[]
+      extensions?: any
+      headers: Headers
+      status: number
+    }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<AdminFindManyUserQuery>(AdminFindManyUserDocumentString, variables, {
@@ -1493,7 +1589,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     adminFindOneUser(
       variables: AdminFindOneUserQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: AdminFindOneUserQuery; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{
+      data: AdminFindOneUserQuery
+      errors?: GraphQLError[]
+      extensions?: any
+      headers: Headers
+      status: number
+    }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<AdminFindOneUserQuery>(AdminFindOneUserDocumentString, variables, {
@@ -1507,7 +1609,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     adminUpdateUser(
       variables: AdminUpdateUserMutationVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: AdminUpdateUserMutation; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{
+      data: AdminUpdateUserMutation
+      errors?: GraphQLError[]
+      extensions?: any
+      headers: Headers
+      status: number
+    }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<AdminUpdateUserMutation>(AdminUpdateUserDocumentString, variables, {
@@ -1521,7 +1629,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     userFindManyUser(
       variables: UserFindManyUserQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: UserFindManyUserQuery; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{
+      data: UserFindManyUserQuery
+      errors?: GraphQLError[]
+      extensions?: any
+      headers: Headers
+      status: number
+    }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<UserFindManyUserQuery>(UserFindManyUserDocumentString, variables, {
@@ -1535,7 +1649,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     userFindOneUser(
       variables: UserFindOneUserQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: UserFindOneUserQuery; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{
+      data: UserFindOneUserQuery
+      errors?: GraphQLError[]
+      extensions?: any
+      headers: Headers
+      status: number
+    }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<UserFindOneUserQuery>(UserFindOneUserDocumentString, variables, {
@@ -1549,7 +1669,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     userUpdateUser(
       variables: UserUpdateUserMutationVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{ data: UserUpdateUserMutation; extensions?: any; headers: Dom.Headers; status: number }> {
+    ): Promise<{
+      data: UserUpdateUserMutation
+      errors?: GraphQLError[]
+      extensions?: any
+      headers: Headers
+      status: number
+    }> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.rawRequest<UserUpdateUserMutation>(UserUpdateUserDocumentString, variables, {
