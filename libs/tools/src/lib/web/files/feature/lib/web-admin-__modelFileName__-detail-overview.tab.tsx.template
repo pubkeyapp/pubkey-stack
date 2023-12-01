@@ -1,4 +1,4 @@
-import { UiCard, UiError, UiDebug, UiLoader } from '@<%= npmScope %>/<%= app %>/ui/core'
+import { UiCard, UiError, UiDebug, UiLoader } from '@<%= npmScope %>/<%= app %>-ui-core'
 import { useAdminFindOne<%= modelClassName %> } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-data-access'
 
 export function WebAdmin<%= modelClassName %>DetailOverviewTab({ <%= modelPropertyName %>Id }: { <%= modelPropertyName %>Id: string }) {

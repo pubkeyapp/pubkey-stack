@@ -1,5 +1,5 @@
 import { AdminCreate<%= modelClassName %>Input } from '@<%= npmScope %>/sdk'
-import { formFieldText, UiForm, UiFormField } from '@<%= npmScope %>/<%= app %>/ui/core'
+import { formFieldText, UiForm, UiFormField } from '@<%= npmScope %>/<%= app %>-ui-core'
 import { ReactNode } from 'react'
 
 export function AdminUiCreate<%= modelClassName %>Form({

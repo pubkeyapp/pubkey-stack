@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { <%= app.className %>CoreDataAccessModule } from '@<%= npmScope %>/<%= app.fileName %>/core/data-access'
+import { <%= app.className %>CoreDataAccessModule } from '@<%= npmScope %>/<%= app.fileName %>-core-data-access'
 <% if (adminCrud) { %>import { <%= app.className %><%= admin.className %><%= model.className %>Service } from './<%= app.fileName %>-<%= admin.fileName %>-<%= model.fileName %>.service'<% } %>
 <% if (userCrud) { %>import { <%= app.className %><%= user.className %><%= model.className %>Service } from './<%= app.fileName %>-<%= user.fileName %>-<%= model.fileName %>.service'<% } %>
 import { <%= app.className %><%= model.className %>Service } from './<%= app.fileName %>-<%= model.fileName %>.service'

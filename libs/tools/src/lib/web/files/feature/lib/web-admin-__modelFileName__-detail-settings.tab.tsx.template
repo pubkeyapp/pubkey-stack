@@ -1,4 +1,4 @@
-import { UiCard, UiError, UiLoader } from '@<%= npmScope %>/<%= app %>/ui/core'
+import { UiCard, UiError, UiLoader } from '@<%= npmScope %>/<%= app %>-ui-core'
 import { useAdminFindOne<%= modelClassName %> } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-data-access'
 import { AdminUiUpdate<%= modelClassName %>Form } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-ui'
 

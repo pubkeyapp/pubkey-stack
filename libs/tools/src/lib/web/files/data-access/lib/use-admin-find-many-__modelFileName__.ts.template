@@ -1,8 +1,8 @@
 import { AdminCreate<%= modelClassName %>Input, AdminFindMany<%= modelClassName %>Input } from '@<%= npmScope %>/sdk'
-import { useWebSdk } from '@<%= npmScope %>/<%= app %>/shell/data-access'
+import { useWebSdk } from '@<%= npmScope %>/<%= app %>-shell-data-access'
 
-import { useUiPagination } from '@<%= npmScope %>/<%= app %>/ui/core'
-import { notifyError, notifySuccess } from '@<%= npmScope %>/<%= app %>/ui/notifications'
+import { useUiPagination } from '@<%= npmScope %>/<%= app %>-ui-core'
+import { notifyError, notifySuccess } from '@<%= npmScope %>/<%= app %>-ui-notifications'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 

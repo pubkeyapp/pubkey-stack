@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { <%= app.className %>CoreService } from '@<%= npmScope %>/<%= app.fileName %>/core/data-access'
+import { <%= app.className %>CoreService } from '@<%= npmScope %>/<%= app.fileName %>-core-data-access'
 import { <%= admin.className %>Create<%= model.className %>Input } from './dto/<%= admin.fileName %>-create-<%= model.fileName %>.input'
 import { <%= admin.className %>FindMany<%= model.className %>Input } from './dto/<%= admin.fileName %>-find-many-<%= model.fileName %>.input'
 import { <%= admin.className %>Update<%= model.className %>Input } from './dto/<%= admin.fileName %>-update-<%= model.fileName %>.input'

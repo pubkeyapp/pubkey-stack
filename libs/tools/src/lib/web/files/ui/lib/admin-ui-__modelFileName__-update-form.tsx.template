@@ -1,6 +1,6 @@
 import { Button, Group } from '@mantine/core'
 import { AdminUpdate<%= modelClassName %>Input, <%= modelClassName %> } from '@<%= npmScope %>/sdk'
-import { formFieldText, UiForm, UiFormField } from '@<%= npmScope %>/<%= app %>/ui/core'
+import { formFieldText, UiForm, UiFormField } from '@<%= npmScope %>/<%= app %>-ui-core'
 
 export function AdminUiUpdate<%= modelClassName %>Form({
   submit,

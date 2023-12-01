@@ -1,6 +1,6 @@
 import { ActionIcon, Anchor, Group, ScrollArea } from '@mantine/core'
 import { <%= modelClassName %> } from '@<%= npmScope %>/sdk'
-import { UiGroup } from '@<%= npmScope %>/<%= app %>/ui/core'
+import { UiGroup } from '@<%= npmScope %>/<%= app %>-ui-core'
 import { IconPencil, IconTrash } from '@tabler/icons-react'
 import { DataTable } from 'mantine-datatable'
 import { Link } from 'react-router-dom'

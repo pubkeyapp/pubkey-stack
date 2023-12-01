@@ -1,6 +1,6 @@
 import { AdminUpdate<%= modelClassName %>Input } from '@<%= npmScope %>/sdk'
-import { useWebSdk } from '@<%= npmScope %>/<%= app %>/shell/data-access'
-import { notifyError, notifySuccess } from '@<%= npmScope %>/<%= app %>/ui/notifications'
+import { useWebSdk } from '@<%= npmScope %>/<%= app %>-shell-data-access'
+import { notifyError, notifySuccess } from '@<%= npmScope %>/<%= app %>-ui-notifications'
 import { useQuery } from '@tanstack/react-query'
 
 export function useAdminFindOne<%= modelClassName %>({ <%= modelPropertyName %>Id }:{ <%= modelPropertyName %>Id: string }) {

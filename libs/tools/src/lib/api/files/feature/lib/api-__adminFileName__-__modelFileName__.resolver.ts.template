@@ -1,6 +1,6 @@
 import { Resolver } from '@nestjs/graphql'
 import { <%= app.className %><%= model.className %>Service } from '@<%= npmScope %>/<%= app.fileName %>-<%= model.fileName %>-data-access'
-import { <%= app.className %>AuthGraphQLAdminGuard } from '@<%= npmScope %>/<%= app.fileName %>/auth/data-access'
+import { <%= app.className %>AuthGraphQLAdminGuard } from '@<%= npmScope %>/<%= app.fileName %>-auth-data-access'
 import { Mutation, Query, Args } from '@nestjs/graphql'
 import { UseGuards } from '@nestjs/common'
 import {
