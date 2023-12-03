@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { Request, Response } from 'express-serve-static-core'
 
 export interface BaseContext {
   req: Request

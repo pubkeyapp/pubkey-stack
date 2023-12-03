@@ -1,4 +1,4 @@
-import { Button } from '@mantine/core'
+import { Button, Group, Text } from '@mantine/core'
 import { useWebAuth } from '@pubkey-stack/web-auth-data-access'
 import { useUserFindManyIdentity } from '@pubkey-stack/web-identity-data-access'
 import {
@@ -6,7 +6,7 @@ import {
   WebUiIdentityDiscordLinkButton,
   WebUiIdentityIdentityGroupList,
 } from '@pubkey-stack/web-identity-ui'
-import { UiContainer, UiDashboardContainer, UiPageHeader, UiStack } from '@pubkey-stack/web-ui-core'
+import { UiContainer, UiDashboardContainer, UiGroup, UiStack } from '@pubkey-stack/web-ui-core'
 import { Link } from 'react-router-dom'
 
 export default function WebDashboardRoutes() {
@@ -28,14 +28,16 @@ export default function WebDashboardRoutes() {
       ) : (
         <UiStack spacing={64} pb={128}>
           <UiStack>
-            <UiPageHeader
-              title="Linked Identities"
-              actions={
+            <UiGroup>
+              <Text size="xl" weight={700}>
+                Linked Identities
+              </Text>
+              <Group>
                 <Button component={Link} to="/settings/identities" size="sm">
                   Manage Identities
                 </Button>
-              }
-            />
+              </Group>
+            </UiGroup>
             <WebUiIdentityIdentityGroupList grouped={grouped} />
           </UiStack>
         </UiStack>

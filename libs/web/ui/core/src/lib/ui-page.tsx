@@ -4,7 +4,7 @@ import { UiContainer } from './ui-container'
 import { UiGroup } from './ui-group'
 import { UiStack } from './ui-stack'
 
-export function UiAdminPage({
+export function UiPage({
   children,
   leftAction,
   rightAction,

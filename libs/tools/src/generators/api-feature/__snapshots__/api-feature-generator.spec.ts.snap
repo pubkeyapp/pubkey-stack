@@ -215,7 +215,7 @@ export * from './lib/dto/admin-update-test.input';
 
 exports[`api-feature generator should generate the feature libraries 3`] = `
 "import { Injectable } from '@nestjs/common';
-import { ApiCoreService } from '@proj/api/core/data-access';
+import { ApiCoreService } from '@proj/api-core-data-access';
 import { AdminCreateTestInput } from './dto/admin-create-test.input';
 import { AdminFindManyTestInput } from './dto/admin-find-many-test.input';
 import { AdminUpdateTestInput } from './dto/admin-update-test.input';
@@ -258,7 +258,7 @@ export class ApiAdminTestService {
 
 exports[`api-feature generator should generate the feature libraries 4`] = `
 "import { Module } from '@nestjs/common';
-import { ApiCoreDataAccessModule } from '@proj/api/core/data-access';
+import { ApiCoreDataAccessModule } from '@proj/api-core-data-access';
 import { ApiAdminTestService } from './api-admin-test.service';
 
 import { ApiTestService } from './api-test.service';
@@ -296,7 +296,7 @@ export class AdminCreateTestInput {
 
 exports[`api-feature generator should generate the feature libraries 7`] = `
 "import { Field, InputType } from '@nestjs/graphql';
-import { PagingInput } from '@proj/api/core/data-access';
+import { PagingInput } from '@proj/api-core-data-access';
 
 @InputType()
 export class AdminFindManyTestInput extends PagingInput() {
@@ -357,7 +357,7 @@ export class Test {
 
 exports[`api-feature generator should generate the feature libraries 11`] = `
 "import { ObjectType } from '@nestjs/graphql';
-import { PagingResponse } from '@proj/api/core/data-access';
+import { PagingResponse } from '@proj/api-core-data-access';
 import { Test } from './test.entity';
 
 @ObjectType()
@@ -373,7 +373,7 @@ exports[`api-feature generator should generate the feature libraries 12`] = `
 exports[`api-feature generator should generate the feature libraries 13`] = `
 "import { Resolver } from '@nestjs/graphql';
 import { ApiTestService } from '@proj/api-test-data-access';
-import { ApiAuthGraphQLAdminGuard } from '@proj/api/auth/data-access';
+import { ApiAuthGraphQLAdminGuard } from '@proj/api-auth-data-access';
 import { Mutation, Query, Args } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import {

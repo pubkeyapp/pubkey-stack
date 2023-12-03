@@ -1,6 +1,6 @@
 import { Button, Group } from '@mantine/core'
 import { AdminCreateUserInput } from '@pubkey-stack/sdk'
-import { UiAdminPage, UiBack, UiCard } from '@pubkey-stack/web-ui-core'
+import { UiBack, UiCard, UiPage } from '@pubkey-stack/web-ui-core'
 import { notifyError } from '@pubkey-stack/web-ui-notifications'
 import { useAdminFindManyUser } from '@pubkey-stack/web-user-data-access'
 import { AdminUiCreateUserForm } from '@pubkey-stack/web-user-ui'
@@ -21,7 +21,7 @@ export function WebAdminUserCreateFeature() {
   }
 
   return (
-    <UiAdminPage leftAction={<UiBack />} title="Create User">
+    <UiPage leftAction={<UiBack />} title="Create User">
       <UiCard>
         <AdminUiCreateUserForm submit={submit}>
           <Group position="right">
@@ -29,6 +29,6 @@ export function WebAdminUserCreateFeature() {
           </Group>
         </AdminUiCreateUserForm>
       </UiCard>
-    </UiAdminPage>
+    </UiPage>
   )
 }

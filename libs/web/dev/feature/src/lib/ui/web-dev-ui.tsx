@@ -1,5 +1,4 @@
 import { UiStack, UiTabRoutes } from '@pubkey-stack/web-ui-core'
-import { WebDevUiActionIcon } from './web-dev-ui-action-icon'
 import { WebDevUiAlert } from './web-dev-ui-alert'
 import { WebDevUiForm } from './web-dev-ui-form'
 import { WebDevUiLoader } from './web-dev-ui-loader'
@@ -11,7 +10,6 @@ export function WebDevUi() {
     <UiStack>
       <UiTabRoutes
         tabs={[
-          { value: 'action-icon', label: 'UiActionIcon', component: <WebDevUiActionIcon /> },
           { value: 'alert', label: 'UiAlert', component: <WebDevUiAlert /> },
           { value: 'loader', label: 'UiLoader', component: <WebDevUiLoader /> },
           { value: 'form', label: 'UiForm', component: <WebDevUiForm /> },

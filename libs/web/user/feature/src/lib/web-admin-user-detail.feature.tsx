@@ -1,5 +1,5 @@
 import { Group } from '@mantine/core'
-import { UiAdminPage, UiBack, UiDebugModal, UiError, UiLoader, UiStack, UiTabRoutes } from '@pubkey-stack/web-ui-core'
+import { UiPage, UiBack, UiDebugModal, UiError, UiLoader, UiStack, UiTabRoutes } from '@pubkey-stack/web-ui-core'
 import { useAdminFindOneUser } from '@pubkey-stack/web-user-data-access'
 import { WebUiUserAvatar } from '@pubkey-stack/web-user-ui'
 import { useParams } from 'react-router-dom'
@@ -19,7 +19,7 @@ export function WebAdminUserDetailFeature() {
   }
 
   return (
-    <UiAdminPage
+    <UiPage
       leftAction={<UiBack />}
       rightAction={
         <Group>
@@ -53,6 +53,6 @@ export function WebAdminUserDetailFeature() {
           ]}
         />
       </UiStack>
-    </UiAdminPage>
+    </UiPage>
   )
 }

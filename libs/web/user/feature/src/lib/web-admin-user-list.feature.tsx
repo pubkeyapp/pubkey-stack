@@ -1,14 +1,6 @@
 import { Button, Group, Select } from '@mantine/core'
 import { getEnumOptions, UserRole, UserStatus } from '@pubkey-stack/sdk'
-import {
-  UiAdminPage,
-  UiBack,
-  UiDebugModal,
-  UiInfo,
-  UiLoader,
-  UiPagination,
-  UiSearchField,
-} from '@pubkey-stack/web-ui-core'
+import { UiPage, UiBack, UiDebugModal, UiInfo, UiLoader, UiPagination, UiSearchField } from '@pubkey-stack/web-ui-core'
 import { useAdminFindManyUser } from '@pubkey-stack/web-user-data-access'
 import { AdminUiUserTable } from '@pubkey-stack/web-user-ui'
 import { Link } from 'react-router-dom'
@@ -17,7 +9,7 @@ export function WebAdminUserListFeature() {
   const { deleteUser, items, pagination, query, role, setRole, setSearch, setStatus, status } = useAdminFindManyUser()
 
   return (
-    <UiAdminPage
+    <UiPage
       title="Users"
       leftAction={<UiBack />}
       rightAction={
@@ -64,6 +56,6 @@ export function WebAdminUserListFeature() {
       )}
 
       <UiPagination pagination={pagination} />
-    </UiAdminPage>
+    </UiPage>
   )
 }

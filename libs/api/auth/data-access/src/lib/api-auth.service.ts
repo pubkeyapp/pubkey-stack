@@ -8,7 +8,7 @@ import {
   slugifyId,
   validatePassword,
 } from '@pubkey-stack/api-core-data-access'
-import { Request } from 'express'
+import { Request } from 'express-serve-static-core'
 import { LoginInput } from './dto/login.input'
 import { RegisterInput } from './dto/register.input'
 
