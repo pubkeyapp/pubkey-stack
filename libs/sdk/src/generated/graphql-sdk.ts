@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { z } from 'zod'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { GraphQLError, print } from 'graphql'
@@ -1689,3 +1690,138 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   }
 }
 export type Sdk = ReturnType<typeof getSdk>
+
+type Properties<T> = Required<{
+  [K in keyof T]: z.ZodType<T[K], any, T[K]>
+}>
+
+type definedNonNullAny = {}
+
+export const isDefinedNonNullAny = (v: any): v is definedNonNullAny => v !== undefined && v !== null
+
+export const definedNonNullAnySchema = z.any().refine((v) => isDefinedNonNullAny(v))
+
+export const IdentityProviderSchema = z.nativeEnum(IdentityProvider)
+
+export const UserRoleSchema = z.nativeEnum(UserRole)
+
+export const UserStatusSchema = z.nativeEnum(UserStatus)
+
+export function AdminCreateEmailInputSchema(): z.ZodObject<Properties<AdminCreateEmailInput>> {
+  return z.object({
+    email: z.string(),
+    ownerId: z.string(),
+  })
+}
+
+export function AdminCreateIdentityInputSchema(): z.ZodObject<Properties<AdminCreateIdentityInput>> {
+  return z.object({
+    ownerId: z.string(),
+    provider: IdentityProviderSchema,
+    providerId: z.string(),
+  })
+}
+
+export function AdminCreateUserInputSchema(): z.ZodObject<Properties<AdminCreateUserInput>> {
+  return z.object({
+    password: z.string().nullish(),
+    username: z.string(),
+  })
+}
+
+export function AdminFindManyEmailInputSchema(): z.ZodObject<Properties<AdminFindManyEmailInput>> {
+  return z.object({
+    ownerId: z.string(),
+  })
+}
+
+export function AdminFindManyIdentityInputSchema(): z.ZodObject<Properties<AdminFindManyIdentityInput>> {
+  return z.object({
+    ownerId: z.string().nullish(),
+    provider: IdentityProviderSchema.nullish(),
+  })
+}
+
+export function AdminFindManyUserInputSchema(): z.ZodObject<Properties<AdminFindManyUserInput>> {
+  return z.object({
+    limit: z.number().nullish(),
+    page: z.number().nullish(),
+    role: UserRoleSchema.nullish(),
+    search: z.string().nullish(),
+    status: UserStatusSchema.nullish(),
+  })
+}
+
+export function AdminUpdateEmailInputSchema(): z.ZodObject<Properties<AdminUpdateEmailInput>> {
+  return z.object({
+    default: z.boolean().nullish(),
+    email: z.string().nullish(),
+    private: z.boolean().nullish(),
+    verified: z.boolean().nullish(),
+  })
+}
+
+export function AdminUpdateUserInputSchema(): z.ZodObject<Properties<AdminUpdateUserInput>> {
+  return z.object({
+    avatarUrl: z.string().nullish(),
+    developer: z.boolean().nullish(),
+    name: z.string().nullish(),
+    role: UserRoleSchema.nullish(),
+    status: UserStatusSchema.nullish(),
+    username: z.string().nullish(),
+  })
+}
+
+export function LinkIdentityInputSchema(): z.ZodObject<Properties<LinkIdentityInput>> {
+  return z.object({
+    provider: IdentityProviderSchema,
+    providerId: z.string(),
+  })
+}
+
+export function LoginInputSchema(): z.ZodObject<Properties<LoginInput>> {
+  return z.object({
+    password: z.string(),
+    username: z.string(),
+  })
+}
+
+export function RegisterInputSchema(): z.ZodObject<Properties<RegisterInput>> {
+  return z.object({
+    password: z.string(),
+    username: z.string(),
+  })
+}
+
+export function RequestIdentityChallengeInputSchema(): z.ZodObject<Properties<RequestIdentityChallengeInput>> {
+  return z.object({
+    provider: IdentityProviderSchema,
+    providerId: z.string(),
+  })
+}
+
+export function UserFindManyUserInputSchema(): z.ZodObject<Properties<UserFindManyUserInput>> {
+  return z.object({
+    limit: z.number().nullish(),
+    page: z.number().nullish(),
+    search: z.string().nullish(),
+  })
+}
+
+export function UserUpdateUserInputSchema(): z.ZodObject<Properties<UserUpdateUserInput>> {
+  return z.object({
+    avatarUrl: z.string().nullish(),
+    developer: z.boolean().nullish(),
+    name: z.string().nullish(),
+  })
+}
+
+export function VerifyIdentityChallengeInputSchema(): z.ZodObject<Properties<VerifyIdentityChallengeInput>> {
+  return z.object({
+    challenge: z.string(),
+    provider: IdentityProviderSchema,
+    providerId: z.string(),
+    signature: z.string(),
+    useLedger: z.boolean().nullish(),
+  })
+}

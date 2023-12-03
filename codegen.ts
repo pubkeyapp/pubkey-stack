@@ -10,6 +10,7 @@ const config: CodegenConfig = {
         'typescript',
         'typescript-operations',
         'typescript-graphql-request',
+        'typescript-validation-schema',
         {
           add: {
             content: '// @ts-nocheck',
@@ -21,6 +22,7 @@ const config: CodegenConfig = {
         scalars: {
           DateTime: 'Date',
         },
+        schema: 'zod',
       },
     },
   },
