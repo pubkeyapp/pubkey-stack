@@ -2,7 +2,7 @@ import { Button, Group, Title } from '@mantine/core'
 import { RegisterInput } from '@pubkey-stack/sdk'
 import { useWebAuth } from '@pubkey-stack/web-auth-data-access'
 import { WebUiAuthPage, WebUiAuthRegisterForm } from '@pubkey-stack/web-auth-ui'
-import { UiLoader } from '@pubkey-stack/web-ui-core'
+import { UiLoader } from '@pubkey-ui/core'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -33,12 +33,12 @@ export default function WebAuthRegisterFeature() {
   return (
     <WebUiAuthPage>
       {noAuthEnabled ? (
-        <Group position="center">
+        <Group justify="center">
           <Title>Registration is disabled</Title>
         </Group>
       ) : authRegisterEnabled ? (
         <WebUiAuthRegisterForm submit={registerHandler}>
-          <Group position="apart">
+          <Group justify="space-between">
             <Button loading={loading} type="submit">
               Register
             </Button>

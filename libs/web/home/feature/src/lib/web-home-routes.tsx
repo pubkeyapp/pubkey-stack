@@ -1,5 +1,5 @@
 import { Text } from '@mantine/core'
-import { UiStack } from '@pubkey-stack/web-ui-core'
+import { UiStack } from '@pubkey-ui/core'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { HomeUiHero } from './home-ui-hero'
 

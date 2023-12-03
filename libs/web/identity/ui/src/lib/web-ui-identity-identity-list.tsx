@@ -1,6 +1,7 @@
 import { ActionIcon, Badge, Code, Group, Menu, Text } from '@mantine/core'
 import { ellipsify, Identity, IdentityProvider } from '@pubkey-stack/sdk'
-import { UiCard, UiDebugModal, UiExplorerIcon, UiGroup, UiStack } from '@pubkey-stack/web-ui-core'
+import { UiExplorerIcon } from '@pubkey-stack/web-ui-core'
+import { UiCard, UiDebugModal, UiGroup, UiStack } from '@pubkey-ui/core'
 import { IconCheck, IconDotsVertical, IconTrash } from '@tabler/icons-react'
 import { WebUiIdentityAvatar } from './web-ui-identity-avatar'
 import { WebUiIdentitySolanaVerifyButton } from './web-ui-identity-solana-verify-button'
@@ -18,14 +19,14 @@ export function WebUiIdentityIdentityList({
     <UiStack>
       {items?.map((item) => (
         <UiCard key={item.id}>
-          <Group position="apart">
+          <Group justify="space-between">
             <Group>
               <WebUiIdentityAvatar item={item} />
               <UiGroup>
                 {item.profile?.username ? (
                   <Text size="xl">{item.profile?.username}</Text>
                 ) : (
-                  <Code color="brand">{ellipsify(item.providerId)}</Code>
+                  <Code>{ellipsify(item.providerId)}</Code>
                 )}
                 {item.verified ? (
                   <Badge
@@ -46,19 +47,23 @@ export function WebUiIdentityIdentityList({
                 )}
               </UiGroup>
             </Group>
-            <Group spacing="xs">
+            <Group gap="xs">
               <UiDebugModal data={item} />
               {item.provider === IdentityProvider.Solana && <UiExplorerIcon path={`address/${item.providerId}`} />}
               {deleteIdentity && (
                 <Menu shadow="md" width={200}>
                   <Menu.Target>
-                    <ActionIcon variant="light">
-                      <IconDotsVertical size={20} />
+                    <ActionIcon variant="light" size="sm">
+                      <IconDotsVertical size={16} />
                     </ActionIcon>
                   </Menu.Target>
                   <Menu.Dropdown>
                     <Menu.Label>Danger zone</Menu.Label>
-                    <Menu.Item color="red" icon={<IconTrash size={14} />} onClick={() => deleteIdentity(item.id)}>
+                    <Menu.Item
+                      color="red"
+                      leftSection={<IconTrash size={14} />}
+                      onClick={() => deleteIdentity(item.id)}
+                    >
                       Remove this identity
                     </Menu.Item>
                   </Menu.Dropdown>

@@ -13,7 +13,7 @@ export function WebUiIdentitySolanaVerifyButton({ identity, refresh }: { identit
         size="xs"
         variant="light"
         color="yellow"
-        leftIcon={<IconAlertCircle size={14} />}
+        leftSection={<IconAlertCircle size={14} />}
         onClick={() => {
           modals.open({
             title: 'Verify Identity',

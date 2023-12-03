@@ -1,12 +1,12 @@
 import { WebDevAdminRoutes } from '@pubkey-stack/web-dev-feature'
-import { UiContainer, UiDashboard, UiDashboardItem, UiNotFound } from '@pubkey-stack/web-ui-core'
 import { WebAdminUserRoutes } from '@pubkey-stack/web-user-feature'
+import { UiContainer, UiDashboardGrid, UiDashboardItem, UiNotFound } from '@pubkey-ui/core'
 import { IconUsers } from '@tabler/icons-react'
 import { Navigate, RouteObject, useRoutes } from 'react-router-dom'
 
 const links: UiDashboardItem[] = [
   // Admin Dashboard Links
-  { label: 'Users', icon: IconUsers, link: '/admin/users' },
+  { label: 'Users', icon: IconUsers, to: '/admin/users' },
 ]
 
 const routes: RouteObject[] = [
@@ -22,7 +22,7 @@ export default function WebAdminRoutes() {
       path: 'dashboard/*',
       element: (
         <UiContainer>
-          <UiDashboard links={links} />
+          <UiDashboardGrid links={links} />
         </UiContainer>
       ),
     },

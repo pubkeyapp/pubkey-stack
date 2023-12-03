@@ -1,6 +1,6 @@
 import { ActionIcon, Anchor, Group, ScrollArea, Stack, Text } from '@mantine/core'
 import { ellipsify, Identity } from '@pubkey-stack/sdk'
-import { UiCopy, UiDebugModal } from '@pubkey-stack/web-ui-core'
+import { UiCopy, UiDebugModal } from '@pubkey-ui/core'
 import { IconTrash } from '@tabler/icons-react'
 import { DataTable } from 'mantine-datatable'
 import { WebUiIdentityIcon } from './web-ui-identity-icon'
@@ -15,17 +15,17 @@ export function AdminUiIdentityTable({ deleteIdentity, identities = [] }: AdminI
     <ScrollArea>
       <DataTable
         borderRadius="sm"
-        withBorder
+        withTableBorder
         shadow="xs"
         columns={[
           {
             accessor: 'identity',
             render: (item) => {
               return (
-                <Group spacing="sm" p={4}>
+                <Group gap="sm" p={4}>
                   <WebUiIdentityIcon provider={item.provider} />
-                  <Stack spacing={1}>
-                    <Anchor size="lg" weight={500} component="a" href={item.url ?? ''} target="_blank" rel="noreferrer">
+                  <Stack gap={1}>
+                    <Anchor size="lg" fw={500} component="a" href={item.url ?? ''} target="_blank" rel="noreferrer">
                       {ellipsify(item.name ?? item.providerId)}
                     </Anchor>
                     <Text size="sm" color="dimmed">
@@ -39,16 +39,12 @@ export function AdminUiIdentityTable({ deleteIdentity, identities = [] }: AdminI
           {
             accessor: 'actions',
             title: 'Actions',
-            textAlignment: 'right',
+            textAlign: 'right',
             render: (item) => (
-              <Group spacing={0} position="right" noWrap>
+              <Group gap="xs" justify="right">
                 <UiDebugModal data={item} />
-                <UiCopy
-                  styles={{ tooltip: { position: 'right' } }}
-                  text={item.providerId}
-                  tooltip="Copy the providerId"
-                />
-                <ActionIcon color="red" onClick={() => deleteIdentity(item)}>
+                <UiCopy text={item.providerId} tooltip="Copy the providerId" />
+                <ActionIcon variant="light" size="sm" color="red" onClick={() => deleteIdentity(item)}>
                   <IconTrash size={16} />
                 </ActionIcon>
               </Group>

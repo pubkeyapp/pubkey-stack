@@ -1,5 +1,6 @@
-import { Badge, useMantineTheme } from '@mantine/core'
+import { Badge } from '@mantine/core'
 import { UserRole } from '@pubkey-stack/sdk'
+import { useUiColorScheme } from '@pubkey-ui/core'
 
 export const USER_ROLE_COLORS: Record<UserRole, string> = {
   [UserRole.Admin]: 'pink',
@@ -7,9 +8,9 @@ export const USER_ROLE_COLORS: Record<UserRole, string> = {
 }
 
 export function WebUiUserRoleBadge({ role }: { role: UserRole }) {
-  const theme = useMantineTheme()
+  const { colorScheme } = useUiColorScheme()
   return (
-    <Badge color={USER_ROLE_COLORS[role]} variant={theme.colorScheme === 'dark' ? 'light' : 'outline'}>
+    <Badge color={USER_ROLE_COLORS[role]} variant={colorScheme === 'dark' ? 'light' : 'outline'}>
       {role}
     </Badge>
   )

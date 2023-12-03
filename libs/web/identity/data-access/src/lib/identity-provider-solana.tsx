@@ -1,6 +1,6 @@
 import { IdentityProvider } from '@pubkey-stack/sdk'
 import { useWebSdk } from '@pubkey-stack/web-shell-data-access'
-import { notifyError, notifySuccess } from '@pubkey-stack/web-ui-notifications'
+import { toastError, toastSuccess } from '@pubkey-ui/core'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { createContext, ReactNode, useContext } from 'react'
 import { useCreateSignature } from './use-create-signature'
@@ -24,12 +24,12 @@ export function IdentityProviderSolana({ children, refresh }: { children: ReactN
     return sdk
       .userLinkIdentity({ input: { provider: IdentityProvider.Solana, providerId: publicKey } })
       .then((res) => {
-        notifySuccess('Identity linked')
+        toastSuccess('Identity linked')
         refresh()
       })
       .catch((err) => {
         console.log('Error linking identity', err)
-        notifyError('Error linking identity')
+        toastError('Error linking identity')
       })
   }
 
@@ -38,14 +38,14 @@ export function IdentityProviderSolana({ children, refresh }: { children: ReactN
       .userRequestIdentityChallenge({ input: { provider: IdentityProvider.Solana, providerId: publicKey } })
       .then((res) => {
         if (!res.data.challenge) {
-          notifyError('Error linking identity')
+          toastError('Error linking identity')
           return
         }
         return res.data.challenge
       })
       .catch((err) => {
         console.log('error linking identity', err)
-        notifyError('Error linking identity')
+        toastError('Error linking identity')
       })
   }
 
@@ -70,12 +70,12 @@ export function IdentityProviderSolana({ children, refresh }: { children: ReactN
         },
       })
       .then((res) => {
-        notifySuccess('Identity verified')
+        toastSuccess('Identity verified')
         refresh()
       })
       .catch((err) => {
         console.log('error verifying identity', err)
-        notifyError('Error verifying identity')
+        toastError('Error verifying identity')
       })
   }
 

@@ -2,8 +2,7 @@ import { Button, Stepper, Switch } from '@mantine/core'
 import { modals } from '@mantine/modals'
 import { ellipsify, Identity, IdentityProvider } from '@pubkey-stack/sdk'
 import { useIdentitySolana } from '@pubkey-stack/web-identity-data-access'
-import { UiStack, UiWarn } from '@pubkey-stack/web-ui-core'
-import { notifyError } from '@pubkey-stack/web-ui-notifications'
+import { toastError, UiStack, UiWarning } from '@pubkey-ui/core'
 import { WalletMultiButton } from '@pubkeyapp/wallet-adapter-mantine-ui'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useEffect, useState } from 'react'
@@ -54,7 +53,7 @@ export function WebUiIdentitySolanaLinkWizard({ identities }: { identities: Iden
                 </Button>
 
                 {exists ? (
-                  <UiWarn
+                  <UiWarning
                     title="Identity already linked"
                     message="This identity is already linked to your account. Please connect a different wallet."
                   />
@@ -79,7 +78,7 @@ export function WebUiIdentitySolanaLinkWizard({ identities }: { identities: Iden
               </UiStack>
             )
           ) : (
-            <UiWarn title={'Select provider'} message={'Please select a provider before connecting your wallet.'} />
+            <UiWarning title={'Select provider'} message={'Please select a provider before connecting your wallet.'} />
           )}
         </Stepper.Step>
 
@@ -104,7 +103,7 @@ export function WebUiIdentitySolanaLinkWizard({ identities }: { identities: Iden
                     })
                     .catch((err) => {
                       console.log('error linking identity', err)
-                      notifyError('Error linking identity')
+                      toastError('Error linking identity')
                     })
                     .finally(() => setSigning(false))
                 }}

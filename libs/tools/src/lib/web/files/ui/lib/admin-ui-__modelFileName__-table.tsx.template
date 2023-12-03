@@ -1,44 +1,53 @@
 import { ActionIcon, Anchor, Group, ScrollArea } from '@mantine/core'
 import { <%= modelClassName %> } from '@<%= npmScope %>/sdk'
-import { UiGroup } from '@<%= npmScope %>/<%= app %>-ui-core'
 import { IconPencil, IconTrash } from '@tabler/icons-react'
-import { DataTable } from 'mantine-datatable'
+import { DataTable, DataTableProps } from 'mantine-datatable'
 import { Link } from 'react-router-dom'
 
 export function AdminUi<%= modelClassName %>Table({
   delete<%= modelClassName %>,
   <%= modelPropertyNamePlural %> = [],
+  onPageChange,
+  page,
+  recordsPerPage,
+  totalRecords,
 }: {
   delete<%= modelClassName %>: (<%= modelPropertyName %>: <%= modelClassName %>) => void
   <%= modelPropertyNamePlural %>: <%= modelClassName %>[]
+  page: DataTableProps['page']
+  totalRecords: DataTableProps['totalRecords']
+  recordsPerPage: DataTableProps['recordsPerPage']
+  onPageChange: (page: number) => void
 }) {
   return (
     <ScrollArea>
       <DataTable
         borderRadius="sm"
-        withBorder
+        withTableBorder
         shadow="xs"
+        onPageChange={onPageChange}
+        page={page ?? 1}
+        recordsPerPage={recordsPerPage ?? 10}
+        totalRecords={totalRecords ?? 1}
         columns={[
           {
             accessor: '<%= label %>',
             render: (item) => (
-              <UiGroup position="left" spacing={4} align="baseline">
-                <Anchor component={Link} to={`/admin/<%= modelPropertyNamePlural %>/${item.id}`} size="sm" weight={500}>
-                  {item.<%= label %>}
-                </Anchor>
-              </UiGroup>
+              <Anchor component={Link} to={`/admin/<%= modelPropertyNamePlural %>/${item.id}`} size="sm" fw={500}>
+                {item.<%= label %>}
+              </Anchor>
             ),
           },
           {
             accessor: 'actions',
             title: 'Actions',
-            textAlignment: 'right',
+            textAlign: 'right',
             render: (item) => (
-              <Group spacing={0} position="right" noWrap>
-                <ActionIcon color="brand" component={Link} to={`/admin/<%= modelPropertyNamePlural %>/${item.id}/settings`}>
+              <Group gap="xs" justify="right">
+                <ActionIcon color="brand" variant="light" size="sm" component={Link} to={`/admin/<%= modelPropertyNamePlural %>/${item.id}/settings`}>
                   <IconPencil size={16} />
                 </ActionIcon>
-                <ActionIcon color="red" onClick={() => delete<%= modelClassName %>(item)}>
+                <ActionIcon color="red" variant="light" size="sm" onClick={() => delete<%= modelClassName %>(item)}>
                   <IconTrash size={16} />
                 </ActionIcon>
               </Group>

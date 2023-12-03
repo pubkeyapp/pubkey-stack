@@ -2,8 +2,8 @@ import { Button, Group, Title } from '@mantine/core'
 import { LoginInput } from '@pubkey-stack/sdk'
 import { useWebAuth } from '@pubkey-stack/web-auth-data-access'
 import { WebUiAuthLoginForm, WebUiAuthPage } from '@pubkey-stack/web-auth-ui'
-import { UiLoader, UiStack } from '@pubkey-stack/web-ui-core'
 import { WebUiUserAvatar } from '@pubkey-stack/web-user-ui'
+import { UiLoader, UiStack } from '@pubkey-ui/core'
 import { IconBrandDiscord } from '@tabler/icons-react'
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
@@ -38,7 +38,7 @@ export default function WebAuthLoginFeature() {
   return (
     <WebUiAuthPage>
       {noAuthEnabled ? (
-        <Group position="center">
+        <Group justify="center">
           <Title>Login is disabled</Title>
         </Group>
       ) : (
@@ -50,7 +50,7 @@ export default function WebAuthLoginFeature() {
               disabled={loading}
               fullWidth
               onClick={() => navigate(redirect)}
-              leftIcon={<WebUiUserAvatar user={user} size={28} />}
+              leftSection={<WebUiUserAvatar user={user} size={28} />}
             >
               Continue as {user.username}
             </Button>
@@ -62,14 +62,14 @@ export default function WebAuthLoginFeature() {
               component="a"
               href="/api/auth/discord"
               variant="light"
-              leftIcon={<IconBrandDiscord size={28} />}
+              leftSection={<IconBrandDiscord size={28} />}
             >
               Sign in with Discord
             </Button>
           ) : null}
           {authPasswordEnabled ? (
             <WebUiAuthLoginForm submit={loginHandler}>
-              <Group position="apart">
+              <Group justify="space-between">
                 <Button loading={loading} type="submit">
                   Login
                 </Button>

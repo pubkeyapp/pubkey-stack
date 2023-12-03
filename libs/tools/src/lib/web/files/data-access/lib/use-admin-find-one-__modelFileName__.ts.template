@@ -1,6 +1,6 @@
 import { AdminUpdate<%= modelClassName %>Input } from '@<%= npmScope %>/sdk'
 import { useWebSdk } from '@<%= npmScope %>/<%= app %>-shell-data-access'
-import { notifyError, notifySuccess } from '@<%= npmScope %>/<%= app %>-ui-notifications'
+import { toastError, toastSuccess } from '@pubkey-ui/core'
 import { useQuery } from '@tanstack/react-query'
 
 export function useAdminFindOne<%= modelClassName %>({ <%= modelPropertyName %>Id }:{ <%= modelPropertyName %>Id: string }) {
@@ -21,15 +21,15 @@ export function useAdminFindOne<%= modelClassName %>({ <%= modelPropertyName %>I
         .then((res) => res.data)
         .then(async (res) => {
           if (res) {
-            notifySuccess('<%= modelClassName %> updated')
+            toastSuccess('<%= modelClassName %> updated')
             await query.refetch()
             return true
           }
-          notifyError('<%= modelClassName %> not updated')
+          toastError('<%= modelClassName %> not updated')
           return false
         })
         .catch((err) => {
-          notifyError(err.message)
+          toastError(err.message)
           return false
         }),
   }

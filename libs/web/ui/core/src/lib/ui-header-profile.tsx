@@ -1,23 +1,15 @@
-import { Button, Group, Menu, rem, useMantineColorScheme } from '@mantine/core'
+import { Button, Group, Menu } from '@mantine/core'
 import { UserRole } from '@pubkey-stack/sdk'
 import { useWebAuth } from '@pubkey-stack/web-auth-data-access'
 import { WebUiUserAvatar } from '@pubkey-stack/web-user-ui'
-import {
-  IconBug,
-  IconChevronDown,
-  IconLogout,
-  IconMoonStars,
-  IconSettings,
-  IconShield,
-  IconSun,
-  IconUser,
-} from '@tabler/icons-react'
+import { useUiColorScheme } from '@pubkey-ui/core'
+import { IconBug, IconLogout, IconMoonStars, IconSettings, IconShield, IconSun, IconUser } from '@tabler/icons-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 export function UiHeaderProfile() {
   const { user, logout } = useWebAuth()
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme()
+  const { colorScheme, toggleColorScheme } = useUiColorScheme()
   const [open, setOpen] = useState(false)
   const isAdmin = user?.role === UserRole.Admin
   const isDeveloper = user?.developer ?? false
@@ -31,30 +23,30 @@ export function UiHeaderProfile() {
       onOpen={() => setOpen(true)}
       withinPortal
       withArrow
+      arrowOffset={18}
     >
       <Menu.Target>
-        <Button py={0} pl={0} pr={4} variant={open ? 'light' : 'default'} radius="xl">
-          <Group spacing={4} p={0}>
+        <Button p={0} variant={open ? 'light' : 'default'} radius="xl">
+          <Group gap={4} p={0}>
             <WebUiUserAvatar user={user} alt={user?.username ?? 'User Avatar'} radius={100} size={34} />
-            <IconChevronDown size={rem(12)} stroke={1.5} />
           </Group>
         </Button>
       </Menu.Target>
       <Menu.Dropdown>
-        <Menu.Item component={Link} to="/profile" icon={<IconUser size="0.9rem" stroke={1.5} />}>
+        <Menu.Item component={Link} to="/profile" leftSection={<IconUser size="0.9rem" stroke={1.5} />}>
           Your profile
         </Menu.Item>
-        <Menu.Item component={Link} to="/settings" icon={<IconSettings size="0.9rem" stroke={1.5} />}>
+        <Menu.Item component={Link} to="/settings" leftSection={<IconSettings size="0.9rem" stroke={1.5} />}>
           Your settings
         </Menu.Item>
         {isAdmin || isDeveloper ? <Menu.Divider /> : null}
         {isAdmin && (
-          <Menu.Item component={Link} to="/admin" icon={<IconShield size="0.9rem" stroke={1.5} />}>
+          <Menu.Item component={Link} to="/admin" leftSection={<IconShield size="0.9rem" stroke={1.5} />}>
             Admin
           </Menu.Item>
         )}{' '}
         {isDeveloper && (
-          <Menu.Item component={Link} to="/admin/development" icon={<IconBug size="0.9rem" stroke={1.5} />}>
+          <Menu.Item component={Link} to="/admin/development" leftSection={<IconBug size="0.9rem" stroke={1.5} />}>
             Development
           </Menu.Item>
         )}
@@ -62,7 +54,7 @@ export function UiHeaderProfile() {
         <Menu.Item
           closeMenuOnClick={false}
           onClick={() => toggleColorScheme()}
-          icon={
+          leftSection={
             colorScheme === 'dark' ? (
               <IconSun size="0.9rem" stroke={1.5} />
             ) : (
@@ -72,7 +64,7 @@ export function UiHeaderProfile() {
         >
           {colorScheme === 'dark' ? 'Light' : 'Dark'} color scheme
         </Menu.Item>
-        <Menu.Item icon={<IconLogout size="0.9rem" stroke={1.5} />} onClick={logout}>
+        <Menu.Item leftSection={<IconLogout size="0.9rem" stroke={1.5} />} onClick={logout}>
           Logout
         </Menu.Item>
       </Menu.Dropdown>

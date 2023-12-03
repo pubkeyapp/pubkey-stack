@@ -2,8 +2,7 @@ import { Button, Stepper, Switch } from '@mantine/core'
 import { modals } from '@mantine/modals'
 import { ellipsify, Identity, IdentityProvider } from '@pubkey-stack/sdk'
 import { useIdentitySolana } from '@pubkey-stack/web-identity-data-access'
-import { UiStack, UiWarn } from '@pubkey-stack/web-ui-core'
-import { notifyError } from '@pubkey-stack/web-ui-notifications'
+import { toastError, UiStack, UiWarning } from '@pubkey-ui/core'
 import { WalletMultiButton } from '@pubkeyapp/wallet-adapter-mantine-ui'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useEffect, useMemo, useState } from 'react'
@@ -13,6 +12,7 @@ export function WebUiIdentitySolanaVerifyWizard({ identity, refresh }: { identit
   const { verifyAndSign } = useIdentitySolana()
   const [useLedger, setUseLedger] = useState(false)
   const [requesting, setRequesting] = useState(false)
+  const [active, setActive] = useState(0)
 
   const canVerify = useMemo(
     () => identity.provider === IdentityProvider.Solana && connected && publicKey?.toBase58() === identity.providerId,
@@ -23,14 +23,14 @@ export function WebUiIdentitySolanaVerifyWizard({ identity, refresh }: { identit
     if (connected && active === 0) {
       setActive(1)
     }
-  }, [connected])
+  }, [active, connected])
 
   function request() {
     setRequesting(true)
     verifyAndSign({ publicKey: identity.providerId, useLedger })
       .catch((err) => {
         console.log('Error verifying identity', err)
-        notifyError('Error verifying identity')
+        toastError('Error verifying identity')
       })
       .finally(() => {
         setRequesting(false)
@@ -39,7 +39,6 @@ export function WebUiIdentitySolanaVerifyWizard({ identity, refresh }: { identit
       })
   }
 
-  const [active, setActive] = useState(0)
   return (
     <Stepper active={active} onStepClick={setActive} orientation="vertical">
       <Stepper.Step
@@ -69,7 +68,7 @@ export function WebUiIdentitySolanaVerifyWizard({ identity, refresh }: { identit
           </UiStack>
         ) : (
           <UiStack>
-            <UiWarn
+            <UiWarning
               title="Cannot verify identity"
               message={`You must connect your Solana wallet ${ellipsify(identity.providerId)} to verify your identity.`}
             />

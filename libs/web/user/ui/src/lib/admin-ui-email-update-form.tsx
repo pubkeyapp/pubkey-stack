@@ -1,6 +1,6 @@
 import { Button, Group } from '@mantine/core'
 import { AdminUpdateEmailInput, Email } from '@pubkey-stack/sdk'
-import { formFieldCheckbox, formFieldText, UiForm, UiFormField } from '@pubkey-stack/web-ui-core'
+import { formFieldCheckbox, formFieldText, UiForm, UiFormField } from '@pubkey-ui/core'
 
 export function AuthUiEmailUpdateForm({
   email,
@@ -32,7 +32,7 @@ export function AuthUiEmailUpdateForm({
   ]
   return (
     <UiForm model={model} fields={fields} submit={(res) => submit(email.id, res as AdminUpdateEmailInput)}>
-      <Group position="right">
+      <Group justify="right">
         <Button type="submit">Update</Button>
       </Group>
     </UiForm>

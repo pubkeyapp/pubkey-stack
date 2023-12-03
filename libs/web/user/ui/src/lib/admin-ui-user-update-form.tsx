@@ -1,6 +1,6 @@
 import { Button, Group } from '@mantine/core'
 import { AdminUpdateUserInput, getEnumOptions, User, UserRole, UserStatus } from '@pubkey-stack/sdk'
-import { formFieldCheckbox, formFieldSelect, formFieldText, UiForm, UiFormField } from '@pubkey-stack/web-ui-core'
+import { formFieldCheckbox, formFieldSelect, formFieldText, UiForm, UiFormField } from '@pubkey-ui/core'
 
 export function AdminUiUpdateUserForm({
   submit,
@@ -28,7 +28,7 @@ export function AdminUiUpdateUserForm({
   ]
   return (
     <UiForm model={model} fields={fields} submit={(res) => submit(res as AdminUpdateUserInput)}>
-      <Group position="right">
+      <Group justify="right">
         <Button type="submit">Save</Button>
       </Group>
     </UiForm>

@@ -1,9 +1,8 @@
 import { Button, Group } from '@mantine/core'
 import { AdminCreate<%= modelClassName %>Input } from '@<%= npmScope %>/sdk'
-import { UiBack, UiAdminPage, UiCard } from '@<%= npmScope %>/<%= app %>-ui-core'
-import { notifyError } from '@<%= npmScope %>/<%= app %>-ui-notifications'
 import { useAdminFindMany<%= modelClassName %> } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-data-access'
 import { AdminUiCreate<%= modelClassName %>Form } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-ui'
+import { toastError, UiBack, UiCard, UiPage } from '@pubkey-ui/core'
 import { useNavigate } from 'react-router-dom'
 
 export function WebAdmin<%= modelClassName %>CreateFeature() {
@@ -19,20 +18,20 @@ export function WebAdmin<%= modelClassName %>CreateFeature() {
        })
       .then(() => true)
       .catch((err) => {
-        notifyError(err.message)
+        toastError(err.message)
         return false
       })
   }
 
   return (
-    <UiAdminPage leftAction={<UiBack />} title="Create <%= modelClassName %>">
+    <UiPage leftAction={<UiBack />} title="Create <%= modelClassName %>">
       <UiCard>
         <AdminUiCreate<%= modelClassName %>Form submit={submit}>
-          <Group position="right">
+          <Group justify="right">
             <Button type="submit">Create</Button>
           </Group>
         </AdminUiCreate<%= modelClassName %>Form>
       </UiCard>
-    </UiAdminPage>
+    </UiPage>
   )
 }

@@ -19,6 +19,7 @@
         "styles": ["apps/web/src/styles.css"],
         "scripts": [],
         "isolatedConfig": true,
+        "postcssConfig": "apps/web/postcss.config.cjs",
         "webpackConfig": "apps/web/webpack.config.js"
       },
       "configurations": {

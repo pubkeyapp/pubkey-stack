@@ -1,6 +1,6 @@
 import { AppConfig, LoginInput, RegisterInput, User } from '@pubkey-stack/sdk'
 import { useMeQuery, useWebSdk } from '@pubkey-stack/web-shell-data-access'
-import { notifyError, notifySuccess } from '@pubkey-stack/web-ui-notifications'
+import { toastError, toastSuccess } from '@pubkey-ui/core'
 import { useQuery } from '@tanstack/react-query'
 
 import { createContext, ReactNode, useContext, useEffect, useReducer } from 'react'
@@ -104,14 +104,14 @@ export function WebAuthProvider({ children }: { children: ReactNode }) {
         .login({ input })
         .then((res) => {
           if (res.data.login) {
-            notifySuccess('Login successful')
+            toastSuccess('Login successful')
             dispatch({ type: 'login', payload: res.data.login })
             return res.data.login
           }
-          notifyError('Login failed')
+          toastError('Login failed')
         })
         .catch((err) => {
-          notifyError(err.message)
+          toastError(err.message)
           dispatch({ type: 'error', payload: err })
           return undefined
         }),
@@ -120,14 +120,14 @@ export function WebAuthProvider({ children }: { children: ReactNode }) {
         .logout()
         .then((res) => {
           if (res.data.logout) {
-            notifySuccess('Logout successful')
+            toastSuccess('Logout successful')
             dispatch({ type: 'logout' })
             return res.data.logout
           }
-          notifyError('Logout failed')
+          toastError('Logout failed')
         })
         .catch((err) => {
-          notifyError(err.message)
+          toastError(err.message)
           dispatch({ type: 'error', payload: err })
           return undefined
         }),
@@ -136,14 +136,14 @@ export function WebAuthProvider({ children }: { children: ReactNode }) {
         .register({ input })
         .then((res) => {
           if (res.data.register) {
-            notifySuccess('Register successful')
+            toastSuccess('Register successful')
             dispatch({ type: 'login', payload: res.data.register })
             return res.data.register
           }
-          notifyError('Register failed')
+          toastError('Register failed')
         })
         .catch((err) => {
-          notifyError(err.message)
+          toastError(err.message)
           dispatch({ type: 'error', payload: err })
           return undefined
         }),

@@ -1,7 +1,7 @@
 import { Group } from '@mantine/core'
-import { UiPage, UiBack, UiDebugModal, UiError, UiLoader, UiStack, UiTabRoutes } from '@pubkey-stack/web-ui-core'
 import { useAdminFindOneUser } from '@pubkey-stack/web-user-data-access'
 import { WebUiUserAvatar } from '@pubkey-stack/web-user-ui'
+import { UiBack, UiDebugModal, UiError, UiLoader, UiPage, UiStack, UiTabRoutes } from '@pubkey-ui/core'
 import { useParams } from 'react-router-dom'
 import { WebAdminUserDetailEmailsTab } from './web-admin-user-detail-emails.tab'
 import { WebAdminUserDetailIdentitiesTab } from './web-admin-user-detail-identities.tab'
@@ -27,7 +27,7 @@ export function WebAdminUserDetailFeature() {
         </Group>
       }
       title={
-        <Group spacing="xs">
+        <Group gap="xs">
           <WebUiUserAvatar size="sm" user={item} /> {item.username}
         </Group>
       }

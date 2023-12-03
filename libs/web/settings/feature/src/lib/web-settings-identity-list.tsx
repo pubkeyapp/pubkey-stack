@@ -1,6 +1,6 @@
 import { useUserFindManyIdentity } from '@pubkey-stack/web-identity-data-access'
 import { WebUiIdentityIdentityGroupList, WebUiIdentitySolanaLinkButton } from '@pubkey-stack/web-identity-ui'
-import { UiLoader, UiStack, UiWarn } from '@pubkey-stack/web-ui-core'
+import { UiLoader, UiStack, UiWarning } from '@pubkey-ui/core'
 
 export function WebSettingsIdentityList() {
   const { deleteIdentity, hasSolana, grouped, items, query } = useUserFindManyIdentity()
@@ -11,7 +11,7 @@ export function WebSettingsIdentityList() {
       {query.isLoading ? (
         <UiLoader />
       ) : items.length === 0 ? (
-        <UiWarn message="No identities found" />
+        <UiWarning message="No identities found" />
       ) : (
         <WebUiIdentityIdentityGroupList
           grouped={grouped}

@@ -1,8 +1,6 @@
 import { AdminCreate<%= modelClassName %>Input, AdminFindMany<%= modelClassName %>Input } from '@<%= npmScope %>/sdk'
 import { useWebSdk } from '@<%= npmScope %>/<%= app %>-shell-data-access'
-
-import { useUiPagination } from '@<%= npmScope %>/<%= app %>-ui-core'
-import { notifyError, notifySuccess } from '@<%= npmScope %>/<%= app %>-ui-notifications'
+import { toastError, toastSuccess } from '@pubkey-ui/core'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
@@ -23,13 +21,13 @@ export function useAdminFindMany<%= modelClassName %>(props?: Partial<AdminFindM
   return {
     items,
     query,
-    pagination: useUiPagination({
+    pagination: {
       page,
       setPage,
       limit,
       setLimit,
       total,
-    }),
+    },
     setSearch,
     create<%= modelClassName %>: (input: AdminCreate<%= modelClassName %>Input) =>
       sdk
@@ -37,19 +35,19 @@ export function useAdminFindMany<%= modelClassName %>(props?: Partial<AdminFindM
         .then((res) => res.data)
         .then((res) => {
           if (res.created) {
-            notifySuccess(`<%= modelClassName %> created`)
+            toastSuccess(`<%= modelClassName %> created`)
           } else {
-            notifyError(`<%= modelClassName %> not created`)
+            toastError(`<%= modelClassName %> not created`)
           }
           return res.created
         })
         .catch((err) => {
-          notifyError(err.message)
+          toastError(err.message)
           return undefined
         }),
     delete<%= modelClassName %>: (<%= modelPropertyName %>Id: string) =>
       sdk.adminDelete<%= modelClassName %>({ <%= modelPropertyName %>Id }).then(() => {
-        notifySuccess('<%= modelClassName %> deleted')
+        toastSuccess('<%= modelClassName %> deleted')
         return query.refetch()
       }),
   }

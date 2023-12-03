@@ -1,14 +1,15 @@
 import { Button, Group } from '@mantine/core'
-import { UiBack, UiAdminPage, UiInfo, UiDebugModal, UiLoader, UiPagination, UiSearchField } from '@<%= npmScope %>/<%= app %>-ui-core'
+import { UiPageLimit, UiSearchField } from '@<%= npmScope %>/<%= app %>-ui-core'
 import { useAdminFindMany<%= modelClassName %> } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-data-access'
 import { AdminUi<%= modelClassName %>Table } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-ui'
+import { UiBack, UiDebugModal, UiInfo, UiLoader, UiPage } from '@pubkey-ui/core'
 import { Link } from 'react-router-dom'
 
 export function WebAdmin<%= modelClassName %>ListFeature() {
   const { delete<%= modelClassName %>, items, pagination, query, setSearch } = useAdminFindMany<%= modelClassName %>()
 
   return (
-    <UiAdminPage
+    <UiPage
       title="<%= modelClassNamePlural %>"
       leftAction={<UiBack />}
       rightAction={
@@ -22,6 +23,7 @@ export function WebAdmin<%= modelClassName %>ListFeature() {
     >
       <Group>
         <UiSearchField placeholder="Search <%= modelPropertyName %>" setSearch={setSearch} />
+        <UiPageLimit limit={pagination.limit} setLimit={pagination.setLimit} setPage={pagination.setPage} />
       </Group>
 
       {query.isLoading ? (
@@ -33,12 +35,14 @@ export function WebAdmin<%= modelClassName %>ListFeature() {
             return delete<%= modelClassName %>(<%= modelPropertyName %>.id)
           }}
           <%= modelPropertyNamePlural %>={items}
+          page={pagination.page}
+          totalRecords={pagination.total}
+          recordsPerPage={pagination.limit}
+          onPageChange={(page) => void pagination.setPage(page)}
         />
       ) : (
         <UiInfo message="No <%= modelPropertyNamePlural %> found" />
       )}
-
-      <UiPagination pagination={pagination} />
-    </UiAdminPage>
+    </UiPage>
   )
 }

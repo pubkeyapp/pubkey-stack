@@ -1,5 +1,6 @@
-import { Badge, useMantineTheme } from '@mantine/core'
+import { Badge } from '@mantine/core'
 import { UserStatus } from '@pubkey-stack/sdk'
+import { useUiColorScheme } from '@pubkey-ui/core'
 
 export const USER_STATUS_COLORS: Record<UserStatus, string> = {
   [UserStatus.Active]: 'green',
@@ -8,9 +9,9 @@ export const USER_STATUS_COLORS: Record<UserStatus, string> = {
 }
 
 export function WebUiUserStatusBadge({ status }: { status: UserStatus }) {
-  const theme = useMantineTheme()
+  const { colorScheme } = useUiColorScheme()
   return (
-    <Badge color={USER_STATUS_COLORS[status]} variant={theme.colorScheme === 'dark' ? 'light' : 'outline'}>
+    <Badge color={USER_STATUS_COLORS[status]} variant={colorScheme === 'dark' ? 'light' : 'outline'}>
       {status}
     </Badge>
   )

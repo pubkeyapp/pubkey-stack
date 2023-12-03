@@ -37,7 +37,7 @@ export function WebUiIdentityConnect() {
           label="Link Solana Wallet"
           size="xl"
           fullWidth
-          leftIcon={<WebUiIdentityIcon provider={IdentityProvider.Solana} />}
+          leftSection={<WebUiIdentityIcon provider={IdentityProvider.Solana} />}
           items={items ?? []}
           refresh={() => query.refetch()}
         />

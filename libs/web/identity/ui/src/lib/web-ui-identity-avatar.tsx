@@ -1,4 +1,4 @@
-import { Avatar } from '@mantine/core'
+import { Avatar, getGradient } from '@mantine/core'
 import { Identity, IdentityProvider } from '@pubkey-stack/sdk'
 import { IconCurrencySolana } from '@tabler/icons-react'
 
@@ -8,7 +8,7 @@ export function WebUiIdentityAvatar({ item }: { item: Identity }) {
       <Avatar
         radius={100}
         styles={(theme) => ({
-          root: { background: theme.fn.linearGradient(45, '#9945FF', '#14F195') },
+          root: { background: getGradient({ deg: 45, from: '#9945FF', to: '#14F195' }, theme) },
           placeholder: { background: 'transparent', color: 'white' },
         })}
       >

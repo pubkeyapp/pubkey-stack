@@ -14,16 +14,16 @@ export function AdminUiEmailTable({ editEmail, deleteEmail, emails = [] }: Admin
     <ScrollArea>
       <DataTable
         borderRadius="sm"
-        withBorder
+        withTableBorder
         shadow="xs"
         columns={[
           {
             accessor: 'email',
             render: (item) => {
               return (
-                <Group spacing="sm" p={4}>
-                  <Stack spacing={1}>
-                    <Text size="sm" weight={500}>
+                <Group gap="sm" p={4}>
+                  <Stack gap={1}>
+                    <Text size="sm" fw={500}>
                       {item.email}
                     </Text>
                   </Stack>
@@ -33,29 +33,29 @@ export function AdminUiEmailTable({ editEmail, deleteEmail, emails = [] }: Admin
           },
           {
             accessor: 'private',
-            textAlignment: 'center',
-            render: (item) => <Text>{item.private ? 'Yes' : 'No'}</Text>,
+            textAlign: 'center',
+            render: (item) => (item.private ? 'Yes' : 'No'),
           },
           {
             accessor: 'default',
-            textAlignment: 'center',
-            render: (item) => <Text>{item.default ? 'Yes' : 'No'}</Text>,
+            textAlign: 'center',
+            render: (item) => (item.default ? 'Yes' : 'No'),
           },
           {
             accessor: 'verified',
-            textAlignment: 'center',
-            render: (item) => <Text>{item.verified ? 'Yes' : 'No'}</Text>,
+            textAlign: 'center',
+            render: (item) => (item.verified ? 'Yes' : 'No'),
           },
           {
             accessor: 'actions',
             title: 'Actions',
-            textAlignment: 'right',
+            textAlign: 'right',
             render: (item) => (
-              <Group spacing={0} position="right" noWrap>
-                <ActionIcon color="brand" onClick={() => editEmail(item)}>
+              <Group gap="xs" justify="right">
+                <ActionIcon variant="light" size="sm" color="brand" onClick={() => editEmail(item)}>
                   <IconPencil size={16} />
                 </ActionIcon>
-                <ActionIcon color="red" onClick={() => deleteEmail(item)}>
+                <ActionIcon variant="light" size="sm" color="red" onClick={() => deleteEmail(item)}>
                   <IconTrash size={16} />
                 </ActionIcon>
               </Group>

@@ -1,7 +1,6 @@
 import { AdminCreateUserInput, AdminFindManyUserInput, UserRole, UserStatus } from '@pubkey-stack/sdk'
 import { useWebSdk } from '@pubkey-stack/web-shell-data-access'
-import { useUiPagination } from '@pubkey-stack/web-ui-core'
-import { notifyError, notifySuccess } from '@pubkey-stack/web-ui-notifications'
+import { toastError, toastSuccess } from '@pubkey-ui/core'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
@@ -26,13 +25,13 @@ export function useAdminFindManyUser() {
     query,
     role,
     status,
-    pagination: useUiPagination({
+    pagination: {
       limit,
       page,
       total,
       setLimit,
       setPage,
-    }),
+    },
     setRole,
     setSearch,
     setStatus,
@@ -42,19 +41,19 @@ export function useAdminFindManyUser() {
         .then((res) => res.data)
         .then((res) => {
           if (res.created) {
-            notifySuccess(`User  created`)
+            toastSuccess(`User  created`)
           } else {
-            notifyError(`User not created`)
+            toastError(`User not created`)
           }
           return res.created
         })
         .catch((err) => {
-          notifyError(err.message)
+          toastError(err.message)
           return undefined
         }),
     deleteUser: (userId: string) =>
       sdk.adminDeleteUser({ userId }).then(() => {
-        notifySuccess('User deleted')
+        toastSuccess('User deleted')
         return query.refetch()
       }),
   }

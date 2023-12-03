@@ -1,8 +1,8 @@
 import { Alert, Button } from '@mantine/core'
 import { useWebAuth } from '@pubkey-stack/web-auth-data-access'
-import { UiContainer, UiLoader, UiStack, UiWarn } from '@pubkey-stack/web-ui-core'
 import { useUserFineOneUser } from '@pubkey-stack/web-user-data-access'
 import { WebUiUserProfile } from '@pubkey-stack/web-user-ui'
+import { UiContainer, UiLoader, UiStack, UiWarning } from '@pubkey-ui/core'
 import { IconMoodSmile } from '@tabler/icons-react'
 import { Link, useParams } from 'react-router-dom'
 
@@ -16,7 +16,7 @@ export function WebUserDetailFeature() {
   }
 
   if (!user) {
-    return <UiWarn message="User not found" />
+    return <UiWarning message="User not found" />
   }
 
   const isAuthUser = authUser?.id === user.id

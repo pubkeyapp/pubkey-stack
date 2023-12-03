@@ -1,7 +1,8 @@
 import { UserRole, UserStatus } from '@pubkey-stack/sdk'
 import { AuthGuard, UserRoleGuard, UserStatusGuard } from '@pubkey-stack/web-auth-data-access'
-import { UiError, UiFull, UiLoader, UiWarn } from '@pubkey-stack/web-ui-core'
-import { UiLayout } from '@pubkey-stack/web-ui-layout'
+import { UiFull, UiHeaderProfile } from '@pubkey-stack/web-ui-core'
+import { UiError, UiHeader, UiLayout, UiLoader, UiWarning } from '@pubkey-ui/core'
+
 import { Navigate, Outlet, RouteObject, useRoutes } from 'react-router-dom'
 
 export function useGuardedRoutes({
@@ -30,7 +31,7 @@ export function useGuardedRoutes({
             {
               // This adds the main layout to the routes
               element: (
-                <UiLayout>
+                <UiLayout header={<UiHeader profile={<UiHeaderProfile />} />}>
                   <Outlet />
                 </UiLayout>
               ),
@@ -83,7 +84,7 @@ function RouteGuardUserActive() {
       status={status}
       denied={
         <UiFull>
-          <UiWarn message={`Your account is not ${status.toLowerCase()}.`} />
+          <UiWarning message={`Your account is not ${status.toLowerCase()}.`} />
         </UiFull>
       }
     />

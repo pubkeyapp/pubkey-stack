@@ -41,7 +41,7 @@ export const WebAdmin${className}Routes = lazy(() => import('./lib/web-admin-${f
     updateSourceFile(tree, adminRoutes, (source) => {
       addArrayItem(source, {
         name: 'links',
-        content: `{ label: '${classNamePlural}', icon: IconUsers, link: '/admin/${fileNamePlural}' },`,
+        content: `{ label: '${classNamePlural}', icon: IconUsers, to: '/admin/${fileNamePlural}' },`,
       })
       addArrayItem(source, {
         name: 'routes',

@@ -1,6 +1,6 @@
-import { UiCard, UiError, UiLoader } from '@<%= npmScope %>/<%= app %>-ui-core'
 import { useAdminFindOne<%= modelClassName %> } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-data-access'
 import { AdminUiUpdate<%= modelClassName %>Form } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-ui'
+import { UiCard, UiError, UiLoader } from '@pubkey-ui/core'
 
 export function WebAdmin<%= modelClassName %>DetailSettingsTab({ <%= modelPropertyName %>Id }: { <%= modelPropertyName %>Id: string }) {
   const { item, query, update<%= modelClassName %> } = useAdminFindOne<%= modelClassName %>({ <%= modelPropertyName %>Id })

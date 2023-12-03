@@ -1,6 +1,6 @@
 import { Avatar, AvatarProps, Tooltip } from '@mantine/core'
 import { getRandomInt, User } from '@pubkey-stack/sdk'
-import { getColorByIndex } from '@pubkey-stack/web-ui-core'
+import { getColorByIndex } from '@pubkey-ui/core'
 
 export function WebUiUserAvatar({
   user,

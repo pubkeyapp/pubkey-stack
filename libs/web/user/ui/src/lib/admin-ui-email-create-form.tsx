@@ -1,6 +1,6 @@
 import { Button, Group } from '@mantine/core'
 import { AdminCreateEmailInput } from '@pubkey-stack/sdk'
-import { formFieldText, UiForm, UiFormField } from '@pubkey-stack/web-ui-core'
+import { formFieldText, UiForm, UiFormField } from '@pubkey-ui/core'
 
 export function AuthUiEmailCreateForm({ submit }: { submit: (res: AdminCreateEmailInput) => Promise<boolean> }) {
   const model: AdminCreateEmailInput = {
@@ -15,7 +15,7 @@ export function AuthUiEmailCreateForm({ submit }: { submit: (res: AdminCreateEma
   ]
   return (
     <UiForm model={model} fields={fields} submit={(res) => submit(res as AdminCreateEmailInput)}>
-      <Group position="right">
+      <Group justify="right">
         <Button type="submit">Create</Button>
       </Group>
     </UiForm>

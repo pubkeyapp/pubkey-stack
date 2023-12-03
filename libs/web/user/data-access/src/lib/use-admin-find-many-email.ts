@@ -1,7 +1,7 @@
 import { modals } from '@mantine/modals'
 import { AdminCreateEmailInput, AdminFindManyEmailInput, AdminUpdateEmailInput, Email } from '@pubkey-stack/sdk'
 import { useWebSdk } from '@pubkey-stack/web-shell-data-access'
-import { notifyError, notifySuccess } from '@pubkey-stack/web-ui-notifications'
+import { toastError, toastSuccess } from '@pubkey-ui/core'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
@@ -25,26 +25,26 @@ export function useAdminFindManyEmail(userId: string) {
         .adminCreateEmail({ input: { email: input.email, ownerId: userId } })
         .then(async (res) => {
           if (res) {
-            notifySuccess('Email created')
+            toastSuccess('Email created')
             modals.closeAll()
             await query.refetch()
             return true
           }
-          notifyError('Error creating email')
+          toastError('Error creating email')
           return false
         })
         .catch((err) => {
-          notifyError(`${err}`)
+          toastError(`${err}`)
           return false
         }),
     deleteEmail: (email: Email) => {
       return sdk.adminDeleteEmail({ emailId: email.id }).then(async (res) => {
         if (res) {
-          notifySuccess('Email deleted')
+          toastSuccess('Email deleted')
           await query.refetch()
           return true
         }
-        notifyError('Error deleting email')
+        toastError('Error deleting email')
         return false
       })
     },
@@ -56,16 +56,16 @@ export function useAdminFindManyEmail(userId: string) {
         })
         .then(async (res) => {
           if (res) {
-            notifySuccess('Email created')
+            toastSuccess('Email created')
             modals.closeAll()
             await query.refetch()
             return true
           }
-          notifyError('Error creating email')
+          toastError('Error creating email')
           return false
         })
         .catch((err) => {
-          notifyError(`${err}`)
+          toastError(`${err}`)
           return false
         })
     },

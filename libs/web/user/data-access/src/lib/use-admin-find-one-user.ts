@@ -1,6 +1,6 @@
 import { AdminUpdateUserInput } from '@pubkey-stack/sdk'
 import { useWebSdk } from '@pubkey-stack/web-shell-data-access'
-import { notifyError, notifySuccess } from '@pubkey-stack/web-ui-notifications'
+import { toastError, toastSuccess } from '@pubkey-ui/core'
 import { useQuery } from '@tanstack/react-query'
 
 export function useAdminFindOneUser({ userId }: { userId: string }) {
@@ -21,15 +21,15 @@ export function useAdminFindOneUser({ userId }: { userId: string }) {
         .then((res) => res.data)
         .then(async (res) => {
           if (res) {
-            notifySuccess('User updated')
+            toastSuccess('User updated')
             await query.refetch()
             return true
           }
-          notifyError('User not updated')
+          toastError('User not updated')
           return false
         })
         .catch((err) => {
-          notifyError(err.message)
+          toastError(err.message)
           return false
         }),
   }

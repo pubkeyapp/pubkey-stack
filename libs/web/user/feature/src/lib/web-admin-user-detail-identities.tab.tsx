@@ -2,7 +2,7 @@ import { Button, Group } from '@mantine/core'
 import { modals } from '@mantine/modals'
 import { useAdminFindManyIdentity } from '@pubkey-stack/web-identity-data-access'
 import { AdminUiIdentityTable, AuthUiIdentityCreateForm } from '@pubkey-stack/web-identity-ui'
-import { UiInfo, UiLoader, UiStack } from '@pubkey-stack/web-ui-core'
+import { UiInfo, UiLoader, UiStack } from '@pubkey-ui/core'
 
 export function WebAdminUserDetailIdentitiesTab({ userId }: { userId: string }) {
   const { items, createIdentity, deleteIdentity, query } = useAdminFindManyIdentity({ ownerId: userId })
@@ -16,7 +16,7 @@ export function WebAdminUserDetailIdentitiesTab({ userId }: { userId: string }) 
       ) : (
         <UiInfo message="No identities found" />
       )}
-      <Group position="right">
+      <Group justify="right">
         <Button
           onClick={() => {
             modals.open({

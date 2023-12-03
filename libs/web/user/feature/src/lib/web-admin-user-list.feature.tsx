@@ -1,8 +1,9 @@
 import { Button, Group, Select } from '@mantine/core'
 import { getEnumOptions, UserRole, UserStatus } from '@pubkey-stack/sdk'
-import { UiPage, UiBack, UiDebugModal, UiInfo, UiLoader, UiPagination, UiSearchField } from '@pubkey-stack/web-ui-core'
+import { UiPageLimit, UiSearchField } from '@pubkey-stack/web-ui-core'
 import { useAdminFindManyUser } from '@pubkey-stack/web-user-data-access'
 import { AdminUiUserTable } from '@pubkey-stack/web-user-ui'
+import { UiBack, UiDebugModal, UiInfo, UiLoader, UiPage } from '@pubkey-ui/core'
 import { Link } from 'react-router-dom'
 
 export function WebAdminUserListFeature() {
@@ -39,6 +40,7 @@ export function WebAdminUserListFeature() {
           }}
           data={[{ value: '', label: 'Filter by status' }, ...getEnumOptions(UserStatus)]}
         />
+        <UiPageLimit limit={pagination.limit} setLimit={pagination.setLimit} setPage={pagination.setPage} />
       </Group>
 
       {query.isLoading ? (
@@ -50,12 +52,14 @@ export function WebAdminUserListFeature() {
             return deleteUser(user.id)
           }}
           users={items}
+          page={pagination.page}
+          totalRecords={pagination.total}
+          recordsPerPage={pagination.limit}
+          onPageChange={(page) => void pagination.setPage(page)}
         />
       ) : (
         <UiInfo message="User not found" />
       )}
-
-      <UiPagination pagination={pagination} />
     </UiPage>
   )
 }

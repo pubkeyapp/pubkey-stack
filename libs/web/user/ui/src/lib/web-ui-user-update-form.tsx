@@ -1,6 +1,6 @@
 import { Button, Group } from '@mantine/core'
 import { User, UserUpdateUserInput } from '@pubkey-stack/sdk'
-import { formFieldText, UiForm, UiFormField } from '@pubkey-stack/web-ui-core'
+import { formFieldText, UiForm, UiFormField } from '@pubkey-ui/core'
 
 export function WebUiUserUpdateForm({
   submit,
@@ -21,7 +21,7 @@ export function WebUiUserUpdateForm({
   ]
   return (
     <UiForm model={model} fields={fields} submit={(res) => submit(res as UserUpdateUserInput)}>
-      <Group position="right">
+      <Group justify="right">
         <Button type="submit">Save</Button>
       </Group>
     </UiForm>

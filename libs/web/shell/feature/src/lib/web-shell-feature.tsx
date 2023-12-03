@@ -1,20 +1,24 @@
 import { WebAuthProvider } from '@pubkey-stack/web-auth-data-access'
 import { WebSdkProvider } from '@pubkey-stack/web-shell-data-access'
-import { UiThemeProvider } from '@pubkey-stack/web-ui-core'
-import { notifyError } from '@pubkey-stack/web-ui-notifications'
+import { toastError, UiThemeLink, UiThemeProvider } from '@pubkey-ui/core'
+import '@pubkey-ui/core/index.esm.css'
+import 'mantine-datatable/styles.layer.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Link } from 'react-router-dom'
 import { WebShellRoutes } from './web-shell.routes'
 
 const client = new QueryClient({
   defaultOptions: {
     mutations: {
       onError: () => {
-        notifyError(`Something went wrong`, { title: 'Error' })
+        toastError(`Something went wrong`)
       },
     },
   },
 })
+
+// eslint-disable-next-line func-style
+export const ThemeLink: UiThemeLink = ({ children, ...props }) => <Link {...props}>{children}</Link>
 
 export function WebShellFeature() {
   return (
@@ -22,9 +26,7 @@ export function WebShellFeature() {
       <QueryClientProvider client={client}>
         <WebSdkProvider>
           <WebAuthProvider>
-            <UiThemeProvider>
-              <WebShellRoutes />
-            </UiThemeProvider>
+            <UiThemeProvider link={ThemeLink}>{<WebShellRoutes />}</UiThemeProvider>
           </WebAuthProvider>
         </WebSdkProvider>
       </QueryClientProvider>

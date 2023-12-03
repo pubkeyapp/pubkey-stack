@@ -6,7 +6,8 @@ import {
   WebUiIdentityDiscordLinkButton,
   WebUiIdentityIdentityGroupList,
 } from '@pubkey-stack/web-identity-ui'
-import { UiContainer, UiDashboardContainer, UiGroup, UiStack } from '@pubkey-stack/web-ui-core'
+import { UiDashboardContainer } from '@pubkey-stack/web-ui-core'
+import { UiContainer, UiGroup, UiStack } from '@pubkey-ui/core'
 import { Link } from 'react-router-dom'
 
 export default function WebDashboardRoutes() {
@@ -26,10 +27,10 @@ export default function WebDashboardRoutes() {
           <WebUiIdentityDiscordLinkButton />
         </UiDashboardContainer>
       ) : (
-        <UiStack spacing={64} pb={128}>
+        <UiStack gap={64} pb={128}>
           <UiStack>
             <UiGroup>
-              <Text size="xl" weight={700}>
+              <Text size="xl" fw={700}>
                 Linked Identities
               </Text>
               <Group>

@@ -2,7 +2,7 @@ import { WebAuthLoginFeature, WebAuthRegisterFeature } from '@pubkey-stack/web-a
 import { WebDashboardRoutes } from '@pubkey-stack/web-dashboard-feature'
 import { WebHomeRoutes } from '@pubkey-stack/web-home-feature'
 import { WebSettingsRoutes } from '@pubkey-stack/web-settings-feature'
-import { UiNotFound } from '@pubkey-stack/web-ui-core'
+import { UiNotFound } from '@pubkey-ui/core'
 import { WebUserRoutes } from '@pubkey-stack/web-user-feature'
 import { lazy } from 'react'
 import { Navigate } from 'react-router-dom'

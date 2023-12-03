@@ -1,7 +1,7 @@
 import { UserUpdateUserInput } from '@pubkey-stack/sdk'
 import { useWebAuth } from '@pubkey-stack/web-auth-data-access'
 import { useMeQuery, useWebSdk } from '@pubkey-stack/web-shell-data-access'
-import { notifyError } from '@pubkey-stack/web-ui-notifications'
+import { toastError } from '@pubkey-ui/core'
 import { useUserFineOneUser } from './use-user-fine-one-user'
 
 export function useUserProfile() {
@@ -23,7 +23,7 @@ export function useUserProfile() {
           return !!res.data
         })
         .catch((err) => {
-          notifyError(err.message)
+          toastError(err.message)
           return false
         })
     },
