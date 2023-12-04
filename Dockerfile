@@ -34,4 +34,4 @@ COPY prisma/schema.prisma /workspace/prisma/schema.prisma
 EXPOSE 3000
 
 # Start server
-CMD ["pnpm", "start"]
+CMD pnpm prestart; pnpm start
