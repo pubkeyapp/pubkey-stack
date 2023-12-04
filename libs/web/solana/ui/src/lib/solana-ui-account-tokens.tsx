@@ -78,7 +78,7 @@ export function SolanaUiAccountTokens({ address }: { address: PublicKey }) {
                         />
                       </Table.Td>
                       <Table.Td align="right">
-                        <SolanaUiAccountTokenBalance ff="monospace" address={address} />
+                        <SolanaUiAccountTokenBalance ff="monospace" address={pubkey} />
                       </Table.Td>
                     </Table.Tr>
                   ))}
