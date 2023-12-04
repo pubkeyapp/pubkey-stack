@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "yarn build:web && yarn prisma generate && yarn build:api",
+    "build": "pnpm build:web && pnpm prisma generate && pnpm build:api",
     "build:api": "nx build api",
     "build:sdk": "graphql-codegen --config codegen.ts",
     "build:web": "nx build web",
     "dev:api": "nx serve api",
-    "dev:sdk": "yarn build:sdk --watch",
+    "dev:sdk": "pnpm build:sdk --watch",
     "dev:services": "docker compose up",
     "dev:services:stop": "docker compose down",
     "dev:web": "nx serve web",
@@ -18,8 +18,8 @@
     "e2e:all": "nx run-many --target=e2e --all",
     "format:all": "nx format:write --all",
     "lint:all": "nx run-many --target=lint --all",
-    "prestart": "yarn prisma db push",
-    "setup": "yarn nx generate setup",
+    "prestart": "pnpm prisma db push",
+    "setup": "pnpm nx generate setup",
     "start": "NODE_ENV=production node dist/apps/api/main.js",
     "test:all": "nx run-many --target=test --all"
   },
@@ -164,7 +164,7 @@
   },
   "lint-staged": {
     "*.{js,json,css,scss,md,ts,tsx,html,graphql}": [
-      "yarn nx format --uncommitted"
+      "pnpm nx format --uncommitted"
     ]
   }
 }

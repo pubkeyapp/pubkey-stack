@@ -5,31 +5,28 @@
 # - set global configuration
 # - set default work dir
 ################################################################################
-FROM node:18.16-alpine as base
+FROM node:20.10-alpine as base
 
 RUN apk add --update --no-cache git python3 make g++
 
-ENV HUSKY=0
+RUN npm install -g pnpm
 
-# Apply Yarn settings
-RUN yarn config set cache-folder ~/.yarn \
-    && yarn config set network-timeout 300000 -g \
-    && yarn config set prefer-offline true
+ENV HUSKY=0
 
 # Create app directory
 WORKDIR /workspace
 
 # Copy package.json and the lock file
-COPY package.json yarn.lock /workspace/
+COPY package.json pnpm-lock.yaml /workspace/
 
 # Install app dependencies
-RUN yarn
+RUN pnpm install --frozen-lockfile --prefer-frozen-lockfile
 
 # Copy source files
 COPY . .
 
 # Build apps
-RUN yarn build
+RUN pnpm build
 
 COPY prisma/schema.prisma /workspace/prisma/schema.prisma
 
@@ -37,4 +34,4 @@ COPY prisma/schema.prisma /workspace/prisma/schema.prisma
 EXPOSE 3000
 
 # Start server
-CMD ["yarn", "start"]
+CMD ["pnpm", "start"]

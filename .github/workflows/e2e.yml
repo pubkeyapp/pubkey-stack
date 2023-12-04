@@ -41,11 +41,11 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-      - run: yarn install --frozen-lockfile
-      - run: yarn prisma generate
-      - run: yarn nx run-many --target=build --all --parallel --skip-nx-cache --verbose
-      - run: yarn nx e2e api-e2e --skip-nx-cache --verbose
+      - run: pnpm install --frozen-lockfile --prefer-frozen-lockfile
+      - run: pnpm prisma generate
+      - run: pnpm nx run-many --target=build --all --parallel --skip-nx-cache --verbose
+      - run: pnpm nx e2e api-e2e --skip-nx-cache --verbose

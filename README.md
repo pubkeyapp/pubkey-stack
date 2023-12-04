@@ -5,7 +5,7 @@
 ### Prerequisites
 
 - Node v18 or higher
-- Yarn
+- PNPM
 - Docker
 
 ### Installation
@@ -15,7 +15,7 @@ Clone the repo and install dependencies:
 ```bash
 git clone git@github.com:pubkeyapp/pubkey-stack.git
 cd pubkey-stack
-yarn
+pnpm
 ```
 
 ### Automatic setup
@@ -23,7 +23,7 @@ yarn
 You can run the automatic setup script to create the `.env` file, test the setup and push the database schema.
 
 ```bash
-yarn setup
+pnpm setup
 ```
 
 ### Environment variables
@@ -39,7 +39,7 @@ cp .env.example .env
 You will need to start the database before starting the backend.
 
 ```bash
-yarn dev:services
+pnpm dev:services
 ```
 
 ### Pushing the database schema
@@ -47,7 +47,7 @@ yarn dev:services
 If you start from scratch, you will need to push the database schema to the database.
 
 ```bash
-yarn prisma db push
+pnpm prisma db push
 ```
 
 Also, after each change to the schema in `prisma/schema.prisma`, you will need to run the above command again.
@@ -55,17 +55,17 @@ Also, after each change to the schema in `prisma/schema.prisma`, you will need t
 ### Starting the API
 
 ```bash
-yarn dev:api
+pnpm dev:api
 ```
 
 ### Starting the web ui
 
 ```bash
-yarn dev:web
+pnpm dev:web
 ```
 
 ### Starting the SDK generator
 
 ```bash
-yarn dev:sdk
+pnpm dev:sdk
 ```

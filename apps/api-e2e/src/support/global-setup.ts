@@ -32,10 +32,10 @@ async function ensureApiRunning() {
 
 export function startApi(): Promise<boolean> {
   console.log(`\nSTARTING API SERVER AT ${getApiUrl()}\n`)
-  // Start the API server by running `yarn start` and wait for the output to include 'GraphQL is running on'.
+  // Start the API server by running `pnpm start` and wait for the output to include 'GraphQL is running on'.
   return new Promise<boolean>((resolve) => {
     const childProcess = require('child_process')
-    const child = childProcess.spawn('yarn', ['start'], {
+    const child = childProcess.spawn('pnpm', ['start'], {
       stdio: 'pipe',
     })
     globalThis.pid = child.pid

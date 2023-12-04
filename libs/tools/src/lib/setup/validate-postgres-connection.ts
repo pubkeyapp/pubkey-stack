@@ -44,7 +44,7 @@ export async function isDockerComposeRunning(): Promise<boolean> {
 export function runPrismaSetup() {
   console.log(`🚀 Running Prisma setup...`)
   return new Promise((resolve) => {
-    exec('yarn prisma db push', async (error) => {
+    exec('pnpm prisma db push', async (error) => {
       if (error) {
         return resolve(false)
       }

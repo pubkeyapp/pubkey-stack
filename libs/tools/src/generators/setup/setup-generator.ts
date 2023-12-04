@@ -30,7 +30,7 @@ export async function setupGenerator(tree: Tree) {
   // Docker Compose validation
   const dockerCompose = await isDockerComposeRunning()
   if (!dockerCompose) {
-    console.log(`❌ Docker Compose is not running. Run 'yarn dev:services' to start the services.`)
+    console.log(`❌ Docker Compose is not running. Run 'pnpm dev:services' to start the services.`)
     return
   }
   console.log(`✅ Docker Compose is running.`)

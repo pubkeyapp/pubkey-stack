@@ -11,7 +11,19 @@ export interface TreeSummaryDirectory {
   children: TreeSummary[]
 }
 
-const exclude = ['node_modules', '.git', '.idea', '.next', '.vscode', 'dist', 'coverage', 'cypress', 'tmp', 'yarn.lock']
+const exclude = [
+  'node_modules',
+  '.git',
+  '.idea',
+  '.next',
+  '.vscode',
+  'dist',
+  'coverage',
+  'cypress',
+  'tmp',
+  'yarn.lock',
+  'pnpm-lock.yaml',
+]
 
 export function treeWalker({
   tree,
