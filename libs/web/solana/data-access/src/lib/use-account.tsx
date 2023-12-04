@@ -1,35 +1,14 @@
-import { useCluster } from '@pubkey-stack/web-solana-data-access'
-import { toastError, toastSuccess } from '@pubkey-ui/core'
+import { toastError } from '@pubkey-ui/core'
 import { TOKEN_2022_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token'
 import { useConnection, useWallet } from '@solana/wallet-adapter-react'
-import {
-  Connection,
-  LAMPORTS_PER_SOL,
-  PublicKey,
-  SystemProgram,
-  TransactionMessage,
-  TransactionSignature,
-  VersionedTransaction,
-} from '@solana/web3.js'
+import { LAMPORTS_PER_SOL, PublicKey, TransactionSignature } from '@solana/web3.js'
 import { useMutation, useQuery } from '@tanstack/react-query'
-
-export function transactionToast(signature: string) {
-  toastSuccess({
-    title: 'Transaction sent',
-    message: `
-<div>
-  <div>
-    Transaction ${signature} sent
-  </div>
-  <a href="https://explorer.solana.com/tx/${signature}" target="_blank" rel="noopener noreferrer">
-    View on Solana Explorer
-  </a>
-</div>`,
-  })
-}
+import { createTransaction } from './create-transaction'
+import { toastExplorerLink } from './toast-signature-link'
+import { useCluster } from './web-cluster-provider'
 
 export function useAccount({ address }: { address: PublicKey }) {
-  const { cluster } = useCluster()
+  const { cluster, getExplorerUrl } = useCluster()
   const { connection } = useConnection()
 
   const wallet = useWallet()
@@ -76,7 +55,7 @@ export function useAccount({ address }: { address: PublicKey }) {
       return signature
     },
     onSuccess: (signature) => {
-      transactionToast(signature)
+      toastExplorerLink({ link: getExplorerUrl(`tx/${signature}`), label: 'View Transaction' })
       return Promise.all([getBalance.refetch(), getSignatures.refetch()])
     },
   })
@@ -109,7 +88,7 @@ export function useAccount({ address }: { address: PublicKey }) {
     },
     onSuccess: (signature) => {
       if (signature) {
-        transactionToast(signature)
+        toastExplorerLink({ link: getExplorerUrl(`tx/${signature}`), label: 'View Transaction' })
       }
       return Promise.all([getBalance.refetch(), getSignatures.refetch()])
     },
@@ -125,47 +104,5 @@ export function useAccount({ address }: { address: PublicKey }) {
     getTokenBalance,
     requestAirdrop,
     transferSol,
-  }
-}
-
-async function createTransaction({
-  publicKey,
-  destination,
-  amount,
-  connection,
-}: {
-  publicKey: PublicKey
-  destination: PublicKey
-  amount: number
-  connection: Connection
-}): Promise<{
-  transaction: VersionedTransaction
-  latestBlockhash: { blockhash: string; lastValidBlockHeight: number }
-}> {
-  // Get the latest blockhash to use in our transaction
-  const latestBlockhash = await connection.getLatestBlockhash()
-
-  // Create instructions to send, in this case a simple transfer
-  const instructions = [
-    SystemProgram.transfer({
-      fromPubkey: publicKey,
-      toPubkey: destination,
-      lamports: amount * LAMPORTS_PER_SOL,
-    }),
-  ]
-
-  // Create a new TransactionMessage with version and compile it to legacy
-  const messageLegacy = new TransactionMessage({
-    payerKey: publicKey,
-    recentBlockhash: latestBlockhash.blockhash,
-    instructions,
-  }).compileToLegacyMessage()
-
-  // Create a new VersionedTransaction which supports legacy and v0
-  const transaction = new VersionedTransaction(messageLegacy)
-
-  return {
-    transaction,
-    latestBlockhash,
   }
 }

@@ -1,54 +1,20 @@
-import { Button, Group, SimpleGrid } from '@mantine/core'
-import { UiInfo, UiLoader, UiPage } from '@pubkey-ui/core'
-import { Keypair } from '@solana/web3.js'
-import { CounterProgramAccountProvider } from './data-access/counter-program-account-provider'
-import { useCounterFetchAll } from './data-access/use-counter-fetch-all'
-import { useCounterInitialize } from './data-access/use-counter-initialize'
-import { ProgramCounterAccount } from './ui/program-counter-account'
+import { Group } from '@mantine/core'
+import { WalletButton } from '@pubkey-stack/web-solana-ui'
+import { UiPage } from '@pubkey-ui/core'
+import { useWallet } from '@solana/wallet-adapter-react'
+import { CounterListFeature } from './counter-list-feature'
 
 export default function CounterFeature() {
-  const fetchAllQuery = useCounterFetchAll()
-  const initializeQuery = useCounterInitialize()
+  const { publicKey } = useWallet()
 
-  return (
-    <UiPage
-      title="Counter"
-      rightAction={
-        <Group>
-          <Button
-            variant="light"
-            disabled={initializeQuery.isPending}
-            onClick={() => initializeQuery.mutateAsync({ keypair: Keypair.generate() })}
-          >
-            Create
-          </Button>
-          <Group>
-            <Button
-              variant="light"
-              onClick={() => fetchAllQuery.refetch()}
-              loading={fetchAllQuery.isLoading || fetchAllQuery.isFetching}
-            >
-              Refresh
-            </Button>
-          </Group>
+  if (!publicKey)
+    return (
+      <UiPage title="Connect your wallet to continue">
+        <Group justify="center">
+          <WalletButton size="xl" />
         </Group>
-      }
-    >
-      {fetchAllQuery.isLoading ? (
-        <UiLoader />
-      ) : (
-        <SimpleGrid cols={2}>
-          {fetchAllQuery.data?.length ? (
-            fetchAllQuery.data.map((account) => (
-              <CounterProgramAccountProvider account={account} key={account.publicKey.toString()}>
-                <ProgramCounterAccount />
-              </CounterProgramAccountProvider>
-            ))
-          ) : (
-            <UiInfo title="No accounts found" message="Create an account to get started." />
-          )}
-        </SimpleGrid>
-      )}
-    </UiPage>
-  )
+      </UiPage>
+    )
+
+  return <CounterListFeature />
 }

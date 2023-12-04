@@ -1,9 +1,8 @@
 import { Anchor, AnchorProps, Group } from '@mantine/core'
+import { useCluster } from '@pubkey-stack/web-solana-data-access'
 import { UiCopy } from '@pubkey-ui/core'
-import { useCluster } from './web-cluster-provider'
 
-// TODO: Move to web-solana-ui library
-export function SolanaExplorerLink({
+export function SolanaUiExplorerLink({
   label,
   path,
   copyLabel,
@@ -24,7 +23,6 @@ export function SolanaExplorerLink({
     <SolanaExplorerAnchor label={label} path={path} />
   )
 }
-
 export function SolanaExplorerAnchor({
   label = 'View on Solana Explorer',
   path,

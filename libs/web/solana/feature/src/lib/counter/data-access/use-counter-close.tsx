@@ -1,5 +1,6 @@
-import { toastExplorerLink, useCluster } from '@pubkey-stack/web-solana-data-access'
+import { toastExplorerLink, useAccount, useCluster } from '@pubkey-stack/web-solana-data-access'
 import { toastError } from '@pubkey-ui/core'
+import { useWallet } from '@solana/wallet-adapter-react'
 import { useMutation } from '@tanstack/react-query'
 import { useCounterProgramAccount } from './counter-program-account-provider'
 import { useCounterFetchAll } from './use-counter-fetch-all'
@@ -7,6 +8,8 @@ import { useCounterFetchAll } from './use-counter-fetch-all'
 export function useCounterClose() {
   const fetchAll = useCounterFetchAll()
   const { account, program } = useCounterProgramAccount()
+  const { publicKey } = useWallet()
+  const { getBalance } = useAccount({ address: publicKey! })
   const { getExplorerUrl } = useCluster()
 
   return useMutation({
@@ -23,7 +26,7 @@ export function useCounterClose() {
               label: 'View transaction',
             })
           }
-          return fetchAll.refetch()
+          return Promise.all([fetchAll.refetch(), getBalance.refetch()])
         })
         .catch((err) => toastError(err.message)),
   })

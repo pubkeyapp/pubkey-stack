@@ -2,6 +2,7 @@ import { Button, Stepper, Switch } from '@mantine/core'
 import { modals } from '@mantine/modals'
 import { ellipsify, Identity, IdentityProvider } from '@pubkey-stack/sdk'
 import { useIdentitySolana } from '@pubkey-stack/web-identity-data-access'
+import { WalletButton } from '@pubkey-stack/web-solana-ui'
 import { toastError, UiStack, UiWarning } from '@pubkey-ui/core'
 import { WalletMultiButton } from '@pubkeyapp/wallet-adapter-mantine-ui'
 import { useWallet } from '@solana/wallet-adapter-react'
@@ -74,7 +75,7 @@ export function WebUiIdentitySolanaLinkWizard({ identities }: { identities: Iden
               </UiStack>
             ) : (
               <UiStack>
-                <WalletMultiButton size="lg" />
+                <WalletButton size="lg" />
               </UiStack>
             )
           ) : (

@@ -1,4 +1,4 @@
-import { ActionIcon } from '@mantine/core'
+import { ActionIcon, Tooltip } from '@mantine/core'
 import { toastWarning } from '@pubkey-ui/core'
 
 import { useCounterFetch } from '../data-access/use-counter-fetch'
@@ -11,20 +11,22 @@ export function CounterValueButton() {
   const value = counterQuery.data?.count.toString() ?? '0'
 
   return (
-    <ActionIcon
-      variant="light"
-      size="xl"
-      loading={counterQuery.isLoading}
-      onClick={() => {
-        const input = parseInt(prompt('Enter a value to set the counter to:', value) || '0')
-        if (isNaN(input) || input < 0 || input === Number(value)) {
-          toastWarning({ message: 'Invalid input' })
-          return
-        }
-        return counterSet.mutateAsync(input)
-      }}
-    >
-      {value}
-    </ActionIcon>
+    <Tooltip label="Set counter value">
+      <ActionIcon
+        variant="light"
+        size="xl"
+        loading={counterQuery.isLoading}
+        onClick={() => {
+          const input = parseInt(prompt('Enter a value to set the counter to:', value) || '0')
+          if (isNaN(input) || input < 0 || input === Number(value)) {
+            toastWarning({ message: 'Invalid input' })
+            return
+          }
+          return counterSet.mutateAsync(input)
+        }}
+      >
+        {value}
+      </ActionIcon>
+    </Tooltip>
   )
 }

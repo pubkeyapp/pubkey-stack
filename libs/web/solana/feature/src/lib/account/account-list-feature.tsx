@@ -1,4 +1,6 @@
-import { WalletButton } from '@pubkey-stack/web-solana-data-access'
+import { Group } from '@mantine/core'
+import { WalletButton } from '@pubkey-stack/web-solana-ui'
+import { UiPage } from '@pubkey-ui/core'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { Navigate } from 'react-router-dom'
 
@@ -9,5 +11,11 @@ export default function AccountListFeature() {
     return <Navigate to={publicKey.toString()} replace />
   }
 
-  return <WalletButton />
+  return (
+    <UiPage title="Connect your wallet to continue">
+      <Group justify="center">
+        <WalletButton size="xl" />
+      </Group>
+    </UiPage>
+  )
 }

@@ -1,13 +1,17 @@
 import { Group } from '@mantine/core'
+import { ellipsify } from '@pubkey-stack/sdk'
+import {
+  SolanaUiAccountBalance,
+  SolanaUiAccountButtons,
+  SolanaUiAccountTokens,
+  SolanaUiAccountTransactions,
+  SolanaUiExplorerLink,
+} from '@pubkey-stack/web-solana-ui'
 import { UiPage, UiStack } from '@pubkey-ui/core'
 import { PublicKey } from '@solana/web3.js'
 import { useMemo } from 'react'
 
 import { useParams } from 'react-router-dom'
-
-import { ExplorerLink } from '../cluster/cluster-ui'
-
-import { AccountBalance, AccountButtons, AccountTokens, AccountTransactions, ellipsify } from './account-ui'
 
 export default function AccountDetailFeature() {
   const params = useParams()
@@ -27,17 +31,17 @@ export default function AccountDetailFeature() {
 
   return (
     <UiPage
-      title={<AccountBalance order={2} address={address} />}
+      title={<SolanaUiAccountBalance order={2} address={address} />}
       rightAction={
         <Group>
-          <ExplorerLink path={`account/${address}`} label={ellipsify(address.toString())} />
-          <AccountButtons address={address} />
+          <SolanaUiExplorerLink path={`account/${address}`} label={ellipsify(address.toString())} />
+          <SolanaUiAccountButtons address={address} />
         </Group>
       }
     >
       <UiStack>
-        <AccountTokens address={address} />
-        <AccountTransactions address={address} />
+        <SolanaUiAccountTokens address={address} />
+        <SolanaUiAccountTransactions address={address} />
       </UiStack>
     </UiPage>
   )

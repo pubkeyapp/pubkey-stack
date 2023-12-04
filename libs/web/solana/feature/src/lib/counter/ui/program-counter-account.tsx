@@ -1,6 +1,6 @@
 import { Group, Stack } from '@mantine/core'
 import { ellipsify } from '@pubkey-stack/sdk'
-import { SolanaExplorerLink } from '@pubkey-stack/web-solana-data-access'
+import { SolanaUiExplorerLink } from '@pubkey-stack/web-solana-ui'
 import { UiCard, UiDebugModal } from '@pubkey-ui/core'
 import { useCounterProgramAccount } from '../data-access/counter-program-account-provider'
 import { CounterCloseButton } from './counter-close-button'
@@ -16,7 +16,7 @@ export function ProgramCounterAccount() {
       withBorder
       title={
         <Group justify="space-between">
-          <SolanaExplorerLink
+          <SolanaUiExplorerLink
             fw="bold"
             fz="xl"
             label={ellipsify(account.publicKey.toString())}

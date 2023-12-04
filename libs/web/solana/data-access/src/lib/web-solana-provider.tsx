@@ -1,6 +1,7 @@
 import { AnchorProvider } from '@coral-xyz/anchor'
-import { WalletModalProvider, WalletMultiButton } from '@pubkeyapp/wallet-adapter-mantine-ui'
+import { WalletModalProvider } from '@pubkeyapp/wallet-adapter-mantine-ui'
 import { WalletError } from '@solana/wallet-adapter-base'
+import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom'
 import {
   AnchorWallet,
   ConnectionProvider,
@@ -8,7 +9,6 @@ import {
   useWallet,
   WalletProvider,
 } from '@solana/wallet-adapter-react'
-import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom'
 import { SolflareWalletAdapter } from '@solana/wallet-adapter-solflare'
 import { ReactNode, useCallback, useMemo } from 'react'
 import { ClusterProvider, toWalletAdapterNetwork, useCluster } from './web-cluster-provider'
@@ -41,8 +41,6 @@ export function SolanaProvider({ autoConnect = true, children }: { autoConnect?:
     </ConnectionProvider>
   )
 }
-
-export const WalletButton = WalletMultiButton
 
 export function useAnchorProvider() {
   const { connection } = useConnection()
