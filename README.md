@@ -69,3 +69,57 @@ pnpm dev:web
 ```bash
 pnpm dev:sdk
 ```
+
+## Extending the application
+
+You can use the following commands to generate new models, API features, web features and SDK types.
+
+### Adding a new model
+
+The following command will generate a new model in `prisma/schema.prisma`.
+
+You will need to run `pnpm prisma db push` to push the schema to the database.
+
+```bash
+pnpm nx g prisma-model company
+
+> NX Generating @pubkey-stack/tools:prisma-model
+
+UPDATE prisma/schema.prisma
+```
+
+### Adding a new API feature
+
+The following command will generate a new API feature in `libs/api/company/*`.
+
+You will need to restart the API server to make sure it picks up the new libraries.
+
+```bash
+pnpm nx g api-feature company
+
+> NX Generating @pubkey-stack/tools:api-feature
+
+CREATE libs/api/company/data-access/...
+CREATE libs/api/company/feature/...
+UPDATE libs/api/core/feature/src/lib/api-core-feature.module.ts
+CREATE libs/sdk/src/graphql/feature-company.graphql
+CREATE apps/api-e2e/src/api/api-company-feature.spec.ts
+```
+
+### Adding a new web feature
+
+The following command will generate a new web feature in `libs/web/company/*`.
+
+You will need to restart the web server to make sure it picks up the new libraries.
+
+```bash
+pnpm nx g web-feature company
+
+> NX Generating @pubkey-stack/tools:web-feature
+
+CREATE libs/web/company/data-access/...
+CREATE libs/web/company/feature/...
+CREATE libs/web/company/ui/...
+UPDATE libs/web/shell/feature/src/lib/web-admin.routes.tsx
+UPDATE tsconfig.base.json
+```
