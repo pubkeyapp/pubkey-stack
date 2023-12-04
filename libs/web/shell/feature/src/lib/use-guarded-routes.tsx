@@ -1,7 +1,9 @@
+import { Group } from '@mantine/core'
 import { UserRole, UserStatus } from '@pubkey-stack/sdk'
 import { AuthGuard, UserRoleGuard, UserStatusGuard } from '@pubkey-stack/web-auth-data-access'
 import { UiFull, UiHeaderProfile } from '@pubkey-stack/web-ui-core'
 import { UiError, UiHeader, UiLayout, UiLoader, UiWarning } from '@pubkey-ui/core'
+import { WalletMultiIcon } from '@pubkeyapp/wallet-adapter-mantine-ui'
 
 import { Navigate, Outlet, RouteObject, useRoutes } from 'react-router-dom'
 
@@ -31,7 +33,22 @@ export function useGuardedRoutes({
             {
               // This adds the main layout to the routes
               element: (
-                <UiLayout header={<UiHeader profile={<UiHeaderProfile />} />}>
+                <UiLayout
+                  header={
+                    <UiHeader
+                      links={[
+                        { link: '/dashboard', label: 'Dashboard' },
+                        { link: '/solana', label: 'Solana' },
+                      ]}
+                      profile={
+                        <Group>
+                          <WalletMultiIcon />
+                          <UiHeaderProfile />
+                        </Group>
+                      }
+                    />
+                  }
+                >
                   <Outlet />
                 </UiLayout>
               ),

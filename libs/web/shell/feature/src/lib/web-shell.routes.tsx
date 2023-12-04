@@ -2,6 +2,7 @@ import { WebAuthLoginFeature, WebAuthRegisterFeature } from '@pubkey-stack/web-a
 import { WebDashboardRoutes } from '@pubkey-stack/web-dashboard-feature'
 import { WebHomeRoutes } from '@pubkey-stack/web-home-feature'
 import { WebSettingsRoutes } from '@pubkey-stack/web-settings-feature'
+import { SolanaFeature } from '@pubkey-stack/web-solana-feature'
 import { UiNotFound } from '@pubkey-ui/core'
 import { WebUserRoutes } from '@pubkey-stack/web-user-feature'
 import { lazy } from 'react'
@@ -24,6 +25,7 @@ export function WebShellRoutes() {
       { path: '/dashboard', element: <WebDashboardRoutes /> },
       { path: '/profile/*', element: <WebUserRoutes /> },
       { path: '/settings/*', element: <WebSettingsRoutes /> },
+      { path: '/solana/*', element: <SolanaFeature /> },
     ],
     full: [
       // Here you can add routes that are not part of the main layout, visit /custom-full-page to see this route

@@ -1,5 +1,6 @@
 import { WebAuthProvider } from '@pubkey-stack/web-auth-data-access'
 import { WebSdkProvider } from '@pubkey-stack/web-shell-data-access'
+import { SolanaClusterProvider } from '@pubkey-stack/web-solana-data-access'
 import { toastError, UiThemeLink, UiThemeProvider } from '@pubkey-ui/core'
 import '@pubkey-ui/core/index.esm.css'
 import 'mantine-datatable/styles.layer.css'
@@ -26,7 +27,11 @@ export function WebShellFeature() {
       <QueryClientProvider client={client}>
         <WebSdkProvider>
           <WebAuthProvider>
-            <UiThemeProvider link={ThemeLink}>{<WebShellRoutes />}</UiThemeProvider>
+            <UiThemeProvider link={ThemeLink}>
+              <SolanaClusterProvider>
+                <WebShellRoutes />
+              </SolanaClusterProvider>
+            </UiThemeProvider>
           </WebAuthProvider>
         </WebSdkProvider>
       </QueryClientProvider>
