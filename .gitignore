@@ -4,10 +4,8 @@
 dist
 tmp
 /out-tsc
-
 # dependencies
 node_modules
-
 # IDEs and editors
 /.idea
 .project
@@ -16,14 +14,12 @@ node_modules
 *.launch
 .settings/
 *.sublime-workspace
-
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-
 # misc
 /.sass-cache
 /connect.lock
@@ -34,9 +30,17 @@ yarn-error.log
 testem.log
 /typings
 .env
-
 # System Files
 .DS_Store
 Thumbs.db
-
 .nx/cache
+.anchor
+libs/anchor/target/deploy
+libs/anchor/target/debug
+libs/anchor/target/release
+libs/anchor/target/sbf-solana-solana
+libs/anchor/target/.rustc_info.json
+!libs/anchor/target/idl/*.json
+!libs/anchor/target/types/*.ts
+test-ledger
+.yarn

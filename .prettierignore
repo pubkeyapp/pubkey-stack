@@ -3,6 +3,11 @@
 /dist
 /coverage
 tmp
-
 /.nx/cache
 pnpm-lock.yaml
+.anchor
+target
+node_modules
+dist
+build
+test-ledger

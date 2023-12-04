@@ -6,6 +6,7 @@ import { Link, Navigate, useLocation, useRoutes } from 'react-router-dom'
 export const AccountListFeature = lazy(() => import('./account/account-list-feature'))
 export const AccountDetailFeature = lazy(() => import('./account/account-detail-feature'))
 export const ClusterFeature = lazy(() => import('./cluster/cluster-feature'))
+export const CounterFeature = lazy(() => import('./counter/counter-feature'))
 
 export default function WebSolanaFeature() {
   return <SolanaLayout />
@@ -20,6 +21,7 @@ export function SolanaLayout() {
     { path: 'accounts', label: 'Accounts', element: <AccountListFeature /> },
     { path: 'accounts/:address', element: <AccountDetailFeature /> },
     { path: 'clusters', label: 'Clusters', element: <ClusterFeature /> },
+    { path: 'counter', label: 'Counter', element: <CounterFeature /> },
   ]
 
   const routes = useRoutes([

@@ -1,6 +1,7 @@
 import {
   ActionIcon,
   Badge,
+  Box,
   Button,
   ButtonProps,
   Group,
@@ -10,7 +11,6 @@ import {
   Text,
   TextInput,
   TextProps,
-  Title,
   TitleProps,
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
@@ -35,9 +35,9 @@ export function AccountBalance({ address, ...props }: { address: PublicKey } & T
   const { getBalance: query } = useAccount({ address })
 
   return (
-    <Title onClick={() => query.refetch()} {...props}>
+    <Box onClick={() => query.refetch()} {...props}>
       {query.data ? <BalanceSol balance={query.data} /> : '...'} SOL
-    </Title>
+    </Box>
   )
 }
 export function AccountChecker() {
