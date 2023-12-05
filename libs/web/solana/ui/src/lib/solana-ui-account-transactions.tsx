@@ -21,7 +21,7 @@ export function SolanaUiAccountTransactions({ address }: { address: PublicKey })
       <Group justify="space-between">
         <Text size="xl">Transaction History</Text>
         {query.isLoading ? (
-          <Loader />
+          <Loader size="xs" type="dots" />
         ) : (
           <ActionIcon variant="outline" onClick={() => query.refetch()}>
             <IconRefresh size={16} />

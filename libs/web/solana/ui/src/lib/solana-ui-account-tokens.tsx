@@ -26,7 +26,7 @@ export function SolanaUiAccountTokens({ address }: { address: PublicKey }) {
           <Text size="xl">Token Accounts</Text>
           <Group>
             {query.isLoading ? (
-              <Loader />
+              <Loader size="xs" type="dots" />
             ) : (
               <ActionIcon
                 variant="outline"

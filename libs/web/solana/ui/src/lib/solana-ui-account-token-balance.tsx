@@ -5,7 +5,7 @@ import { PublicKey } from '@solana/web3.js'
 export function SolanaUiAccountTokenBalance({ address, ...props }: { address: PublicKey } & TextProps) {
   const { getTokenBalance } = useAccount({ address })
   return getTokenBalance.isLoading ? (
-    <Loader />
+    <Loader size="xs" type="dots" />
   ) : getTokenBalance.data ? (
     <Text {...props}>{getTokenBalance.data?.value.uiAmount}</Text>
   ) : (

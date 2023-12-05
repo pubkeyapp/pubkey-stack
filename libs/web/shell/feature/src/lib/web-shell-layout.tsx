@@ -1,4 +1,4 @@
-import { Group } from '@mantine/core'
+import { Group, Loader } from '@mantine/core'
 import {
   SolanaUiAccountBalanceButton,
   SolanaUiAccountChecker,
@@ -7,9 +7,9 @@ import {
   WalletIcon,
 } from '@pubkey-stack/web-solana-ui'
 import { UiHeaderProfile } from '@pubkey-stack/web-ui-core'
-import { UiHeader, UiLayout } from '@pubkey-ui/core'
+import { UiHeader, UiLayout, UiLoader } from '@pubkey-ui/core'
 import { useWallet } from '@solana/wallet-adapter-react'
-import { ReactNode } from 'react'
+import { ReactNode, Suspense } from 'react'
 
 export function WebShellLayout({ children }: { children: ReactNode }) {
   const { publicKey } = useWallet()
@@ -35,7 +35,7 @@ export function WebShellLayout({ children }: { children: ReactNode }) {
       <SolanaUiClusterChecker>
         <SolanaUiAccountChecker />
       </SolanaUiClusterChecker>
-      {children}
+      <Suspense fallback={<UiLoader mt="xl" size="xl" type="dots" />}>{children}</Suspense>
     </UiLayout>
   )
 }
