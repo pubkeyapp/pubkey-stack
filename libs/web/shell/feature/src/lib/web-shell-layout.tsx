@@ -1,4 +1,4 @@
-import { Group, Loader } from '@mantine/core'
+import { Group } from '@mantine/core'
 import {
   SolanaUiAccountBalanceButton,
   SolanaUiAccountChecker,

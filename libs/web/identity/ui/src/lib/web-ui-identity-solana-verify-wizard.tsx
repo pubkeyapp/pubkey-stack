@@ -4,7 +4,6 @@ import { ellipsify, Identity, IdentityProvider } from '@pubkey-stack/sdk'
 import { useIdentitySolana } from '@pubkey-stack/web-identity-data-access'
 import { WalletButton } from '@pubkey-stack/web-solana-ui'
 import { toastError, UiStack, UiWarning } from '@pubkey-ui/core'
-import { WalletMultiButton } from '@pubkeyapp/wallet-adapter-mantine-ui'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useEffect, useMemo, useState } from 'react'
 
