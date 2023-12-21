@@ -25,7 +25,7 @@
       "executor": "nx:run-commands",
       "options": {
         "cwd": "libs/anchor",
-        "commands": ["anchor test"],
+        "commands": [{ "command": "anchor test", "forwardAllArgs": false }],
         "parallel": false
       }
     },
