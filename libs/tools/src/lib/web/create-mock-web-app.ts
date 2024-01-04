@@ -1,32 +1,35 @@
-import { Tree } from '@nx/devkit'
+import { getProjects, Tree } from '@nx/devkit'
 import { Linter } from '@nx/eslint'
 import { applicationGenerator, componentGenerator, libraryGenerator } from '@nx/react'
 
 export async function createMockWebApp(tree: Tree, app: string) {
   // Build the mock app and shell libs
   await applicationGenerator(tree, {
-    directory: 'apps',
+    directory: `apps/${app}`,
     e2eTestRunner: 'none',
     linter: Linter.EsLint,
     name: app,
+    projectNameAndRootFormat: 'as-provided',
     routing: true,
     skipFormat: true,
     style: 'css',
   })
   // Create the shell data access lib
   await libraryGenerator(tree, {
+    directory: `libs/${app}/shell/data-access`,
     linter: Linter.EsLint,
-    style: 'css',
-    name: `data-access`,
-    directory: `libs/${app}/shell`,
+    name: `${app}-shell-data-access`,
+    projectNameAndRootFormat: 'as-provided',
     skipFormat: true,
+    style: 'css',
   })
 
   // Create the shell feature lib
   await libraryGenerator(tree, {
-    directory: `libs/${app}/shell`,
+    directory: `libs/${app}/shell/feature`,
     linter: Linter.EsLint,
-    name: `feature`,
+    name: `${app}-shell-feature`,
+    projectNameAndRootFormat: 'as-provided',
     skipFormat: true,
     style: 'css',
   })
@@ -40,11 +43,12 @@ export async function createMockWebApp(tree: Tree, app: string) {
 }
 
 function createMockComponent(tree: Tree, project: string, name: string) {
+  const config = getProjects(tree).get(project)
   return componentGenerator(tree, {
     name,
-    project,
+    directory: `${config.sourceRoot}/lib/`,
+    nameAndDirectoryFormat: 'as-provided',
     style: 'none',
-    flat: true,
     skipTests: true,
   })
 }
