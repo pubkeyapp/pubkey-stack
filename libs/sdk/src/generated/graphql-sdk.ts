@@ -1169,9 +1169,10 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
-const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType) => action()
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType, variables) => action()
 const LoginDocumentString = print(LoginDocument)
 const LogoutDocumentString = print(LogoutDocument)
 const RegisterDocumentString = print(RegisterDocument)
@@ -1212,6 +1213,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'login',
         'mutation',
+        variables,
       )
     },
     logout(
@@ -1226,6 +1228,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'logout',
         'mutation',
+        variables,
       )
     },
     register(
@@ -1246,6 +1249,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'register',
         'mutation',
+        variables,
       )
     },
     me(
@@ -1257,6 +1261,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           client.rawRequest<MeQuery>(MeDocumentString, variables, { ...requestHeaders, ...wrappedRequestHeaders }),
         'me',
         'query',
+        variables,
       )
     },
     uptime(
@@ -1271,6 +1276,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'uptime',
         'query',
+        variables,
       )
     },
     appConfig(
@@ -1285,6 +1291,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'appConfig',
         'query',
+        variables,
       )
     },
     adminFindManyEmail(
@@ -1305,6 +1312,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'adminFindManyEmail',
         'query',
+        variables,
       )
     },
     adminCreateEmail(
@@ -1325,6 +1333,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'adminCreateEmail',
         'mutation',
+        variables,
       )
     },
     adminUpdateEmail(
@@ -1345,6 +1354,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'adminUpdateEmail',
         'mutation',
+        variables,
       )
     },
     adminDeleteEmail(
@@ -1365,6 +1375,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'adminDeleteEmail',
         'mutation',
+        variables,
       )
     },
     adminFindManyIdentity(
@@ -1385,6 +1396,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'adminFindManyIdentity',
         'query',
+        variables,
       )
     },
     adminCreateIdentity(
@@ -1405,6 +1417,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'adminCreateIdentity',
         'mutation',
+        variables,
       )
     },
     adminDeleteIdentity(
@@ -1425,6 +1438,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'adminDeleteIdentity',
         'mutation',
+        variables,
       )
     },
     userFindManyIdentity(
@@ -1445,6 +1459,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'userFindManyIdentity',
         'query',
+        variables,
       )
     },
     userDeleteIdentity(
@@ -1465,6 +1480,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'userDeleteIdentity',
         'mutation',
+        variables,
       )
     },
     userRequestIdentityChallenge(
@@ -1485,6 +1501,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'userRequestIdentityChallenge',
         'query',
+        variables,
       )
     },
     userVerifyIdentityChallenge(
@@ -1505,6 +1522,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'userVerifyIdentityChallenge',
         'mutation',
+        variables,
       )
     },
     userLinkIdentity(
@@ -1525,6 +1543,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'userLinkIdentity',
         'mutation',
+        variables,
       )
     },
     adminCreateUser(
@@ -1545,6 +1564,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'adminCreateUser',
         'mutation',
+        variables,
       )
     },
     adminDeleteUser(
@@ -1565,6 +1585,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'adminDeleteUser',
         'mutation',
+        variables,
       )
     },
     adminFindManyUser(
@@ -1585,6 +1606,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'adminFindManyUser',
         'query',
+        variables,
       )
     },
     adminFindOneUser(
@@ -1605,6 +1627,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'adminFindOneUser',
         'query',
+        variables,
       )
     },
     adminUpdateUser(
@@ -1625,6 +1648,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'adminUpdateUser',
         'mutation',
+        variables,
       )
     },
     userFindManyUser(
@@ -1645,6 +1669,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'userFindManyUser',
         'query',
+        variables,
       )
     },
     userFindOneUser(
@@ -1665,6 +1690,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'userFindOneUser',
         'query',
+        variables,
       )
     },
     userUpdateUser(
@@ -1685,6 +1711,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'userUpdateUser',
         'mutation',
+        variables,
       )
     },
   }
