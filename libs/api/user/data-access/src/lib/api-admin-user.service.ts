@@ -33,11 +33,7 @@ export class ApiAdminUserService {
       throw new Error(`User ${userId} not found`)
     }
 
-    await this.core.data.identity.deleteMany({ where: { ownerId: userId } })
-    await this.core.data.email.deleteMany({ where: { ownerId: userId } })
-    const deleted = await this.core.data.user.delete({
-      where: { id: userId },
-    })
+    const deleted = await this.core.data.user.delete({ where: { id: userId } })
 
     return !!deleted
   }

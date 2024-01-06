@@ -2,7 +2,7 @@ import { ApiCoreService } from '@pubkey-stack/api-core-data-access'
 import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
 import { UserStatus } from '@prisma/client'
-import { Request } from 'express'
+import { Request } from 'express-serve-static-core'
 import { Strategy } from 'passport-jwt'
 
 function cookieExtractor(req: Request & { cookies: Record<string, string> }) {

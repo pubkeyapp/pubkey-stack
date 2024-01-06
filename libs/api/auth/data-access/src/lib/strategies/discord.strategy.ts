@@ -14,7 +14,7 @@ export class DiscordStrategy extends PassportStrategy(Strategy, 'discord') {
       clientID: process.env['DISCORD_CLIENT_ID'],
       clientSecret: process.env['DISCORD_CLIENT_SECRET'],
       callbackURL: core.config.webUrl + '/api/auth/discord/callback',
-      scope: ['guilds', 'email', 'identify'],
+      scope: ['guilds', 'identify'],
       passReqToCallback: true,
     })
   }
@@ -33,7 +33,7 @@ export class DiscordStrategy extends PassportStrategy(Strategy, 'discord') {
     if (found?.owner) {
       await this.core.data.identity.update({
         where: { id: found.id },
-        data: { accessToken, refreshToken, verified: profile.verified, profile: identityProfile },
+        data: { accessToken, refreshToken, verified: true, profile: identityProfile },
       })
       return found.owner
     }
@@ -43,7 +43,7 @@ export class DiscordStrategy extends PassportStrategy(Strategy, 'discord') {
       providerId: profile.id,
       accessToken,
       refreshToken,
-      verified: profile.verified,
+      verified: true,
       profile: identityProfile,
     }
     return await this.service.createUserWithIdentity(identity)
@@ -61,5 +61,6 @@ function createDiscordProfile(profile: Profile) {
     avatarUrl,
     bannerUrl,
     verified: profile.verified,
+    fetchedAt: profile.fetchedAt,
   }
 }
