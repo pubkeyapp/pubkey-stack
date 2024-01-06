@@ -1,6 +1,6 @@
 import { ActionIcon, Button, Group, Loader, Table, Text } from '@mantine/core'
 import { ellipsify } from '@pubkey-stack/sdk'
-import { useAccount } from '@pubkey-stack/web-solana-data-access'
+import { useGetTokenAccounts } from '@pubkey-stack/web-solana-data-access'
 import { UiError, UiInfo, UiStack } from '@pubkey-ui/core'
 import { PublicKey } from '@solana/web3.js'
 import { IconRefresh } from '@tabler/icons-react'
@@ -12,7 +12,7 @@ import { SolanaUiAccountTokenBalance } from './solana-ui-account-token-balance'
 
 export function SolanaUiAccountTokens({ address }: { address: PublicKey }) {
   const [showAll, setShowAll] = useState(false)
-  const { getTokenAccounts: query } = useAccount({ address })
+  const query = useGetTokenAccounts({ address })
   const client = useQueryClient()
   const items = useMemo(() => {
     if (showAll) return query.data

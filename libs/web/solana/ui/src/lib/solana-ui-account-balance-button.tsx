@@ -1,13 +1,13 @@
 import { Button, ButtonProps, Menu } from '@mantine/core'
 import { ellipsify } from '@pubkey-stack/sdk'
-import { useAccount, useCluster } from '@pubkey-stack/web-solana-data-access'
+import { useCluster, useGetBalance } from '@pubkey-stack/web-solana-data-access'
 import { PublicKey } from '@solana/web3.js'
 import { IconCurrencySolana, IconExternalLink } from '@tabler/icons-react'
 import { Link } from 'react-router-dom'
 import { SolanaUiBalanceSol } from './solana-ui-balance-sol'
 
 export function SolanaUiAccountBalanceButton({ address, ...props }: { address: PublicKey } & ButtonProps) {
-  const { getBalance: query } = useAccount({ address })
+  const query = useGetBalance({ address })
   const { getExplorerUrl } = useCluster()
   const content = query.data ? <SolanaUiBalanceSol balance={query.data} /> : '...'
 

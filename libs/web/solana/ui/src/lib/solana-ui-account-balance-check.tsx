@@ -1,12 +1,13 @@
 import { Button, Group, Text } from '@mantine/core'
-import { useAccount, useCluster } from '@pubkey-stack/web-solana-data-access'
+import { useRequestAirdrop, useCluster, useGetBalance } from '@pubkey-stack/web-solana-data-access'
 import { UiWarning } from '@pubkey-ui/core'
 import { PublicKey } from '@solana/web3.js'
 import { IconUserOff } from '@tabler/icons-react'
 
 export function SolanaUiAccountBalanceCheck({ address }: { address: PublicKey }) {
   const { cluster } = useCluster()
-  const { getBalance: query, requestAirdrop } = useAccount({ address })
+  const mutation = useRequestAirdrop({ address })
+  const query = useGetBalance({ address })
 
   if (query.isLoading) {
     return null
@@ -29,7 +30,7 @@ export function SolanaUiAccountBalanceCheck({ address }: { address: PublicKey })
               variant="light"
               color="yellow"
               size="xs"
-              onClick={() => requestAirdrop.mutateAsync(1).catch((err) => console.log(err))}
+              onClick={() => mutation.mutateAsync('1').catch((err) => console.log(err))}
             >
               Request Airdrop
             </Button>

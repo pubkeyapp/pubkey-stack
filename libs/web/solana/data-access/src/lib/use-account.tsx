@@ -1,108 +1,139 @@
 import { toastError } from '@pubkey-ui/core'
 import { TOKEN_2022_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token'
 import { useConnection, useWallet } from '@solana/wallet-adapter-react'
-import { LAMPORTS_PER_SOL, PublicKey, TransactionSignature } from '@solana/web3.js'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { Connection, LAMPORTS_PER_SOL, PublicKey, TransactionSignature } from '@solana/web3.js'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { createTransaction } from './create-transaction'
 import { toastExplorerLink } from './toast-signature-link'
 import { useCluster } from './web-cluster-provider'
 
-export function useAccount({ address }: { address: PublicKey }) {
-  const { cluster, getExplorerUrl } = useCluster()
+export function useQueries({ address }: { address: PublicKey }) {
   const { connection } = useConnection()
-
   const wallet = useWallet()
 
-  const getBalance = useQuery({
-    queryKey: ['balance', { cluster, address }],
-    queryFn: () => connection.getBalance(address),
-  })
-
-  const getSignatures = useQuery({
-    queryKey: ['signatures', { cluster, address }],
-    queryFn: () => connection.getConfirmedSignaturesForAddress2(address),
-  })
-
-  const getTokenAccounts = useQuery({
-    queryKey: ['token-accounts', { endpoint: connection.rpcEndpoint, address: address.toString() }],
-    queryFn: async () => {
-      const [tokenAccounts, token2022Accounts] = await Promise.all([
-        connection.getParsedTokenAccountsByOwner(address, {
-          programId: TOKEN_PROGRAM_ID,
-        }),
-        connection.getParsedTokenAccountsByOwner(address, {
-          programId: TOKEN_2022_PROGRAM_ID,
-        }),
-      ])
-      return [...tokenAccounts.value, ...token2022Accounts.value]
-    },
-  })
-
-  const getTokenBalance = useQuery({
-    queryKey: ['getTokenAccountBalance', { endpoint: connection.rpcEndpoint, account: address.toString() }],
-    queryFn: () => connection.getTokenAccountBalance(address),
-  })
-
-  const requestAirdrop = useMutation({
-    mutationKey: ['airdrop', { cluster, address }],
-    mutationFn: async (amount: number = 1) => {
-      const [latestBlockhash, signature] = await Promise.all([
-        connection.getLatestBlockhash(),
-        connection.requestAirdrop(address, amount * LAMPORTS_PER_SOL),
-      ])
-
-      await connection.confirmTransaction({ signature, ...latestBlockhash }, 'confirmed')
-      return signature
-    },
-    onSuccess: (signature) => {
-      toastExplorerLink({ link: getExplorerUrl(`tx/${signature}`), label: 'View Transaction' })
-      return Promise.all([getBalance.refetch(), getSignatures.refetch()])
-    },
-  })
-
-  const transferSol = useMutation({
-    mutationKey: ['transfer-sol', { cluster, address }],
-    mutationFn: async (input: { destination: PublicKey; amount: number }) => {
-      let signature: TransactionSignature = ''
-      try {
-        const { transaction, latestBlockhash } = await createTransaction({
-          publicKey: address,
-          destination: input.destination,
-          amount: input.amount,
-          connection,
-        })
-
-        // Send transaction and await for signature
-        signature = await wallet.sendTransaction(transaction, connection)
-
-        // Send transaction and await for signature
-        await connection.confirmTransaction({ signature, ...latestBlockhash }, 'confirmed')
-
-        console.log(signature)
-        return signature
-      } catch (error: unknown) {
-        console.log('error', `Transaction failed! ${error}`, signature)
-
-        return
-      }
-    },
-    onSuccess: (signature) => {
-      if (signature) {
-        toastExplorerLink({ link: getExplorerUrl(`tx/${signature}`), label: 'View Transaction' })
-      }
-      return Promise.all([getBalance.refetch(), getSignatures.refetch()])
-    },
-    onError: (error) => {
-      toastError(`Transaction failed! ${error}`)
-    },
-  })
-
   return {
-    getBalance,
-    getSignatures,
-    getTokenAccounts,
-    getTokenBalance,
-    requestAirdrop,
-    transferSol,
+    getBalance: {
+      queryKey: ['getBalance', { endpoint: connection?.rpcEndpoint, address }],
+      queryFn: () => connection.getBalance(address),
+    },
+    getSignatures: {
+      queryKey: ['getSignatures', { endpoint: connection?.rpcEndpoint, address }],
+      queryFn: () => connection.getConfirmedSignaturesForAddress2(address),
+    },
+    getTokenAccounts: {
+      queryKey: ['getTokenAccounts', { endpoint: connection?.rpcEndpoint, address }],
+      queryFn: () => getAllTokenAccounts(connection, address),
+    },
+    getTokenBalance: {
+      queryKey: ['getTokenBalance', { endpoint: connection?.rpcEndpoint, account: address }],
+      queryFn: () => connection.getTokenAccountBalance(address),
+    },
+    requestAirdrop: {
+      mutationKey: ['requestAirdrop', { endpoint: connection?.rpcEndpoint, address }],
+      mutationFn: (amount: string) => requestAndConfirmAirdrop({ address, amount, connection }),
+    },
+    transferSol: {
+      mutationKey: ['transferSol', { endpoint: connection?.rpcEndpoint, address }],
+      mutationFn: async ({ amount, destination }: { amount: string; destination: PublicKey }) => {
+        try {
+          const { transaction, latestBlockhash } = await createTransaction({
+            amount,
+            connection,
+            destination,
+            publicKey: address,
+          })
+
+          // Send transaction and await for signature
+          const signature: TransactionSignature = await wallet.sendTransaction(transaction, connection)
+
+          // Send transaction and await for signature
+          await connection.confirmTransaction({ signature, ...latestBlockhash }, 'confirmed')
+
+          return signature
+        } catch (error: unknown) {
+          console.log('error', `Transaction failed! ${error}`)
+          return
+        }
+      },
+    },
+  }
+}
+
+export function useGetBalance({ address }: { address: PublicKey }) {
+  return useQuery(useQueries({ address }).getBalance)
+}
+export function useGetSignatures({ address }: { address: PublicKey }) {
+  return useQuery(useQueries({ address }).getSignatures)
+}
+export function useGetTokenAccounts({ address }: { address: PublicKey }) {
+  return useQuery(useQueries({ address }).getTokenAccounts)
+}
+export function useGetTokenBalance({ address }: { address: PublicKey }) {
+  return useQuery(useQueries({ address }).getTokenBalance)
+}
+export function useRequestAirdrop({ address }: { address: PublicKey }) {
+  const {
+    requestAirdrop: { mutationKey, mutationFn },
+  } = useQueries({ address })
+  const onSuccess = useOnTransactionSuccess({ address })
+  return useMutation({
+    mutationKey,
+    mutationFn,
+    onSuccess,
+    onError: (error: unknown) => {
+      toastError(`Requesting airdrop failed! ${error}`)
+    },
+  })
+}
+export function useTransferSol({ address }: { address: PublicKey }) {
+  const onSuccess = useOnTransactionSuccess({ address })
+  return useMutation({
+    ...useQueries({ address }).transferSol,
+    onSuccess,
+    onError: (error: unknown) => {
+      toastError(`Requesting airdrop failed! ${error}`)
+    },
+  })
+}
+
+async function getAllTokenAccounts(connection: Connection, address: PublicKey) {
+  const [tokenAccounts, token2022Accounts] = await Promise.all([
+    connection.getParsedTokenAccountsByOwner(address, { programId: TOKEN_PROGRAM_ID }),
+    connection.getParsedTokenAccountsByOwner(address, { programId: TOKEN_2022_PROGRAM_ID }),
+  ])
+  return [...tokenAccounts.value, ...token2022Accounts.value]
+}
+
+async function requestAndConfirmAirdrop({
+  address,
+  amount,
+  connection,
+}: {
+  connection: Connection
+  address: PublicKey
+  amount: string
+}) {
+  const [latestBlockhash, signature] = await Promise.all([
+    connection.getLatestBlockhash(),
+    connection.requestAirdrop(address, parseFloat(amount) * LAMPORTS_PER_SOL),
+  ])
+
+  await connection.confirmTransaction({ signature, ...latestBlockhash }, 'confirmed')
+  return signature
+}
+
+function useOnTransactionSuccess({ address }: { address: PublicKey }) {
+  const { getExplorerUrl } = useCluster()
+  const client = useQueryClient()
+  const { getBalance, getSignatures } = useQueries({ address })
+
+  return (signature?: TransactionSignature) => {
+    if (signature) {
+      toastExplorerLink({ link: getExplorerUrl(`tx/${signature}`), label: 'View Transaction' })
+    }
+    return Promise.all([
+      client.invalidateQueries({ queryKey: getBalance.queryKey }),
+      client.invalidateQueries({ queryKey: getSignatures.queryKey }),
+    ])
   }
 }

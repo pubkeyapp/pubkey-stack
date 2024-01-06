@@ -1,14 +1,10 @@
-import { toastExplorerLink, useAccount, useCluster } from '@pubkey-stack/web-solana-data-access'
+import { toastExplorerLink } from '@pubkey-stack/web-solana-data-access'
 import { toastError } from '@pubkey-ui/core'
 import { useMutation } from '@tanstack/react-query'
 import { useCounterProgramAccount } from './counter-program-account-provider'
-import { useCounterFetch } from './use-counter-fetch'
 
 export function useCounterDecrement() {
-  const counterQuery = useCounterFetch()
-  const { account, program } = useCounterProgramAccount()
-  const { getBalance } = useAccount({ address: account?.publicKey })
-  const { getExplorerUrl } = useCluster()
+  const { account, program, getExplorerUrl, refresh } = useCounterProgramAccount()
 
   return useMutation({
     mutationKey: ['counter', 'decrement', { account }],
@@ -22,7 +18,7 @@ export function useCounterDecrement() {
             link: getExplorerUrl(`/tx/${signature}`),
             label: 'View transaction',
           })
-          return Promise.all([counterQuery.refetch(), getBalance.refetch()])
+          return refresh()
         })
         .catch((err) => toastError(err.message)),
   })

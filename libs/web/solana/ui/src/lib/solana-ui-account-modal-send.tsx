@@ -1,6 +1,6 @@
 import { Button, ButtonProps, Modal, TextInput } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import { useAccount } from '@pubkey-stack/web-solana-data-access'
+import { useTransferSol } from '@pubkey-stack/web-solana-data-access'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { PublicKey } from '@solana/web3.js'
 import { useState } from 'react'
@@ -8,9 +8,9 @@ import { useState } from 'react'
 export function SolanaUiAccountModalSend({ address, ...props }: ButtonProps & { address: PublicKey }) {
   const [opened, { close, open }] = useDisclosure(false)
   const wallet = useWallet()
-  const { transferSol: mutation } = useAccount({ address })
+  const mutation = useTransferSol({ address })
   const [destination, setDestination] = useState('')
-  const [amount, setAmount] = useState(1)
+  const [amount, setAmount] = useState('1')
 
   if (!address || !wallet.sendTransaction) {
     return <div>Wallet not connected</div>
@@ -32,9 +32,11 @@ export function SolanaUiAccountModalSend({ address, ...props }: ButtonProps & { 
         <TextInput
           disabled={mutation.isPending}
           type="number"
+          step="any"
+          min="0"
           placeholder="Amount"
           value={amount}
-          onChange={(e) => setAmount(Number(e.target.value))}
+          onChange={(e) => setAmount(e.target.value)}
         />
         <Button
           disabled={!destination || !amount || mutation.isPending}

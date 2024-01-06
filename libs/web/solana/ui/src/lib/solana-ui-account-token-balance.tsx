@@ -1,13 +1,13 @@
 import { Loader, Text, TextProps } from '@mantine/core'
-import { useAccount } from '@pubkey-stack/web-solana-data-access'
+import { useGetTokenBalance } from '@pubkey-stack/web-solana-data-access'
 import { PublicKey } from '@solana/web3.js'
 
 export function SolanaUiAccountTokenBalance({ address, ...props }: { address: PublicKey } & TextProps) {
-  const { getTokenBalance } = useAccount({ address })
-  return getTokenBalance.isLoading ? (
+  const query = useGetTokenBalance({ address })
+  return query.isLoading ? (
     <Loader size="xs" type="dots" />
-  ) : getTokenBalance.data ? (
-    <Text {...props}>{getTokenBalance.data?.value.uiAmount}</Text>
+  ) : query.data ? (
+    <Text {...props}>{query.data?.value.uiAmount}</Text>
   ) : (
     <div>Error</div>
   )

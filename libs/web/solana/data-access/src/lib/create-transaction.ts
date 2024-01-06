@@ -15,7 +15,7 @@ export async function createTransaction({
 }: {
   publicKey: PublicKey
   destination: PublicKey
-  amount: number
+  amount: string
   connection: Connection
 }): Promise<{
   transaction: VersionedTransaction
@@ -29,7 +29,7 @@ export async function createTransaction({
     SystemProgram.transfer({
       fromPubkey: publicKey,
       toPubkey: destination,
-      lamports: amount * LAMPORTS_PER_SOL,
+      lamports: parseFloat(amount) * LAMPORTS_PER_SOL,
     }),
   ]
 

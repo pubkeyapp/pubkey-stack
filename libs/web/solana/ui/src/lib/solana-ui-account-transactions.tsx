@@ -1,6 +1,6 @@
 import { ActionIcon, Badge, Button, Group, Loader, Table, Text } from '@mantine/core'
 import { ellipsify } from '@pubkey-stack/sdk'
-import { useAccount } from '@pubkey-stack/web-solana-data-access'
+import { useGetSignatures } from '@pubkey-stack/web-solana-data-access'
 import { UiError, UiInfo, UiStack, UiTime } from '@pubkey-ui/core'
 import { PublicKey } from '@solana/web3.js'
 import { IconRefresh } from '@tabler/icons-react'
@@ -8,7 +8,7 @@ import { useMemo, useState } from 'react'
 import { SolanaUiExplorerLink } from './solana-ui-explorer-link'
 
 export function SolanaUiAccountTransactions({ address }: { address: PublicKey }) {
-  const { getSignatures: query } = useAccount({ address })
+  const query = useGetSignatures({ address })
   const [showAll, setShowAll] = useState(false)
 
   const items = useMemo(() => {
