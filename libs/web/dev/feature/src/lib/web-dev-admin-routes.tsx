@@ -1,5 +1,6 @@
-import { Code, Group } from '@mantine/core'
-import { UiCard, UiContainer, UiInfo, UiTabRoutes } from '@pubkey-ui/core'
+import { UiContainer, UiTabRoutes } from '@pubkey-ui/core'
+import { WebDevNew } from './web-dev-new'
+import { WebDevIdentityWizard } from './web-dev-identity-wizard'
 
 export default function WebDevAdminRoutes() {
   return (
@@ -7,22 +8,8 @@ export default function WebDevAdminRoutes() {
       <UiTabRoutes
         grow={false}
         tabs={[
-          {
-            value: 'new',
-            label: 'New',
-            component: (
-              <UiCard title="New">
-                <UiInfo
-                  title="A place for your new stuff"
-                  message={
-                    <Group gap={0} align="baseline">
-                      Open <Code mx={4}>libs/web/dev/feature/src/lib/web-dev-admin-routes.tsx</Code> to get started.
-                    </Group>
-                  }
-                />
-              </UiCard>
-            ),
-          },
+          { value: 'new', label: 'New', component: <WebDevNew /> },
+          { value: 'identity-wizard', label: 'Identity Wizard', component: <WebDevIdentityWizard /> },
         ]}
       />
     </UiContainer>
