@@ -2,16 +2,16 @@ import { Injectable, Logger } from '@nestjs/common'
 import { Identity as PrismaIdentity, IdentityProvider } from '@prisma/client'
 import { ApiCoreService, BaseContext, getRequestDetails } from '@pubkey-stack/api-core-data-access'
 import { verifySignature } from '@pubkeyapp/solana-verify-wallet'
-import { PublicKey } from '@solana/web3.js'
 import { LinkIdentityInput } from './dto/link-identity-input'
 import { RequestIdentityChallengeInput } from './dto/request-identity-challenge.input'
 import { VerifyIdentityChallengeInput } from './dto/verify-identity-challenge-input'
 import { sha256 } from './helpers/sha256'
+import { ApiSolanaIdentityService } from './api-solana-identity.service'
 
 @Injectable()
 export class ApiUserIdentityService {
   private readonly logger = new Logger(ApiUserIdentityService.name)
-  constructor(private readonly core: ApiCoreService) {}
+  constructor(private readonly core: ApiCoreService, private readonly solana: ApiSolanaIdentityService) {}
 
   async deleteIdentity(userId: string, identityId: string): Promise<boolean> {
     const found = await this.core.data.identity.findFirst({ where: { id: identityId, ownerId: userId } })
@@ -45,11 +45,11 @@ export class ApiUserIdentityService {
     { provider, providerId }: RequestIdentityChallengeInput,
   ) {
     // Make sure we can link the given provider
-    this.ensureLinkProvider(provider)
+    this.solana.ensureLinkProvider(provider)
     // Make sure the providerId is valid
-    this.ensureValidProviderId(provider, providerId)
+    this.solana.ensureValidProviderId(provider, providerId)
     // Make sure the identity is owned by the user
-    await this.ensureIdentityOwner(userId, provider, providerId)
+    await this.solana.ensureIdentityOwner(userId, provider, providerId)
 
     // Get the IP and user agent from the request
     const { ip, userAgent } = getRequestDetails(ctx)
@@ -74,27 +74,14 @@ export class ApiUserIdentityService {
     { provider, providerId, challenge, signature, useLedger }: VerifyIdentityChallengeInput,
   ) {
     // Make sure we can link the given provider
-    this.ensureLinkProvider(provider)
+    this.solana.ensureLinkProvider(provider)
     // Make sure the providerId is valid
-    this.ensureValidProviderId(provider, providerId)
+    this.solana.ensureValidProviderId(provider, providerId)
     // Make sure the identity is owned by the user
-    await this.ensureIdentityOwner(userId, provider, providerId)
+    await this.solana.ensureIdentityOwner(userId, provider, providerId)
 
     // Make sure we find the challenge
-    const found = await this.core.data.identityChallenge.findFirst({
-      where: {
-        provider,
-        providerId,
-        challenge,
-      },
-      include: {
-        identity: true,
-      },
-    })
-
-    if (!found) {
-      throw new Error(`Identity challenge not found.`)
-    }
+    const found = await this.solana.ensureIdentityChallenge(provider, providerId, challenge)
 
     const { ip, userAgent } = getRequestDetails(ctx)
 
@@ -135,35 +122,9 @@ export class ApiUserIdentityService {
     return updated
   }
 
-  private ensureLinkProvider(provider: IdentityProvider) {
-    if (provider !== IdentityProvider.Solana) {
-      throw new Error(`Identity provider ${provider} not supported`)
-    }
-  }
-
-  private ensureValidProviderId(provider: IdentityProvider, providerId: string) {
-    if (provider === IdentityProvider.Solana) {
-      verifyValidPublicKey(providerId)
-    }
-  }
-
-  private async ensureIdentityOwner(ownerId: string, provider: IdentityProvider, providerId: string) {
-    const found = await this.core.data.identity.findFirst({
-      where: {
-        ownerId,
-        provider,
-        providerId,
-      },
-    })
-    if (!found) {
-      throw new Error(`Identity ${provider} ${providerId} not found`)
-    }
-    return found
-  }
-
   async linkIdentity(userId: string, { provider, providerId }: LinkIdentityInput) {
     // Make sure we can link the given provider
-    this.ensureLinkProvider(provider)
+    this.solana.ensureLinkProvider(provider)
     // Make sure the identity does not exist
     const found = await this.core.data.identity.findFirst({
       where: {
@@ -184,13 +145,5 @@ export class ApiUserIdentityService {
       },
     })
     return created
-  }
-}
-
-function verifyValidPublicKey(address: string) {
-  try {
-    new PublicKey(address)
-  } catch (error) {
-    throw new Error(`Invalid Solana public key.`)
   }
 }

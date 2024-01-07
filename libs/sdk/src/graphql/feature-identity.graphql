@@ -73,3 +73,15 @@ mutation userLinkIdentity($input: LinkIdentityInput!) {
     ...IdentityDetails
   }
 }
+
+query anonRequestIdentityChallenge($input: RequestIdentityChallengeInput!) {
+  challenge: anonRequestIdentityChallenge(input: $input) {
+    ...IdentityChallengeDetails
+  }
+}
+
+mutation anonVerifyIdentityChallenge($input: VerifyIdentityChallengeInput!) {
+  verified: anonVerifyIdentityChallenge(input: $input) {
+    ...IdentityChallengeDetails
+  }
+}

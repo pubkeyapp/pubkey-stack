@@ -167,6 +167,9 @@ dependencies:
   passport-discord:
     specifier: ^0.1.4
     version: 0.1.4
+  passport-github:
+    specifier: ^1.1.0
+    version: 1.1.0
   passport-jwt:
     specifier: ^4.0.1
     version: 4.0.1
@@ -15031,6 +15034,13 @@ packages:
 
   /passport-discord@0.1.4:
     resolution: {integrity: sha512-VJWPYqSOmh7SaCLw/C+k1ZqCzJnn2frrmQRx1YrcPJ3MQ+Oa31XclbbmqFICSvl8xv3Fqd6YWQ4H4p1MpIN9rA==}
+    dependencies:
+      passport-oauth2: 1.7.0
+    dev: false
+
+  /passport-github@1.1.0:
+    resolution: {integrity: sha512-XARXJycE6fFh/dxF+Uut8OjlwbFEXgbPVj/+V+K7cvriRK7VcAOm+NgBmbiLM9Qv3SSxEAV+V6fIk89nYHXa8A==}
+    engines: {node: '>= 0.4.0'}
     dependencies:
       passport-oauth2: 1.7.0
     dev: false

@@ -14,7 +14,12 @@ export class ApiCoreConfigService {
       authDiscordEnabled: this.authDiscordEnabled,
       authPasswordEnabled: this.authPasswordEnabled,
       authRegisterEnabled: this.authRegisterEnabled,
+      authSolanaEnabled: this.authSolanaEnabled,
     }
+  }
+
+  get authDiscordAdminIds() {
+    return this.service.get<string[]>('authDiscordAdminIds')
   }
 
   get authDiscordEnabled(): boolean {
@@ -27,6 +32,14 @@ export class ApiCoreConfigService {
 
   get authRegisterEnabled(): boolean {
     return this.service.get<boolean>('authRegisterEnabled') ?? false
+  }
+
+  get authSolanaAdminIds() {
+    return this.service.get<string[]>('authSolanaAdminIds')
+  }
+
+  get authSolanaEnabled(): boolean {
+    return this.service.get<boolean>('authSolanaEnabled') ?? false
   }
 
   get apiUrl(): string {
@@ -68,10 +81,6 @@ export class ApiCoreConfigService {
 
   get databaseReset() {
     return this.service.get<boolean>('databaseReset')
-  }
-
-  get discordAdminIds() {
-    return this.service.get<string[]>('discordAdminIds')
   }
 
   get environment() {

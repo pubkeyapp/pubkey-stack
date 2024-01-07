@@ -1,22 +1,68 @@
-import { toastSuccess, UiCard, UiDebug, UiStack } from '@pubkey-ui/core'
-import { useUserFindManyIdentity } from '@pubkey-stack/web-identity-data-access'
+import { toastError, toastSuccess, UiCard, UiDebug, UiStack } from '@pubkey-ui/core'
+import { useCreateSignature, useUserFindManyIdentity } from '@pubkey-stack/web-identity-data-access'
 import { IdentityProvider } from '@pubkey-stack/sdk'
-import { Button, Grid, Modal } from '@mantine/core'
-import { VerifyUiWizard } from './verify-ui-wizard'
-import { useDisclosure } from '@mantine/hooks'
+import { Grid } from '@mantine/core'
+import { WebUiIdentitySolanaWizard, WebUiIdentitySolanaWizardModal } from '@pubkey-stack/web-identity-ui'
+import { useCallback } from 'react'
+import { verifySignature } from '@pubkeyapp/solana-verify-wallet'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 export function WebDevIdentityWizard() {
   const { items } = useUserFindManyIdentity()
+  const { publicKey } = useWallet()
+  const challenge = 'Sign this message to verify your wallet'
+  const createSignature = useCreateSignature()
+
+  const sign = useCallback(
+    async (useLedger: boolean) => {
+      if (!publicKey) {
+        toastError({ message: 'No public key', title: 'Error signing message' })
+        return false
+      }
+
+      const signature = await createSignature({
+        challenge,
+        publicKey: publicKey.toString(),
+        useLedger,
+      }).catch((err) => toastError({ message: `${err}`, title: 'Error signing message' }))
+
+      if (!signature) {
+        throw new Error('No signature')
+      }
+
+      const verified = verifySignature({
+        challenge,
+        publicKey: publicKey.toString(),
+        signature,
+        useLedger,
+      })
+
+      if (!verified) {
+        toastError({
+          message: 'Failed to verify signature',
+          title: 'Error signing message',
+        })
+        return false
+      }
+
+      toastSuccess({
+        message: 'Successfully verified signature',
+        title: 'Success signing message',
+      })
+      return !!signature
+    },
+    [challenge, createSignature, publicKey],
+  )
 
   return (
     <Grid>
       <Grid.Col span={8}>
         <UiStack>
           <UiCard title="Identity Wizard">
-            <VerifyUiWizard />
+            <WebUiIdentitySolanaWizard sign={sign} />
           </UiCard>
           <UiCard title="Identity Wizard Modal">
-            <VerifyUiWizardModal />
+            <WebUiIdentitySolanaWizardModal sign={sign}>Verify your wallet</WebUiIdentitySolanaWizardModal>
           </UiCard>
         </UiStack>
       </Grid.Col>
@@ -31,21 +77,5 @@ export function WebDevIdentityWizard() {
         />
       </Grid.Col>
     </Grid>
-  )
-}
-
-export function VerifyUiWizardModal() {
-  const [opened, { open, close }] = useDisclosure(false)
-  return (
-    <>
-      <Modal opened={opened} onClose={close} size="xl" zIndex={1} title="Verify your wallet" centered>
-        <VerifyUiWizard
-          p="lg"
-          onConnected={(publicKey) => toastSuccess(`connected to ${publicKey}`)}
-          onVerified={close}
-        />
-      </Modal>
-      <Button onClick={open}>Verify</Button>
-    </>
   )
 }

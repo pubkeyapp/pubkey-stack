@@ -22,6 +22,7 @@ export interface WebAuthProviderContext extends WebAuthState {
   loading: boolean
   login: (input: LoginInput) => Promise<User | undefined>
   logout: () => Promise<boolean | undefined>
+  refresh: () => Promise<boolean>
   register: (input: RegisterInput) => Promise<User | undefined>
 }
 
@@ -79,15 +80,14 @@ export function WebAuthProvider({ children }: { children: ReactNode }) {
 
   const [state, dispatch] = useReducer(authReducer, { status: 'loading' })
 
+  function dispatchUser(user?: User | null) {
+    dispatch(user ? { type: 'login', payload: user } : { type: 'logout' })
+    return !!user
+  }
+
   useEffect(() => {
     if (query.isLoading) return
-    dispatch(
-      query.data?.me
-        ? // We are authenticated
-          { type: 'login', payload: query.data.me }
-        : // We are not authenticated
-          { type: 'logout' },
-    )
+    dispatchUser(query.data?.me)
   }, [query.isLoading, query.data?.me])
 
   const value: WebAuthProviderContext = {
@@ -131,6 +131,7 @@ export function WebAuthProvider({ children }: { children: ReactNode }) {
           dispatch({ type: 'error', payload: err })
           return undefined
         }),
+    refresh: async () => query.refetch().then((res) => dispatchUser(res.data?.me)),
     register: (input: RegisterInput) =>
       sdk
         .register({ input })

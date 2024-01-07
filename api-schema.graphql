@@ -55,6 +55,7 @@ type AppConfig {
   authDiscordEnabled: Boolean!
   authPasswordEnabled: Boolean!
   authRegisterEnabled: Boolean!
+  authSolanaEnabled: Boolean!
 }
 
 """
@@ -102,6 +103,7 @@ type IdentityChallenge {
 
 enum IdentityProvider {
   Discord
+  GitHub
   Solana
 }
 
@@ -129,6 +131,7 @@ type Mutation {
   adminDeleteUser(userId: String!): Boolean
   adminUpdateEmail(emailId: String!, input: AdminUpdateEmailInput!): Email
   adminUpdateUser(input: AdminUpdateUserInput!, userId: String!): User
+  anonVerifyIdentityChallenge(input: VerifyIdentityChallengeInput!): IdentityChallenge
   login(input: LoginInput!): User
   logout: Boolean
   register(input: RegisterInput!): User
@@ -153,6 +156,7 @@ type Query {
   adminFindManyIdentity(input: AdminFindManyIdentityInput!): [Identity!]
   adminFindManyUser(input: AdminFindManyUserInput!): UserPaging!
   adminFindOneUser(userId: String!): User
+  anonRequestIdentityChallenge(input: RequestIdentityChallengeInput!): IdentityChallenge
   appConfig: AppConfig!
   me: User
   uptime: Float!

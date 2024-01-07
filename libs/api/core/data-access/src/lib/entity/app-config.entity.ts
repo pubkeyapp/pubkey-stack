@@ -8,4 +8,6 @@ export class AppConfig {
   authPasswordEnabled!: boolean
   @Field()
   authRegisterEnabled!: boolean
+  @Field()
+  authSolanaEnabled!: boolean
 }

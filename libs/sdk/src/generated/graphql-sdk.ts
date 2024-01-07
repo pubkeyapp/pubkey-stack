@@ -78,6 +78,7 @@ export type AppConfig = {
   authDiscordEnabled: Scalars['Boolean']['output']
   authPasswordEnabled: Scalars['Boolean']['output']
   authRegisterEnabled: Scalars['Boolean']['output']
+  authSolanaEnabled: Scalars['Boolean']['output']
 }
 
 export type Email = {
@@ -123,6 +124,7 @@ export type IdentityChallenge = {
 
 export enum IdentityProvider {
   Discord = 'Discord',
+  GitHub = 'GitHub',
   Solana = 'Solana',
 }
 
@@ -146,6 +148,7 @@ export type Mutation = {
   adminDeleteUser?: Maybe<Scalars['Boolean']['output']>
   adminUpdateEmail?: Maybe<Email>
   adminUpdateUser?: Maybe<User>
+  anonVerifyIdentityChallenge?: Maybe<IdentityChallenge>
   login?: Maybe<User>
   logout?: Maybe<Scalars['Boolean']['output']>
   register?: Maybe<User>
@@ -189,6 +192,10 @@ export type MutationAdminUpdateUserArgs = {
   userId: Scalars['String']['input']
 }
 
+export type MutationAnonVerifyIdentityChallengeArgs = {
+  input: VerifyIdentityChallengeInput
+}
+
 export type MutationLoginArgs = {
   input: LoginInput
 }
@@ -230,6 +237,7 @@ export type Query = {
   adminFindManyIdentity?: Maybe<Array<Identity>>
   adminFindManyUser: UserPaging
   adminFindOneUser?: Maybe<User>
+  anonRequestIdentityChallenge?: Maybe<IdentityChallenge>
   appConfig: AppConfig
   me?: Maybe<User>
   uptime: Scalars['Float']['output']
@@ -253,6 +261,10 @@ export type QueryAdminFindManyUserArgs = {
 
 export type QueryAdminFindOneUserArgs = {
   userId: Scalars['String']['input']
+}
+
+export type QueryAnonRequestIdentityChallengeArgs = {
+  input: RequestIdentityChallengeInput
 }
 
 export type QueryUserFindManyUserArgs = {
@@ -398,6 +410,7 @@ export type AppConfigDetailsFragment = {
   authDiscordEnabled: boolean
   authPasswordEnabled: boolean
   authRegisterEnabled: boolean
+  authSolanaEnabled: boolean
 }
 
 export type PagingMetaDetailsFragment = {
@@ -424,6 +437,7 @@ export type AppConfigQuery = {
     authDiscordEnabled: boolean
     authPasswordEnabled: boolean
     authRegisterEnabled: boolean
+    authSolanaEnabled: boolean
   }
 }
 
@@ -689,6 +703,48 @@ export type UserLinkIdentityMutation = {
   } | null
 }
 
+export type AnonRequestIdentityChallengeQueryVariables = Exact<{
+  input: RequestIdentityChallengeInput
+}>
+
+export type AnonRequestIdentityChallengeQuery = {
+  __typename?: 'Query'
+  challenge?: {
+    __typename?: 'IdentityChallenge'
+    id: string
+    createdAt: Date
+    updatedAt: Date
+    provider: IdentityProvider
+    providerId: string
+    challenge: string
+    signature?: string | null
+    ip: string
+    userAgent: string
+    verified: boolean
+  } | null
+}
+
+export type AnonVerifyIdentityChallengeMutationVariables = Exact<{
+  input: VerifyIdentityChallengeInput
+}>
+
+export type AnonVerifyIdentityChallengeMutation = {
+  __typename?: 'Mutation'
+  verified?: {
+    __typename?: 'IdentityChallenge'
+    id: string
+    createdAt: Date
+    updatedAt: Date
+    provider: IdentityProvider
+    providerId: string
+    challenge: string
+    signature?: string | null
+    ip: string
+    userAgent: string
+    verified: boolean
+  } | null
+}
+
 export type UserDetailsFragment = {
   __typename?: 'User'
   avatarUrl?: string | null
@@ -888,6 +944,7 @@ export const AppConfigDetailsFragmentDoc = gql`
     authDiscordEnabled
     authPasswordEnabled
     authRegisterEnabled
+    authSolanaEnabled
   }
 `
 export const PagingMetaDetailsFragmentDoc = gql`
@@ -1091,6 +1148,22 @@ export const UserLinkIdentityDocument = gql`
   }
   ${IdentityDetailsFragmentDoc}
 `
+export const AnonRequestIdentityChallengeDocument = gql`
+  query anonRequestIdentityChallenge($input: RequestIdentityChallengeInput!) {
+    challenge: anonRequestIdentityChallenge(input: $input) {
+      ...IdentityChallengeDetails
+    }
+  }
+  ${IdentityChallengeDetailsFragmentDoc}
+`
+export const AnonVerifyIdentityChallengeDocument = gql`
+  mutation anonVerifyIdentityChallenge($input: VerifyIdentityChallengeInput!) {
+    verified: anonVerifyIdentityChallenge(input: $input) {
+      ...IdentityChallengeDetails
+    }
+  }
+  ${IdentityChallengeDetailsFragmentDoc}
+`
 export const AdminCreateUserDocument = gql`
   mutation adminCreateUser($input: AdminCreateUserInput!) {
     created: adminCreateUser(input: $input) {
@@ -1191,6 +1264,8 @@ const UserDeleteIdentityDocumentString = print(UserDeleteIdentityDocument)
 const UserRequestIdentityChallengeDocumentString = print(UserRequestIdentityChallengeDocument)
 const UserVerifyIdentityChallengeDocumentString = print(UserVerifyIdentityChallengeDocument)
 const UserLinkIdentityDocumentString = print(UserLinkIdentityDocument)
+const AnonRequestIdentityChallengeDocumentString = print(AnonRequestIdentityChallengeDocument)
+const AnonVerifyIdentityChallengeDocumentString = print(AnonVerifyIdentityChallengeDocument)
 const AdminCreateUserDocumentString = print(AdminCreateUserDocument)
 const AdminDeleteUserDocumentString = print(AdminDeleteUserDocument)
 const AdminFindManyUserDocumentString = print(AdminFindManyUserDocument)
@@ -1542,6 +1617,48 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'userLinkIdentity',
+        'mutation',
+        variables,
+      )
+    },
+    anonRequestIdentityChallenge(
+      variables: AnonRequestIdentityChallengeQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<{
+      data: AnonRequestIdentityChallengeQuery
+      errors?: GraphQLError[]
+      extensions?: any
+      headers: Headers
+      status: number
+    }> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.rawRequest<AnonRequestIdentityChallengeQuery>(AnonRequestIdentityChallengeDocumentString, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'anonRequestIdentityChallenge',
+        'query',
+        variables,
+      )
+    },
+    anonVerifyIdentityChallenge(
+      variables: AnonVerifyIdentityChallengeMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<{
+      data: AnonVerifyIdentityChallengeMutation
+      errors?: GraphQLError[]
+      extensions?: any
+      headers: Headers
+      status: number
+    }> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.rawRequest<AnonVerifyIdentityChallengeMutation>(AnonVerifyIdentityChallengeDocumentString, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'anonVerifyIdentityChallenge',
         'mutation',
         variables,
       )

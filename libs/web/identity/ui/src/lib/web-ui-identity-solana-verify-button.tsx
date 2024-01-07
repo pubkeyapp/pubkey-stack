@@ -18,10 +18,17 @@ export function WebUiIdentitySolanaVerifyButton({ identity, refresh }: { identit
           modals.open({
             title: 'Verify Identity',
             zIndex: 1,
+            size: 'xl',
             children: (
               <SolanaClusterProvider autoConnect={true}>
                 <IdentityProviderSolana refresh={refresh}>
-                  <WebUiIdentitySolanaVerifyWizard identity={identity} refresh={refresh} />
+                  <WebUiIdentitySolanaVerifyWizard
+                    identity={identity}
+                    refresh={() => {
+                      refresh()
+                      modals.closeAll()
+                    }}
+                  />
                 </IdentityProviderSolana>
               </SolanaClusterProvider>
             ),

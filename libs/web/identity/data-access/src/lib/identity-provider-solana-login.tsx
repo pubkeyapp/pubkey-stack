@@ -4,48 +4,32 @@ import { toastError, toastSuccess } from '@pubkey-ui/core'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { createContext, ReactNode, useContext } from 'react'
 import { useCreateSignature } from './use-create-signature'
+import { LinkSignOptions } from './identity-provider-solana'
 
-export interface LinkSignOptions {
-  useLedger: boolean
-  publicKey: string
-}
-export interface IdentityProviderSolanaContext {
-  linkAndSign: (input: LinkSignOptions) => Promise<boolean>
+export interface IdentityProviderSolanaLoginContext {
   verifyAndSign: (input: LinkSignOptions) => Promise<boolean>
 }
 
-const Context = createContext<IdentityProviderSolanaContext>({} as IdentityProviderSolanaContext)
+const Context = createContext<IdentityProviderSolanaLoginContext>({} as IdentityProviderSolanaLoginContext)
 
-export function IdentityProviderSolana({ children, refresh }: { children: ReactNode; refresh: () => void }) {
+export function IdentityProviderSolanaLogin({ children, refresh }: { children: ReactNode; refresh: () => void }) {
   const sdk = useWebSdk()
   const { signMessage } = useWallet()
   const createSignature = useCreateSignature()
-  async function linkIdentity({ publicKey }: { publicKey: string }) {
-    return sdk
-      .userLinkIdentity({ input: { provider: IdentityProvider.Solana, providerId: publicKey } })
-      .then((res) => {
-        toastSuccess('Identity linked')
-        refresh()
-      })
-      .catch((err) => {
-        console.log('Error linking identity', err)
-        toastError('Error linking identity')
-      })
-  }
 
   async function requestChallenge({ publicKey }: { publicKey: string }) {
     return sdk
-      .userRequestIdentityChallenge({ input: { provider: IdentityProvider.Solana, providerId: publicKey } })
+      .anonRequestIdentityChallenge({ input: { provider: IdentityProvider.Solana, providerId: publicKey } })
       .then((res) => {
         if (!res.data.challenge) {
-          toastError('Error linking identity')
+          toastError('Error requesting challenge')
           return
         }
         return res.data.challenge
       })
       .catch((err) => {
-        console.log('error linking identity', err)
-        toastError('Error linking identity')
+        console.log('error requesting challenge', err)
+        toastError('Error requesting challenge')
       })
   }
 
@@ -60,7 +44,7 @@ export function IdentityProviderSolana({ children, refresh }: { children: ReactN
     }
 
     return sdk
-      .userVerifyIdentityChallenge({
+      .anonVerifyIdentityChallenge({
         input: {
           provider: IdentityProvider.Solana,
           providerId: publicKey,
@@ -91,16 +75,9 @@ export function IdentityProviderSolana({ children, refresh }: { children: ReactN
     return signChallenge({ challenge: request.challenge, publicKey, useLedger })
   }
 
-  async function linkAndSign({ useLedger, publicKey }: LinkSignOptions) {
-    // Link identity
-    await linkIdentity({ publicKey })
-    // Verify and sign
-    return verifyAndSign({ useLedger, publicKey })
-  }
-
-  return <Context.Provider value={{ linkAndSign, verifyAndSign }}>{children}</Context.Provider>
+  return <Context.Provider value={{ verifyAndSign }}>{children}</Context.Provider>
 }
 
-export function useIdentitySolana() {
+export function useIdentitySolanaLogin() {
   return useContext(Context)
 }

@@ -3,9 +3,10 @@ import { ApiIdentityDataAccessModule } from '@pubkey-stack/api-identity-data-acc
 import { ApiAdminIdentityResolver } from './api-admin-identity.resolver'
 import { ApiIdentityResolver } from './api-identity.resolver'
 import { ApiUserIdentityResolver } from './api-user-identity.resolver'
+import { ApiAnonIdentityResolver } from './api-anon-identity.resolver'
 
 @Module({
   imports: [ApiIdentityDataAccessModule],
-  providers: [ApiAdminIdentityResolver, ApiIdentityResolver, ApiUserIdentityResolver],
+  providers: [ApiAdminIdentityResolver, ApiAnonIdentityResolver, ApiIdentityResolver, ApiUserIdentityResolver],
 })
 export class ApiIdentityFeatureModule {}

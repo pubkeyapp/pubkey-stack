@@ -20,9 +20,12 @@ const corsOrigins: string[] = getCorsOrigins()
 export type Env = 'development' | 'production' | 'test' | 'provision'
 export interface ApiCoreConfig {
   apiUrl: string
+  authDiscordAdminIds: string[]
   authDiscordEnabled: boolean
   authPasswordEnabled: boolean
   authRegisterEnabled: boolean
+  authSolanaAdminIds: string[]
+  authSolanaEnabled: boolean
   cookieDomains: string[]
   cookieName: string
   corsOrigins: string[]
@@ -30,7 +33,6 @@ export interface ApiCoreConfig {
   databaseProvision: boolean
   databaseRandomData: boolean
   databaseReset: boolean
-  discordAdminIds: string[]
   discordClientId: string
   discordClientSecret: string
   host: string
@@ -41,9 +43,12 @@ export interface ApiCoreConfig {
 export function configuration(): ApiCoreConfig {
   return {
     apiUrl: process.env['API_URL'] as string,
+    authDiscordAdminIds: getFromEnvironment('AUTH_DISCORD_ADMIN_IDS'),
     authDiscordEnabled: process.env['AUTH_DISCORD_ENABLED'] === 'true',
     authPasswordEnabled: process.env['AUTH_PASSWORD_ENABLED'] === 'true',
     authRegisterEnabled: process.env['AUTH_REGISTER_ENABLED'] === 'true',
+    authSolanaAdminIds: getFromEnvironment('AUTH_SOLANA_ADMIN_IDS'),
+    authSolanaEnabled: process.env['AUTH_SOLANA_ENABLED'] === 'true',
     cookieDomains,
     cookieName: '__session',
     corsOrigins,
@@ -51,7 +56,6 @@ export function configuration(): ApiCoreConfig {
     databaseProvision: process.env['DATABASE_PROVISION'] === 'true',
     databaseRandomData: process.env['DATABASE_RANDOM_DATA'] === 'true',
     databaseReset: process.env['DATABASE_RESET'] === 'true',
-    discordAdminIds: getFromEnvironment('DISCORD_ADMIN_IDS'),
     discordClientId: process.env['DISCORD_CLIENT_ID'] as string,
     discordClientSecret: process.env['DISCORD_CLIENT_SECRET'] as string,
     host: process.env['HOST'] as string,

@@ -29,8 +29,7 @@ export class ApiAuthService {
       throw new Error('Password is too short.')
     }
     const user = await this.validateUser(input)
-    const token = this.sign({ username: user.username, id: user.id })
-    this.setCookie(context, token)
+    this.signAndSetCookie(context, { username: user.username, id: user.id })
 
     return user
   }
@@ -60,8 +59,7 @@ export class ApiAuthService {
       },
     })
 
-    const token = this.sign({ username: user.username, id: user.id })
-    this.setCookie(context, token)
+    this.signAndSetCookie(context, { username: user.username, id: user.id })
 
     return user
   }
@@ -78,7 +76,7 @@ export class ApiAuthService {
 
   async createUserWithIdentity(identity: Prisma.IdentityCreateWithoutOwnerInput) {
     const username = await this.findUsername((identity.profile as { username: string }).username ?? identity.providerId)
-    const admin = this.core.config.discordAdminIds?.includes(identity.providerId)
+    const admin = this.core.config.authDiscordAdminIds?.includes(identity.providerId)
 
     const user = await this.core.data.user.create({
       data: {
@@ -119,6 +117,12 @@ export class ApiAuthService {
     return user
   }
 
+  signAndSetCookie(context: AppContext, { id, username }: { username: string; id: string }) {
+    const token = this.sign({ id, username })
+    this.setCookie(context, token)
+    return token
+  }
+
   private resetCookie(context: AppContext) {
     return context.res.clearCookie(this.core.config.cookieName, this.core.config.cookieOptions(context.req.hostname))
   }
@@ -132,8 +136,7 @@ export class ApiAuthService {
       throw new Error('No user found.')
     }
     const { username, id } = context.req.user as User
-    const token = this.sign({ username, id })
-    this.setCookie(context, token)
+    const token = this.signAndSetCookie(context, { username, id })
     return context.res?.cookie(this.core.config.cookieName, token, this.core.config.cookieOptions(context.req.hostname))
   }
 

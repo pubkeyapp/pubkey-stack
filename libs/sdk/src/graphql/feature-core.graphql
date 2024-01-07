@@ -2,6 +2,7 @@ fragment AppConfigDetails on AppConfig {
   authDiscordEnabled
   authPasswordEnabled
   authRegisterEnabled
+  authSolanaEnabled
 }
 
 fragment PagingMetaDetails on PagingMeta {

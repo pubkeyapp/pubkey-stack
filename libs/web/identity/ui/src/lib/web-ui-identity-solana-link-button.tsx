@@ -21,12 +21,19 @@ export function WebUiIdentitySolanaLinkButton({
       {...props}
       onClick={() => {
         modals.open({
+          size: 'xl',
           title: 'Link Wallet',
           zIndex: 1,
           children: (
             <SolanaClusterProvider autoConnect={false}>
               <IdentityProviderSolana refresh={refresh}>
-                <WebUiIdentitySolanaLinkWizard identities={items ?? []} />
+                <WebUiIdentitySolanaLinkWizard
+                  identities={items ?? []}
+                  refresh={() => {
+                    refresh()
+                    modals.closeAll()
+                  }}
+                />
               </IdentityProviderSolana>
             </SolanaClusterProvider>
           ),

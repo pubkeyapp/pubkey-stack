@@ -7,9 +7,10 @@ import { UiLoader, UiStack } from '@pubkey-ui/core'
 import { IconBrandDiscord } from '@tabler/icons-react'
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { WebUiIdentitySolanaLoginButton } from '@pubkey-stack/web-identity-ui'
 
 export default function WebAuthLoginFeature() {
-  const { login, user, appConfig, appConfigLoading } = useWebAuth()
+  const { login, refresh, user, appConfig, appConfigLoading } = useWebAuth()
   const navigate = useNavigate()
   const location = useLocation()
   const [loading, setLoading] = useState(false)
@@ -31,9 +32,9 @@ export default function WebAuthLoginFeature() {
     return <UiLoader />
   }
 
-  const { authDiscordEnabled, authPasswordEnabled, authRegisterEnabled } = appConfig
+  const { authDiscordEnabled, authPasswordEnabled, authRegisterEnabled, authSolanaEnabled } = appConfig
 
-  const noAuthEnabled = !authDiscordEnabled && !authRegisterEnabled && !authPasswordEnabled
+  const noAuthEnabled = !authDiscordEnabled && !authRegisterEnabled && !authPasswordEnabled && !authSolanaEnabled
 
   return (
     <WebUiAuthPage>
@@ -66,6 +67,19 @@ export default function WebAuthLoginFeature() {
             >
               Sign in with Discord
             </Button>
+          ) : null}
+          {authSolanaEnabled ? (
+            <WebUiIdentitySolanaLoginButton
+              refresh={() => {
+                console.log('Refreshing')
+                refresh().then((res) => {
+                  console.log(`${res ? 'Logged in' : 'Not logged in'} -> redirect ${redirect}`)
+                  if (res) {
+                    navigate(redirect)
+                  }
+                })
+              }}
+            />
           ) : null}
           {authPasswordEnabled ? (
             <WebUiAuthLoginForm submit={loginHandler}>
