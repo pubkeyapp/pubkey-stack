@@ -1,5 +1,5 @@
 import { BN } from '@coral-xyz/anchor'
-import { toastExplorerLink } from '@pubkey-stack/web-solana-data-access'
+import { uiToastLink } from '@pubkey-stack/web-solana-data-access'
 import { toastError } from '@pubkey-ui/core'
 import { useMutation } from '@tanstack/react-query'
 import { useCounterProgramAccount } from './counter-program-account-provider'
@@ -16,7 +16,7 @@ export function useCounterSet() {
         .rpc()
         .then((signature) => {
           if (signature) {
-            toastExplorerLink({
+            uiToastLink({
               link: getExplorerUrl(`/tx/${signature}`),
               label: 'View transaction',
             })

@@ -1,14 +1,14 @@
 import { Button, Group, Menu } from '@mantine/core'
 import { UserRole } from '@pubkey-stack/sdk'
-import { useWebAuth } from '@pubkey-stack/web-auth-data-access'
-import { WebUiUserAvatar } from '@pubkey-stack/web-user-ui'
+import { useAuth } from '@pubkey-stack/web-auth-data-access'
+import { UserUiAvatar } from '@pubkey-stack/web-user-ui'
 import { useUiColorScheme } from '@pubkey-ui/core'
 import { IconBug, IconLogout, IconMoonStars, IconSettings, IconShield, IconSun, IconUser } from '@tabler/icons-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 export function UiHeaderProfile() {
-  const { user, logout } = useWebAuth()
+  const { user, logout } = useAuth()
   const { colorScheme, toggleColorScheme } = useUiColorScheme()
   const [open, setOpen] = useState(false)
   const isAdmin = user?.role === UserRole.Admin
@@ -28,13 +28,13 @@ export function UiHeaderProfile() {
       <Menu.Target>
         <Button p={0} variant={open ? 'light' : 'default'} radius="xl">
           <Group gap={4} p={0}>
-            <WebUiUserAvatar user={user} alt={user?.username ?? 'User Avatar'} radius={100} size={34} />
+            <UserUiAvatar user={user} alt={user?.username ?? 'User Avatar'} radius={100} size={34} />
           </Group>
         </Button>
       </Menu.Target>
       <Menu.Dropdown>
         <Menu.Item component={Link} to="/profile" leftSection={<IconUser size="0.9rem" stroke={1.5} />}>
-          Your profile
+          View profile
         </Menu.Item>
         <Menu.Item component={Link} to="/settings" leftSection={<IconSettings size="0.9rem" stroke={1.5} />}>
           Your settings

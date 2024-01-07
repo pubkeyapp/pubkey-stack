@@ -1,14 +1,18 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
+import { IdentityProvider } from '@prisma/client'
 import { CookieOptions } from 'express-serve-static-core'
 import { ApiCoreConfig } from './config/configuration'
 import { AppConfig } from './entity/app-config.entity'
-import { IdentityProvider } from '@prisma/client'
 
 @Injectable()
 export class ApiCoreConfigService {
   private readonly logger = new Logger(ApiCoreConfigService.name)
-  constructor(private readonly service: ConfigService<ApiCoreConfig>) {}
+  constructor(private readonly service: ConfigService<ApiCoreConfig>) {
+    if (this.authRegisterEnabled && !this.authPasswordEnabled) {
+      throw new Error('Configuration error: Cannot enable AUTH_REGISTER_ENABLED without enabling AUTH_PASSWORD_ENABLED')
+    }
+  }
 
   get appConfig(): AppConfig {
     return {

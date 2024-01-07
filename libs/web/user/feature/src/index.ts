@@ -1,4 +1,4 @@
 import { lazy } from 'react'
 
-export const WebAdminUserRoutes = lazy(() => import('./lib/web-admin-user.routes'))
-export const WebUserRoutes = lazy(() => import('./lib/web-user.routes'))
+export const AdminUserFeature = lazy(() => import('./lib/admin-user-feature'))
+export const UserFeature = lazy(() => import('./lib/user-feature'))

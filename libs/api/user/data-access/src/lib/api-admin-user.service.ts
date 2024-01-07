@@ -13,16 +13,20 @@ export class ApiAdminUserService {
   constructor(private readonly core: ApiCoreService) {}
 
   async createUser(input: AdminCreateUserInput): Promise<PrismaUser> {
+    const username = slugifyId(input.username)
+    if (!username.length) {
+      throw new Error(`Username ${input.username} is not valid`)
+    }
     const exists = await this.core.data.user.findUnique({
-      where: { username: input.username },
+      where: { username: username },
     })
     if (exists) {
-      throw new Error(`User ${input.username} already exists`)
+      throw new Error(`User ${username} already exists`)
     }
     return this.core.data.user.create({
       data: {
-        username: input.username,
-        password: input.password ? hashPassword(input.username) : undefined,
+        username,
+        password: input.password ? hashPassword(input.password) : undefined,
       },
     })
   }
@@ -43,6 +47,7 @@ export class ApiAdminUserService {
       .paginate({
         orderBy: { createdAt: 'desc' },
         where: getAdminUserWhereInput(input),
+        include: { identities: true },
       })
       .withPages({ limit: input.limit, page: input.page })
       .then(([data, meta]) => ({ data, meta }))

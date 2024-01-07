@@ -1,4 +1,4 @@
 import { lazy } from 'react'
 
-export const WebAuthLoginFeature = lazy(() => import('./lib/web-auth-login.feature'))
-export const WebAuthRegisterFeature = lazy(() => import('./lib/web-auth-register.feature'))
+export const AuthLoginFeature = lazy(() => import('./lib/auth-login-feature'))
+export const AuthRegisterFeature = lazy(() => import('./lib/auth-register-feature'))

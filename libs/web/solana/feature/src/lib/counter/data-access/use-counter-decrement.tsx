@@ -1,4 +1,4 @@
-import { toastExplorerLink } from '@pubkey-stack/web-solana-data-access'
+import { uiToastLink } from '@pubkey-stack/web-solana-data-access'
 import { toastError } from '@pubkey-ui/core'
 import { useMutation } from '@tanstack/react-query'
 import { useCounterProgramAccount } from './counter-program-account-provider'
@@ -14,7 +14,7 @@ export function useCounterDecrement() {
         .accounts({ counter: account.publicKey })
         .rpc()
         .then((signature) => {
-          toastExplorerLink({
+          uiToastLink({
             link: getExplorerUrl(`/tx/${signature}`),
             label: 'View transaction',
           })

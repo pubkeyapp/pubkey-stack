@@ -1,8 +1,4 @@
-import { WalletMultiButton, WalletMultiIcon } from '@pubkeyapp/wallet-adapter-mantine-ui'
-
-export const WalletButton = WalletMultiButton
-export const WalletIcon = WalletMultiIcon
-
+export { WalletMultiButton as WalletButton, WalletMultiIcon as WalletIcon } from '@pubkeyapp/wallet-adapter-mantine-ui'
 export * from './lib/solana-ui-account-balance'
 export * from './lib/solana-ui-account-balance-button'
 export * from './lib/solana-ui-account-balance-check'

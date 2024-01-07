@@ -1,10 +1,10 @@
 import { IdentityProvider } from '@pubkey-stack/sdk'
-import { useWebSdk } from '@pubkey-stack/web-shell-data-access'
+import { useSdk } from '@pubkey-stack/web-core-data-access'
 import { toastError, toastSuccess } from '@pubkey-ui/core'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { createContext, ReactNode, useContext } from 'react'
+import { LinkSignOptions } from './identity-provider-solana-link'
 import { useCreateSignature } from './use-create-signature'
-import { LinkSignOptions } from './identity-provider-solana'
 
 export interface IdentityProviderSolanaLoginContext {
   verifyAndSign: (input: LinkSignOptions) => Promise<boolean>
@@ -13,7 +13,7 @@ export interface IdentityProviderSolanaLoginContext {
 const Context = createContext<IdentityProviderSolanaLoginContext>({} as IdentityProviderSolanaLoginContext)
 
 export function IdentityProviderSolanaLogin({ children, refresh }: { children: ReactNode; refresh: () => void }) {
-  const sdk = useWebSdk()
+  const sdk = useSdk()
   const { signMessage } = useWallet()
   const createSignature = useCreateSignature()
 

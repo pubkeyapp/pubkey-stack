@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql'
+import { Field, HideField, ObjectType } from '@nestjs/graphql'
 import { UserRole } from './user-role.enum'
 import { UserStatus } from './user-status.enum'
 
@@ -22,4 +22,6 @@ export class User {
   name?: string | null
   @Field({ nullable: true })
   username!: string
+  @HideField()
+  identities?: unknown[] | null
 }

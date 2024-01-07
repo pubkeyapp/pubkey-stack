@@ -1,8 +1,8 @@
-import { useWebSdk } from '@pubkey-stack/web-shell-data-access'
+import { useSdk } from '@pubkey-stack/web-core-data-access'
 import { useQuery } from '@tanstack/react-query'
 
 export function useUserFineOneUser(username: string) {
-  const sdk = useWebSdk()
+  const sdk = useSdk()
   const query = useQuery({
     queryKey: ['user', 'find-one-user', username],
     queryFn: () => sdk.userFindOneUser({ username }).then((res) => res.data),

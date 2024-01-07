@@ -1,10 +1,9 @@
 import { UserRole, UserStatus } from '@pubkey-stack/sdk'
-import { AuthGuard, UserRoleGuard, UserStatusGuard } from '@pubkey-stack/web-auth-data-access'
-import { UiFull } from '@pubkey-stack/web-ui-core'
-import { UiError, UiLoader, UiWarning } from '@pubkey-ui/core'
+import { AuthUiRouteGuard, AuthUiUserRoleGuard, AuthUiUserStatusGuard } from '@pubkey-stack/web-auth-ui'
+import { UiLoader } from '@pubkey-ui/core'
 
 import { Navigate, Outlet, RouteObject, useRoutes } from 'react-router-dom'
-import { WebShellLayout } from './web-shell-layout'
+import { ShellLayout } from './shell-layout'
 
 export function useGuardedRoutes({
   admin,
@@ -23,24 +22,24 @@ export function useGuardedRoutes({
     { index: true, element: <Navigate to={index} replace /> },
     {
       // This guard makes sure that the user is authenticated
-      element: <RouteGuardAuth />,
+      element: <AuthUiRouteGuard redirectTo="/login" loader={<UiLoader />} />,
       children: [
         {
           // This guard makes sure that the user is active
-          element: <RouteGuardUserActive />,
+          element: <AuthUiUserStatusGuard status={UserStatus.Active} />,
           children: [
             {
               // This adds the main layout to the routes
               element: (
-                <WebShellLayout>
+                <ShellLayout>
                   <Outlet />
-                </WebShellLayout>
+                </ShellLayout>
               ),
               children: [
                 {
                   path: '/admin/*',
                   // This guard makes sure that the user has the admin role
-                  element: <RouteGuardUserAdmin />,
+                  element: <AuthUiUserRoleGuard role={UserRole.Admin} />,
                   children: [...admin],
                 },
                 ...layout,
@@ -54,40 +53,4 @@ export function useGuardedRoutes({
     },
     ...root,
   ])
-}
-
-function RouteGuardAuth() {
-  return (
-    <AuthGuard redirectTo="/login" loader={<UiLoader />}>
-      <Outlet />
-    </AuthGuard>
-  )
-}
-
-function RouteGuardUserAdmin() {
-  const role = UserRole.Admin
-  return (
-    <UserRoleGuard
-      role={role}
-      denied={
-        <UiFull>
-          <UiError message={`You need the ${role} role`} />
-        </UiFull>
-      }
-    />
-  )
-}
-
-function RouteGuardUserActive() {
-  const status = UserStatus.Active
-  return (
-    <UserStatusGuard
-      status={status}
-      denied={
-        <UiFull>
-          <UiWarning message={`Your account is not ${status.toLowerCase()}.`} />
-        </UiFull>
-      }
-    />
-  )
 }

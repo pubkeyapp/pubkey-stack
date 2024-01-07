@@ -1,4 +1,4 @@
-import { WebShellFeature } from '@pubkey-stack/web-shell-feature'
+import { ShellFeature } from '@pubkey-stack/web-shell-feature'
 import { StrictMode } from 'react'
 import * as ReactDOM from 'react-dom/client'
 
@@ -12,6 +12,6 @@ if (typeof window !== 'undefined' && typeof window.global === 'undefined' && typ
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <StrictMode>
-    <WebShellFeature />
+    <ShellFeature />
   </StrictMode>,
 )

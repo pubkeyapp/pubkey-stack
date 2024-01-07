@@ -248,6 +248,7 @@ export type User = {
   createdAt?: Maybe<Scalars['DateTime']['output']>
   developer?: Maybe<Scalars['Boolean']['output']>
   id: Scalars['String']['output']
+  identities?: Maybe<Array<Identity>>
   name?: Maybe<Scalars['String']['output']>
   profileUrl?: Maybe<Scalars['String']['output']>
   role?: Maybe<UserRole>
@@ -689,6 +690,19 @@ export type AdminFindManyUserQuery = {
       status?: UserStatus | null
       updatedAt?: Date | null
       username?: string | null
+      identities?: Array<{
+        __typename?: 'Identity'
+        createdAt: Date
+        expired?: boolean | null
+        id: string
+        name?: string | null
+        profile?: any | null
+        provider: IdentityProvider
+        providerId: string
+        updatedAt: Date
+        url?: string | null
+        verified?: boolean | null
+      }> | null
     }>
     meta: {
       __typename?: 'PagingMeta'
@@ -1026,6 +1040,9 @@ export const AdminFindManyUserDocument = gql`
     paging: adminFindManyUser(input: $input) {
       data {
         ...UserDetails
+        identities {
+          ...IdentityDetails
+        }
       }
       meta {
         ...PagingMetaDetails
@@ -1033,6 +1050,7 @@ export const AdminFindManyUserDocument = gql`
     }
   }
   ${UserDetailsFragmentDoc}
+  ${IdentityDetailsFragmentDoc}
   ${PagingMetaDetailsFragmentDoc}
 `
 export const AdminFindOneUserDocument = gql`

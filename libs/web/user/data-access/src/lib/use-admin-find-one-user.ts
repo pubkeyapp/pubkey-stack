@@ -1,10 +1,10 @@
 import { AdminUpdateUserInput } from '@pubkey-stack/sdk'
-import { useWebSdk } from '@pubkey-stack/web-shell-data-access'
+import { useSdk } from '@pubkey-stack/web-core-data-access'
 import { toastError, toastSuccess } from '@pubkey-ui/core'
 import { useQuery } from '@tanstack/react-query'
 
 export function useAdminFindOneUser({ userId }: { userId: string }) {
-  const sdk = useWebSdk()
+  const sdk = useSdk()
   const query = useQuery({
     queryKey: ['admin', 'find-one-user', userId],
     queryFn: () => sdk.adminFindOneUser({ userId }).then((res) => res.data),

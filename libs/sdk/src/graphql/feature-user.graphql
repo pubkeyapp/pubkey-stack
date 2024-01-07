@@ -25,6 +25,9 @@ query adminFindManyUser($input: AdminFindManyUserInput!) {
   paging: adminFindManyUser(input: $input) {
     data {
       ...UserDetails
+      identities {
+        ...IdentityDetails
+      }
     }
     meta {
       ...PagingMetaDetails

@@ -152,6 +152,7 @@ type User {
   createdAt: DateTime
   developer: Boolean
   id: String!
+  identities: [Identity!]
   name: String
   profileUrl: String
   role: UserRole

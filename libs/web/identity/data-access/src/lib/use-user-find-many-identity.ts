@@ -1,11 +1,11 @@
 import { Identity, IdentityProvider } from '@pubkey-stack/sdk'
-import { useWebSdk } from '@pubkey-stack/web-shell-data-access'
+import { useSdk } from '@pubkey-stack/web-core-data-access'
 import { toastError, toastSuccess } from '@pubkey-ui/core'
 import { useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 
 export function useUserFindManyIdentity() {
-  const sdk = useWebSdk()
+  const sdk = useSdk()
   const query = useQuery({
     queryKey: ['user', 'find-many-identity'],
     queryFn: () => sdk.userFindManyIdentity().then((res) => res?.data),
@@ -16,15 +16,22 @@ export function useUserFindManyIdentity() {
       return []
     }
     const items = query.data?.items ?? []
-    return items.reduce((acc, item) => {
-      const existing = acc.find((x) => x.provider === item.provider)
-      if (existing) {
-        existing.items.push(item)
-      } else {
-        acc.push({ provider: item.provider, items: [item] })
-      }
-      return acc
-    }, [] as { provider: IdentityProvider; items: Identity[] }[])
+    return items.reduce(
+      (acc, item) => {
+        const existing = acc.find((x) => x.provider === item.provider)
+        if (existing) {
+          existing.items.push(item)
+        } else {
+          acc.push({ provider: item.provider, items: [item] })
+        }
+        return acc
+      },
+      [
+        { provider: IdentityProvider.Discord, items: [] },
+        { provider: IdentityProvider.GitHub, items: [] },
+        { provider: IdentityProvider.Solana, items: [] },
+      ] as { provider: IdentityProvider; items: Identity[] }[],
+    )
   }, [query.data])
 
   const items = query.data?.items ?? []

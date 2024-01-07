@@ -1,3 +1,3 @@
 import { lazy } from 'react'
 
-export const WebDashboardRoutes = lazy(() => import('./lib/web-dashboard-routes'))
+export const DashboardFeature = lazy(() => import('./lib/dashboard-feature'))

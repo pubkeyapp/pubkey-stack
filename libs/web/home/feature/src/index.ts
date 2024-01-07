@@ -1,3 +1,3 @@
 import { lazy } from 'react'
 
-export const WebHomeRoutes = lazy(() => import('./lib/web-home-routes'))
+export const HomeFeature = lazy(() => import('./lib/home-feature'))

@@ -1,13 +1,13 @@
 import { UserUpdateUserInput } from '@pubkey-stack/sdk'
-import { useWebAuth } from '@pubkey-stack/web-auth-data-access'
-import { useMeQuery, useWebSdk } from '@pubkey-stack/web-shell-data-access'
+import { useAuth, useMe } from '@pubkey-stack/web-auth-data-access'
+import { useSdk } from '@pubkey-stack/web-core-data-access'
 import { toastError } from '@pubkey-ui/core'
 import { useUserFineOneUser } from './use-user-fine-one-user'
 
 export function useUserProfile() {
-  const sdk = useWebSdk()
-  const meQuery = useMeQuery(sdk)
-  const { user } = useWebAuth()
+  const sdk = useSdk()
+  const me = useMe(sdk)
+  const { user } = useAuth()
   const { query } = useUserFineOneUser(user?.username as string)
 
   return {
@@ -19,7 +19,7 @@ export function useUserProfile() {
           input,
         })
         .then(async (res) => {
-          await Promise.all([query.refetch(), meQuery.refetch()])
+          await Promise.all([query.refetch(), me.refetch()])
           return !!res.data
         })
         .catch((err) => {

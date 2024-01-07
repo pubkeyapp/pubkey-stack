@@ -3,9 +3,9 @@ import { TOKEN_2022_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token'
 import { useConnection, useWallet } from '@solana/wallet-adapter-react'
 import { Connection, LAMPORTS_PER_SOL, PublicKey, TransactionSignature } from '@solana/web3.js'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useCluster } from './cluster-provider'
 import { createTransaction } from './create-transaction'
-import { toastExplorerLink } from './toast-signature-link'
-import { useCluster } from './web-cluster-provider'
+import { uiToastLink } from './ui-toast-link'
 
 export function useQueries({ address }: { address: PublicKey }) {
   const { connection } = useConnection()
@@ -129,7 +129,7 @@ function useOnTransactionSuccess({ address }: { address: PublicKey }) {
 
   return (signature?: TransactionSignature) => {
     if (signature) {
-      toastExplorerLink({ link: getExplorerUrl(`tx/${signature}`), label: 'View Transaction' })
+      uiToastLink({ link: getExplorerUrl(`tx/${signature}`), label: 'View Transaction' })
     }
     return Promise.all([
       client.invalidateQueries({ queryKey: getBalance.queryKey }),

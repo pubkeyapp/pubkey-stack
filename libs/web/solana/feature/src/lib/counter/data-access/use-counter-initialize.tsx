@@ -1,4 +1,4 @@
-import { toastExplorerLink, useCluster } from '@pubkey-stack/web-solana-data-access'
+import { uiToastLink, useCluster } from '@pubkey-stack/web-solana-data-access'
 import { toastError } from '@pubkey-ui/core'
 import { Keypair } from '@solana/web3.js'
 import { useMutation } from '@tanstack/react-query'
@@ -20,7 +20,10 @@ export function useCounterInitialize() {
         .signers([keypair])
         .rpc()
         .then((signature) => {
-          toastExplorerLink({ link: getExplorerUrl(`/tx/${signature}`) })
+          uiToastLink({
+            link: getExplorerUrl(`/tx/${signature}`),
+            label: 'View transaction',
+          })
 
           return refresh()
         })
