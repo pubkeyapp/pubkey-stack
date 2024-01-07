@@ -7,6 +7,7 @@ import { ApiAuthDiscordGuard } from './guards/api-auth-discord.guard'
 import { ApiAuthGraphQLUserGuard } from './guards/api-auth-graphql-user-guard.service'
 import { ApiAuthJwtStrategy } from './strategies/api-auth-jwt.strategy'
 import { DiscordStrategy } from './strategies/discord.strategy'
+import { GithubStrategy } from './strategies/github.strategy'
 
 @Module({
   imports: [
@@ -18,7 +19,14 @@ import { DiscordStrategy } from './strategies/discord.strategy'
     }),
     PassportModule,
   ],
-  providers: [ApiAuthDiscordGuard, ApiAuthGraphQLUserGuard, ApiAuthJwtStrategy, ApiAuthService, DiscordStrategy],
+  providers: [
+    ApiAuthDiscordGuard,
+    ApiAuthGraphQLUserGuard,
+    ApiAuthJwtStrategy,
+    ApiAuthService,
+    DiscordStrategy,
+    GithubStrategy,
+  ],
   exports: [ApiAuthService],
 })
 export class ApiAuthDataAccessModule {}

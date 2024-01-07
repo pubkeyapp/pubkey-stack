@@ -74,9 +74,60 @@ export class ApiAuthService {
     return this.findUsername(newUsername)
   }
 
+  async validateRequest({
+    req,
+    providerId,
+    provider,
+    profile,
+    accessToken,
+    refreshToken,
+  }: {
+    providerId: string
+    provider: IdentityProvider
+    accessToken: string
+    refreshToken: string
+    profile: Prisma.InputJsonValue
+    req: AuthRequest
+  }) {
+    const found = await this.findUserByIdentity({
+      provider,
+      providerId,
+    })
+
+    if (found && req.user?.id && found.ownerId !== req.user?.id) {
+      throw new Error(`This ${provider} account is already linked to another user.`)
+    }
+
+    if (found) {
+      await this.core.data.identity.update({
+        where: { id: found.id },
+        data: { accessToken, refreshToken, verified: true, profile },
+      })
+      return found.owner
+    }
+
+    const identity: Prisma.IdentityCreateWithoutOwnerInput = {
+      provider,
+      providerId,
+      accessToken,
+      refreshToken,
+      verified: true,
+      profile,
+    }
+
+    if (req.user?.id) {
+      return await this.updateUserWithIdentity(req.user.id, identity)
+    }
+
+    return await this.createUserWithIdentity(identity)
+  }
+
   async createUserWithIdentity(identity: Prisma.IdentityCreateWithoutOwnerInput) {
     const username = await this.findUsername((identity.profile as { username: string }).username ?? identity.providerId)
-    const admin = this.core.config.authDiscordAdminIds?.includes(identity.providerId)
+    const admin = this.core.config.isAdminId(identity.provider, identity.providerId)
+    this.logger.verbose(
+      `Creating user ${username} with identity ${identity.providerId} (${identity.provider}) (admin: ${admin})`,
+    )
 
     const user = await this.core.data.user.create({
       data: {
@@ -85,6 +136,7 @@ export class ApiAuthService {
         role: admin ? UserRole.Admin : UserRole.User,
         status: UserStatus.Active,
         username,
+        name: (identity.profile as { name?: string })?.name,
         identities: {
           create: {
             ...identity,

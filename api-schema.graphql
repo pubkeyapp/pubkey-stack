@@ -53,6 +53,7 @@ input AdminUpdateUserInput {
 
 type AppConfig {
   authDiscordEnabled: Boolean!
+  authGithubEnabled: Boolean!
   authPasswordEnabled: Boolean!
   authRegisterEnabled: Boolean!
   authSolanaEnabled: Boolean!

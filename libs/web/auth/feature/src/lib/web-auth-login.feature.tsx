@@ -4,7 +4,7 @@ import { useWebAuth } from '@pubkey-stack/web-auth-data-access'
 import { WebUiAuthLoginForm, WebUiAuthPage } from '@pubkey-stack/web-auth-ui'
 import { WebUiUserAvatar } from '@pubkey-stack/web-user-ui'
 import { UiLoader, UiStack } from '@pubkey-ui/core'
-import { IconBrandDiscord } from '@tabler/icons-react'
+import { IconBrandDiscord, IconBrandGithub } from '@tabler/icons-react'
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { WebUiIdentitySolanaLoginButton } from '@pubkey-stack/web-identity-ui'
@@ -32,9 +32,11 @@ export default function WebAuthLoginFeature() {
     return <UiLoader />
   }
 
-  const { authDiscordEnabled, authPasswordEnabled, authRegisterEnabled, authSolanaEnabled } = appConfig
+  const { authDiscordEnabled, authGithubEnabled, authPasswordEnabled, authRegisterEnabled, authSolanaEnabled } =
+    appConfig
 
-  const noAuthEnabled = !authDiscordEnabled && !authRegisterEnabled && !authPasswordEnabled && !authSolanaEnabled
+  const noAuthEnabled =
+    !authDiscordEnabled && !authGithubEnabled && !authRegisterEnabled && !authPasswordEnabled && !authSolanaEnabled
 
   return (
     <WebUiAuthPage>
@@ -66,6 +68,18 @@ export default function WebAuthLoginFeature() {
               leftSection={<IconBrandDiscord size={28} />}
             >
               Sign in with Discord
+            </Button>
+          ) : null}
+          {authGithubEnabled ? (
+            <Button
+              radius="md"
+              size="xl"
+              component="a"
+              href="/api/auth/github"
+              variant="light"
+              leftSection={<IconBrandGithub size={28} />}
+            >
+              Sign in with GitHub
             </Button>
           ) : null}
           {authSolanaEnabled ? (

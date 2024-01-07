@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config'
 import { CookieOptions } from 'express-serve-static-core'
 import { ApiCoreConfig } from './config/configuration'
 import { AppConfig } from './entity/app-config.entity'
+import { IdentityProvider } from '@prisma/client'
 
 @Injectable()
 export class ApiCoreConfigService {
@@ -12,6 +13,7 @@ export class ApiCoreConfigService {
   get appConfig(): AppConfig {
     return {
       authDiscordEnabled: this.authDiscordEnabled,
+      authGithubEnabled: this.authGithubEnabled,
       authPasswordEnabled: this.authPasswordEnabled,
       authRegisterEnabled: this.authRegisterEnabled,
       authSolanaEnabled: this.authSolanaEnabled,
@@ -24,6 +26,14 @@ export class ApiCoreConfigService {
 
   get authDiscordEnabled(): boolean {
     return this.service.get<boolean>('authDiscordEnabled') ?? false
+  }
+
+  get authGithubAdminIds() {
+    return this.service.get<string[]>('authGithubAdminIds')
+  }
+
+  get authGithubEnabled(): boolean {
+    return this.service.get<boolean>('authGithubEnabled') ?? false
   }
 
   get authPasswordEnabled(): boolean {
@@ -109,5 +119,18 @@ export class ApiCoreConfigService {
 
   get webUrl(): string {
     return this.service.get<string>('webUrl') as string
+  }
+
+  isAdminId(provider: IdentityProvider, providerId: string) {
+    switch (provider) {
+      case IdentityProvider.Discord:
+        return this.authDiscordAdminIds?.includes(providerId) ?? false
+      case IdentityProvider.GitHub:
+        return this.authGithubAdminIds?.includes(providerId) ?? false
+      case IdentityProvider.Solana:
+        return this.authSolanaAdminIds?.includes(providerId) ?? false
+      default:
+        return false
+    }
   }
 }

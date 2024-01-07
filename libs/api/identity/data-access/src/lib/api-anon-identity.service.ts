@@ -11,7 +11,7 @@ import { VerifyIdentityChallengeInput } from './dto/verify-identity-challenge-in
 import { sha256 } from './helpers/sha256'
 import { ApiSolanaIdentityService } from './api-solana-identity.service'
 import { ApiAuthService } from '@pubkey-stack/api-auth-data-access'
-import { UserRole, UserStatus } from '@prisma/client'
+import { IdentityProvider, UserRole, UserStatus } from '@prisma/client'
 
 @Injectable()
 export class ApiAnonIdentityService {
@@ -36,7 +36,7 @@ export class ApiAnonIdentityService {
 
     // Generate a random challenge
     const challenge = sha256(`${Math.random()}-${ip}-${userAgent}-${provider}-${providerId}-${Math.random()}`)
-    const admin = this.core.config.authSolanaAdminIds?.includes(providerId)
+    const admin = this.core.config.isAdminId(IdentityProvider.Solana, providerId)
     // Store the challenge
     return this.core.data.identityChallenge.create({
       data: {

@@ -22,6 +22,8 @@ export interface ApiCoreConfig {
   apiUrl: string
   authDiscordAdminIds: string[]
   authDiscordEnabled: boolean
+  authGithubAdminIds: string[]
+  authGithubEnabled: boolean
   authPasswordEnabled: boolean
   authRegisterEnabled: boolean
   authSolanaAdminIds: string[]
@@ -36,6 +38,8 @@ export interface ApiCoreConfig {
   databaseReset: boolean
   discordClientId: string
   discordClientSecret: string
+  githubClientId: string
+  githubClientSecret: string
   host: string
   port: number
   webUrl: string
@@ -46,6 +50,8 @@ export function configuration(): ApiCoreConfig {
     apiUrl: process.env['API_URL'] as string,
     authDiscordAdminIds: getFromEnvironment('AUTH_DISCORD_ADMIN_IDS'),
     authDiscordEnabled: process.env['AUTH_DISCORD_ENABLED'] === 'true',
+    authGithubAdminIds: getFromEnvironment('AUTH_GITHUB_ADMIN_IDS'),
+    authGithubEnabled: process.env['AUTH_GITHUB_ENABLED'] === 'true',
     authPasswordEnabled: process.env['AUTH_PASSWORD_ENABLED'] === 'true',
     authRegisterEnabled: process.env['AUTH_REGISTER_ENABLED'] === 'true',
     authSolanaAdminIds: getFromEnvironment('AUTH_SOLANA_ADMIN_IDS'),
@@ -60,6 +66,8 @@ export function configuration(): ApiCoreConfig {
     databaseReset: process.env['DATABASE_RESET'] === 'true',
     discordClientId: process.env['DISCORD_CLIENT_ID'] as string,
     discordClientSecret: process.env['DISCORD_CLIENT_SECRET'] as string,
+    githubClientId: process.env['GITHUB_CLIENT_ID'] as string,
+    githubClientSecret: process.env['GITHUB_CLIENT_SECRET'] as string,
     host: process.env['HOST'] as string,
     port: parseInt(process.env['PORT'] as string, 10) || 3000,
     webUrl: WEB_URL,

@@ -35,6 +35,7 @@ export function useUserFindManyIdentity() {
     expiredDiscord: discordIdentity?.expired ?? false,
     grouped,
     hasDiscord: !!discordIdentity,
+    hasGithub: items.some((x) => x.provider === IdentityProvider.GitHub),
     hasSolana: items.some((x) => x.provider === IdentityProvider.Solana),
     items,
     query,

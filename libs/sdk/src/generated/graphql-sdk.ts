@@ -76,6 +76,7 @@ export type AdminUpdateUserInput = {
 export type AppConfig = {
   __typename?: 'AppConfig'
   authDiscordEnabled: Scalars['Boolean']['output']
+  authGithubEnabled: Scalars['Boolean']['output']
   authPasswordEnabled: Scalars['Boolean']['output']
   authRegisterEnabled: Scalars['Boolean']['output']
   authSolanaEnabled: Scalars['Boolean']['output']
@@ -408,6 +409,7 @@ export type MeQuery = {
 export type AppConfigDetailsFragment = {
   __typename?: 'AppConfig'
   authDiscordEnabled: boolean
+  authGithubEnabled: boolean
   authPasswordEnabled: boolean
   authRegisterEnabled: boolean
   authSolanaEnabled: boolean
@@ -435,6 +437,7 @@ export type AppConfigQuery = {
   config: {
     __typename?: 'AppConfig'
     authDiscordEnabled: boolean
+    authGithubEnabled: boolean
     authPasswordEnabled: boolean
     authRegisterEnabled: boolean
     authSolanaEnabled: boolean
@@ -942,6 +945,7 @@ export type UserUpdateUserMutation = {
 export const AppConfigDetailsFragmentDoc = gql`
   fragment AppConfigDetails on AppConfig {
     authDiscordEnabled
+    authGithubEnabled
     authPasswordEnabled
     authRegisterEnabled
     authSolanaEnabled
