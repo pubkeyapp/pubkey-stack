@@ -63,14 +63,19 @@ export class ApiCoreConfigService {
         }`,
       )
     }
-    const isSecure = this.apiUrl.startsWith('https')
+    const isSecure = this.cookieSecure ?? this.apiUrl.startsWith('https')
     return {
       httpOnly: true,
-      secure: isSecure,
+      secure: true,
       domain: found || this.cookieDomains[0],
       sameSite: isSecure ? 'none' : 'strict',
     } as CookieOptions
   }
+
+  get cookieSecure(): boolean {
+    return this.service.get('cookieSecure') as boolean
+  }
+
   get databaseProvision() {
     return this.service.get<boolean>('databaseProvision')
   }

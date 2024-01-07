@@ -1,24 +1,22 @@
 import { useUserFindManyIdentity } from '@pubkey-stack/web-identity-data-access'
-import { WebUiIdentityIdentityGroupList, WebUiIdentitySolanaLinkButton } from '@pubkey-stack/web-identity-ui'
-import { UiLoader, UiStack, UiWarning } from '@pubkey-ui/core'
+import { WebUiIdentityConnect, WebUiIdentityIdentityGroupList } from '@pubkey-stack/web-identity-ui'
+import { UiLoader, UiStack } from '@pubkey-ui/core'
 
 export function WebSettingsIdentityList() {
-  const { deleteIdentity, hasSolana, grouped, items, query } = useUserFindManyIdentity()
+  const { deleteIdentity, grouped, items, query } = useUserFindManyIdentity()
 
   return (
     <UiStack>
-      {!hasSolana && <WebUiIdentitySolanaLinkButton refresh={() => query.refetch()} />}
+      <WebUiIdentityConnect />
       {query.isLoading ? (
         <UiLoader />
-      ) : items.length === 0 ? (
-        <UiWarning message="No identities found" />
-      ) : (
+      ) : items.length ? (
         <WebUiIdentityIdentityGroupList
           grouped={grouped}
           deleteIdentity={deleteIdentity}
           refresh={() => query.refetch()}
         />
-      )}
+      ) : null}
     </UiStack>
   )
 }

@@ -24,7 +24,7 @@ export function WebUiIdentityIdentityGroupList({
               <Text size="xl">{group.provider}</Text>
             </Group>
             {refresh && group.provider === IdentityProvider.Solana && (
-              <WebUiIdentitySolanaLinkButton items={group.items ?? []} refresh={refresh} />
+              <WebUiIdentitySolanaLinkButton size="sm" identities={group.items ?? []} refresh={refresh} />
             )}
           </Group>
           {<WebUiIdentityIdentityList items={group.items} refresh={refresh} deleteIdentity={deleteIdentity} />}

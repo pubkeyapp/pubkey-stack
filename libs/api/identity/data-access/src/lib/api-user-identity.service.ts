@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common'
-import { Identity as PrismaIdentity, IdentityProvider } from '@prisma/client'
+import { Identity as PrismaIdentity } from '@prisma/client'
 import { ApiCoreService, BaseContext, getRequestDetails } from '@pubkey-stack/api-core-data-access'
 import { verifySignature } from '@pubkeyapp/solana-verify-wallet'
 import { LinkIdentityInput } from './dto/link-identity-input'
@@ -14,12 +14,15 @@ export class ApiUserIdentityService {
   constructor(private readonly core: ApiCoreService, private readonly solana: ApiSolanaIdentityService) {}
 
   async deleteIdentity(userId: string, identityId: string): Promise<boolean> {
-    const found = await this.core.data.identity.findFirst({ where: { id: identityId, ownerId: userId } })
+    const found = await this.core.data.identity.findFirst({
+      where: { id: identityId, ownerId: userId },
+      include: { owner: { include: { identities: true } } },
+    })
     if (!found) {
       throw new Error(`Identity ${identityId} not found`)
     }
-    if (found.provider === IdentityProvider.Discord) {
-      throw new Error(`Discord identities cannot be deleted`)
+    if (found.owner.identities.length === 1 && !found.owner.password) {
+      throw new Error(`Cannot delete last identity`)
     }
     const deleted = await this.core.data.identity.delete({ where: { id: identityId } })
     if (!deleted) {

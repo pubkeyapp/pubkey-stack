@@ -28,6 +28,7 @@ export interface ApiCoreConfig {
   authSolanaEnabled: boolean
   cookieDomains: string[]
   cookieName: string
+  cookieSecure: boolean
   corsOrigins: string[]
   environment: Env
   databaseProvision: boolean
@@ -52,6 +53,7 @@ export function configuration(): ApiCoreConfig {
     cookieDomains,
     cookieName: '__session',
     corsOrigins,
+    cookieSecure: process.env['COOKIE_SECURE'] === 'true',
     environment: (process.env['NODE_ENV'] as Env) || 'development',
     databaseProvision: process.env['DATABASE_PROVISION'] === 'true',
     databaseRandomData: process.env['DATABASE_RANDOM_DATA'] === 'true',

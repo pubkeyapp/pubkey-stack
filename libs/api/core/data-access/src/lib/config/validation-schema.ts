@@ -9,6 +9,7 @@ export const validationSchema = Joi.object({
   AUTH_SOLANA_ADMIN_IDS: Joi.string(),
   AUTH_SOLANA_ENABLED: Joi.boolean().default(true),
   COOKIE_NAME: Joi.string().default('__session'),
+  COOKIE_SECURE: Joi.boolean().default(true),
   DATABASE_PROVISION: Joi.boolean().default(false),
   DATABASE_RANDOM_DATA: Joi.boolean().default(false),
   DATABASE_RESET: Joi.boolean().default(false),

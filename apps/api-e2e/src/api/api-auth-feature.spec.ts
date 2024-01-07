@@ -89,7 +89,7 @@ describe('api-auth-feature', () => {
         try {
           await sdk.login({ input: { username: 'charlie', password: 'does-not-have-a-password' } })
         } catch (e) {
-          expect(e.message).toContain('Login with username and password is not allowed.')
+          expect(e.message).toContain('Password login not allowed.')
         }
       })
 

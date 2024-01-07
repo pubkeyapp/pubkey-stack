@@ -20,17 +20,18 @@ export class DiscordStrategy extends PassportStrategy(Strategy, 'discord') {
   }
 
   async validate(req: AuthRequest, accessToken: string, refreshToken: string, profile: Profile) {
-    if (req.user?.id) {
-      throw new Error('User already logged in.')
-    }
-
-    const identityProfile = createDiscordProfile(profile)
     const found = await this.service.findUserByIdentity({
       provider: this.provider,
       providerId: profile.id,
     })
 
-    if (found?.owner) {
+    if (found && req.user?.id && found.ownerId !== req.user?.id) {
+      throw new Error('This Discord account is already linked to another user.')
+    }
+
+    const identityProfile = createDiscordProfile(profile)
+
+    if (found) {
       await this.core.data.identity.update({
         where: { id: found.id },
         data: { accessToken, refreshToken, verified: true, profile: identityProfile },
@@ -46,6 +47,11 @@ export class DiscordStrategy extends PassportStrategy(Strategy, 'discord') {
       verified: true,
       profile: identityProfile,
     }
+
+    if (req.user?.id) {
+      return await this.service.updateUserWithIdentity(req.user.id, identity)
+    }
+
     return await this.service.createUserWithIdentity(identity)
   }
 }

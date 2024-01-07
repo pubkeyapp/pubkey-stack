@@ -60,7 +60,6 @@ export function WebUiIdentityIdentityList({
                   <Menu.Dropdown>
                     <Menu.Label>Danger zone</Menu.Label>
                     <Menu.Item
-                      disabled={item.provider === IdentityProvider.Discord}
                       color="red"
                       leftSection={<IconTrash size={14} />}
                       onClick={() => deleteIdentity(item.id)}

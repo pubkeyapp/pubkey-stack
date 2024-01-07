@@ -99,13 +99,25 @@ export class ApiAuthService {
     return user
   }
 
+  async updateUserWithIdentity(userId: string, identity: Prisma.IdentityCreateWithoutOwnerInput) {
+    const updated = await this.core.data.user.update({
+      where: { id: userId },
+      data: { identities: { create: { ...identity } } },
+    })
+    this.logger.verbose(
+      `Updated user ${updated.username} (${updated.id}), added identity ${identity.providerId} (${identity.provider})`,
+    )
+
+    return updated
+  }
+
   private async validateUser({ username, password }: LoginInput) {
     const user = await this.core.data.user.findUnique({ where: { username } })
     if (!user) {
       throw new Error('User not found.')
     }
     if (!user.password) {
-      throw new Error('Login with username and password is not allowed.')
+      throw new Error('Password login not allowed.')
     }
     if (user.status === UserStatus.Inactive) {
       throw new Error('User is inactive.')

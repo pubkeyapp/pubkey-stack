@@ -44,11 +44,11 @@ export function useUserFindManyIdentity() {
       }
       sdk
         .userDeleteIdentity({ identityId })
-        .then((res) => {
+        .then(() => {
           toastSuccess('Identity deleted')
         })
         .catch((res) => {
-          toastError('Error deleting identity')
+          toastError({ title: 'Error deleting identity', message: `${res}` })
         })
         .finally(() => query.refetch())
     },
