@@ -11,6 +11,7 @@ export function IdentityUiLoginButton({
   switch (provider) {
     case IdentityProvider.Discord:
     case IdentityProvider.GitHub:
+    case IdentityProvider.Twitter:
       return <IdentityUiProviderLoginButton provider={provider} fullWidth {...props} />
     case IdentityProvider.Solana:
       return <IdentityUiSolanaLoginButton refresh={refresh} fullWidth {...props} />

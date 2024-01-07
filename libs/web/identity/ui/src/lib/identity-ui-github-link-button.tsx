@@ -17,3 +17,19 @@ export function IdentityUiGithubLinkButton({ ...props }: ButtonProps) {
     </Button>
   )
 }
+
+export function IdentityUiTwitterLinkButton({ ...props }: ButtonProps) {
+  return (
+    <Button
+      bg="#1DA1F2"
+      variant="filled"
+      size="xl"
+      leftSection={<IdentityUiIcon provider={IdentityProvider.Twitter} />}
+      component={'a'}
+      href="/api/auth/twitter"
+      {...props}
+    >
+      Link Twitter Account
+    </Button>
+  )
+}

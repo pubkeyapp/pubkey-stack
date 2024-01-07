@@ -4,6 +4,7 @@ fragment AppConfigDetails on AppConfig {
   authPasswordEnabled
   authRegisterEnabled
   authSolanaEnabled
+  authTwitterEnabled
 }
 
 fragment PagingMetaDetails on PagingMeta {

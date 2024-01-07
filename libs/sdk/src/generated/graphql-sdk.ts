@@ -64,6 +64,7 @@ export type AppConfig = {
   authPasswordEnabled: Scalars['Boolean']['output']
   authRegisterEnabled: Scalars['Boolean']['output']
   authSolanaEnabled: Scalars['Boolean']['output']
+  authTwitterEnabled: Scalars['Boolean']['output']
 }
 
 export type Identity = {
@@ -100,6 +101,7 @@ export enum IdentityProvider {
   Discord = 'Discord',
   GitHub = 'GitHub',
   Solana = 'Solana',
+  Twitter = 'Twitter',
 }
 
 export type LinkIdentityInput = {
@@ -366,6 +368,7 @@ export type AppConfigDetailsFragment = {
   authPasswordEnabled: boolean
   authRegisterEnabled: boolean
   authSolanaEnabled: boolean
+  authTwitterEnabled: boolean
 }
 
 export type PagingMetaDetailsFragment = {
@@ -394,6 +397,7 @@ export type AppConfigQuery = {
     authPasswordEnabled: boolean
     authRegisterEnabled: boolean
     authSolanaEnabled: boolean
+    authTwitterEnabled: boolean
   }
 }
 
@@ -843,6 +847,7 @@ export const AppConfigDetailsFragmentDoc = gql`
     authPasswordEnabled
     authRegisterEnabled
     authSolanaEnabled
+    authTwitterEnabled
   }
 `
 export const PagingMetaDetailsFragmentDoc = gql`

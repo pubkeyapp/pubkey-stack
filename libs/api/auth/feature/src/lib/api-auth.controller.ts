@@ -5,6 +5,7 @@ import {
   ApiAuthDiscordGuard,
   ApiAuthGithubGuard,
   ApiAuthService,
+  ApiAuthTwitterGuard,
   AuthRequest,
 } from '@pubkey-stack/api-auth-data-access'
 import { Response } from 'express-serve-static-core'
@@ -35,6 +36,19 @@ export class ApiAuthController {
   @Get('github/callback')
   @UseGuards(ApiAnonJwtGuard, ApiAuthGithubGuard)
   async githubAuthCallback(@Req() req: AuthRequest, @Res({ passthrough: true }) res: Response) {
+    await this.service.setUserCookie({ req, res, user: req.user })
+    res.redirect(this.service.core.config.webUrl + '/dashboard')
+  }
+
+  @Get('twitter')
+  @UseGuards(ApiAuthTwitterGuard)
+  twitterAuthLogin() {
+    // This method triggers the Twitter OAuth2 flow
+  }
+
+  @Get('twitter/callback')
+  @UseGuards(ApiAnonJwtGuard, ApiAuthTwitterGuard)
+  async twitterAuthCallback(@Req() req: AuthRequest, @Res({ passthrough: true }) res: Response) {
     await this.service.setUserCookie({ req, res, user: req.user })
     res.redirect(this.service.core.config.webUrl + '/dashboard')
   }

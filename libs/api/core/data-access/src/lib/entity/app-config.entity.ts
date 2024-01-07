@@ -12,4 +12,6 @@ export class AppConfig {
   authRegisterEnabled!: boolean
   @Field()
   authSolanaEnabled!: boolean
+  @Field()
+  authTwitterEnabled!: boolean
 }

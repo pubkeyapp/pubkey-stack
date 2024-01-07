@@ -30,6 +30,11 @@ export interface ApiCoreConfig {
   authGithubClientId: string
   authGithubClientSecret: string
   authGithubEnabled: boolean
+  // Twitter Authentication
+  authTwitterAdminIds: string[]
+  authTwitterConsumerKey: string
+  authTwitterConsumerSecret: string
+  authTwitterEnabled: boolean
   // Username and Password Authentication
   authPasswordEnabled: boolean
   authRegisterEnabled: boolean
@@ -64,6 +69,10 @@ export function configuration(): ApiCoreConfig {
     authGithubClientId: process.env['AUTH_GITHUB_CLIENT_ID'] as string,
     authGithubClientSecret: process.env['AUTH_GITHUB_CLIENT_SECRET'] as string,
     authGithubEnabled: process.env['AUTH_GITHUB_ENABLED'] === 'true',
+    authTwitterAdminIds: getFromEnvironment('AUTH_TWITTER_ADMIN_IDS'),
+    authTwitterConsumerKey: process.env['AUTH_TWITTER_CONSUMER_KEY'] as string,
+    authTwitterConsumerSecret: process.env['AUTH_TWITTER_CONSUMER_SECRET'] as string,
+    authTwitterEnabled: process.env['AUTH_TWITTER_ENABLED'] === 'true',
     authPasswordEnabled: process.env['AUTH_PASSWORD_ENABLED'] === 'true',
     authRegisterEnabled: process.env['AUTH_REGISTER_ENABLED'] === 'true',
     authSolanaAdminIds: getFromEnvironment('AUTH_SOLANA_ADMIN_IDS'),

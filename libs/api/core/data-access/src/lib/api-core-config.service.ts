@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { IdentityProvider } from '@prisma/client'
 import { CookieOptions } from 'express-serve-static-core'
+import * as process from 'process'
 import { ApiCoreConfig } from './config/configuration'
 import { AppConfig } from './entity/app-config.entity'
 
@@ -21,6 +22,7 @@ export class ApiCoreConfigService {
       authPasswordEnabled: this.authPasswordEnabled,
       authRegisterEnabled: this.authRegisterEnabled,
       authSolanaEnabled: this.authSolanaEnabled,
+      authTwitterEnabled: this.authTwitterEnabled,
     }
   }
 
@@ -91,6 +93,26 @@ export class ApiCoreConfigService {
       !this.service.get<boolean>('authGithubEnabled')
     )
   }
+  get authTwitterAdminIds() {
+    return this.service.get<string[]>('authTwitterAdminIds')
+  }
+
+  get authTwitterConsumerKey() {
+    return this.service.get<string>('authTwitterConsumerKey')
+  }
+
+  get authTwitterConsumerSecret() {
+    return this.service.get<string>('authTwitterConsumerSecret')
+  }
+
+  get authTwitterEnabled(): boolean {
+    return !(
+      !this.authTwitterConsumerKey ||
+      !this.authTwitterConsumerSecret ||
+      !this.service.get<boolean>('authTwitterEnabled')
+    )
+  }
+
   get authPasswordEnabled(): boolean {
     return this.service.get<boolean>('authPasswordEnabled') ?? false
   }
@@ -168,8 +190,13 @@ export class ApiCoreConfigService {
   get prefix() {
     return 'api'
   }
+
   get isDevelopment(): boolean {
     return this.environment === 'development'
+  }
+
+  get sessionSecret() {
+    return process.env['JWT_SECRET'] as string
   }
 
   get webUrl(): string {
@@ -184,6 +211,8 @@ export class ApiCoreConfigService {
         return this.authGithubAdminIds?.includes(providerId) ?? false
       case IdentityProvider.Solana:
         return this.authSolanaAdminIds?.includes(providerId) ?? false
+      case IdentityProvider.Twitter:
+        return this.authTwitterAdminIds?.includes(providerId) ?? false
       default:
         return false
     }

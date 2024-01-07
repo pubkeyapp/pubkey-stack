@@ -5,6 +5,7 @@ import { ApiCoreDataAccessModule } from '@pubkey-stack/api-core-data-access'
 import { ApiAuthDataAccessModule } from './api-auth-data-access.module'
 import { ApiAuthDiscordStrategy } from './strategies/api-auth-discord.strategy'
 import { ApiAuthGithubStrategy } from './strategies/api-auth-github.strategy'
+import { ApiAuthTwitterStrategy } from './strategies/api-auth-twitter.strategy'
 
 @Module({})
 export class ApiAuthStrategyModule {
@@ -32,6 +33,10 @@ export class ApiAuthStrategyModule {
       Logger.verbose('Github auth ENABLED', 'ApiAuthStrategyModule')
       strategies.push(ApiAuthGithubStrategy)
     }
+    if (this.twitterEnabled()) {
+      Logger.verbose('Twitter auth ENABLED', 'ApiAuthStrategyModule')
+      strategies.push(ApiAuthTwitterStrategy)
+    }
     return strategies
   }
 
@@ -54,6 +59,16 @@ export class ApiAuthStrategyModule {
       // And we need to have the client ID and secret set
       !!process.env['AUTH_GITHUB_CLIENT_ID'] &&
       !!process.env['AUTH_GITHUB_CLIENT_SECRET']
+    )
+  }
+  // TODO: These should be coming from the ApiCoreConfigService instead of process.env
+  static twitterEnabled(): boolean {
+    return (
+      // Twitter auth needs to be enabled
+      !!process.env['AUTH_TWITTER_ENABLED'] &&
+      // And we need to have the client ID and secret set
+      !!process.env['AUTH_TWITTER_CONSUMER_KEY'] &&
+      !!process.env['AUTH_TWITTER_CONSUMER_SECRET']
     )
   }
 }
