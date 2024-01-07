@@ -16,7 +16,7 @@ export async function createMockWebApp(tree: Tree, app: string) {
   })
   // Create the shell data access lib
   await libraryGenerator(tree, {
-    directory: `libs/${app}/shell/data-access`,
+    directory: `libs/${app}/core/data-access`,
     linter: Linter.EsLint,
     name: `${app}-shell-data-access`,
     projectNameAndRootFormat: 'as-provided',
@@ -38,8 +38,8 @@ export async function createMockWebApp(tree: Tree, app: string) {
   await createMockComponent(tree, `${app}-shell-feature`, `${app}-shell-feature`)
 
   // Create the shell routes libs
-  await createMockComponent(tree, `${app}-shell-feature`, `${app}-shell.routes`)
-  await createMockComponent(tree, `${app}-shell-feature`, `${app}-admin.routes`)
+  await createMockComponent(tree, `${app}-shell-feature`, `shell-routes`)
+  await createMockComponent(tree, `${app}-shell-feature`, `shell-admin-routes`)
 }
 
 function createMockComponent(tree: Tree, project: string, name: string) {

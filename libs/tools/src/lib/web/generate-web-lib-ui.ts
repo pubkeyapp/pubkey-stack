@@ -26,9 +26,9 @@ export async function generateWebLibUi(tree: Tree, options: NormalizedWebFeature
     })
     addExports(tree, barrel, [
       // Export the admin hooks
-      `./lib/admin-ui-${options.name}-create-form`,
-      `./lib/admin-ui-${options.name}-table`,
-      `./lib/admin-ui-${options.name}-update-form`,
+      `./lib/admin-${options.name}-ui-create-form`,
+      `./lib/admin-${options.name}-ui-table`,
+      `./lib/admin-${options.name}-ui-update-form`,
     ])
   }
 }

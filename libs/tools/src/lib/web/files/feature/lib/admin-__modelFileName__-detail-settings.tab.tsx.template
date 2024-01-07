@@ -1,8 +1,8 @@
 import { useAdminFindOne<%= modelClassName %> } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-data-access'
-import { AdminUiUpdate<%= modelClassName %>Form } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-ui'
+import { Admin<%= modelClassName %>UiUpdateForm } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-ui'
 import { UiCard, UiError, UiLoader } from '@pubkey-ui/core'
 
-export function WebAdmin<%= modelClassName %>DetailSettingsTab({ <%= modelPropertyName %>Id }: { <%= modelPropertyName %>Id: string }) {
+export function Admin<%= modelClassName %>DetailSettingsTab({ <%= modelPropertyName %>Id }: { <%= modelPropertyName %>Id: string }) {
   const { item, query, update<%= modelClassName %> } = useAdminFindOne<%= modelClassName %>({ <%= modelPropertyName %>Id })
 
   if (query.isLoading) {
@@ -14,7 +14,7 @@ export function WebAdmin<%= modelClassName %>DetailSettingsTab({ <%= modelProper
 
 return (
     <UiCard>
-      <AdminUiUpdate<%= modelClassName %>Form <%= modelPropertyName %>={item} submit={update<%= modelClassName %>} />
+      <Admin<%= modelClassName %>UiUpdateForm <%= modelPropertyName %>={item} submit={update<%= modelClassName %>} />
     </UiCard>
   )
 }

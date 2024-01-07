@@ -4,7 +4,7 @@ import { IconPencil, IconTrash } from '@tabler/icons-react'
 import { DataTable, DataTableProps } from 'mantine-datatable'
 import { Link } from 'react-router-dom'
 
-export function AdminUi<%= modelClassName %>Table({
+export function Admin<%= modelClassName %>UiTable({
   delete<%= modelClassName %>,
   <%= modelPropertyNamePlural %> = [],
   onPageChange,

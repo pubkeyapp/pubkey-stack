@@ -1,11 +1,11 @@
 import { Button, Group } from '@mantine/core'
 import { UiPageLimit, UiSearchField } from '@<%= npmScope %>/<%= app %>-ui-core'
 import { useAdminFindMany<%= modelClassName %> } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-data-access'
-import { AdminUi<%= modelClassName %>Table } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-ui'
+import { Admin<%= modelClassName %>UiTable } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-ui'
 import { UiBack, UiDebugModal, UiInfo, UiLoader, UiPage } from '@pubkey-ui/core'
 import { Link } from 'react-router-dom'
 
-export function WebAdmin<%= modelClassName %>ListFeature() {
+export function Admin<%= modelClassName %>ListFeature() {
   const { delete<%= modelClassName %>, items, pagination, query, setSearch } = useAdminFindMany<%= modelClassName %>()
 
   return (
@@ -29,7 +29,7 @@ export function WebAdmin<%= modelClassName %>ListFeature() {
       {query.isLoading ? (
         <UiLoader />
       ) : items?.length ? (
-        <AdminUi<%= modelClassName %>Table
+        <Admin<%= modelClassName %>UiTable
           delete<%= modelClassName %>={(<%= modelPropertyName %>) => {
             if (!window.confirm('Are you sure?')) return
             return delete<%= modelClassName %>(<%= modelPropertyName %>.id)

@@ -2,10 +2,10 @@ import { Group } from '@mantine/core'
 import { UiBack, UiDebugModal, UiError, UiLoader, UiPage, UiTabRoutes } from '@pubkey-ui/core'
 import { useAdminFindOne<%= modelClassName %> } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-data-access'
 import { useParams } from 'react-router-dom'
-import { WebAdmin<%= modelClassName %>DetailOverviewTab } from './web-admin-<%= modelFileName %>-detail-overview.tab'
-import { WebAdmin<%= modelClassName %>DetailSettingsTab } from './web-admin-<%= modelFileName %>-detail-settings.tab'
+import { Admin<%= modelClassName %>DetailOverviewTab } from './admin-<%= modelFileName %>-detail-overview.tab'
+import { Admin<%= modelClassName %>DetailSettingsTab } from './admin-<%= modelFileName %>-detail-settings.tab'
 
-export function WebAdmin<%= modelClassName %>DetailFeature() {
+export function Admin<%= modelClassName %>DetailFeature() {
   const { <%= modelPropertyName %>Id } = useParams<{ <%= modelPropertyName %>Id: string }>() as { <%= modelPropertyName %>Id: string }
   const { item, query } = useAdminFindOne<%= modelClassName %>({ <%= modelPropertyName %>Id })
 
@@ -31,12 +31,12 @@ export function WebAdmin<%= modelClassName %>DetailFeature() {
           {
             value: 'overview',
             label: 'Overview',
-            component: <WebAdmin<%= modelClassName %>DetailOverviewTab <%= modelPropertyName %>Id={<%= modelPropertyName %>Id} />,
+            component: <Admin<%= modelClassName %>DetailOverviewTab <%= modelPropertyName %>Id={<%= modelPropertyName %>Id} />,
           },
           {
             value: 'settings',
             label: 'Settings',
-            component: <WebAdmin<%= modelClassName %>DetailSettingsTab <%= modelPropertyName %>Id={<%= modelPropertyName %>Id} />,
+            component: <Admin<%= modelClassName %>DetailSettingsTab <%= modelPropertyName %>Id={<%= modelPropertyName %>Id} />,
           },
         ]}
       />

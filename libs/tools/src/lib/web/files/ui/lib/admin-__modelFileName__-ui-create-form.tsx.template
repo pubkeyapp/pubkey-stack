@@ -2,7 +2,7 @@ import { AdminCreate<%= modelClassName %>Input } from '@<%= npmScope %>/sdk'
 import { formFieldText, UiForm, UiFormField } from '@pubkey-ui/core'
 import { ReactNode } from 'react'
 
-export function AdminUiCreate<%= modelClassName %>Form({
+export function Admin<%= modelClassName %>UiCreateForm({
   children,
   submit,
 }: {

@@ -27,7 +27,7 @@ export async function generateWebLibFeature(tree: Tree, options: NormalizedWebFe
       barrel,
       `import { lazy } from 'react'
 
-export const WebAdmin${className}Routes = lazy(() => import('./lib/web-admin-${fileName}.routes'))
+export const Admin${className}Feature = lazy(() => import('./lib/admin-${fileName}-feature'))
 `,
     )
 
@@ -36,7 +36,7 @@ export const WebAdmin${className}Routes = lazy(() => import('./lib/web-admin-${f
       throw new Error(`Could not find shell project for ${options.app}`)
     }
 
-    const adminRoutes = `${shellProject.sourceRoot}/lib/web-admin.routes.tsx`
+    const adminRoutes = `${shellProject.sourceRoot}/lib/shell-admin-routes.tsx`
 
     updateSourceFile(tree, adminRoutes, (source) => {
       addArrayItem(source, {
@@ -45,13 +45,13 @@ export const WebAdmin${className}Routes = lazy(() => import('./lib/web-admin-${f
       })
       addArrayItem(source, {
         name: 'routes',
-        content: `{ path: '${fileNamePlural}/*', element: <WebAdmin${className}Routes /> },`,
+        content: `{ path: '${fileNamePlural}/*', element: <Admin${className}Feature /> },`,
       })
       return source
     })
 
     updateSourceFile(tree, adminRoutes, (source) => {
-      addNamedImport(source, `@${npmScope}/${options.app}-${options.name}-feature`, `WebAdmin${className}Routes`)
+      addNamedImport(source, `@${npmScope}/${options.app}-${options.name}-feature`, `Admin${className}Feature`)
       return source
     })
   }

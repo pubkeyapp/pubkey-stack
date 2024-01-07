@@ -1,11 +1,11 @@
 import { AdminCreate<%= modelClassName %>Input, AdminFindMany<%= modelClassName %>Input } from '@<%= npmScope %>/sdk'
-import { useWebSdk } from '@<%= npmScope %>/<%= app %>-shell-data-access'
+import { useSdk } from '@<%= npmScope %>/<%= app %>-core-data-access'
 import { toastError, toastSuccess } from '@pubkey-ui/core'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
 export function useAdminFindMany<%= modelClassName %>(props?: Partial<AdminFindMany<%= modelClassName %>Input>) {
-  const sdk = useWebSdk()
+  const sdk = useSdk()
   const [limit, setLimit] = useState(props?.limit ?? 10)
   const [page, setPage] = useState(props?.page ?? 1)
   const [search, setSearch] = useState<string>(props?.search ?? '')
