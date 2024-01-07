@@ -41,6 +41,7 @@ type AppConfig {
   authPasswordEnabled: Boolean!
   authRegisterEnabled: Boolean!
   authSolanaEnabled: Boolean!
+  authTelegramEnabled: Boolean!
   authTwitterEnabled: Boolean!
 }
 
@@ -81,6 +82,7 @@ enum IdentityProvider {
   Discord
   GitHub
   Solana
+  Telegram
   Twitter
 }
 

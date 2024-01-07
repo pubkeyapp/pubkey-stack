@@ -12,11 +12,15 @@ export const validationSchema = Joi.object({
   AUTH_GITHUB_CLIENT_ID: Joi.string(),
   AUTH_GITHUB_CLIENT_SECRET: Joi.string(),
   AUTH_GITHUB_ENABLED: Joi.boolean().default(true), // Client ID and Client Secret are also required
-  // GitHub Authentication
+  // Twitter Authentication
   AUTH_TWITTER_ADMIN_IDS: Joi.string(),
   AUTH_TWITTER_CONSUMER_KEY: Joi.string(),
   AUTH_TWITTER_CONSUMER_SECRET: Joi.string(),
   AUTH_TWITTER_ENABLED: Joi.boolean().default(true), // Client ID and Client Secret are also required
+  // Telegram Authentication
+  AUTH_TELEGRAM_ADMIN_IDS: Joi.string(),
+  AUTH_TELEGRAM_BOT_TOKEN: Joi.string(),
+  AUTH_TELEGRAM_ENABLED: Joi.boolean().default(true), // Client ID and Client Secret are also required
   // Username and Password Authentication
   AUTH_PASSWORD_ENABLED: Joi.boolean().default(true),
   AUTH_REGISTER_ENABLED: Joi.boolean().default(true),

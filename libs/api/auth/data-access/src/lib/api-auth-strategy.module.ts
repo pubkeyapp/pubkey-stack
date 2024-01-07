@@ -3,8 +3,10 @@ import { ConfigModule } from '@nestjs/config'
 
 import { ApiCoreDataAccessModule } from '@pubkey-stack/api-core-data-access'
 import { ApiAuthDataAccessModule } from './api-auth-data-access.module'
+import { ApiAuthTelegramGuard } from './guards/api-auth-telegram.guard'
 import { ApiAuthDiscordStrategy } from './strategies/api-auth-discord.strategy'
 import { ApiAuthGithubStrategy } from './strategies/api-auth-github.strategy'
+import { ApiAuthTelegramStrategy } from './strategies/api-auth-telegram.strategy'
 import { ApiAuthTwitterStrategy } from './strategies/api-auth-twitter.strategy'
 
 @Module({})
@@ -32,6 +34,10 @@ export class ApiAuthStrategyModule {
     if (this.githubEnabled()) {
       Logger.verbose('Github auth ENABLED', 'ApiAuthStrategyModule')
       strategies.push(ApiAuthGithubStrategy)
+    }
+    if (this.telegramEnabled()) {
+      Logger.verbose('Telegram auth ENABLED', 'ApiAuthStrategyModule')
+      strategies.push(...[ApiAuthTelegramStrategy, ApiAuthTelegramGuard])
     }
     if (this.twitterEnabled()) {
       Logger.verbose('Twitter auth ENABLED', 'ApiAuthStrategyModule')
@@ -61,6 +67,17 @@ export class ApiAuthStrategyModule {
       !!process.env['AUTH_GITHUB_CLIENT_SECRET']
     )
   }
+
+  // TODO: These should be coming from the ApiCoreConfigService instead of process.env
+  static telegramEnabled(): boolean {
+    return (
+      // Telegram auth needs to be enabled
+      !!process.env['AUTH_TELEGRAM_ENABLED'] &&
+      // And we need to have the bot token set
+      !!process.env['AUTH_TELEGRAM_BOT_TOKEN']
+    )
+  }
+
   // TODO: These should be coming from the ApiCoreConfigService instead of process.env
   static twitterEnabled(): boolean {
     return (

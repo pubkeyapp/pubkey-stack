@@ -22,6 +22,7 @@ export class ApiCoreConfigService {
       authPasswordEnabled: this.authPasswordEnabled,
       authRegisterEnabled: this.authRegisterEnabled,
       authSolanaEnabled: this.authSolanaEnabled,
+      authTelegramEnabled: this.authTelegramEnabled,
       authTwitterEnabled: this.authTwitterEnabled,
     }
   }
@@ -93,6 +94,19 @@ export class ApiCoreConfigService {
       !this.service.get<boolean>('authGithubEnabled')
     )
   }
+
+  get authTelegramAdminIds() {
+    return this.service.get<string[]>('authTelegramAdminIds')
+  }
+
+  get authTelegramBotToken() {
+    return this.service.get<string>('authTelegramBotToken')
+  }
+
+  get authTelegramEnabled(): boolean {
+    return !(!this.authTelegramBotToken || !this.service.get<boolean>('authTelegramEnabled'))
+  }
+
   get authTwitterAdminIds() {
     return this.service.get<string[]>('authTwitterAdminIds')
   }

@@ -176,6 +176,9 @@ dependencies:
   passport-jwt:
     specifier: ^4.0.1
     version: 4.0.1
+  passport-telegram-official:
+    specifier: ^2.0.1
+    version: 2.0.1(express@4.18.2)(passport@0.7.0)
   passport-twitter:
     specifier: ^1.0.4
     version: 1.0.4
@@ -15123,6 +15126,17 @@ packages:
   /passport-strategy@1.0.0:
     resolution: {integrity: sha512-CB97UUvDKJde2V0KDWWB3lyf6PC3FaZP7YxZ2G8OAtn9p4HI9j9JLP9qjOGZFvyl8uwNT8qM+hGnz/n16NI7oA==}
     engines: {node: '>= 0.4.0'}
+    dev: false
+
+  /passport-telegram-official@2.0.1(express@4.18.2)(passport@0.7.0):
+    resolution: {integrity: sha512-h7ugNskZjkouF4HuOeYs25bmAg/Ct7jcOTaB1lZgWPXAX8SL9NRp11+h1b0udpKodYRgnFfR5tS6IummI0qVLQ==}
+    peerDependencies:
+      express: '*'
+      passport: ^0.4.1
+    dependencies:
+      express: 4.18.2
+      passport: 0.7.0
+      passport-strategy: 1.0.0
     dev: false
 
   /passport-twitter@1.0.4:

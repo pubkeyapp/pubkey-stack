@@ -13,5 +13,7 @@ export class AppConfig {
   @Field()
   authSolanaEnabled!: boolean
   @Field()
+  authTelegramEnabled!: boolean
+  @Field()
   authTwitterEnabled!: boolean
 }

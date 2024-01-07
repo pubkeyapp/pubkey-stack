@@ -30,6 +30,7 @@ export function useUserFindManyIdentity() {
         { provider: IdentityProvider.Discord, items: [] },
         { provider: IdentityProvider.GitHub, items: [] },
         { provider: IdentityProvider.Solana, items: [] },
+        { provider: IdentityProvider.Telegram, items: [] },
         { provider: IdentityProvider.Twitter, items: [] },
       ] as { provider: IdentityProvider; items: Identity[] }[],
     )

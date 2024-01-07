@@ -9,6 +9,7 @@ export function AuthUiEnabled({ appConfig, children }: { appConfig: AppConfig; c
     authPasswordEnabled,
     authRegisterEnabled,
     authSolanaEnabled,
+    authTelegramEnabled,
     authTwitterEnabled,
   } = appConfig
 
@@ -18,6 +19,7 @@ export function AuthUiEnabled({ appConfig, children }: { appConfig: AppConfig; c
     authRegisterEnabled ||
     authPasswordEnabled ||
     authSolanaEnabled ||
+    authTelegramEnabled ||
     authTwitterEnabled
 
   return enabled ? (

@@ -18,6 +18,22 @@ export function IdentityUiGithubLinkButton({ ...props }: ButtonProps) {
   )
 }
 
+export function IdentityUiTelegramLinkButton({ ...props }: ButtonProps) {
+  return (
+    <Button
+      bg="#1DA1F2"
+      variant="filled"
+      size="xl"
+      leftSection={<IdentityUiIcon provider={IdentityProvider.Telegram} />}
+      component={'a'}
+      href="/api/auth/telegram"
+      {...props}
+    >
+      Link Telegram Account
+    </Button>
+  )
+}
+
 export function IdentityUiTwitterLinkButton({ ...props }: ButtonProps) {
   return (
     <Button

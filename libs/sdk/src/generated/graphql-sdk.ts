@@ -64,6 +64,7 @@ export type AppConfig = {
   authPasswordEnabled: Scalars['Boolean']['output']
   authRegisterEnabled: Scalars['Boolean']['output']
   authSolanaEnabled: Scalars['Boolean']['output']
+  authTelegramEnabled: Scalars['Boolean']['output']
   authTwitterEnabled: Scalars['Boolean']['output']
 }
 
@@ -101,6 +102,7 @@ export enum IdentityProvider {
   Discord = 'Discord',
   GitHub = 'GitHub',
   Solana = 'Solana',
+  Telegram = 'Telegram',
   Twitter = 'Twitter',
 }
 
@@ -368,6 +370,7 @@ export type AppConfigDetailsFragment = {
   authPasswordEnabled: boolean
   authRegisterEnabled: boolean
   authSolanaEnabled: boolean
+  authTelegramEnabled: boolean
   authTwitterEnabled: boolean
 }
 
@@ -397,6 +400,7 @@ export type AppConfigQuery = {
     authPasswordEnabled: boolean
     authRegisterEnabled: boolean
     authSolanaEnabled: boolean
+    authTelegramEnabled: boolean
     authTwitterEnabled: boolean
   }
 }
@@ -847,6 +851,7 @@ export const AppConfigDetailsFragmentDoc = gql`
     authPasswordEnabled
     authRegisterEnabled
     authSolanaEnabled
+    authTelegramEnabled
     authTwitterEnabled
   }
 `

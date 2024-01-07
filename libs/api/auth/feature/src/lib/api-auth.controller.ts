@@ -5,6 +5,7 @@ import {
   ApiAuthDiscordGuard,
   ApiAuthGithubGuard,
   ApiAuthService,
+  ApiAuthTelegramGuard,
   ApiAuthTwitterGuard,
   AuthRequest,
 } from '@pubkey-stack/api-auth-data-access'
@@ -36,6 +37,19 @@ export class ApiAuthController {
   @Get('github/callback')
   @UseGuards(ApiAnonJwtGuard, ApiAuthGithubGuard)
   async githubAuthCallback(@Req() req: AuthRequest, @Res({ passthrough: true }) res: Response) {
+    await this.service.setUserCookie({ req, res, user: req.user })
+    res.redirect(this.service.core.config.webUrl + '/dashboard')
+  }
+
+  @Get('telegram')
+  @UseGuards(ApiAuthTelegramGuard)
+  telegramAuthLogin() {
+    // This method triggers the Telegram OAuth2 flow
+  }
+
+  @Get('telegram/callback')
+  @UseGuards(ApiAnonJwtGuard, ApiAuthTelegramGuard)
+  async telegramAuthCallback(@Req() req: AuthRequest, @Res({ passthrough: true }) res: Response) {
     await this.service.setUserCookie({ req, res, user: req.user })
     res.redirect(this.service.core.config.webUrl + '/dashboard')
   }

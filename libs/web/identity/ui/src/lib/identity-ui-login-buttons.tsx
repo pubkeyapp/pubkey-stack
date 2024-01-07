@@ -11,6 +11,7 @@ export function IdentityUiLoginButtons({
     appConfig.authDiscordEnabled && IdentityProvider.Discord,
     appConfig.authGithubEnabled && IdentityProvider.GitHub,
     appConfig.authSolanaEnabled && IdentityProvider.Solana,
+    appConfig.authTelegramEnabled && IdentityProvider.Telegram,
     appConfig.authTwitterEnabled && IdentityProvider.Twitter,
   ].filter(Boolean) as IdentityProvider[]
 

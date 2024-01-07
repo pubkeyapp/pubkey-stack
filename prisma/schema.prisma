@@ -57,6 +57,7 @@ enum IdentityProvider {
   Discord
   GitHub
   Solana
+  Telegram
   Twitter
 }
 
