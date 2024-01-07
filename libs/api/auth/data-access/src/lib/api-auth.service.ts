@@ -1,6 +1,6 @@
-import { Injectable, Logger } from '@nestjs/common'
+import { Injectable, Logger, Res } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
-import { IdentityProvider, Prisma, User, UserRole, UserStatus } from '@prisma/client'
+import { User, UserStatus } from '@prisma/client'
 import {
   ApiCoreService,
   AppContext,
@@ -8,13 +8,10 @@ import {
   slugifyId,
   validatePassword,
 } from '@pubkey-stack/api-core-data-access'
-import { Request } from 'express-serve-static-core'
+import { Response } from 'express-serve-static-core'
 import { LoginInput } from './dto/login.input'
 import { RegisterInput } from './dto/register.input'
-
-export interface AuthRequest extends Request {
-  user?: User
-}
+import { ApiAuthRequest } from './interfaces/api-auth.request'
 
 @Injectable()
 export class ApiAuthService {
@@ -64,105 +61,6 @@ export class ApiAuthService {
     return user
   }
 
-  async findUsername(username: string): Promise<string> {
-    username = slugifyId(username)
-    const exists = await this.core.data.user.findUnique({ where: { username } })
-    if (!exists) {
-      return username
-    }
-    const newUsername = `${username}-${Math.floor(Math.random() * 1000)}`
-    return this.findUsername(newUsername)
-  }
-
-  async validateRequest({
-    req,
-    providerId,
-    provider,
-    profile,
-    accessToken,
-    refreshToken,
-  }: {
-    providerId: string
-    provider: IdentityProvider
-    accessToken: string
-    refreshToken: string
-    profile: Prisma.InputJsonValue
-    req: AuthRequest
-  }) {
-    const found = await this.findUserByIdentity({
-      provider,
-      providerId,
-    })
-
-    if (found && req.user?.id && found.ownerId !== req.user?.id) {
-      throw new Error(`This ${provider} account is already linked to another user.`)
-    }
-
-    if (found) {
-      await this.core.data.identity.update({
-        where: { id: found.id },
-        data: { accessToken, refreshToken, verified: true, profile },
-      })
-      return found.owner
-    }
-
-    const identity: Prisma.IdentityCreateWithoutOwnerInput = {
-      provider,
-      providerId,
-      accessToken,
-      refreshToken,
-      verified: true,
-      profile,
-    }
-
-    if (req.user?.id) {
-      return await this.updateUserWithIdentity(req.user.id, identity)
-    }
-
-    return await this.createUserWithIdentity(identity)
-  }
-
-  async createUserWithIdentity(identity: Prisma.IdentityCreateWithoutOwnerInput) {
-    const username = await this.findUsername((identity.profile as { username: string }).username ?? identity.providerId)
-    const admin = this.core.config.isAdminId(identity.provider, identity.providerId)
-    this.logger.verbose(
-      `Creating user ${username} with identity ${identity.providerId} (${identity.provider}) (admin: ${admin})`,
-    )
-
-    const user = await this.core.data.user.create({
-      data: {
-        avatarUrl: (identity.profile as { avatarUrl?: string })?.avatarUrl,
-        developer: admin,
-        role: admin ? UserRole.Admin : UserRole.User,
-        status: UserStatus.Active,
-        username,
-        name: (identity.profile as { name?: string })?.name,
-        identities: {
-          create: {
-            ...identity,
-          },
-        },
-      },
-    })
-    this.logger.verbose(
-      `Created user ${username} (${user.id}) with identity ${identity.providerId} (${identity.provider})`,
-    )
-
-    return user
-  }
-
-  async updateUserWithIdentity(userId: string, identity: Prisma.IdentityCreateWithoutOwnerInput) {
-    const updated = await this.core.data.user.update({
-      where: { id: userId },
-      data: { identities: { create: { ...identity } } },
-    })
-    this.logger.verbose(
-      `Updated user ${updated.username} (${updated.id}), added identity ${identity.providerId} (${identity.provider})`,
-    )
-
-    return updated
-  }
-
   private async validateUser({ username, password }: LoginInput) {
     const user = await this.core.data.user.findUnique({ where: { username } })
     if (!user) {
@@ -204,14 +102,12 @@ export class ApiAuthService {
     return context.res?.cookie(this.core.config.cookieName, token, this.core.config.cookieOptions(context.req.hostname))
   }
 
-  private sign(payload: { id: string; username: string }): string {
-    return this.jwt.sign(payload)
+  async userCookieRedirect(req: ApiAuthRequest, @Res({ passthrough: true }) res: Response) {
+    await this.setUserCookie({ req, res, user: req.user })
+    return res.redirect(this.core.config.webUrl + '/dashboard')
   }
 
-  async findUserByIdentity({ provider, providerId }: { provider: IdentityProvider; providerId: string }) {
-    return this.core.data.identity.findUnique({
-      where: { provider_providerId: { provider, providerId } },
-      include: { owner: true },
-    })
+  private sign(payload: { id: string; username: string }): string {
+    return this.jwt.sign(payload)
   }
 }

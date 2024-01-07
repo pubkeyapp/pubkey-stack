@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common'
 import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
 import { ApiCoreDataAccessModule, ApiCoreService } from '@pubkey-stack/api-core-data-access'
-import { ApiAuthStrategyModule } from './api-auth-strategy.module'
 import { ApiAuthService } from './api-auth.service'
-import { ApiAuthGraphQLUserGuard } from './guards/api-auth-graphql-user-guard.service'
-import { ApiAuthJwtStrategy } from './strategies/api-auth-jwt.strategy'
+import { ApiAuthGraphQLUserGuard } from './guards/api-auth-graphql-user-guard'
+import { ApiAuthStrategyJwt } from './strategies/api-auth-strategy-jwt'
+import { ApiAuthStrategyModule } from './strategies/api-auth-strategy.module'
 
 @Module({
   imports: [
@@ -20,9 +20,9 @@ import { ApiAuthJwtStrategy } from './strategies/api-auth-jwt.strategy'
       }),
     }),
     PassportModule,
-    ApiAuthStrategyModule.registerAsync(),
+    ApiAuthStrategyModule.register(),
   ],
-  providers: [ApiAuthGraphQLUserGuard, ApiAuthJwtStrategy, ApiAuthService],
+  providers: [ApiAuthGraphQLUserGuard, ApiAuthStrategyJwt, ApiAuthService],
   exports: [ApiAuthService],
 })
 export class ApiAuthDataAccessModule {}

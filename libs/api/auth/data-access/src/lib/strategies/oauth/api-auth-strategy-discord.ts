@@ -3,15 +3,16 @@ import { PassportStrategy } from '@nestjs/passport'
 import { IdentityProvider } from '@prisma/client'
 import { ApiCoreService } from '@pubkey-stack/api-core-data-access'
 import { Profile, Strategy } from 'passport-discord'
-import { ApiAuthService, AuthRequest } from '../api-auth.service'
+import type { ApiAuthRequest } from '../../interfaces/api-auth.request'
+import { ApiAuthStrategyService } from '../api-auth-strategy.service'
 
 @Injectable()
-export class ApiAuthDiscordStrategy extends PassportStrategy(Strategy, 'discord') {
-  constructor(private core: ApiCoreService, private service: ApiAuthService) {
+export class ApiAuthStrategyDiscord extends PassportStrategy(Strategy, 'discord') {
+  constructor(private core: ApiCoreService, private service: ApiAuthStrategyService) {
     super(core.config.authDiscordStrategyOptions)
   }
 
-  async validate(req: AuthRequest, accessToken: string, refreshToken: string, profile: Profile) {
+  async validate(req: ApiAuthRequest, accessToken: string, refreshToken: string, profile: Profile) {
     return this.service.validateRequest({
       req,
       providerId: profile.id,

@@ -11,7 +11,7 @@ function cookieExtractor(req: Request & { cookies: Record<string, string> }) {
 }
 
 @Injectable()
-export class ApiAuthJwtStrategy extends PassportStrategy(Strategy) {
+export class ApiAuthStrategyJwt extends PassportStrategy(Strategy) {
   constructor(private readonly core: ApiCoreService) {
     super({
       jwtFromRequest: cookieExtractor,
