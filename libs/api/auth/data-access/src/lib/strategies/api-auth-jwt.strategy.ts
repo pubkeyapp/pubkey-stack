@@ -1,7 +1,7 @@
-import { ApiCoreService } from '@pubkey-stack/api-core-data-access'
 import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
 import { UserStatus } from '@prisma/client'
+import { ApiCoreService } from '@pubkey-stack/api-core-data-access'
 import { Request } from 'express-serve-static-core'
 import { Strategy } from 'passport-jwt'
 
@@ -15,7 +15,7 @@ export class ApiAuthJwtStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly core: ApiCoreService) {
     super({
       jwtFromRequest: cookieExtractor,
-      secretOrKey: process.env['JWT_SECRET'] as string,
+      secretOrKey: core.config.jwtSecret,
     })
   }
 

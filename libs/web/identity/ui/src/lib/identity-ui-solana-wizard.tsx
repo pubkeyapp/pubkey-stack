@@ -6,12 +6,12 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import { IconAlertTriangle, IconUsb, IconWallet } from '@tabler/icons-react'
 import { useMemo, useState } from 'react'
 
-export interface WebUiIdentitySolanaWizardProps extends Omit<StepperProps, 'children' | 'active'> {
+export interface IdentityUiSolanaWizardProps extends Omit<StepperProps, 'children' | 'active'> {
   exists?: boolean
   sign: (useLedger: boolean) => Promise<boolean>
 }
 
-export function IdentityUiSolanaWizard({ exists, sign, ...props }: WebUiIdentitySolanaWizardProps) {
+export function IdentityUiSolanaWizard({ exists, sign, ...props }: IdentityUiSolanaWizardProps) {
   const { isSm } = useUiBreakpoints()
   const { connected, publicKey, wallet } = useWallet()
   const [signed, setSigned] = useState(false)

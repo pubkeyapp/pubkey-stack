@@ -54,7 +54,9 @@ export interface ApiCoreConfig {
   // Environment
   environment: Env
   host: string
+  jwtSecret: string
   port: number
+  sessionSecret: string
   webUrl: string
 }
 
@@ -86,7 +88,9 @@ export function configuration(): ApiCoreConfig {
     databaseReset: process.env['DATABASE_RESET'] === 'true',
     environment: (process.env['NODE_ENV'] as Env) || 'development',
     host: process.env['HOST'] as string,
+    jwtSecret: process.env['JWT_SECRET'] as string,
     port: parseInt(process.env['PORT'] as string, 10) || 3000,
+    sessionSecret: process.env['SESSION_SECRET'] as string,
     webUrl: WEB_URL,
   }
 }

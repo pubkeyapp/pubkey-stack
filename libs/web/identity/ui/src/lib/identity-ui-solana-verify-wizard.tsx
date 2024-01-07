@@ -3,13 +3,13 @@ import { useIdentitySolana } from '@pubkey-stack/web-identity-data-access'
 import { toastError } from '@pubkey-ui/core'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useEffect, useMemo, useState } from 'react'
-import { IdentityUiSolanaWizard, WebUiIdentitySolanaWizardProps } from './identity-ui-solana-wizard'
+import { IdentityUiSolanaWizard, IdentityUiSolanaWizardProps } from './identity-ui-solana-wizard'
 
 export function IdentityUiSolanaVerifyWizard({
   refresh,
   identity,
   ...props
-}: Omit<WebUiIdentitySolanaWizardProps, 'sign'> & { refresh: () => void; identity: Identity }) {
+}: Omit<IdentityUiSolanaWizardProps, 'sign'> & { refresh: () => void; identity: Identity }) {
   const { connected, publicKey } = useWallet()
   const { verifyAndSign } = useIdentitySolana()
   const [active, setActive] = useState(0)

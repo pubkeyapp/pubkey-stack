@@ -2,7 +2,6 @@ import { Injectable, Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { IdentityProvider } from '@prisma/client'
 import { CookieOptions } from 'express-serve-static-core'
-import * as process from 'process'
 import { ApiCoreConfig } from './config/configuration'
 import { AppConfig } from './entity/app-config.entity'
 
@@ -183,6 +182,14 @@ export class ApiCoreConfigService {
     return this.service.get<string>('host')
   }
 
+  get isDevelopment(): boolean {
+    return this.environment === 'development'
+  }
+
+  get jwtSecret() {
+    return this.service.get<string>('jwtSecret') as string
+  }
+
   get port() {
     return this.service.get<number>('port')
   }
@@ -191,12 +198,8 @@ export class ApiCoreConfigService {
     return 'api'
   }
 
-  get isDevelopment(): boolean {
-    return this.environment === 'development'
-  }
-
   get sessionSecret() {
-    return process.env['JWT_SECRET'] as string
+    return this.service.get<string>('sessionSecret') as string
   }
 
   get webUrl(): string {

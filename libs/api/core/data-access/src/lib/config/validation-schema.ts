@@ -34,5 +34,6 @@ export const validationSchema = Joi.object({
   HOST: Joi.string().default('0.0.0.0'),
   NODE_ENV: Joi.string().valid('development', 'production', 'test', 'provision').default('development'),
   PORT: Joi.number().default(3000),
+  SESSION_SECRET: Joi.string().required(),
   SYNC_DRY_RUN: Joi.boolean().default(false),
 })

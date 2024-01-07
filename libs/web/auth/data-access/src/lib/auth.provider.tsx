@@ -7,13 +7,13 @@ import { useMe } from './use-me'
 
 type AuthStatus = 'authenticated' | 'unauthenticated' | 'loading' | 'error'
 
-export interface WebAuthState {
+export interface AuthState {
   status: AuthStatus
   error?: unknown | undefined
   user?: User | undefined
 }
 
-export interface WebAuthProviderContext extends WebAuthState {
+export interface AuthProviderContext extends AuthState {
   appConfig?: AppConfig | undefined
   appConfigLoading: boolean
   authenticated: boolean
@@ -26,15 +26,15 @@ export interface WebAuthProviderContext extends WebAuthState {
   register: (input: RegisterInput) => Promise<User | undefined>
 }
 
-const Context = createContext<WebAuthProviderContext>({} as WebAuthProviderContext)
+const Context = createContext<AuthProviderContext>({} as AuthProviderContext)
 
-export type WebAuthAction =
+export type AuthAction =
   | { type: 'login'; payload: User }
   | { type: 'logout'; payload?: unknown }
   | { type: 'error'; payload: unknown }
   | { type: 'loading'; payload?: unknown }
 
-function authReducer(state: WebAuthState, { type, payload }: WebAuthAction): WebAuthState {
+function authReducer(state: AuthState, { type, payload }: AuthAction): AuthState {
   switch (type) {
     case 'login':
       return {
@@ -90,7 +90,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     dispatchUser(me.data?.me)
   }, [me.isLoading, me.data?.me])
 
-  const value: WebAuthProviderContext = {
+  const value: AuthProviderContext = {
     appConfig: configQuery.data?.config,
     appConfigLoading: configQuery.isLoading,
     authenticated: state.status === 'authenticated',
