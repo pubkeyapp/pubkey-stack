@@ -47,7 +47,7 @@ export class ApiAdminUserService {
       .paginate({
         orderBy: { createdAt: 'desc' },
         where: getAdminUserWhereInput(input),
-        include: { identities: true },
+        include: { identities: { orderBy: [{ provider: 'asc' }, { providerId: 'asc' }] } },
       })
       .withPages({ limit: input.limit, page: input.page })
       .then(([data, meta]) => ({ data, meta }))

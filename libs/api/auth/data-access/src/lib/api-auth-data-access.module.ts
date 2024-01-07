@@ -1,13 +1,11 @@
-import { ApiCoreDataAccessModule } from '@pubkey-stack/api-core-data-access'
 import { Module } from '@nestjs/common'
 import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
+import { ApiCoreDataAccessModule } from '@pubkey-stack/api-core-data-access'
+import { ApiAuthStrategyModule } from './api-auth-strategy.module'
 import { ApiAuthService } from './api-auth.service'
-import { ApiAuthDiscordGuard } from './guards/api-auth-discord.guard'
 import { ApiAuthGraphQLUserGuard } from './guards/api-auth-graphql-user-guard.service'
 import { ApiAuthJwtStrategy } from './strategies/api-auth-jwt.strategy'
-import { DiscordStrategy } from './strategies/discord.strategy'
-import { GithubStrategy } from './strategies/github.strategy'
 
 @Module({
   imports: [
@@ -18,15 +16,9 @@ import { GithubStrategy } from './strategies/github.strategy'
       signOptions: { expiresIn: '1d' },
     }),
     PassportModule,
+    ApiAuthStrategyModule.registerAsync(),
   ],
-  providers: [
-    ApiAuthDiscordGuard,
-    ApiAuthGraphQLUserGuard,
-    ApiAuthJwtStrategy,
-    ApiAuthService,
-    DiscordStrategy,
-    GithubStrategy,
-  ],
+  providers: [ApiAuthGraphQLUserGuard, ApiAuthJwtStrategy, ApiAuthService],
   exports: [ApiAuthService],
 })
 export class ApiAuthDataAccessModule {}

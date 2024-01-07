@@ -28,18 +28,69 @@ export class ApiCoreConfigService {
     return this.service.get<string[]>('authDiscordAdminIds')
   }
 
+  get authDiscordClientId() {
+    return this.service.get<string>('authDiscordClientId')
+  }
+
+  get authDiscordClientSecret() {
+    return this.service.get<string>('authDiscordClientSecret')
+  }
+
   get authDiscordEnabled(): boolean {
-    return this.service.get<boolean>('authDiscordEnabled') ?? false
+    return !(
+      !this.authDiscordClientId ||
+      !this.authDiscordClientSecret ||
+      !this.service.get<boolean>('authDiscordEnabled')
+    )
+  }
+
+  get authDiscordScope(): string[] {
+    return ['guilds', 'identify']
+  }
+
+  get authDiscordStrategyOptions() {
+    return {
+      clientID: this.authDiscordClientId,
+      clientSecret: this.authDiscordClientSecret,
+      callbackURL: this.webUrl + '/api/auth/discord/callback',
+      scope: this.authDiscordScope,
+      passReqToCallback: true,
+    }
   }
 
   get authGithubAdminIds() {
     return this.service.get<string[]>('authGithubAdminIds')
   }
 
-  get authGithubEnabled(): boolean {
-    return this.service.get<boolean>('authGithubEnabled') ?? false
+  get authGithubClientId() {
+    return this.service.get<string>('authGithubClientId')
   }
 
+  get authGithubClientSecret() {
+    return this.service.get<string>('authGithubClientSecret')
+  }
+
+  get authGithubScope(): string[] {
+    return ['public_profile']
+  }
+
+  get authGithubStrategyOptions() {
+    return {
+      clientID: this.authGithubClientId,
+      clientSecret: this.authGithubClientSecret,
+      callbackURL: this.webUrl + '/api/auth/github/callback',
+      scope: this.authGithubScope,
+      passReqToCallback: true,
+    }
+  }
+
+  get authGithubEnabled(): boolean {
+    return !(
+      !this.authGithubClientId ||
+      !this.authGithubClientSecret ||
+      !this.service.get<boolean>('authGithubEnabled')
+    )
+  }
   get authPasswordEnabled(): boolean {
     return this.service.get<boolean>('authPasswordEnabled') ?? false
   }

@@ -2,12 +2,20 @@ import * as Joi from 'joi'
 
 export const validationSchema = Joi.object({
   API_URL: Joi.string().required().error(new Error(`API_URL is required.`)),
+  // Discord Authentication
   AUTH_DISCORD_ADMIN_IDS: Joi.string(),
-  AUTH_DISCORD_ENABLED: Joi.boolean().default(true),
+  AUTH_DISCORD_CLIENT_ID: Joi.string(),
+  AUTH_DISCORD_CLIENT_SECRET: Joi.string(),
+  AUTH_DISCORD_ENABLED: Joi.boolean().default(true), // Client ID and Client Secret are also required
+  // GitHub Authentication
   AUTH_GITHUB_ADMIN_IDS: Joi.string(),
-  AUTH_GITHUB_ENABLED: Joi.boolean().default(true),
+  AUTH_GITHUB_CLIENT_ID: Joi.string(),
+  AUTH_GITHUB_CLIENT_SECRET: Joi.string(),
+  AUTH_GITHUB_ENABLED: Joi.boolean().default(true), // Client ID and Client Secret are also required
+  // Username and Password Authentication
   AUTH_PASSWORD_ENABLED: Joi.boolean().default(true),
   AUTH_REGISTER_ENABLED: Joi.boolean().default(true),
+  // Solana Authentication
   AUTH_SOLANA_ADMIN_IDS: Joi.string(),
   AUTH_SOLANA_ENABLED: Joi.boolean().default(true),
   COOKIE_NAME: Joi.string().default('__session'),
@@ -16,10 +24,6 @@ export const validationSchema = Joi.object({
   DATABASE_RANDOM_DATA: Joi.boolean().default(false),
   DATABASE_RESET: Joi.boolean().default(false),
   DATABASE_URL: Joi.string(),
-  DISCORD_CLIENT_ID: Joi.string().required(),
-  DISCORD_CLIENT_SECRET: Joi.string().required(),
-  GITHUB_CLIENT_ID: Joi.string().required(),
-  GITHUB_CLIENT_SECRET: Joi.string().required(),
   GRAPHQL_PLAYGROUND: Joi.boolean().default(false),
   JWT_SECRET: Joi.string().required(),
   HOST: Joi.string().default('0.0.0.0'),

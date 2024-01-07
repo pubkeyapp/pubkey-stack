@@ -20,26 +20,34 @@ const corsOrigins: string[] = getCorsOrigins()
 export type Env = 'development' | 'production' | 'test' | 'provision'
 export interface ApiCoreConfig {
   apiUrl: string
+  // Discord Authentication
   authDiscordAdminIds: string[]
+  authDiscordClientId: string
+  authDiscordClientSecret: string
   authDiscordEnabled: boolean
+  // GitHub Authentication
   authGithubAdminIds: string[]
+  authGithubClientId: string
+  authGithubClientSecret: string
   authGithubEnabled: boolean
+  // Username and Password Authentication
   authPasswordEnabled: boolean
   authRegisterEnabled: boolean
+  // Solana Authentication
   authSolanaAdminIds: string[]
   authSolanaEnabled: boolean
+  // Cookies
   cookieDomains: string[]
   cookieName: string
   cookieSecure: boolean
+  // CORS
   corsOrigins: string[]
-  environment: Env
+  // Database Seed
   databaseProvision: boolean
   databaseRandomData: boolean
   databaseReset: boolean
-  discordClientId: string
-  discordClientSecret: string
-  githubClientId: string
-  githubClientSecret: string
+  // Environment
+  environment: Env
   host: string
   port: number
   webUrl: string
@@ -49,8 +57,12 @@ export function configuration(): ApiCoreConfig {
   return {
     apiUrl: process.env['API_URL'] as string,
     authDiscordAdminIds: getFromEnvironment('AUTH_DISCORD_ADMIN_IDS'),
+    authDiscordClientId: process.env['AUTH_DISCORD_CLIENT_ID'] as string,
+    authDiscordClientSecret: process.env['AUTH_DISCORD_CLIENT_SECRET'] as string,
     authDiscordEnabled: process.env['AUTH_DISCORD_ENABLED'] === 'true',
     authGithubAdminIds: getFromEnvironment('AUTH_GITHUB_ADMIN_IDS'),
+    authGithubClientId: process.env['AUTH_GITHUB_CLIENT_ID'] as string,
+    authGithubClientSecret: process.env['AUTH_GITHUB_CLIENT_SECRET'] as string,
     authGithubEnabled: process.env['AUTH_GITHUB_ENABLED'] === 'true',
     authPasswordEnabled: process.env['AUTH_PASSWORD_ENABLED'] === 'true',
     authRegisterEnabled: process.env['AUTH_REGISTER_ENABLED'] === 'true',
@@ -58,16 +70,12 @@ export function configuration(): ApiCoreConfig {
     authSolanaEnabled: process.env['AUTH_SOLANA_ENABLED'] === 'true',
     cookieDomains,
     cookieName: '__session',
-    corsOrigins,
     cookieSecure: process.env['COOKIE_SECURE'] === 'true',
-    environment: (process.env['NODE_ENV'] as Env) || 'development',
+    corsOrigins,
     databaseProvision: process.env['DATABASE_PROVISION'] === 'true',
     databaseRandomData: process.env['DATABASE_RANDOM_DATA'] === 'true',
     databaseReset: process.env['DATABASE_RESET'] === 'true',
-    discordClientId: process.env['DISCORD_CLIENT_ID'] as string,
-    discordClientSecret: process.env['DISCORD_CLIENT_SECRET'] as string,
-    githubClientId: process.env['GITHUB_CLIENT_ID'] as string,
-    githubClientSecret: process.env['GITHUB_CLIENT_SECRET'] as string,
+    environment: (process.env['NODE_ENV'] as Env) || 'development',
     host: process.env['HOST'] as string,
     port: parseInt(process.env['PORT'] as string, 10) || 3000,
     webUrl: WEB_URL,
