@@ -24,11 +24,6 @@ export type Scalars = {
   JSON: { input: any; output: any }
 }
 
-export type AdminCreateEmailInput = {
-  email: Scalars['String']['input']
-  ownerId: Scalars['String']['input']
-}
-
 export type AdminCreateIdentityInput = {
   ownerId: Scalars['String']['input']
   provider: IdentityProvider
@@ -38,10 +33,6 @@ export type AdminCreateIdentityInput = {
 export type AdminCreateUserInput = {
   password?: InputMaybe<Scalars['String']['input']>
   username: Scalars['String']['input']
-}
-
-export type AdminFindManyEmailInput = {
-  ownerId: Scalars['String']['input']
 }
 
 export type AdminFindManyIdentityInput = {
@@ -55,13 +46,6 @@ export type AdminFindManyUserInput = {
   role?: InputMaybe<UserRole>
   search?: InputMaybe<Scalars['String']['input']>
   status?: InputMaybe<UserStatus>
-}
-
-export type AdminUpdateEmailInput = {
-  default?: InputMaybe<Scalars['Boolean']['input']>
-  email?: InputMaybe<Scalars['String']['input']>
-  private?: InputMaybe<Scalars['Boolean']['input']>
-  verified?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 export type AdminUpdateUserInput = {
@@ -80,17 +64,6 @@ export type AppConfig = {
   authPasswordEnabled: Scalars['Boolean']['output']
   authRegisterEnabled: Scalars['Boolean']['output']
   authSolanaEnabled: Scalars['Boolean']['output']
-}
-
-export type Email = {
-  __typename?: 'Email'
-  createdAt: Scalars['DateTime']['output']
-  default?: Maybe<Scalars['Boolean']['output']>
-  email: Scalars['String']['output']
-  id: Scalars['String']['output']
-  private?: Maybe<Scalars['Boolean']['output']>
-  updatedAt: Scalars['DateTime']['output']
-  verified?: Maybe<Scalars['Boolean']['output']>
 }
 
 export type Identity = {
@@ -141,13 +114,10 @@ export type LoginInput = {
 
 export type Mutation = {
   __typename?: 'Mutation'
-  adminCreateEmail?: Maybe<Email>
   adminCreateIdentity?: Maybe<Identity>
   adminCreateUser?: Maybe<User>
-  adminDeleteEmail?: Maybe<Scalars['Boolean']['output']>
   adminDeleteIdentity?: Maybe<Scalars['Boolean']['output']>
   adminDeleteUser?: Maybe<Scalars['Boolean']['output']>
-  adminUpdateEmail?: Maybe<Email>
   adminUpdateUser?: Maybe<User>
   anonVerifyIdentityChallenge?: Maybe<IdentityChallenge>
   login?: Maybe<User>
@@ -159,10 +129,6 @@ export type Mutation = {
   userVerifyIdentityChallenge?: Maybe<IdentityChallenge>
 }
 
-export type MutationAdminCreateEmailArgs = {
-  input: AdminCreateEmailInput
-}
-
 export type MutationAdminCreateIdentityArgs = {
   input: AdminCreateIdentityInput
 }
@@ -171,21 +137,12 @@ export type MutationAdminCreateUserArgs = {
   input: AdminCreateUserInput
 }
 
-export type MutationAdminDeleteEmailArgs = {
-  emailId: Scalars['String']['input']
-}
-
 export type MutationAdminDeleteIdentityArgs = {
   identityId: Scalars['String']['input']
 }
 
 export type MutationAdminDeleteUserArgs = {
   userId: Scalars['String']['input']
-}
-
-export type MutationAdminUpdateEmailArgs = {
-  emailId: Scalars['String']['input']
-  input: AdminUpdateEmailInput
 }
 
 export type MutationAdminUpdateUserArgs = {
@@ -234,7 +191,6 @@ export type PagingMeta = {
 
 export type Query = {
   __typename?: 'Query'
-  adminFindManyEmail?: Maybe<Array<Email>>
   adminFindManyIdentity?: Maybe<Array<Identity>>
   adminFindManyUser: UserPaging
   adminFindOneUser?: Maybe<User>
@@ -246,10 +202,6 @@ export type Query = {
   userFindManyUser: UserPaging
   userFindOneUser?: Maybe<User>
   userRequestIdentityChallenge?: Maybe<IdentityChallenge>
-}
-
-export type QueryAdminFindManyEmailArgs = {
-  input: AdminFindManyEmailInput
 }
 
 export type QueryAdminFindManyIdentityArgs = {
@@ -443,78 +395,6 @@ export type AppConfigQuery = {
     authSolanaEnabled: boolean
   }
 }
-
-export type EmailDetailsFragment = {
-  __typename?: 'Email'
-  createdAt: Date
-  default?: boolean | null
-  email: string
-  id: string
-  private?: boolean | null
-  updatedAt: Date
-  verified?: boolean | null
-}
-
-export type AdminFindManyEmailQueryVariables = Exact<{
-  input: AdminFindManyEmailInput
-}>
-
-export type AdminFindManyEmailQuery = {
-  __typename?: 'Query'
-  items?: Array<{
-    __typename?: 'Email'
-    createdAt: Date
-    default?: boolean | null
-    email: string
-    id: string
-    private?: boolean | null
-    updatedAt: Date
-    verified?: boolean | null
-  }> | null
-}
-
-export type AdminCreateEmailMutationVariables = Exact<{
-  input: AdminCreateEmailInput
-}>
-
-export type AdminCreateEmailMutation = {
-  __typename?: 'Mutation'
-  created?: {
-    __typename?: 'Email'
-    createdAt: Date
-    default?: boolean | null
-    email: string
-    id: string
-    private?: boolean | null
-    updatedAt: Date
-    verified?: boolean | null
-  } | null
-}
-
-export type AdminUpdateEmailMutationVariables = Exact<{
-  emailId: Scalars['String']['input']
-  input: AdminUpdateEmailInput
-}>
-
-export type AdminUpdateEmailMutation = {
-  __typename?: 'Mutation'
-  updated?: {
-    __typename?: 'Email'
-    createdAt: Date
-    default?: boolean | null
-    email: string
-    id: string
-    private?: boolean | null
-    updatedAt: Date
-    verified?: boolean | null
-  } | null
-}
-
-export type AdminDeleteEmailMutationVariables = Exact<{
-  emailId: Scalars['String']['input']
-}>
-
-export type AdminDeleteEmailMutation = { __typename?: 'Mutation'; deleted?: boolean | null }
 
 export type IdentityDetailsFragment = {
   __typename?: 'Identity'
@@ -962,17 +842,6 @@ export const PagingMetaDetailsFragmentDoc = gql`
     totalCount
   }
 `
-export const EmailDetailsFragmentDoc = gql`
-  fragment EmailDetails on Email {
-    createdAt
-    default
-    email
-    id
-    private
-    updatedAt
-    verified
-  }
-`
 export const IdentityDetailsFragmentDoc = gql`
   fragment IdentityDetails on Identity {
     createdAt
@@ -1056,35 +925,6 @@ export const AppConfigDocument = gql`
     }
   }
   ${AppConfigDetailsFragmentDoc}
-`
-export const AdminFindManyEmailDocument = gql`
-  query adminFindManyEmail($input: AdminFindManyEmailInput!) {
-    items: adminFindManyEmail(input: $input) {
-      ...EmailDetails
-    }
-  }
-  ${EmailDetailsFragmentDoc}
-`
-export const AdminCreateEmailDocument = gql`
-  mutation adminCreateEmail($input: AdminCreateEmailInput!) {
-    created: adminCreateEmail(input: $input) {
-      ...EmailDetails
-    }
-  }
-  ${EmailDetailsFragmentDoc}
-`
-export const AdminUpdateEmailDocument = gql`
-  mutation adminUpdateEmail($emailId: String!, $input: AdminUpdateEmailInput!) {
-    updated: adminUpdateEmail(emailId: $emailId, input: $input) {
-      ...EmailDetails
-    }
-  }
-  ${EmailDetailsFragmentDoc}
-`
-export const AdminDeleteEmailDocument = gql`
-  mutation adminDeleteEmail($emailId: String!) {
-    deleted: adminDeleteEmail(emailId: $emailId)
-  }
 `
 export const AdminFindManyIdentityDocument = gql`
   query adminFindManyIdentity($input: AdminFindManyIdentityInput!) {
@@ -1256,10 +1096,6 @@ const RegisterDocumentString = print(RegisterDocument)
 const MeDocumentString = print(MeDocument)
 const UptimeDocumentString = print(UptimeDocument)
 const AppConfigDocumentString = print(AppConfigDocument)
-const AdminFindManyEmailDocumentString = print(AdminFindManyEmailDocument)
-const AdminCreateEmailDocumentString = print(AdminCreateEmailDocument)
-const AdminUpdateEmailDocumentString = print(AdminUpdateEmailDocument)
-const AdminDeleteEmailDocumentString = print(AdminDeleteEmailDocument)
 const AdminFindManyIdentityDocumentString = print(AdminFindManyIdentityDocument)
 const AdminCreateIdentityDocumentString = print(AdminCreateIdentityDocument)
 const AdminDeleteIdentityDocumentString = print(AdminDeleteIdentityDocument)
@@ -1370,90 +1206,6 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           }),
         'appConfig',
         'query',
-        variables,
-      )
-    },
-    adminFindManyEmail(
-      variables: AdminFindManyEmailQueryVariables,
-      requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{
-      data: AdminFindManyEmailQuery
-      errors?: GraphQLError[]
-      extensions?: any
-      headers: Headers
-      status: number
-    }> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.rawRequest<AdminFindManyEmailQuery>(AdminFindManyEmailDocumentString, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'adminFindManyEmail',
-        'query',
-        variables,
-      )
-    },
-    adminCreateEmail(
-      variables: AdminCreateEmailMutationVariables,
-      requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{
-      data: AdminCreateEmailMutation
-      errors?: GraphQLError[]
-      extensions?: any
-      headers: Headers
-      status: number
-    }> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.rawRequest<AdminCreateEmailMutation>(AdminCreateEmailDocumentString, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'adminCreateEmail',
-        'mutation',
-        variables,
-      )
-    },
-    adminUpdateEmail(
-      variables: AdminUpdateEmailMutationVariables,
-      requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{
-      data: AdminUpdateEmailMutation
-      errors?: GraphQLError[]
-      extensions?: any
-      headers: Headers
-      status: number
-    }> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.rawRequest<AdminUpdateEmailMutation>(AdminUpdateEmailDocumentString, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'adminUpdateEmail',
-        'mutation',
-        variables,
-      )
-    },
-    adminDeleteEmail(
-      variables: AdminDeleteEmailMutationVariables,
-      requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<{
-      data: AdminDeleteEmailMutation
-      errors?: GraphQLError[]
-      extensions?: any
-      headers: Headers
-      status: number
-    }> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.rawRequest<AdminDeleteEmailMutation>(AdminDeleteEmailDocumentString, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'adminDeleteEmail',
-        'mutation',
         variables,
       )
     },
@@ -1855,13 +1607,6 @@ export const UserRoleSchema = z.nativeEnum(UserRole)
 
 export const UserStatusSchema = z.nativeEnum(UserStatus)
 
-export function AdminCreateEmailInputSchema(): z.ZodObject<Properties<AdminCreateEmailInput>> {
-  return z.object({
-    email: z.string(),
-    ownerId: z.string(),
-  })
-}
-
 export function AdminCreateIdentityInputSchema(): z.ZodObject<Properties<AdminCreateIdentityInput>> {
   return z.object({
     ownerId: z.string(),
@@ -1874,12 +1619,6 @@ export function AdminCreateUserInputSchema(): z.ZodObject<Properties<AdminCreate
   return z.object({
     password: z.string().nullish(),
     username: z.string(),
-  })
-}
-
-export function AdminFindManyEmailInputSchema(): z.ZodObject<Properties<AdminFindManyEmailInput>> {
-  return z.object({
-    ownerId: z.string(),
   })
 }
 
@@ -1897,15 +1636,6 @@ export function AdminFindManyUserInputSchema(): z.ZodObject<Properties<AdminFind
     role: UserRoleSchema.nullish(),
     search: z.string().nullish(),
     status: UserStatusSchema.nullish(),
-  })
-}
-
-export function AdminUpdateEmailInputSchema(): z.ZodObject<Properties<AdminUpdateEmailInput>> {
-  return z.object({
-    default: z.boolean().nullish(),
-    email: z.string().nullish(),
-    private: z.boolean().nullish(),
-    verified: z.boolean().nullish(),
   })
 }
 

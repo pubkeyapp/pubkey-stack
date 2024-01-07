@@ -45,7 +45,6 @@ export class ApiCoreProvisionService implements OnModuleInit {
       await this.core.data.user.create({
         data: {
           ...input,
-          emails: { create: { email: `${username}@pubkey-stack.dev` } },
           id: username,
           password: input.password ? hashPassword(input.password) : undefined,
           status: input.status ?? UserStatus.Active,
@@ -64,7 +63,6 @@ export class ApiCoreProvisionService implements OnModuleInit {
   private async resetDatabase() {
     await this.core.data.identityChallenge.deleteMany()
     await this.core.data.identity.deleteMany()
-    await this.core.data.email.deleteMany()
     await this.core.data.user.deleteMany()
   }
 }

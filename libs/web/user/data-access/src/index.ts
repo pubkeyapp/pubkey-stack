@@ -1,4 +1,3 @@
-export * from './lib/use-admin-find-many-email'
 export * from './lib/use-admin-find-many-user'
 export * from './lib/use-admin-find-one-user'
 export * from './lib/use-user-find-many-user'

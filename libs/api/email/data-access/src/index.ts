@@ -1,6 +1,0 @@
-export * from './lib/api-email-data-access.module'
-export * from './lib/api-email.service'
-export * from './lib/dto/admin-create-email.input'
-export * from './lib/dto/admin-find-many-email-input'
-export * from './lib/dto/admin-update-email.input'
-export * from './lib/entity/email.entity'

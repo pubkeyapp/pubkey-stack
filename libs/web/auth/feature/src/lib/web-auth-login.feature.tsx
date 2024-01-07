@@ -85,9 +85,7 @@ export default function WebAuthLoginFeature() {
           {authSolanaEnabled ? (
             <WebUiIdentitySolanaLoginButton
               refresh={() => {
-                console.log('Refreshing')
                 refresh().then((res) => {
-                  console.log(`${res ? 'Logged in' : 'Not logged in'} -> redirect ${redirect}`)
                   if (res) {
                     navigate(redirect)
                   }

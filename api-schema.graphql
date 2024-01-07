@@ -2,11 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-input AdminCreateEmailInput {
-  email: String!
-  ownerId: String!
-}
-
 input AdminCreateIdentityInput {
   ownerId: String!
   provider: IdentityProvider!
@@ -16,10 +11,6 @@ input AdminCreateIdentityInput {
 input AdminCreateUserInput {
   password: String
   username: String!
-}
-
-input AdminFindManyEmailInput {
-  ownerId: String!
 }
 
 input AdminFindManyIdentityInput {
@@ -33,13 +24,6 @@ input AdminFindManyUserInput {
   role: UserRole
   search: String
   status: UserStatus
-}
-
-input AdminUpdateEmailInput {
-  default: Boolean
-  email: String
-  private: Boolean
-  verified: Boolean
 }
 
 input AdminUpdateUserInput {
@@ -63,16 +47,6 @@ type AppConfig {
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
-
-type Email {
-  createdAt: DateTime!
-  default: Boolean
-  email: String!
-  id: String!
-  private: Boolean
-  updatedAt: DateTime!
-  verified: Boolean
-}
 
 type Identity {
   challenges: [IdentityChallenge!]
@@ -124,13 +98,10 @@ input LoginInput {
 }
 
 type Mutation {
-  adminCreateEmail(input: AdminCreateEmailInput!): Email
   adminCreateIdentity(input: AdminCreateIdentityInput!): Identity
   adminCreateUser(input: AdminCreateUserInput!): User
-  adminDeleteEmail(emailId: String!): Boolean
   adminDeleteIdentity(identityId: String!): Boolean
   adminDeleteUser(userId: String!): Boolean
-  adminUpdateEmail(emailId: String!, input: AdminUpdateEmailInput!): Email
   adminUpdateUser(input: AdminUpdateUserInput!, userId: String!): User
   anonVerifyIdentityChallenge(input: VerifyIdentityChallengeInput!): IdentityChallenge
   login(input: LoginInput!): User
@@ -153,7 +124,6 @@ type PagingMeta {
 }
 
 type Query {
-  adminFindManyEmail(input: AdminFindManyEmailInput!): [Email!]
   adminFindManyIdentity(input: AdminFindManyIdentityInput!): [Identity!]
   adminFindManyUser(input: AdminFindManyUserInput!): UserPaging!
   adminFindOneUser(userId: String!): User

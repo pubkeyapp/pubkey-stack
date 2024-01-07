@@ -20,8 +20,6 @@
       "@pubkey-stack/api-auth-feature": ["libs/api/auth/feature/src/index.ts"],
       "@pubkey-stack/api-core-data-access": ["libs/api/core/data-access/src/index.ts"],
       "@pubkey-stack/api-core-feature": ["libs/api/core/feature/src/index.ts"],
-      "@pubkey-stack/api-email-data-access": ["libs/api/email/data-access/src/index.ts"],
-      "@pubkey-stack/api-email-feature": ["libs/api/email/feature/src/index.ts"],
       "@pubkey-stack/api-identity-data-access": ["libs/api/identity/data-access/src/index.ts"],
       "@pubkey-stack/api-identity-feature": ["libs/api/identity/feature/src/index.ts"],
       "@pubkey-stack/api-user-data-access": ["libs/api/user/data-access/src/index.ts"],

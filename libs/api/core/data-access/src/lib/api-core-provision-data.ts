@@ -38,13 +38,11 @@ export function fakeUser(index: number): Prisma.UserCreateInput {
   faker.seed(index)
   const username = faker.internet.userName()
   const password = faker.internet.password()
-  const email = faker.internet.email()
   const avatarUrl = faker.internet.avatar()
   const name = faker.internet.displayName()
 
   return {
     avatarUrl,
-    emails: { create: { email } },
     name,
     password,
     role: UserRole.User,
