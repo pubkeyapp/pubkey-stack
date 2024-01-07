@@ -2,7 +2,7 @@ import { Button } from '@mantine/core'
 import { UiGrid } from '@pubkey-stack/web-ui-core'
 import { useUserProfile } from '@pubkey-stack/web-user-data-access'
 import { UserUiProfile, UserUiUpdateForm } from '@pubkey-stack/web-user-ui'
-import { UiCard, UiContainer, UiLoader, UiTabRoutes, UiWarning } from '@pubkey-ui/core'
+import { UiCard, UiContainer, UiLoader, UiStack, UiWarning } from '@pubkey-ui/core'
 import { Link } from 'react-router-dom'
 import { SettingsIdentityFeature } from './settings-identity-feature'
 
@@ -31,24 +31,14 @@ export default function SettingsFeature() {
           />
         }
       >
-        <UiTabRoutes
-          tabs={[
-            {
-              label: 'Edit Profile',
-              value: 'profile',
-              component: (
-                <UiCard>
-                  <UserUiUpdateForm user={user} submit={updateUser} />
-                </UiCard>
-              ),
-            },
-            {
-              label: 'Manage Identities',
-              value: 'identities',
-              component: <SettingsIdentityFeature />,
-            },
-          ]}
-        />
+        <UiStack gap="xl">
+          <UiCard title="Edit profile">
+            <UserUiUpdateForm user={user} submit={updateUser} />
+          </UiCard>
+          <UiCard title="Manage Identities">
+            <SettingsIdentityFeature />
+          </UiCard>
+        </UiStack>
       </UiGrid>
     </UiContainer>
   )

@@ -52,9 +52,6 @@ export class ApiAdminIdentityService {
         owner: !input.ownerId,
       },
     })
-    if (!items) {
-      return []
-    }
-    return items
+    return items ?? []
   }
 }

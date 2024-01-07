@@ -1,3 +1,4 @@
+import { Group, Text } from '@mantine/core'
 import { IdentityProvider } from '@pubkey-stack/sdk'
 import {
   IconBrandDiscord,
@@ -20,4 +21,17 @@ export function IdentityUiIcon({ provider, size }: { provider: IdentityProvider;
     default:
       return <IconQuestionMark size={size} />
   }
+}
+
+export function IdentityUiBadge({ provider }: { provider: IdentityProvider }) {
+  return (
+    <Group gap={2}>
+      <Text c="dimmed" display="flex">
+        <IdentityUiIcon size={16} provider={provider} />
+      </Text>
+      <Text size="sm" c="dimmed">
+        {provider}
+      </Text>
+    </Group>
+  )
 }

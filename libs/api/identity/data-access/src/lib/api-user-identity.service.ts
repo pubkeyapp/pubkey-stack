@@ -2,11 +2,11 @@ import { Injectable, Logger } from '@nestjs/common'
 import { Identity as PrismaIdentity } from '@prisma/client'
 import { ApiCoreService, BaseContext, getRequestDetails } from '@pubkey-stack/api-core-data-access'
 import { verifySignature } from '@pubkeyapp/solana-verify-wallet'
+import { ApiSolanaIdentityService } from './api-solana-identity.service'
 import { LinkIdentityInput } from './dto/link-identity-input'
 import { RequestIdentityChallengeInput } from './dto/request-identity-challenge.input'
 import { VerifyIdentityChallengeInput } from './dto/verify-identity-challenge-input'
 import { sha256 } from './helpers/sha256'
-import { ApiSolanaIdentityService } from './api-solana-identity.service'
 
 @Injectable()
 export class ApiUserIdentityService {
@@ -36,10 +36,8 @@ export class ApiUserIdentityService {
       where: { ownerId: userId },
       orderBy: [{ provider: 'asc' }, { providerId: 'asc' }],
     })
-    if (!items) {
-      return []
-    }
-    return items
+
+    return items ?? []
   }
 
   async requestIdentityChallenge(

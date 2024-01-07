@@ -30,7 +30,7 @@ export function IdentityUiSolanaWizard({ exists, sign, ...props }: WebUiIdentity
       return 2
     }
     return 3
-  }, [wallet, connected, publicKey, signed])
+  }, [exists, wallet, connected, publicKey, signed])
 
   return (
     <Stepper {...props} allowNextStepsSelect={false} active={active} orientation={isSm ? 'vertical' : 'horizontal'}>
