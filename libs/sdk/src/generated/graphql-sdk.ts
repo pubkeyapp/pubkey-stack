@@ -61,6 +61,7 @@ export type AppConfig = {
   __typename?: 'AppConfig'
   authDiscordEnabled: Scalars['Boolean']['output']
   authGithubEnabled: Scalars['Boolean']['output']
+  authGoogleEnabled: Scalars['Boolean']['output']
   authPasswordEnabled: Scalars['Boolean']['output']
   authRegisterEnabled: Scalars['Boolean']['output']
   authSolanaEnabled: Scalars['Boolean']['output']
@@ -100,6 +101,7 @@ export type IdentityChallenge = {
 export enum IdentityProvider {
   Discord = 'Discord',
   GitHub = 'GitHub',
+  Google = 'Google',
   Solana = 'Solana',
   Twitter = 'Twitter',
 }
@@ -373,6 +375,7 @@ export type AppConfigDetailsFragment = {
   __typename?: 'AppConfig'
   authDiscordEnabled: boolean
   authGithubEnabled: boolean
+  authGoogleEnabled: boolean
   authPasswordEnabled: boolean
   authRegisterEnabled: boolean
   authSolanaEnabled: boolean
@@ -402,6 +405,7 @@ export type AppConfigQuery = {
     __typename?: 'AppConfig'
     authDiscordEnabled: boolean
     authGithubEnabled: boolean
+    authGoogleEnabled: boolean
     authPasswordEnabled: boolean
     authRegisterEnabled: boolean
     authSolanaEnabled: boolean
@@ -854,6 +858,7 @@ export const AppConfigDetailsFragmentDoc = gql`
   fragment AppConfigDetails on AppConfig {
     authDiscordEnabled
     authGithubEnabled
+    authGoogleEnabled
     authPasswordEnabled
     authRegisterEnabled
     authSolanaEnabled

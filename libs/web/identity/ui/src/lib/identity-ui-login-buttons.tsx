@@ -1,19 +1,12 @@
 import { Stack, type StackProps } from '@mantine/core'
-import { type AppConfig, IdentityProvider } from '@pubkey-stack/sdk'
+import { IdentityProvider } from '@pubkey-stack/sdk'
 import { IdentityUiLoginButton } from './identity-ui-login-button'
 
 export function IdentityUiLoginButtons({
-  appConfig,
+  enabledProviders,
   refresh,
   ...props
-}: StackProps & { appConfig: AppConfig; refresh: () => void }) {
-  const enabledProviders: IdentityProvider[] = [
-    appConfig.authDiscordEnabled && IdentityProvider.Discord,
-    appConfig.authGithubEnabled && IdentityProvider.GitHub,
-    appConfig.authSolanaEnabled && IdentityProvider.Solana,
-    appConfig.authTwitterEnabled && IdentityProvider.Twitter,
-  ].filter(Boolean) as IdentityProvider[]
-
+}: StackProps & { enabledProviders: IdentityProvider[]; refresh: () => void }) {
   return (
     <Stack {...props}>
       {enabledProviders.map((provider) => (

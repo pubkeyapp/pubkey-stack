@@ -1,5 +1,5 @@
 import { Button } from '@mantine/core'
-import type { AppConfig, User } from '@pubkey-stack/sdk'
+import { IdentityProvider, type User } from '@pubkey-stack/sdk'
 import { IdentityUiLoginButtons } from '@pubkey-stack/web-identity-ui'
 import { UserUiAvatar } from '@pubkey-stack/web-user-ui'
 import { UiStack } from '@pubkey-ui/core'
@@ -8,16 +8,18 @@ import { ReactNode } from 'react'
 import { AuthUiPage } from './auth-ui-page'
 
 export function AuthUiShell({
-  appConfig,
+  authEnabled,
   children,
+  enabledProviders,
   loading,
   logout,
   navigate,
   refresh,
   user,
 }: {
-  appConfig: AppConfig
+  authEnabled: boolean
   children: ReactNode
+  enabledProviders: IdentityProvider[]
   loading: boolean
   logout: () => Promise<boolean | undefined>
   navigate: () => void
@@ -25,7 +27,7 @@ export function AuthUiShell({
   user?: User
 }) {
   return (
-    <AuthUiPage appConfig={appConfig}>
+    <AuthUiPage authEnabled={authEnabled}>
       {user ? (
         <UiStack>
           <Button
@@ -52,7 +54,7 @@ export function AuthUiShell({
         </UiStack>
       ) : (
         <UiStack>
-          <IdentityUiLoginButtons mb="md" mt="md" appConfig={appConfig} refresh={refresh} />
+          <IdentityUiLoginButtons mb="md" mt="md" enabledProviders={enabledProviders} refresh={refresh} />
           {children}
         </UiStack>
       )}

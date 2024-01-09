@@ -1,6 +1,6 @@
 import type { ButtonProps } from '@mantine/core'
 import { IdentityProvider } from '@pubkey-stack/sdk'
-import { IdentityUiProviderLoginButton } from './identity-ui-provider-login-button'
+import { IdentityUiProviderButton } from './identity-ui-provider-button'
 import { IdentityUiSolanaLoginButton } from './identity-ui-solana-login-button'
 
 export function IdentityUiLoginButton({
@@ -11,8 +11,9 @@ export function IdentityUiLoginButton({
   switch (provider) {
     case IdentityProvider.Discord:
     case IdentityProvider.GitHub:
+    case IdentityProvider.Google:
     case IdentityProvider.Twitter:
-      return <IdentityUiProviderLoginButton provider={provider} fullWidth {...props} />
+      return <IdentityUiProviderButton action="login" provider={provider} fullWidth {...props} />
     case IdentityProvider.Solana:
       return <IdentityUiSolanaLoginButton refresh={refresh} fullWidth {...props} />
     default:

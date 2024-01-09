@@ -1,6 +1,7 @@
 fragment AppConfigDetails on AppConfig {
   authDiscordEnabled
   authGithubEnabled
+  authGoogleEnabled
   authPasswordEnabled
   authRegisterEnabled
   authSolanaEnabled

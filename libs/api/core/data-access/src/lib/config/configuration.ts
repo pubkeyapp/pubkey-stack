@@ -30,6 +30,11 @@ export interface ApiCoreConfig {
   authGithubClientId: string
   authGithubClientSecret: string
   authGithubEnabled: boolean
+  // Google Authentication
+  authGoogleAdminIds: string[]
+  authGoogleClientId: string
+  authGoogleClientSecret: string
+  authGoogleEnabled: boolean
   // Twitter Authentication
   authTwitterAdminIds: string[]
   authTwitterConsumerKey: string
@@ -71,6 +76,10 @@ export function configuration(): ApiCoreConfig {
     authGithubClientId: process.env['AUTH_GITHUB_CLIENT_ID'] as string,
     authGithubClientSecret: process.env['AUTH_GITHUB_CLIENT_SECRET'] as string,
     authGithubEnabled: process.env['AUTH_GITHUB_ENABLED'] === 'true',
+    authGoogleAdminIds: getFromEnvironment('AUTH_GOOGLE_ADMIN_IDS'),
+    authGoogleClientId: process.env['AUTH_GOOGLE_CLIENT_ID'] as string,
+    authGoogleClientSecret: process.env['AUTH_GOOGLE_CLIENT_SECRET'] as string,
+    authGoogleEnabled: process.env['AUTH_GOOGLE_ENABLED'] === 'true',
     authTwitterAdminIds: getFromEnvironment('AUTH_TWITTER_ADMIN_IDS'),
     authTwitterConsumerKey: process.env['AUTH_TWITTER_CONSUMER_KEY'] as string,
     authTwitterConsumerSecret: process.env['AUTH_TWITTER_CONSUMER_SECRET'] as string,

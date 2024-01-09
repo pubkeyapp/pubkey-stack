@@ -1,26 +1,8 @@
 import { Group, Title } from '@mantine/core'
-import type { AppConfig } from '@pubkey-stack/sdk'
 import { ReactNode } from 'react'
 
-export function AuthUiEnabled({ appConfig, children }: { appConfig: AppConfig; children: ReactNode }) {
-  const {
-    authDiscordEnabled,
-    authGithubEnabled,
-    authPasswordEnabled,
-    authRegisterEnabled,
-    authSolanaEnabled,
-    authTwitterEnabled,
-  } = appConfig
-
-  const enabled =
-    authDiscordEnabled ||
-    authGithubEnabled ||
-    authRegisterEnabled ||
-    authPasswordEnabled ||
-    authSolanaEnabled ||
-    authTwitterEnabled
-
-  return enabled ? (
+export function AuthUiEnabled({ authEnabled, children }: { authEnabled: boolean; children: ReactNode }) {
+  return authEnabled ? (
     children
   ) : (
     <Group justify="center">

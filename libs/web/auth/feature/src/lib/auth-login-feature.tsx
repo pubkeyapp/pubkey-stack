@@ -7,7 +7,7 @@ import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 export default function AuthLoginFeature() {
-  const { login, logout, refresh, user, appConfig, appConfigLoading } = useAuth()
+  const { login, logout, refresh, user, appConfig, appConfigLoading, authEnabled, enabledProviders } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
   const [loading, setLoading] = useState(false)
@@ -33,7 +33,8 @@ export default function AuthLoginFeature() {
 
   return (
     <AuthUiShell
-      appConfig={appConfig}
+      authEnabled={authEnabled}
+      enabledProviders={enabledProviders}
       refresh={() =>
         refresh().then((res) => {
           if (res) {

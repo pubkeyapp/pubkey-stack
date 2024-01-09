@@ -6,17 +6,22 @@ export const validationSchema = Joi.object({
   AUTH_DISCORD_ADMIN_IDS: Joi.string(),
   AUTH_DISCORD_CLIENT_ID: Joi.string(),
   AUTH_DISCORD_CLIENT_SECRET: Joi.string(),
-  AUTH_DISCORD_ENABLED: Joi.boolean().default(true), // Client ID and Client Secret are also required
+  AUTH_DISCORD_ENABLED: Joi.boolean().default(true),
   // GitHub Authentication
   AUTH_GITHUB_ADMIN_IDS: Joi.string(),
   AUTH_GITHUB_CLIENT_ID: Joi.string(),
   AUTH_GITHUB_CLIENT_SECRET: Joi.string(),
-  AUTH_GITHUB_ENABLED: Joi.boolean().default(true), // Client ID and Client Secret are also required
-  // GitHub Authentication
+  AUTH_GITHUB_ENABLED: Joi.boolean().default(true),
+  // Google Authentication
+  AUTH_GOOGLE_ADMIN_IDS: Joi.string(),
+  AUTH_GOOGLE_CLIENT_ID: Joi.string(),
+  AUTH_GOOGLE_CLIENT_SECRET: Joi.string(),
+  AUTH_GOOGLE_ENABLED: Joi.boolean().default(true),
+  // Twitter Authentication
   AUTH_TWITTER_ADMIN_IDS: Joi.string(),
   AUTH_TWITTER_CONSUMER_KEY: Joi.string(),
   AUTH_TWITTER_CONSUMER_SECRET: Joi.string(),
-  AUTH_TWITTER_ENABLED: Joi.boolean().default(true), // Client ID and Client Secret are also required
+  AUTH_TWITTER_ENABLED: Joi.boolean().default(true),
   // Username and Password Authentication
   AUTH_PASSWORD_ENABLED: Joi.boolean().default(true),
   AUTH_REGISTER_ENABLED: Joi.boolean().default(true),

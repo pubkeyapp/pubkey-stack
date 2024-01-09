@@ -7,7 +7,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 export default function AuthRegisterFeature() {
-  const { logout, refresh, register, appConfig, appConfigLoading, user } = useAuth()
+  const { logout, refresh, register, appConfig, appConfigLoading, user, enabledProviders, authEnabled } = useAuth()
   const navigate = useNavigate()
 
   const [loading, setLoading] = useState(false)
@@ -37,7 +37,8 @@ export default function AuthRegisterFeature() {
 
   return (
     <AuthUiShell
-      appConfig={appConfig}
+      authEnabled={authEnabled}
+      enabledProviders={enabledProviders}
       refresh={() =>
         refresh().then((res) => {
           if (res) {

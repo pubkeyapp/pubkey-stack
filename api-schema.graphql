@@ -38,6 +38,7 @@ input AdminUpdateUserInput {
 type AppConfig {
   authDiscordEnabled: Boolean!
   authGithubEnabled: Boolean!
+  authGoogleEnabled: Boolean!
   authPasswordEnabled: Boolean!
   authRegisterEnabled: Boolean!
   authSolanaEnabled: Boolean!
@@ -80,6 +81,7 @@ type IdentityChallenge {
 enum IdentityProvider {
   Discord
   GitHub
+  Google
   Solana
   Twitter
 }

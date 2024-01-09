@@ -7,6 +7,8 @@ export class AppConfig {
   @Field()
   authGithubEnabled!: boolean
   @Field()
+  authGoogleEnabled!: boolean
+  @Field()
   authPasswordEnabled!: boolean
   @Field()
   authRegisterEnabled!: boolean

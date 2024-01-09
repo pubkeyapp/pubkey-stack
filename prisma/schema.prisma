@@ -56,6 +56,7 @@ model User {
 enum IdentityProvider {
   Discord
   GitHub
+  Google
   Solana
   Twitter
 }
