@@ -25,6 +25,7 @@ export class ApiUserUserService {
   }
 
   async findOneUser(username: string) {
+    console.log(`username`, username)
     const found = await this.core.data.user.findUnique({ where: { username } })
 
     if (!found) {

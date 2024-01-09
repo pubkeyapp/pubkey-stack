@@ -1,5 +1,6 @@
 import { Grid } from '@mantine/core'
 import { IdentityProvider } from '@pubkey-stack/sdk'
+import { useAuth } from '@pubkey-stack/web-auth-data-access'
 import { useCreateSignature, useUserFindManyIdentity } from '@pubkey-stack/web-identity-data-access'
 import { IdentityUiSolanaWizard, IdentityUiSolanaWizardModal } from '@pubkey-stack/web-identity-ui'
 import { toastError, toastSuccess, UiCard, UiDebug, UiStack } from '@pubkey-ui/core'
@@ -8,7 +9,8 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import { useCallback } from 'react'
 
 export function DevIdentityWizard() {
-  const { items } = useUserFindManyIdentity()
+  const { user } = useAuth()
+  const { items } = useUserFindManyIdentity({ username: user?.username as string })
   const { publicKey } = useWallet()
   const challenge = 'Sign this message to verify your wallet'
   const createSignature = useCreateSignature()
