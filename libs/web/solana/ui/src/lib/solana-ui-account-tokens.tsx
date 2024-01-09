@@ -6,9 +6,9 @@ import { PublicKey } from '@solana/web3.js'
 import { IconRefresh } from '@tabler/icons-react'
 import { useQueryClient } from '@tanstack/react-query'
 import { useMemo, useState } from 'react'
+import { SolanaUiAccountTokenBalance } from './solana-ui-account-token-balance'
 
 import { SolanaUiExplorerLink } from './solana-ui-explorer-link'
-import { SolanaUiAccountTokenBalance } from './solana-ui-account-token-balance'
 
 export function SolanaUiAccountTokens({ address }: { address: PublicKey }) {
   const [showAll, setShowAll] = useState(false)
@@ -61,27 +61,33 @@ export function SolanaUiAccountTokens({ address }: { address: PublicKey }) {
                   </Table.Tr>
                 </Table.Thead>
                 <Table.Tbody>
-                  {items?.map(({ account, pubkey }) => (
-                    <Table.Tr key={pubkey.toString()}>
-                      <Table.Td>
-                        <SolanaUiExplorerLink
-                          ff="monospace"
-                          label={ellipsify(pubkey.toString())}
-                          path={`account/${pubkey.toString()}`}
-                        />
-                      </Table.Td>
-                      <Table.Td>
-                        <SolanaUiExplorerLink
-                          ff="monospace"
-                          label={ellipsify(account.data.parsed.info.mint)}
-                          path={`account/${account.data.parsed.info.mint.toString()}`}
-                        />
-                      </Table.Td>
-                      <Table.Td align="right">
-                        <SolanaUiAccountTokenBalance ff="monospace" address={pubkey} />
-                      </Table.Td>
-                    </Table.Tr>
-                  ))}
+                  {items
+                    ?.sort(
+                      (a, b) =>
+                        b.account.data.parsed.info.tokenAmount.uiAmount -
+                        a.account.data.parsed.info.tokenAmount.uiAmount,
+                    )
+                    .map(({ account, pubkey }) => (
+                      <Table.Tr key={pubkey.toString()}>
+                        <Table.Td>
+                          <SolanaUiExplorerLink
+                            ff="monospace"
+                            label={ellipsify(pubkey.toString())}
+                            path={`account/${pubkey.toString()}`}
+                          />
+                        </Table.Td>
+                        <Table.Td>
+                          <SolanaUiExplorerLink
+                            ff="monospace"
+                            label={ellipsify(account.data.parsed.info.mint)}
+                            path={`account/${account.data.parsed.info.mint.toString()}`}
+                          />
+                        </Table.Td>
+                        <Table.Td align="right">
+                          <SolanaUiAccountTokenBalance ff="monospace" address={pubkey} />
+                        </Table.Td>
+                      </Table.Tr>
+                    ))}
 
                   {(query.data?.length ?? 0) > 5 && (
                     <Table.Tr>

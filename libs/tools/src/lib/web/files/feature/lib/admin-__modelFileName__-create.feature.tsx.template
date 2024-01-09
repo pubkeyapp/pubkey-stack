@@ -1,4 +1,3 @@
-import { Button, Group } from '@mantine/core'
 import { AdminCreate<%= modelClassName %>Input } from '@<%= npmScope %>/sdk'
 import { useAdminFindMany<%= modelClassName %> } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-data-access'
 import { Admin<%= modelClassName %>UiCreateForm } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-ui'
@@ -26,11 +25,7 @@ export function Admin<%= modelClassName %>CreateFeature() {
   return (
     <UiPage leftAction={<UiBack />} title="Create <%= modelClassName %>">
       <UiCard>
-        <Admin<%= modelClassName %>UiCreateForm submit={submit}>
-          <Group justify="right">
-            <Button type="submit">Create</Button>
-          </Group>
-        </Admin<%= modelClassName %>UiCreateForm>
+        <Admin<%= modelClassName %>UiCreateForm submit={submit} />
       </UiCard>
     </UiPage>
   )

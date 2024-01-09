@@ -8,8 +8,8 @@ export default function DevAdminRoutes() {
       <UiTabRoutes
         grow={false}
         tabs={[
-          { value: 'new', label: 'New', component: <DevNew /> },
-          { value: 'identity-wizard', label: 'Identity Wizard', component: <DevIdentityWizard /> },
+          { path: 'new', label: 'New', element: <DevNew /> },
+          { path: 'identity-wizard', label: 'Identity Wizard', element: <DevIdentityWizard /> },
         ]}
       />
     </UiContainer>

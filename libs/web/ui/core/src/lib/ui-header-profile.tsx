@@ -1,4 +1,4 @@
-import { Button, Group, Menu } from '@mantine/core'
+import { Button, Menu } from '@mantine/core'
 import { UserRole } from '@pubkey-stack/sdk'
 import { useAuth } from '@pubkey-stack/web-auth-data-access'
 import { UserUiAvatar } from '@pubkey-stack/web-user-ui'
@@ -27,9 +27,7 @@ export function UiHeaderProfile() {
     >
       <Menu.Target>
         <Button p={0} variant={open ? 'light' : 'default'} radius="xl">
-          <Group gap={4} p={0}>
-            <UserUiAvatar user={user} alt={user?.username ?? 'User Avatar'} radius={100} size={34} />
-          </Group>
+          <UserUiAvatar user={user} alt={user?.username ?? 'User Avatar'} radius={100} size={34} />
         </Button>
       </Menu.Target>
       <Menu.Dropdown>
