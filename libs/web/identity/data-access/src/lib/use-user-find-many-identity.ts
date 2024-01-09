@@ -1,14 +1,15 @@
-import { Identity, IdentityProvider } from '@pubkey-stack/sdk'
+import { Identity, IdentityProvider, type UserFindManyIdentityInput } from '@pubkey-stack/sdk'
 import { useSdk } from '@pubkey-stack/web-core-data-access'
 import { toastError, toastSuccess } from '@pubkey-ui/core'
 import { useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 
-export function useUserFindManyIdentity() {
+export function useUserFindManyIdentity({ username }: { username: string }) {
   const sdk = useSdk()
+  const input: UserFindManyIdentityInput = useMemo(() => ({ username }), [username])
   const query = useQuery({
-    queryKey: ['user', 'find-many-identity'],
-    queryFn: () => sdk.userFindManyIdentity().then((res) => res?.data),
+    queryKey: ['user', 'find-many-identity', input],
+    queryFn: () => sdk.userFindManyIdentity({ input }).then((res) => res?.data),
   })
 
   const grouped: { provider: IdentityProvider; items: Identity[] }[] = useMemo(() => {

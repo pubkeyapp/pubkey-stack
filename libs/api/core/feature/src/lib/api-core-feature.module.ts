@@ -6,7 +6,13 @@ import { ApiUserFeatureModule } from '@pubkey-stack/api-user-feature'
 import { ApiCoreController } from './api-core.controller'
 import { ApiCoreResolver } from './api-core.resolver'
 
-const imports = [ApiAuthFeatureModule, ApiCoreDataAccessModule, ApiIdentityFeatureModule, ApiUserFeatureModule]
+const imports = [
+  // The api-feature generator will add the imports here
+  ApiAuthFeatureModule,
+  ApiCoreDataAccessModule,
+  ApiIdentityFeatureModule,
+  ApiUserFeatureModule,
+]
 
 @Module({
   controllers: [ApiCoreController],
