@@ -89,9 +89,14 @@ export class ApiAuthStrategyService {
   }
 
   async updateUserWithIdentity(userId: string, identity: Prisma.IdentityCreateWithoutOwnerInput) {
+    // Figure out the order of the new identity
+    const existingIds = await this.core.data.identity.findFirst({
+      where: { ownerId: userId, provider: identity.provider },
+      orderBy: { order: 'desc' },
+    })
     const updated = await this.core.data.user.update({
       where: { id: userId },
-      data: { identities: { create: { ...identity } } },
+      data: { identities: { create: { ...identity, order: existingIds ? existingIds.order + 1 : 0 } } },
     })
     this.logger.verbose(
       `Updated user ${updated.username} (${updated.id}), added identity ${identity.providerId} (${identity.provider})`,

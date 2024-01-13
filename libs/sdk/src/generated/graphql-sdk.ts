@@ -75,6 +75,7 @@ export type Identity = {
   expired?: Maybe<Scalars['Boolean']['output']>
   id: Scalars['String']['output']
   name?: Maybe<Scalars['String']['output']>
+  order: Scalars['Int']['output']
   owner?: Maybe<User>
   profile?: Maybe<Scalars['JSON']['output']>
   provider: IdentityProvider
@@ -419,6 +420,7 @@ export type IdentityDetailsFragment = {
   expired?: boolean | null
   id: string
   name?: string | null
+  order: number
   profile?: any | null
   provider: IdentityProvider
   providerId: string
@@ -453,6 +455,7 @@ export type AdminFindManyIdentityQuery = {
     expired?: boolean | null
     id: string
     name?: string | null
+    order: number
     profile?: any | null
     provider: IdentityProvider
     providerId: string
@@ -500,6 +503,7 @@ export type AdminCreateIdentityMutation = {
     expired?: boolean | null
     id: string
     name?: string | null
+    order: number
     profile?: any | null
     provider: IdentityProvider
     providerId: string
@@ -527,6 +531,7 @@ export type UserFindManyIdentityQuery = {
     expired?: boolean | null
     id: string
     name?: string | null
+    order: number
     profile?: any | null
     provider: IdentityProvider
     providerId: string
@@ -596,6 +601,7 @@ export type UserLinkIdentityMutation = {
     expired?: boolean | null
     id: string
     name?: string | null
+    order: number
     profile?: any | null
     provider: IdentityProvider
     providerId: string
@@ -714,6 +720,7 @@ export type AdminFindManyUserQuery = {
         expired?: boolean | null
         id: string
         name?: string | null
+        order: number
         profile?: any | null
         provider: IdentityProvider
         providerId: string
@@ -882,6 +889,7 @@ export const IdentityDetailsFragmentDoc = gql`
     expired
     id
     name
+    order
     profile
     provider
     providerId

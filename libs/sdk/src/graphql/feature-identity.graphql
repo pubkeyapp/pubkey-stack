@@ -3,6 +3,7 @@ fragment IdentityDetails on Identity {
   expired
   id
   name
+  order
   profile
   provider
   providerId

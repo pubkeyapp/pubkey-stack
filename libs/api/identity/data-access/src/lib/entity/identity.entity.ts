@@ -1,4 +1,4 @@
-import { Field, HideField, ObjectType } from '@nestjs/graphql'
+import { Field, HideField, Int, ObjectType } from '@nestjs/graphql'
 import { User } from '@pubkey-stack/api-user-data-access'
 import { GraphQLJSON } from 'graphql-scalars'
 import { IdentityChallenge } from './identity-challenge.entity'
@@ -12,7 +12,8 @@ export class Identity {
   createdAt!: Date
   @Field()
   updatedAt!: Date
-
+  @Field(() => Int)
+  order!: number
   @Field(() => IdentityProvider)
   provider!: IdentityProvider
   @Field()

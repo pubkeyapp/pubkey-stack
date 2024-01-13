@@ -16,12 +16,14 @@ model Identity {
   name         String?
   accessToken  String?
   refreshToken String?
+  order        Int                 @default(0)
   profile      Json?
   verified     Boolean             @default(false)
   owner        User                @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId      String
   challenges   IdentityChallenge[]
 
+  @@unique([order, provider])
   @@unique([provider, providerId])
 }
 
