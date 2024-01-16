@@ -2,8 +2,8 @@
   "name": "@pubkey-stack/tools",
   "version": "0.0.1",
   "dependencies": {
-    "@clack/prompts": "^0.7.0",
     "@nx/devkit": "17.2.8",
+    "@clack/prompts": "^0.7.0",
     "@mrleebo/prisma-ast": "^0.8.0",
     "@nx/nest": "17.2.8",
     "@nx/react": "17.2.8",
