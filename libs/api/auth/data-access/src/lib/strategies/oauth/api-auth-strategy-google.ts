@@ -1,10 +1,13 @@
 import { Injectable } from '@nestjs/common'
-import { PassportStrategy } from '@nestjs/passport'
+import { AuthGuard, PassportStrategy } from '@nestjs/passport'
 import { IdentityProvider } from '@prisma/client'
 import { ApiCoreService } from '@pubkey-stack/api-core-data-access'
 import { Profile, Strategy } from 'passport-google-oauth20'
 import type { ApiAuthRequest } from '../../interfaces/api-auth.request'
 import { ApiAuthStrategyService } from '../api-auth-strategy.service'
+
+@Injectable()
+export class ApiAuthStrategyGoogleGuard extends AuthGuard('google') {}
 
 @Injectable()
 export class ApiAuthStrategyGoogle extends PassportStrategy(Strategy, 'google') {
