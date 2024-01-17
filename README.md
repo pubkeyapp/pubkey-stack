@@ -12,7 +12,7 @@
 
 Clone the repo and install dependencies:
 
-```bash
+```shell
 git clone git@github.com:pubkeyapp/pubkey-stack.git
 cd pubkey-stack
 pnpm
@@ -22,7 +22,7 @@ pnpm
 
 You can run the automatic setup script to create the `.env` file, test the setup and push the database schema.
 
-```bash
+```shell
 pnpm setup
 ```
 
@@ -30,7 +30,7 @@ pnpm setup
 
 Copy the `.env.example` file to `.env` and fill in the missing values.
 
-```bash
+```shell
 cp .env.example .env
 ```
 
@@ -38,7 +38,7 @@ cp .env.example .env
 
 You will need to start the database before starting the backend.
 
-```bash
+```shell
 pnpm dev:services
 ```
 
@@ -46,7 +46,7 @@ pnpm dev:services
 
 If you start from scratch, you will need to push the database schema to the database.
 
-```bash
+```shell
 pnpm prisma db push
 ```
 
@@ -54,19 +54,19 @@ Also, after each change to the schema in `prisma/schema.prisma`, you will need t
 
 ### Starting the API
 
-```bash
+```shell
 pnpm dev:api
 ```
 
 ### Starting the web ui
 
-```bash
+```shell
 pnpm dev:web
 ```
 
 ### Starting the SDK generator
 
-```bash
+```shell
 pnpm dev:sdk
 ```
 
@@ -80,9 +80,13 @@ The following command will generate a new model in `prisma/schema.prisma`.
 
 You will need to run `pnpm prisma db push` to push the schema to the database.
 
-```bash
+```shell
 pnpm nx g prisma-model company
+```
 
+Output:
+
+```shell
 > NX Generating @pubkey-stack/tools:prisma-model
 
 UPDATE prisma/schema.prisma
@@ -94,9 +98,13 @@ The following command will generate a new API feature in `libs/api/company/*`.
 
 You will need to restart the API server to make sure it picks up the new libraries.
 
-```bash
+```shell
 pnpm nx g api-feature company
+```
 
+Output:
+
+```shell
 > NX Generating @pubkey-stack/tools:api-feature
 
 CREATE libs/api/company/data-access/...
@@ -112,9 +120,13 @@ The following command will generate a new web feature in `libs/web/company/*`.
 
 You will need to restart the web server to make sure it picks up the new libraries.
 
-```bash
+```shell
 pnpm nx g web-feature company
+```
 
+Output:
+
+```shell
 > NX Generating @pubkey-stack/tools:web-feature
 
 CREATE libs/web/company/data-access/...
