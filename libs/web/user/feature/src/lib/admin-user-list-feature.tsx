@@ -1,10 +1,11 @@
-import { Button, Group, Select } from '@mantine/core'
-import { getEnumOptions, UserRole, UserStatus } from '@pubkey-stack/sdk'
+import { Button, Group } from '@mantine/core'
 import { UiPageLimit, UiSearchField } from '@pubkey-stack/web-ui-core'
 import { useAdminFindManyUser } from '@pubkey-stack/web-user-data-access'
 import { AdminUserUiTable } from '@pubkey-stack/web-user-ui'
 import { UiBack, UiDebugModal, UiInfo, UiLoader, UiPage } from '@pubkey-ui/core'
 import { Link } from 'react-router-dom'
+import { AdminUserUiSelectRole } from './admin-user-ui-select-role'
+import { AdminUserUiSelectStatus } from './admin-user-ui-select-status'
 
 export function AdminUserListFeature() {
   const { deleteUser, items, pagination, query, role, setRole, setSearch, setStatus, status } = useAdminFindManyUser()
@@ -24,22 +25,8 @@ export function AdminUserListFeature() {
     >
       <Group>
         <UiSearchField placeholder="Search user" setSearch={setSearch} />
-        <Select
-          value={role?.toString() ?? ''}
-          onChange={(role) => {
-            pagination.setPage(1)
-            setRole(role === '' ? undefined : (role as UserRole))
-          }}
-          data={[{ value: '', label: 'Filter by role' }, ...getEnumOptions(UserRole)]}
-        />
-        <Select
-          value={status?.toString() ?? ''}
-          onChange={(status) => {
-            pagination.setPage(1)
-            setStatus(status === '' ? undefined : (status as UserStatus))
-          }}
-          data={[{ value: '', label: 'Filter by status' }, ...getEnumOptions(UserStatus)]}
-        />
+        <AdminUserUiSelectRole value={role} onChange={setRole} />
+        <AdminUserUiSelectStatus value={status} onChange={setStatus} />
         <UiPageLimit limit={pagination.limit} setLimit={pagination.setLimit} setPage={pagination.setPage} />
       </Group>
 

@@ -1,13 +1,12 @@
-import { ActionIcon, Anchor, Group, ScrollArea, Stack, Text } from '@mantine/core'
+import { ActionIcon, Group, ScrollArea } from '@mantine/core'
 import { User } from '@pubkey-stack/sdk'
 import { IdentityUiAvatarGroup } from '@pubkey-stack/web-identity-ui'
-import { UiGroup } from '@pubkey-ui/core'
 import { IconPencil, IconTrash, IconUser } from '@tabler/icons-react'
 import { DataTable, DataTableProps } from 'mantine-datatable'
 import { Link } from 'react-router-dom'
-import { UserUiAvatar } from './user-ui-avatar'
 import { UserUiRoleBadge } from './user-ui-role-badge'
 import { UserUiStatusBadge } from './user-ui-status-badge'
+import { UserUiTitle } from './user-ui-title'
 
 interface AdminUserTableProps {
   users: User[]
@@ -39,26 +38,7 @@ export function AdminUserUiTable({
         columns={[
           {
             accessor: 'username',
-            render: (item) => {
-              const link = `/admin/users/${item.id}`
-              return (
-                <Group gap="sm" p={4}>
-                  <UserUiAvatar size={40} user={item} radius={50} />
-                  <Stack gap={1}>
-                    <UiGroup justify="left" gap={4} align="baseline">
-                      <Anchor component={Link} to={link} size="sm" fw={500}>
-                        {item.username}
-                      </Anchor>
-                    </UiGroup>
-                    {item.name ? (
-                      <Text component={Link} to={link} size="sm" color="dimmed">
-                        {item.name}
-                      </Text>
-                    ) : null}
-                  </Stack>
-                </Group>
-              )
-            },
+            render: (item) => <UserUiTitle user={item} to={`/admin/users/${item.id}`} />,
           },
           {
             accessor: 'identities',

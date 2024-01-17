@@ -2,14 +2,12 @@ import { Avatar, AvatarProps, Tooltip } from '@mantine/core'
 import { getRandomInt, User } from '@pubkey-stack/sdk'
 import { getColorByIndex } from '@pubkey-ui/core'
 
-export function UserUiAvatar({
-  user,
-  tooltipLabel,
-  ...props
-}: Omit<AvatarProps, 'src'> & {
+export type UserUiAvatarProps = Omit<AvatarProps, 'src'> & {
   user?: User
   tooltipLabel?: string
-}) {
+}
+
+export function UserUiAvatar({ user, tooltipLabel, ...props }: UserUiAvatarProps) {
   const firstLetter = user?.username?.charAt(0) ?? '?'
 
   const content = user?.avatarUrl?.length ? (
