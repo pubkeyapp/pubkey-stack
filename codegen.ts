@@ -1,13 +1,11 @@
 import type { CodegenConfig } from '@graphql-codegen/cli'
-import { join } from 'node:path'
-import * as process from 'process'
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: join(process.cwd(), './api-schema.graphql'),
-  documents: ['./graphql/**/*.graphql'],
+  schema: './api-schema.graphql',
+  documents: ['libs/sdk/src/graphql/**/*.graphql'],
   generates: {
-    './generated/graphql-sdk.ts': {
+    'libs/sdk/src/generated/graphql-sdk.ts': {
       plugins: [
         'typescript',
         'typescript-operations',

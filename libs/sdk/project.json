@@ -4,18 +4,6 @@
   "sourceRoot": "libs/sdk/src",
   "projectType": "library",
   "targets": {
-    "generate": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "graphql-codegen --config libs/sdk/src/codegen.ts"
-      }
-    },
-    "serve": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "nx run sdk:generate --watch"
-      }
-    },
     "build": {
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
