@@ -1,5 +1,6 @@
-import { generateFiles, type ProjectConfiguration, Tree } from '@nx/devkit'
+import { generateFiles, getProjects, type ProjectConfiguration, Tree } from '@nx/devkit'
 import type { NormalizedApiCrudSchema } from '../../generators/api-crud/api-crud-schema'
+import { generateSdkFile } from '../api/generate-sdk-file'
 import { addExports } from '../utils/add-export'
 import { ensureNxProjectExists } from '../utils/ensure-nx-project-exists'
 import { addServiceToClassConstructor } from './add-service-to-class-constructor'
@@ -7,23 +8,21 @@ import { addServiceToModuleDecorator } from './add-service-to-module-decorator'
 import { getApiCrudSubstitutions } from './get-api-crud-substitutions'
 
 export function generateApiCrud(tree: Tree, options: NormalizedApiCrudSchema) {
-  const projects: ProjectConfiguration[] = [
+  const [dataAccess, feature]: ProjectConfiguration[] = [
     `${options.app}-${options.model}-data-access`,
     `${options.app}-${options.model}-feature`,
   ].map((project) => ensureNxProjectExists(tree, project))
-  const [dataAccess, feature] = projects
-  const substitutions = getApiCrudSubstitutions(options)
+  const vars = getApiCrudSubstitutions(options)
 
-  const serviceName = `${substitutions.app.className}${substitutions.actor.className}${substitutions.model.className}Service`
-  const serviceFileName = `${substitutions.appFileName}-${substitutions.actorFileName}-${substitutions.modelFileName}.service.ts`
-  const resolverName = `${substitutions.app.className}${substitutions.actor.className}${substitutions.model.className}Resolver`
-  const resolverFileName = `${substitutions.appFileName}-${substitutions.actorFileName}-${substitutions.modelFileName}.resolver.ts`
+  const serviceName = `${vars.app.className}${vars.actor.className}${vars.model.className}Service`
+  const serviceFileName = `${vars.appFileName}-${vars.actorFileName}-${vars.modelFileName}.service.ts`
+  const resolverName = `${vars.app.className}${vars.actor.className}${vars.model.className}Resolver`
+  const resolverFileName = `${vars.appFileName}-${vars.actorFileName}-${vars.modelFileName}.resolver.ts`
 
   const requiredFields = [
-    `${dataAccess.sourceRoot}/lib/${substitutions.appFileName}-${substitutions.modelFileName}.service.ts`,
-    `${dataAccess.sourceRoot}/lib/${substitutions.appFileName}-${substitutions.modelFileName}-data-access.module.ts`,
-    `${feature.sourceRoot}/lib/${substitutions.appFileName}-${substitutions.modelFileName}-feature.module.ts`,
-    `${dataAccess.sourceRoot}/lib/entity/${substitutions.modelFileName}.entity.ts`,
+    `${dataAccess.sourceRoot}/lib/${vars.appFileName}-${vars.modelFileName}.service.ts`,
+    `${dataAccess.sourceRoot}/lib/${vars.appFileName}-${vars.modelFileName}-data-access.module.ts`,
+    `${feature.sourceRoot}/lib/${vars.appFileName}-${vars.modelFileName}-feature.module.ts`,
   ]
 
   for (const field of requiredFields) {
@@ -32,36 +31,55 @@ export function generateApiCrud(tree: Tree, options: NormalizedApiCrudSchema) {
     }
   }
 
+  const entityFile = `${dataAccess.sourceRoot}/lib/entity/${vars.modelFileName}.entity.ts`
+  if (!tree.exists(entityFile)) {
+    // Create the entity file
+    generateFiles(tree, `${__dirname}/files/entity`, dataAccess.sourceRoot, { ...vars })
+  }
+
   const [dataAccessServicePath, dataAccessModulePath, featureModulePath] = requiredFields
 
   const dataAccessExports: string[] = [
     // Add exports here
-    `./lib/dto/${substitutions.actorFileName}-create-${substitutions.modelFileName}.input`,
-    `./lib/dto/${substitutions.actorFileName}-find-many-${substitutions.modelFileName}.input`,
-    `./lib/dto/${substitutions.actorFileName}-update-${substitutions.modelFileName}.input`,
-    `./lib/entity/${substitutions.modelFileName}-paging.entity`,
+    `./lib/dto/${vars.actorFileName}-create-${vars.modelFileName}.input`,
+    `./lib/dto/${vars.actorFileName}-find-many-${vars.modelFileName}.input`,
+    `./lib/dto/${vars.actorFileName}-update-${vars.modelFileName}.input`,
+    `./lib/entity/${vars.modelFileName}-paging.entity`,
   ]
 
   // Generate the data access library
-  generateFiles(tree, `${__dirname}/files/data-access`, dataAccess.sourceRoot, { ...substitutions })
+  generateFiles(tree, `${__dirname}/files/data-access`, dataAccess.sourceRoot, { ...vars })
 
   // Add the crud service to the service constructor
   addServiceToClassConstructor(
     tree,
     dataAccessServicePath,
-    `${substitutions.app.className}${substitutions.model.className}Service`,
-    substitutions.actor.propertyName,
+    `${vars.app.className}${vars.model.className}Service`,
+    vars.actor.propertyName,
     serviceName,
     serviceFileName,
   )
   // Add the crud service to the module providers
-  addServiceToModuleDecorator(tree, dataAccessModulePath, serviceName, serviceFileName, 'providers')
+  addServiceToModuleDecorator(tree, dataAccessModulePath, serviceName, serviceFileName)
   // Add the crud service to the module resolvers
-  addServiceToModuleDecorator(tree, featureModulePath, resolverName, resolverFileName, 'resolvers')
+  addServiceToModuleDecorator(tree, featureModulePath, resolverName, resolverFileName)
 
   // Add the exports to the barrel file
   addExports(tree, `${dataAccess.sourceRoot}/index.ts`, dataAccessExports)
 
   // Generate the data access library
-  generateFiles(tree, `${__dirname}/files/feature`, feature.sourceRoot, { ...substitutions })
+  generateFiles(tree, `${__dirname}/files/feature`, feature.sourceRoot, { ...vars })
+
+  // Generate the SDK file
+  generateSdkFile(tree, options)
+
+  const e2e = getProjects(tree).get(`${options.app}-e2e`)
+  if (!e2e) {
+    return
+  }
+  const e2eFile = `${e2e.root}/src/api/${vars.appFileName}-${vars.modelFileName}-${vars.actorFileName}-feature.spec.ts`
+
+  if (!tree.exists(e2eFile)) {
+    generateFiles(tree, `${__dirname}/files/e2e`, `${e2e.root}/src/api`, { ...vars })
+  }
 }

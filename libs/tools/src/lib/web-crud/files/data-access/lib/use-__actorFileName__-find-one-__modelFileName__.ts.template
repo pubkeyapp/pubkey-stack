@@ -1,13 +1,13 @@
-import { <%= actor.className %>Update<%= modelClassName %>Input } from '@<%= npmScope %>/sdk'
-import { useSdk } from '@<%= npmScope %>/<%= app %>-core-data-access'
+import { <%= actor.className %>Update<%= model.className %>Input } from '@<%= npmScope %>/sdk'
+import { useSdk } from '@<%= npmScope %>/<%= app.fileName %>-core-data-access'
 import { toastError, toastSuccess } from '@pubkey-ui/core'
 import { useQuery } from '@tanstack/react-query'
 
-export function use<%= actor.className %>FindOne<%= modelClassName %>({ <%= modelPropertyName %>Id }:{ <%= modelPropertyName %>Id: string }) {
+export function use<%= actor.className %>FindOne<%= model.className %>({ <%= model.propertyName %>Id }:{ <%= model.propertyName %>Id: string }) {
   const sdk = useSdk()
   const query = useQuery({
-    queryKey: ['<%= actor.propertyName %>', 'find-one-<%= modelFileName %>', <%= modelPropertyName %>Id],
-    queryFn: () => sdk.<%= actor.propertyName %>FindOne<%= modelClassName %>({ <%= modelPropertyName %>Id }).then((res) => res.data),
+    queryKey: ['<%= actor.propertyName %>', 'find-one-<%= model.fileName %>', <%= model.propertyName %>Id],
+    queryFn: () => sdk.<%= actor.propertyName %>FindOne<%= model.className %>({ <%= model.propertyName %>Id }).then((res) => res.data),
     retry: 0
   })
   const item = query.data?.item ?? undefined
@@ -15,17 +15,17 @@ export function use<%= actor.className %>FindOne<%= modelClassName %>({ <%= mode
   return {
     item,
     query,
-    update<%= modelClassName %>: async (input: <%= actor.className %>Update<%= modelClassName %>Input) =>
+    update<%= model.className %>: async (input: <%= actor.className %>Update<%= model.className %>Input) =>
       sdk
-        .<%= actor.propertyName %>Update<%= modelClassName %>({ <%= modelPropertyName %>Id, input })
+        .<%= actor.propertyName %>Update<%= model.className %>({ <%= model.propertyName %>Id, input })
         .then((res) => res.data)
         .then(async (res) => {
           if (res) {
-            toastSuccess('<%= modelClassName %> updated')
+            toastSuccess('<%= model.className %> updated')
             await query.refetch()
             return true
           }
-          toastError('<%= modelClassName %> not updated')
+          toastError('<%= model.className %> not updated')
           return false
         })
         .catch((err) => {

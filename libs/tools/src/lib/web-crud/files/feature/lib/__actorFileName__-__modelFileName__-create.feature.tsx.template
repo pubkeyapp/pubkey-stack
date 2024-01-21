@@ -1,18 +1,18 @@
-import { <%= actor.className %>Create<%= modelClassName %>Input } from '@<%= npmScope %>/sdk'
-import { use<%= actor.className %>FindMany<%= modelClassName %> } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-data-access'
-import { <%= actor.className %><%= modelClassName %>UiCreateForm } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-ui'
+import { <%= actor.className %>Create<%= model.className %>Input } from '@<%= npmScope %>/sdk'
+import { use<%= actor.className %>FindMany<%= model.className %> } from '@<%= npmScope %>/<%= app.fileName %>-<%= model.fileName %>-data-access'
+import { <%= actor.className %><%= model.className %>UiCreateForm } from '@<%= npmScope %>/<%= app.fileName %>-<%= model.fileName %>-ui'
 import { toastError, UiBack, UiCard, UiPage } from '@pubkey-ui/core'
 import { useNavigate } from 'react-router-dom'
 
-export function <%= actor.className %><%= modelClassName %>CreateFeature() {
+export function <%= actor.className %><%= model.className %>CreateFeature() {
   const navigate = useNavigate()
-  const { create<%= modelClassName %> } = use<%= actor.className %>FindMany<%= modelClassName %>()
+  const { create<%= model.className %> } = use<%= actor.className %>FindMany<%= model.className %>()
 
-  async function submit(input: <%= actor.className %>Create<%= modelClassName %>Input) {
-    return create<%= modelClassName %>(input)
+  async function submit(input: <%= actor.className %>Create<%= model.className %>Input) {
+    return create<%= model.className %>(input)
       .then((res) => {
          if (res) {
-           navigate(`/<%= actor.propertyName %>/<%= modelFileNamePlural %>/${res?.id}`)
+           navigate(`<% if(actorAdmin){ %>/admin/<% } else{ %>/<% } %><%= plural.propertyName %>/${res?.id}`)
          }
        })
       .then(() => true)
@@ -23,9 +23,9 @@ export function <%= actor.className %><%= modelClassName %>CreateFeature() {
   }
 
   return (
-    <UiPage leftAction={<UiBack />} title="Create <%= modelClassName %>">
+    <UiPage leftAction={<UiBack />} title="Create <%= model.className %>">
       <UiCard>
-        <<%= actor.className %><%= modelClassName %>UiCreateForm submit={submit} />
+        <<%= actor.className %><%= model.className %>UiCreateForm submit={submit} />
       </UiCard>
     </UiPage>
   )

@@ -38,8 +38,9 @@ export async function createMockWebApp(tree: Tree, app: string) {
   await createMockComponent(tree, `${app}-shell-feature`, `${app}-shell-feature`)
 
   // Create the shell routes libs
-  await createMockComponent(tree, `${app}-shell-feature`, `shell-routes`)
-  await createMockComponent(tree, `${app}-shell-feature`, `shell-admin-routes`)
+  await createMockComponent(tree, `${app}-shell-feature`, `shell.routes`)
+  await createMockComponent(tree, `${app}-shell-feature`, `shell-admin.routes`)
+  await createMockComponent(tree, `${app}-shell-feature`, `shell-user.routes`)
 }
 
 function createMockComponent(tree: Tree, project: string, name: string) {

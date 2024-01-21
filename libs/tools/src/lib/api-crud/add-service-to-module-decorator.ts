@@ -2,13 +2,8 @@ import { Tree } from '@nx/devkit'
 import { SyntaxKind } from 'ts-morph'
 import { updateSourceFile } from '../utils/update-source-file'
 
-export function addServiceToModuleDecorator(
-  tree: Tree,
-  path: string,
-  serviceName: string,
-  importPath: string,
-  arrayName: 'providers' | 'resolvers',
-) {
+export function addServiceToModuleDecorator(tree: Tree, path: string, serviceName: string, importPath: string) {
+  const arrayName = 'providers'
   updateSourceFile(tree, path, (sourceFile) => {
     // Check if the import already exists
     const existingImport = sourceFile.getImportDeclaration((importDeclaration) => {

@@ -6,7 +6,7 @@
   "properties": {
     "name": {
       "type": "string",
-      "description": "",
+      "description": "The name of the feature.",
       "$default": {
         "$source": "argv",
         "index": 0
@@ -18,10 +18,19 @@
       "description": "The name of the application you are adding the feature to.",
       "default": "web"
     },
-    "skipAdminCrud": {
-      "type": "boolean",
-      "description": "Do not create an admin crud library for this feature.",
-      "default": false
+    "label": {
+      "type": "string",
+      "description": "The label field for the model. Generally 'name' or 'title'.",
+      "default": "name"
+    },
+    "model": {
+      "type": "string",
+      "description": "The name of the model for this feature."
+    },
+    "crud": {
+      "type": "string",
+      "description": "Command separated list of actors to create CRUD for.",
+      "default": "admin,user"
     },
     "skipDataAccess": {
       "type": "boolean",
@@ -33,10 +42,10 @@
       "description": "Do not create a feature library for this feature.",
       "default": false
     },
-    "skipUi": {
+    "skipUtil": {
       "type": "boolean",
-      "description": "Do not create a ui library for this feature.",
-      "default": false
+      "description": "Do not create a util library for this feature.",
+      "default": true
     }
   },
   "required": ["name"]

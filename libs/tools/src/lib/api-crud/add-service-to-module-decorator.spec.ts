@@ -20,7 +20,7 @@ export class TestModule {}`,
     )
 
     // ACT
-    addServiceToModuleDecorator(tree, sourcePath, 'TestService', 'test.service', 'providers')
+    addServiceToModuleDecorator(tree, sourcePath, 'TestService', 'test.service')
 
     await formatFiles(tree)
 
@@ -48,7 +48,7 @@ export class TestModule {}`,
     )
 
     // ACT
-    addServiceToModuleDecorator(tree, sourcePath, 'TestService', 'test.service', 'providers')
+    addServiceToModuleDecorator(tree, sourcePath, 'TestService', 'test.service')
 
     await formatFiles(tree)
 
@@ -81,7 +81,7 @@ export class TestModule {}`,
     )
 
     // ACT
-    addServiceToModuleDecorator(tree, sourcePath, 'TestService', 'test.service', 'providers')
+    addServiceToModuleDecorator(tree, sourcePath, 'TestService', 'test.service')
 
     await formatFiles(tree)
 

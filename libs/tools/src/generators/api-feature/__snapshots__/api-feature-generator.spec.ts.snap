@@ -1,207 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`api-feature generator should generate the feature libraries with crud for admin and user  3`] = `
-"import {
-  AdminCreateTestInput,
-  AdminFindManyTestInput,
-  AdminUpdateTestInput,
-  Test,
-} from '@proj/sdk';
-import { getAliceCookie, getBobCookie, sdk, uniqueId } from '../support';
-
-describe('api-test-feature', () => {
-  describe('api-test-admin-resolver', () => {
-    const testName = uniqueId('acme-test');
-    let testId: string;
-    let cookie: string;
-
-    beforeAll(async () => {
-      cookie = await getAliceCookie();
-      const created = await sdk.adminCreateTest(
-        { input: { name: testName } },
-        { cookie }
-      );
-      testId = created.data.created.id;
-    });
-
-    describe('authorized', () => {
-      beforeAll(async () => {
-        cookie = await getAliceCookie();
-      });
-
-      it('should create a test', async () => {
-        const input: AdminCreateTestInput = {
-          name: uniqueId('test'),
-        };
-
-        const res = await sdk.adminCreateTest({ input }, { cookie });
-
-        const item: Test = res.data.created;
-        expect(item.name).toBe(input.name);
-        expect(item.id).toBeDefined();
-        expect(item.createdAt).toBeDefined();
-        expect(item.updatedAt).toBeDefined();
-      });
-
-      it('should update a test', async () => {
-        const createInput: AdminCreateTestInput = {
-          name: uniqueId('test'),
-        };
-        const createdRes = await sdk.adminCreateTest(
-          { input: createInput },
-          { cookie }
-        );
-        const testId = createdRes.data.created.id;
-        const input: AdminUpdateTestInput = {
-          name: uniqueId('test'),
-        };
-
-        const res = await sdk.adminUpdateTest({ testId, input }, { cookie });
-
-        const item: Test = res.data.updated;
-        expect(item.name).toBe(input.name);
-      });
-
-      it('should find a list of tests (find all)', async () => {
-        const createInput: AdminCreateTestInput = {
-          name: uniqueId('test'),
-        };
-        const createdRes = await sdk.adminCreateTest(
-          { input: createInput },
-          { cookie }
-        );
-        const testId = createdRes.data.created.id;
-
-        const input: AdminFindManyTestInput = {};
-
-        const res = await sdk.adminFindManyTest({ input }, { cookie });
-
-        expect(res.data.paging.meta.totalCount).toBeGreaterThan(1);
-        expect(res.data.paging.data.length).toBeGreaterThan(1);
-        // First item should be the one we created above
-        expect(res.data.paging.data[0].id).toBe(testId);
-      });
-
-      it('should find a list of tests (find new one)', async () => {
-        const createInput: AdminCreateTestInput = {
-          name: uniqueId('test'),
-        };
-        const createdRes = await sdk.adminCreateTest(
-          { input: createInput },
-          { cookie }
-        );
-        const testId = createdRes.data.created.id;
-
-        const input: AdminFindManyTestInput = {
-          search: testId,
-        };
-
-        const res = await sdk.adminFindManyTest({ input }, { cookie });
-
-        expect(res.data.paging.meta.totalCount).toBe(1);
-        expect(res.data.paging.data.length).toBe(1);
-        expect(res.data.paging.data[0].id).toBe(testId);
-      });
-
-      it('should find a test by id', async () => {
-        const createInput: AdminCreateTestInput = {
-          name: uniqueId('test'),
-        };
-        const createdRes = await sdk.adminCreateTest(
-          { input: createInput },
-          { cookie }
-        );
-        const testId = createdRes.data.created.id;
-
-        const res = await sdk.adminFindOneTest({ testId }, { cookie });
-
-        expect(res.data.item.id).toBe(testId);
-      });
-
-      it('should delete a test', async () => {
-        const createInput: AdminCreateTestInput = {
-          name: uniqueId('test'),
-        };
-        const createdRes = await sdk.adminCreateTest(
-          { input: createInput },
-          { cookie }
-        );
-        const testId = createdRes.data.created.id;
-
-        const res = await sdk.adminDeleteTest({ testId }, { cookie });
-
-        expect(res.data.deleted).toBe(true);
-
-        const findRes = await sdk.adminFindManyTest(
-          { input: { search: testId } },
-          { cookie }
-        );
-        expect(findRes.data.paging.meta.totalCount).toBe(0);
-        expect(findRes.data.paging.data.length).toBe(0);
-      });
-    });
-
-    describe('unauthorized', () => {
-      let cookie: string;
-      beforeAll(async () => {
-        cookie = await getBobCookie();
-      });
-
-      it('should not create a test', async () => {
-        expect.assertions(1);
-        const input: AdminCreateTestInput = {
-          name: uniqueId('test'),
-        };
-
-        try {
-          await sdk.adminCreateTest({ input }, { cookie });
-        } catch (e) {
-          expect(e.message).toBe('Unauthorized: User is not Admin');
-        }
-      });
-
-      it('should not update a test', async () => {
-        expect.assertions(1);
-        try {
-          await sdk.adminUpdateTest({ testId, input: {} }, { cookie });
-        } catch (e) {
-          expect(e.message).toBe('Unauthorized: User is not Admin');
-        }
-      });
-
-      it('should not find a list of tests (find all)', async () => {
-        expect.assertions(1);
-        try {
-          await sdk.adminFindManyTest({ input: {} }, { cookie });
-        } catch (e) {
-          expect(e.message).toBe('Unauthorized: User is not Admin');
-        }
-      });
-
-      it('should not find a test by id', async () => {
-        expect.assertions(1);
-        try {
-          await sdk.adminFindOneTest({ testId }, { cookie });
-        } catch (e) {
-          expect(e.message).toBe('Unauthorized: User is not Admin');
-        }
-      });
-
-      it('should not delete a test', async () => {
-        expect.assertions(1);
-        try {
-          await sdk.adminDeleteTest({ testId }, { cookie });
-        } catch (e) {
-          expect(e.message).toBe('Unauthorized: User is not Admin');
-        }
-      });
-    });
-  });
-});
-"
-`;
-
-exports[`api-feature generator should generate the feature libraries with crud for admin and user  4`] = `
 "export * from './lib/api-test-data-access.module';
 export * from './lib/api-test.service';
 export * from './lib/entity/test.entity';
@@ -215,67 +14,7 @@ export * from './lib/dto/user-update-test.input';
 "
 `;
 
-exports[`api-feature generator should generate the feature libraries with crud for admin and user  5`] = `
-"import { Module } from '@nestjs/common';
-import { ApiCoreDataAccessModule } from '@proj/api-core-data-access';
-import { ApiTestService } from './api-test.service';
-import { ApiAdminTestService } from './api-admin-test.service';
-import { ApiUserTestService } from './api-user-test.service';
-
-@Module({
-  imports: [ApiCoreDataAccessModule],
-  providers: [ApiTestService, ApiAdminTestService, ApiUserTestService],
-  exports: [ApiTestService],
-})
-export class ApiTestDataAccessModule {}
-"
-`;
-
-exports[`api-feature generator should generate the feature libraries with crud for admin and user  6`] = `
-"import { Injectable } from '@nestjs/common';
-import { ApiAdminTestService } from './api-admin-test.service';
-import { ApiUserTestService } from './api-user-test.service';
-
-@Injectable()
-export class ApiTestService {
-  // Use the following command to generate the CRUD for this service for a certain actor
-  // nx g api-crud --app Api --model test --actor <admin|user|etc...>
-  constructor(
-    readonly admin: ApiAdminTestService,
-    readonly user: ApiUserTestService
-  ) {}
-}
-"
-`;
-
-exports[`api-feature generator should generate the feature libraries with crud for admin and user  7`] = `
-"import { Field, ObjectType } from '@nestjs/graphql';
-
-@ObjectType()
-export class Test {
-  @Field()
-  id!: string;
-  @Field({ nullable: true })
-  createdAt?: Date;
-  @Field({ nullable: true })
-  updatedAt?: Date;
-  @Field()
-  name!: string;
-}
-"
-`;
-
-exports[`api-feature generator should generate the feature libraries with crud for admin and user  8`] = `
-"import { ObjectType } from '@nestjs/graphql';
-import { PagingResponse } from '@proj/api-core-data-access';
-import { Test } from './test.entity';
-
-@ObjectType()
-export class TestPaging extends PagingResponse<Test>(Test) {}
-"
-`;
-
-exports[`api-feature generator should generate the feature libraries with crud for admin and user  9`] = `
+exports[`api-feature generator should generate the feature libraries with crud for admin and user  4`] = `
 "import { Injectable } from '@nestjs/common';
 import { ApiCoreService } from '@proj/api-core-data-access';
 import { AdminCreateTestInput } from './dto/admin-create-test.input';
@@ -318,7 +57,83 @@ export class ApiAdminTestService {
 "
 `;
 
-exports[`api-feature generator should generate the feature libraries with crud for admin and user  10`] = `
+exports[`api-feature generator should generate the feature libraries with crud for admin and user  5`] = `
+"import { Module } from '@nestjs/common';
+import { ApiCoreDataAccessModule } from '@proj/api-core-data-access';
+import { ApiTestService } from './api-test.service';
+import { ApiAdminTestService } from './api-admin-test.service';
+import { ApiUserTestService } from './api-user-test.service';
+
+@Module({
+  imports: [ApiCoreDataAccessModule],
+  providers: [ApiTestService, ApiAdminTestService, ApiUserTestService],
+  exports: [ApiTestService],
+})
+export class ApiTestDataAccessModule {}
+"
+`;
+
+exports[`api-feature generator should generate the feature libraries with crud for admin and user  6`] = `
+"import { Injectable } from '@nestjs/common';
+import { ApiAdminTestService } from './api-admin-test.service';
+import { ApiUserTestService } from './api-user-test.service';
+
+@Injectable()
+export class ApiTestService {
+  // Use the following command to generate the CRUD for this service for a certain actor
+  // nx g api-crud --app Api --model test --actor <admin|user|etc...>
+  constructor(
+    readonly admin: ApiAdminTestService,
+    readonly user: ApiUserTestService
+  ) {}
+}
+"
+`;
+
+exports[`api-feature generator should generate the feature libraries with crud for admin and user  7`] = `
+"import { Injectable } from '@nestjs/common';
+import { ApiCoreService } from '@proj/api-core-data-access';
+import { UserCreateTestInput } from './dto/user-create-test.input';
+import { UserFindManyTestInput } from './dto/user-find-many-test.input';
+import { UserUpdateTestInput } from './dto/user-update-test.input';
+import { TestPaging } from './entity/test-paging.entity';
+import { getUserTestWhereInput } from './helpers/get-user-test-where.input';
+
+@Injectable()
+export class ApiUserTestService {
+  constructor(private readonly core: ApiCoreService) {}
+
+  async createTest(input: UserCreateTestInput) {
+    return this.core.data.test.create({ data: input });
+  }
+
+  async deleteTest(testId: string) {
+    const deleted = await this.core.data.test.delete({ where: { id: testId } });
+    return !!deleted;
+  }
+
+  async findManyTest(input: UserFindManyTestInput): Promise<TestPaging> {
+    return this.core.data.test
+      .paginate({
+        orderBy: { createdAt: 'desc' },
+        where: getUserTestWhereInput(input),
+      })
+      .withPages({ limit: input.limit, page: input.page })
+      .then(([data, meta]) => ({ data, meta }));
+  }
+
+  async findOneTest(testId: string) {
+    return this.core.data.test.findUnique({ where: { id: testId } });
+  }
+
+  async updateTest(testId: string, input: UserUpdateTestInput) {
+    return this.core.data.test.update({ where: { id: testId }, data: input });
+  }
+}
+"
+`;
+
+exports[`api-feature generator should generate the feature libraries with crud for admin and user  8`] = `
 "import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
@@ -329,7 +144,7 @@ export class AdminCreateTestInput {
 "
 `;
 
-exports[`api-feature generator should generate the feature libraries with crud for admin and user  11`] = `
+exports[`api-feature generator should generate the feature libraries with crud for admin and user  9`] = `
 "import { Field, InputType } from '@nestjs/graphql';
 import { PagingInput } from '@proj/api-core-data-access';
 
@@ -341,7 +156,7 @@ export class AdminFindManyTestInput extends PagingInput() {
 "
 `;
 
-exports[`api-feature generator should generate the feature libraries with crud for admin and user  12`] = `
+exports[`api-feature generator should generate the feature libraries with crud for admin and user  10`] = `
 "import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
@@ -352,7 +167,7 @@ export class AdminUpdateTestInput {
 "
 `;
 
-exports[`api-feature generator should generate the feature libraries with crud for admin and user  13`] = `
+exports[`api-feature generator should generate the feature libraries with crud for admin and user  11`] = `
 "import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
@@ -363,7 +178,7 @@ export class UserCreateTestInput {
 "
 `;
 
-exports[`api-feature generator should generate the feature libraries with crud for admin and user  14`] = `
+exports[`api-feature generator should generate the feature libraries with crud for admin and user  12`] = `
 "import { Field, InputType } from '@nestjs/graphql';
 import { PagingInput } from '@proj/api-core-data-access';
 
@@ -375,13 +190,40 @@ export class UserFindManyTestInput extends PagingInput() {
 "
 `;
 
-exports[`api-feature generator should generate the feature libraries with crud for admin and user  15`] = `
+exports[`api-feature generator should generate the feature libraries with crud for admin and user  13`] = `
 "import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
 export class UserUpdateTestInput {
   @Field({ nullable: true })
   name?: string;
+}
+"
+`;
+
+exports[`api-feature generator should generate the feature libraries with crud for admin and user  14`] = `
+"import { ObjectType } from '@nestjs/graphql';
+import { PagingResponse } from '@proj/api-core-data-access';
+import { Test } from './test.entity';
+
+@ObjectType()
+export class TestPaging extends PagingResponse<Test>(Test) {}
+"
+`;
+
+exports[`api-feature generator should generate the feature libraries with crud for admin and user  15`] = `
+"import { Field, ObjectType } from '@nestjs/graphql';
+
+@ObjectType()
+export class Test {
+  @Field()
+  id!: string;
+  @Field({ nullable: true })
+  createdAt?: Date;
+  @Field({ nullable: true })
+  updatedAt?: Date;
+  @Field()
+  name!: string;
 }
 "
 `;
@@ -429,82 +271,11 @@ export function getUserTestWhereInput(
 `;
 
 exports[`api-feature generator should generate the feature libraries with crud for admin and user  18`] = `
-"import { Injectable } from '@nestjs/common';
-import { ApiCoreService } from '@proj/api-core-data-access';
-import { UserCreateTestInput } from './dto/user-create-test.input';
-import { UserFindManyTestInput } from './dto/user-find-many-test.input';
-import { UserUpdateTestInput } from './dto/user-update-test.input';
-import { TestPaging } from './entity/test-paging.entity';
-import { getUserTestWhereInput } from './helpers/get-user-test-where.input';
-
-@Injectable()
-export class ApiUserTestService {
-  constructor(private readonly core: ApiCoreService) {}
-
-  async createTest(input: UserCreateTestInput) {
-    return this.core.data.test.create({ data: input });
-  }
-
-  async deleteTest(testId: string) {
-    const deleted = await this.core.data.test.delete({ where: { id: testId } });
-    return !!deleted;
-  }
-
-  async findManyTest(input: UserFindManyTestInput): Promise<TestPaging> {
-    return this.core.data.test
-      .paginate({
-        orderBy: { createdAt: 'desc' },
-        where: getUserTestWhereInput(input),
-      })
-      .withPages({ limit: input.limit, page: input.page })
-      .then(([data, meta]) => ({ data, meta }));
-  }
-
-  async findOneTest(testId: string) {
-    return this.core.data.test.findUnique({ where: { id: testId } });
-  }
-
-  async updateTest(testId: string, input: UserUpdateTestInput) {
-    return this.core.data.test.update({ where: { id: testId }, data: input });
-  }
-}
-"
-`;
-
-exports[`api-feature generator should generate the feature libraries with crud for admin and user  19`] = `
 "export * from './lib/api-test-feature.module';
 "
 `;
 
-exports[`api-feature generator should generate the feature libraries with crud for admin and user  20`] = `
-"import { Module } from '@nestjs/common';
-import { ApiTestDataAccessModule } from '@proj/api-test-data-access';
-import { ApiTestResolver } from './api-test.resolver';
-import { ApiAdminTestResolver } from './api-admin-test.resolver';
-import { ApiUserTestResolver } from './api-user-test.resolver';
-
-@Module({
-  imports: [ApiTestDataAccessModule],
-  providers: [ApiTestResolver],
-  resolvers: [ApiAdminTestResolver, ApiUserTestResolver],
-})
-export class ApiTestFeatureModule {}
-"
-`;
-
-exports[`api-feature generator should generate the feature libraries with crud for admin and user  21`] = `
-"import { Resolver } from '@nestjs/graphql';
-import { ApiTestService } from '@proj/api-test-data-access';
-import { Test } from '@proj/api-test-data-access';
-
-@Resolver(() => Test)
-export class ApiTestResolver {
-  constructor(private readonly service: ApiTestService) {}
-}
-"
-`;
-
-exports[`api-feature generator should generate the feature libraries with crud for admin and user  22`] = `
+exports[`api-feature generator should generate the feature libraries with crud for admin and user  19`] = `
 "import { Resolver } from '@nestjs/graphql';
 import { ApiTestService } from '@proj/api-test-data-access';
 import { ApiAuthGraphQLAdminGuard } from '@proj/api-auth-data-access';
@@ -554,7 +325,34 @@ export class ApiAdminTestResolver {
 "
 `;
 
-exports[`api-feature generator should generate the feature libraries with crud for admin and user  23`] = `
+exports[`api-feature generator should generate the feature libraries with crud for admin and user  20`] = `
+"import { Module } from '@nestjs/common';
+import { ApiTestDataAccessModule } from '@proj/api-test-data-access';
+import { ApiTestResolver } from './api-test.resolver';
+import { ApiAdminTestResolver } from './api-admin-test.resolver';
+import { ApiUserTestResolver } from './api-user-test.resolver';
+
+@Module({
+  imports: [ApiTestDataAccessModule],
+  providers: [ApiTestResolver, ApiAdminTestResolver, ApiUserTestResolver],
+})
+export class ApiTestFeatureModule {}
+"
+`;
+
+exports[`api-feature generator should generate the feature libraries with crud for admin and user  21`] = `
+"import { Resolver } from '@nestjs/graphql';
+import { ApiTestService } from '@proj/api-test-data-access';
+import { Test } from '@proj/api-test-data-access';
+
+@Resolver(() => Test)
+export class ApiTestResolver {
+  constructor(private readonly service: ApiTestService) {}
+}
+"
+`;
+
+exports[`api-feature generator should generate the feature libraries with crud for admin and user  22`] = `
 "import { Resolver } from '@nestjs/graphql';
 import { ApiTestService } from '@proj/api-test-data-access';
 import { ApiAuthGraphQLUserGuard } from '@proj/api-auth-data-access';
@@ -605,214 +403,13 @@ export class ApiUserTestResolver {
 `;
 
 exports[`api-feature generator should generate the minimal feature libraries 3`] = `
-"import {
-  AdminCreateTestInput,
-  AdminFindManyTestInput,
-  AdminUpdateTestInput,
-  Test,
-} from '@proj/sdk';
-import { getAliceCookie, getBobCookie, sdk, uniqueId } from '../support';
-
-describe('api-test-feature', () => {
-  describe('api-test-admin-resolver', () => {
-    const testName = uniqueId('acme-test');
-    let testId: string;
-    let cookie: string;
-
-    beforeAll(async () => {
-      cookie = await getAliceCookie();
-      const created = await sdk.adminCreateTest(
-        { input: { name: testName } },
-        { cookie }
-      );
-      testId = created.data.created.id;
-    });
-
-    describe('authorized', () => {
-      beforeAll(async () => {
-        cookie = await getAliceCookie();
-      });
-
-      it('should create a test', async () => {
-        const input: AdminCreateTestInput = {
-          name: uniqueId('test'),
-        };
-
-        const res = await sdk.adminCreateTest({ input }, { cookie });
-
-        const item: Test = res.data.created;
-        expect(item.name).toBe(input.name);
-        expect(item.id).toBeDefined();
-        expect(item.createdAt).toBeDefined();
-        expect(item.updatedAt).toBeDefined();
-      });
-
-      it('should update a test', async () => {
-        const createInput: AdminCreateTestInput = {
-          name: uniqueId('test'),
-        };
-        const createdRes = await sdk.adminCreateTest(
-          { input: createInput },
-          { cookie }
-        );
-        const testId = createdRes.data.created.id;
-        const input: AdminUpdateTestInput = {
-          name: uniqueId('test'),
-        };
-
-        const res = await sdk.adminUpdateTest({ testId, input }, { cookie });
-
-        const item: Test = res.data.updated;
-        expect(item.name).toBe(input.name);
-      });
-
-      it('should find a list of tests (find all)', async () => {
-        const createInput: AdminCreateTestInput = {
-          name: uniqueId('test'),
-        };
-        const createdRes = await sdk.adminCreateTest(
-          { input: createInput },
-          { cookie }
-        );
-        const testId = createdRes.data.created.id;
-
-        const input: AdminFindManyTestInput = {};
-
-        const res = await sdk.adminFindManyTest({ input }, { cookie });
-
-        expect(res.data.paging.meta.totalCount).toBeGreaterThan(1);
-        expect(res.data.paging.data.length).toBeGreaterThan(1);
-        // First item should be the one we created above
-        expect(res.data.paging.data[0].id).toBe(testId);
-      });
-
-      it('should find a list of tests (find new one)', async () => {
-        const createInput: AdminCreateTestInput = {
-          name: uniqueId('test'),
-        };
-        const createdRes = await sdk.adminCreateTest(
-          { input: createInput },
-          { cookie }
-        );
-        const testId = createdRes.data.created.id;
-
-        const input: AdminFindManyTestInput = {
-          search: testId,
-        };
-
-        const res = await sdk.adminFindManyTest({ input }, { cookie });
-
-        expect(res.data.paging.meta.totalCount).toBe(1);
-        expect(res.data.paging.data.length).toBe(1);
-        expect(res.data.paging.data[0].id).toBe(testId);
-      });
-
-      it('should find a test by id', async () => {
-        const createInput: AdminCreateTestInput = {
-          name: uniqueId('test'),
-        };
-        const createdRes = await sdk.adminCreateTest(
-          { input: createInput },
-          { cookie }
-        );
-        const testId = createdRes.data.created.id;
-
-        const res = await sdk.adminFindOneTest({ testId }, { cookie });
-
-        expect(res.data.item.id).toBe(testId);
-      });
-
-      it('should delete a test', async () => {
-        const createInput: AdminCreateTestInput = {
-          name: uniqueId('test'),
-        };
-        const createdRes = await sdk.adminCreateTest(
-          { input: createInput },
-          { cookie }
-        );
-        const testId = createdRes.data.created.id;
-
-        const res = await sdk.adminDeleteTest({ testId }, { cookie });
-
-        expect(res.data.deleted).toBe(true);
-
-        const findRes = await sdk.adminFindManyTest(
-          { input: { search: testId } },
-          { cookie }
-        );
-        expect(findRes.data.paging.meta.totalCount).toBe(0);
-        expect(findRes.data.paging.data.length).toBe(0);
-      });
-    });
-
-    describe('unauthorized', () => {
-      let cookie: string;
-      beforeAll(async () => {
-        cookie = await getBobCookie();
-      });
-
-      it('should not create a test', async () => {
-        expect.assertions(1);
-        const input: AdminCreateTestInput = {
-          name: uniqueId('test'),
-        };
-
-        try {
-          await sdk.adminCreateTest({ input }, { cookie });
-        } catch (e) {
-          expect(e.message).toBe('Unauthorized: User is not Admin');
-        }
-      });
-
-      it('should not update a test', async () => {
-        expect.assertions(1);
-        try {
-          await sdk.adminUpdateTest({ testId, input: {} }, { cookie });
-        } catch (e) {
-          expect(e.message).toBe('Unauthorized: User is not Admin');
-        }
-      });
-
-      it('should not find a list of tests (find all)', async () => {
-        expect.assertions(1);
-        try {
-          await sdk.adminFindManyTest({ input: {} }, { cookie });
-        } catch (e) {
-          expect(e.message).toBe('Unauthorized: User is not Admin');
-        }
-      });
-
-      it('should not find a test by id', async () => {
-        expect.assertions(1);
-        try {
-          await sdk.adminFindOneTest({ testId }, { cookie });
-        } catch (e) {
-          expect(e.message).toBe('Unauthorized: User is not Admin');
-        }
-      });
-
-      it('should not delete a test', async () => {
-        expect.assertions(1);
-        try {
-          await sdk.adminDeleteTest({ testId }, { cookie });
-        } catch (e) {
-          expect(e.message).toBe('Unauthorized: User is not Admin');
-        }
-      });
-    });
-  });
-});
-"
-`;
-
-exports[`api-feature generator should generate the minimal feature libraries 4`] = `
 "export * from './lib/api-test-data-access.module';
 export * from './lib/api-test.service';
 export * from './lib/entity/test.entity';
 "
 `;
 
-exports[`api-feature generator should generate the minimal feature libraries 5`] = `
+exports[`api-feature generator should generate the minimal feature libraries 4`] = `
 "import { Module } from '@nestjs/common';
 import { ApiCoreDataAccessModule } from '@proj/api-core-data-access';
 import { ApiTestService } from './api-test.service';
@@ -826,7 +423,7 @@ export class ApiTestDataAccessModule {}
 "
 `;
 
-exports[`api-feature generator should generate the minimal feature libraries 6`] = `
+exports[`api-feature generator should generate the minimal feature libraries 5`] = `
 "import { Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -838,29 +435,12 @@ export class ApiTestService {
 "
 `;
 
-exports[`api-feature generator should generate the minimal feature libraries 7`] = `
-"import { Field, ObjectType } from '@nestjs/graphql';
-
-@ObjectType()
-export class Test {
-  @Field()
-  id!: string;
-  @Field({ nullable: true })
-  createdAt?: Date;
-  @Field({ nullable: true })
-  updatedAt?: Date;
-  @Field()
-  name!: string;
-}
-"
-`;
-
-exports[`api-feature generator should generate the minimal feature libraries 8`] = `
+exports[`api-feature generator should generate the minimal feature libraries 6`] = `
 "export * from './lib/api-test-feature.module';
 "
 `;
 
-exports[`api-feature generator should generate the minimal feature libraries 9`] = `
+exports[`api-feature generator should generate the minimal feature libraries 7`] = `
 "import { Module } from '@nestjs/common';
 import { ApiTestDataAccessModule } from '@proj/api-test-data-access';
 import { ApiTestResolver } from './api-test.resolver';
@@ -873,7 +453,7 @@ export class ApiTestFeatureModule {}
 "
 `;
 
-exports[`api-feature generator should generate the minimal feature libraries 10`] = `
+exports[`api-feature generator should generate the minimal feature libraries 8`] = `
 "import { Resolver } from '@nestjs/graphql';
 import { ApiTestService } from '@proj/api-test-data-access';
 import { Test } from '@proj/api-test-data-access';

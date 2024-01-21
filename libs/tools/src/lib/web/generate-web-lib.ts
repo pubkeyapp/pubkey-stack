@@ -4,7 +4,6 @@ import { getNpmScope } from '@nx/js/src/utils/package-json/get-npm-scope'
 import { libraryGenerator } from '@nx/react'
 import { NormalizedWebFeatureSchema } from '../../generators/web-feature/web-feature-schema'
 import { WebLibType } from '../types/web-feature'
-import { generateWebLibFeature } from './generate-web-lib-feature'
 
 export async function generateWebLib(tree: Tree, type: WebLibType, options: NormalizedWebFeatureSchema) {
   const generated = await libraryGenerator(tree, {
@@ -23,12 +22,6 @@ export async function generateWebLib(tree: Tree, type: WebLibType, options: Norm
 
   if (!npmScope) {
     throw new Error('Could not find npmScope.')
-  }
-
-  switch (type) {
-    case 'feature':
-      await generateWebLibFeature(tree, options, npmScope)
-      break
   }
 
   return generated

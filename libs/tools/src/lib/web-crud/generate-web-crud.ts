@@ -7,6 +7,22 @@ import { ensureNxProjectExists } from '../utils/ensure-nx-project-exists'
 import { updateSourceFile } from '../utils/update-source-file'
 import { getWebCrudSubstitutions } from './get-web-crud-substitutions'
 
+const defaultIconMap: Record<string, string> = {
+  App: 'IconApps',
+  Category: 'IconCategory',
+  Company: 'IconBuilding',
+  Integration: 'IconPuzzle',
+  Network: 'IconNetwork',
+  Project: 'IconProject',
+  Server: 'IconServer',
+  Tag: 'IconTag',
+  User: 'IconUser',
+}
+
+function getDefaultIcon(className: string) {
+  return defaultIconMap[className] || 'IconSettings'
+}
+
 export function generateWebCrud(tree: Tree, options: NormalizedApiCrudSchema) {
   const vars = getWebCrudSubstitutions(options)
   const projects: ProjectConfiguration[] = [
@@ -46,7 +62,7 @@ export function generateWebCrud(tree: Tree, options: NormalizedApiCrudSchema) {
   generateFiles(tree, `${__dirname}/files/feature`, feature.sourceRoot, { ...vars })
 
   const imports = [
-    `export const ${vars.actor.className}${vars.model.className}Feature = lazy(() => import('./lib/${vars.actor.fileName}-${vars.actor.fileName}.routes'))`,
+    `export const ${vars.actor.className}${vars.model.className}Feature = lazy(() => import('./lib/${vars.actor.fileName}-${vars.model.fileName}.routes'))`,
   ]
 
   const importSnippet = `import { lazy } from 'react'`
@@ -56,15 +72,23 @@ export function generateWebCrud(tree: Tree, options: NormalizedApiCrudSchema) {
   }
 
   // Add the imports to the featureIndex file
-  addExports(tree, featureIndex, imports)
+  const indexContent = tree.read(featureIndex)
+  tree.write(featureIndex, [indexContent, ...imports].join('\n'))
 
+  const defaultIcon = getDefaultIcon(vars.model.className)
+  const routesFileContent = tree.read(routesFile).toString()
+  if (!routesFileContent.includes(defaultIcon)) {
+    tree.write(routesFile, [`import { ${defaultIcon} } from '@tabler/icons-react'`, routesFileContent].join('\n'))
+  }
+
+  const to = `${vars.actorAdmin ? '/admin/' : `/`}${vars.plural.fileName}`
   const link = {
     name: 'links',
-    content: `{ label: '${vars.plural.className}', icon: IconUsers, to: '/admin/${vars.plural.fileName}' },`,
+    content: `{ label: '${vars.plural.className}', icon: ${defaultIcon}, to: '${to}' },`,
   }
   const route = {
     name: 'routes',
-    content: `{ path: '${vars.plural.fileName}/*', element: <${vars.actor.className}${vars.model.className}Feature /> },`,
+    content: `{ path: '${vars.plural.propertyName}/*', element: <${vars.actor.className}${vars.model.className}Feature /> },`,
   }
 
   updateSourceFile(tree, routesFile, (source) => {
@@ -83,7 +107,7 @@ export function generateWebCrud(tree: Tree, options: NormalizedApiCrudSchema) {
   })
 
   // Generate the ui library
-  generateFiles(tree, `${__dirname}/files/feature`, ui.sourceRoot, { ...vars })
+  generateFiles(tree, `${__dirname}/files/ui`, ui.sourceRoot, { ...vars })
 
   // Add the exports to the barrel file
   addExports(tree, `${ui.sourceRoot}/index.ts`, [

@@ -1,16 +1,16 @@
 import { Button, Group } from '@mantine/core'
-import { UiPageLimit, UiSearchField } from '@<%= npmScope %>/<%= app %>-ui-core'
-import { use<%= actor.className %>FindMany<%= modelClassName %> } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-data-access'
-import { <%= actor.className %><%= modelClassName %>UiTable } from '@<%= npmScope %>/<%= app %>-<%= modelFileName %>-ui'
+import { UiPageLimit, UiSearchField } from '@<%= npmScope %>/<%= app.fileName %>-ui-core'
+import { use<%= actor.className %>FindMany<%= model.className %> } from '@<%= npmScope %>/<%= app.fileName %>-<%= model.fileName %>-data-access'
+import { <%= actor.className %><%= model.className %>UiTable } from '@<%= npmScope %>/<%= app.fileName %>-<%= model.fileName %>-ui'
 import { UiBack, UiDebugModal, UiInfo, UiLoader, UiPage } from '@pubkey-ui/core'
 import { Link } from 'react-router-dom'
 
-export function <%= actor.className %><%= modelClassName %>ListFeature() {
-  const { delete<%= modelClassName %>, items, pagination, query, setSearch } = use<%= actor.className %>FindMany<%= modelClassName %>()
+export function <%= actor.className %><%= model.className %>ListFeature() {
+  const { delete<%= model.className %>, items, pagination, query, setSearch } = use<%= actor.className %>FindMany<%= model.className %>()
 
   return (
     <UiPage
-      title="<%= modelClassNamePlural %>"
+      title="<%= plural.className %>"
       leftAction={<UiBack />}
       rightAction={
         <Group>
@@ -22,26 +22,26 @@ export function <%= actor.className %><%= modelClassName %>ListFeature() {
       }
     >
       <Group>
-        <UiSearchField placeholder="Search <%= modelPropertyName %>" setSearch={setSearch} />
+        <UiSearchField placeholder="Search <%= model.propertyName %>" setSearch={setSearch} />
         <UiPageLimit limit={pagination.limit} setLimit={pagination.setLimit} setPage={pagination.setPage} />
       </Group>
 
       {query.isLoading ? (
         <UiLoader />
       ) : items?.length ? (
-        <<%= actor.className %><%= modelClassName %>UiTable
-          delete<%= modelClassName %>={(<%= modelPropertyName %>) => {
+        <<%= actor.className %><%= model.className %>UiTable
+          delete<%= model.className %>={(<%= model.propertyName %>) => {
             if (!window.confirm('Are you sure?')) return
-            return delete<%= modelClassName %>(<%= modelPropertyName %>.id)
+            return delete<%= model.className %>(<%= model.propertyName %>.id)
           }}
-          <%= modelPropertyNamePlural %>={items}
+          <%= plural.propertyName %>={items}
           page={pagination.page}
           totalRecords={pagination.total}
           recordsPerPage={pagination.limit}
           onPageChange={(page) => void pagination.setPage(page)}
         />
       ) : (
-        <UiInfo message="No <%= modelPropertyNamePlural %> found" />
+        <UiInfo message="No <%= plural.propertyName %> found" />
       )}
     </UiPage>
   )

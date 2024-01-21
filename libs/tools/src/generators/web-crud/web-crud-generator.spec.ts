@@ -1,6 +1,6 @@
 import { readProjectConfiguration, Tree } from '@nx/devkit'
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing'
-import { createMockWebApp } from '../../lib/web/create-mock-web-app'
+import { createMockWebApp } from '../../lib/web'
 import webFeatureGenerator from '../web-feature/web-feature-generator'
 import { WebCrudGeneratorSchema } from './web-crud-schema'
 

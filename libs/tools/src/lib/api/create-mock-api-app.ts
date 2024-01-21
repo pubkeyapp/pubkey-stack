@@ -31,4 +31,11 @@ export async function createMockApiApp(tree: Tree, app: string) {
     projectNameAndRootFormat: 'as-provided',
     skipFormat: true,
   })
+  // Create the sdk lib
+  await libraryGenerator(tree, {
+    directory: `libs/${app}/sdk`,
+    name: `sdk`,
+    projectNameAndRootFormat: 'as-provided',
+    skipFormat: true,
+  })
 }

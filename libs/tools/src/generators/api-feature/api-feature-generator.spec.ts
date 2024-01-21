@@ -1,14 +1,15 @@
 import { readProjectConfiguration, Tree } from '@nx/devkit'
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing'
 import { createMockApiApp } from '../../lib/api/create-mock-api-app'
-import { getRecursiveFileNames } from '../../lib/utils/get-recursive-file-contents'
+
+import { getRecursiveFileNames } from '../../lib/utils/get-recursive-file-names'
 
 import { apiFeatureGenerator } from './api-feature-generator'
 import { ApiFeatureGeneratorSchema } from './api-feature-schema'
 
 describe('api-feature generator', () => {
   let tree: Tree
-  const options: ApiFeatureGeneratorSchema = { app: 'api', name: 'test', label: 'name', skipSdk: true }
+  const options: ApiFeatureGeneratorSchema = { app: 'api', name: 'test', label: 'name' }
 
   beforeEach(() => {
     tree = createTreeWithEmptyWorkspace()
@@ -26,7 +27,6 @@ describe('api-feature generator', () => {
       expect(config).toBeDefined()
     })
 
-    const basePathE2e = `apps/${options.app}-e2e/src`
     const basePathDataAccess = `libs/${options.app}/${options.name}/data-access/src`
     const basePathFeature = `libs/${options.app}/${options.name}/feature/src`
 
@@ -38,7 +38,6 @@ describe('api-feature generator', () => {
         "libs/api/test/data-access/src/index.ts",
         "libs/api/test/data-access/src/lib/api-test-data-access.module.ts",
         "libs/api/test/data-access/src/lib/api-test.service.ts",
-        "libs/api/test/data-access/src/lib/entity/test.entity.ts",
       ]
     `)
     expect(sourceFilesFeature).toMatchInlineSnapshot(`
@@ -49,11 +48,7 @@ describe('api-feature generator', () => {
       ]
     `)
 
-    const files = [
-      `${basePathE2e}/api/api-${options.name}-feature.spec.ts`,
-      ...sourceFilesDataAccess,
-      ...sourceFilesFeature,
-    ]
+    const files = [...sourceFilesDataAccess, ...sourceFilesFeature]
 
     files.forEach((file) => {
       expect(tree.exists(file)).toBeTruthy()
@@ -73,7 +68,6 @@ describe('api-feature generator', () => {
       expect(config).toBeDefined()
     })
 
-    const basePathE2e = `apps/${options.app}-e2e/src`
     const basePathDataAccess = `libs/${options.app}/${options.name}/data-access/src`
     const basePathFeature = `libs/${options.app}/${options.name}/feature/src`
 
@@ -83,37 +77,33 @@ describe('api-feature generator', () => {
     expect(sourceFilesDataAccess).toMatchInlineSnapshot(`
       [
         "libs/api/test/data-access/src/index.ts",
+        "libs/api/test/data-access/src/lib/api-admin-test.service.ts",
         "libs/api/test/data-access/src/lib/api-test-data-access.module.ts",
         "libs/api/test/data-access/src/lib/api-test.service.ts",
-        "libs/api/test/data-access/src/lib/entity/test.entity.ts",
-        "libs/api/test/data-access/src/lib/entity/test-paging.entity.ts",
-        "libs/api/test/data-access/src/lib/api-admin-test.service.ts",
+        "libs/api/test/data-access/src/lib/api-user-test.service.ts",
         "libs/api/test/data-access/src/lib/dto/admin-create-test.input.ts",
         "libs/api/test/data-access/src/lib/dto/admin-find-many-test.input.ts",
         "libs/api/test/data-access/src/lib/dto/admin-update-test.input.ts",
         "libs/api/test/data-access/src/lib/dto/user-create-test.input.ts",
         "libs/api/test/data-access/src/lib/dto/user-find-many-test.input.ts",
         "libs/api/test/data-access/src/lib/dto/user-update-test.input.ts",
+        "libs/api/test/data-access/src/lib/entity/test-paging.entity.ts",
+        "libs/api/test/data-access/src/lib/entity/test.entity.ts",
         "libs/api/test/data-access/src/lib/helpers/get-admin-test-where.input.ts",
         "libs/api/test/data-access/src/lib/helpers/get-user-test-where.input.ts",
-        "libs/api/test/data-access/src/lib/api-user-test.service.ts",
       ]
     `)
     expect(sourceFilesFeature).toMatchInlineSnapshot(`
       [
         "libs/api/test/feature/src/index.ts",
+        "libs/api/test/feature/src/lib/api-admin-test.resolver.ts",
         "libs/api/test/feature/src/lib/api-test-feature.module.ts",
         "libs/api/test/feature/src/lib/api-test.resolver.ts",
-        "libs/api/test/feature/src/lib/api-admin-test.resolver.ts",
         "libs/api/test/feature/src/lib/api-user-test.resolver.ts",
       ]
     `)
 
-    const files = [
-      `${basePathE2e}/api/api-${options.name}-feature.spec.ts`,
-      ...sourceFilesDataAccess,
-      ...sourceFilesFeature,
-    ]
+    const files = [...sourceFilesDataAccess, ...sourceFilesFeature]
 
     files.forEach((file) => {
       expect(tree.exists(file)).toBeTruthy()

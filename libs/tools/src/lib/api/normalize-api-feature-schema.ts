@@ -14,9 +14,7 @@ export function normalizeApiFeatureSchema(tree: Tree, schema: ApiFeatureGenerato
     model,
     npmScope,
     skipDataAccess: schema.skipDataAccess ?? false,
-    skipE2e: schema.skipE2e ?? false,
     skipFeature: schema.skipFeature ?? false,
-    skipSdk: schema.skipSdk ?? false,
     skipUtil: schema.skipUtil ?? true,
   }
 }

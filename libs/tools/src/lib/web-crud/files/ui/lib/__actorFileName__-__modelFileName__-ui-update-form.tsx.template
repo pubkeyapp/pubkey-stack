@@ -1,23 +1,23 @@
 import { Button, Group } from '@mantine/core'
-import { <%= actor.className %>Update<%= modelClassName %>Input, <%= modelClassName %> } from '@<%= npmScope %>/sdk'
+import { <%= actor.className %>Update<%= model.className %>Input, <%= model.className %> } from '@<%= npmScope %>/sdk'
 import { formFieldText, UiForm, UiFormField } from '@pubkey-ui/core'
 
-export function <%= actor.className %><%= modelClassName %>UiUpdateForm({
+export function <%= actor.className %><%= model.className %>UiUpdateForm({
   submit,
-  <%= modelPropertyName %>
+  <%= model.propertyName %>
 }: {
-  submit: (res: <%= actor.className %>Update<%= modelClassName %>Input) => Promise<boolean>
-  <%= modelPropertyName %>: <%= modelClassName %>
+  submit: (res: <%= actor.className %>Update<%= model.className %>Input) => Promise<boolean>
+  <%= model.propertyName %>: <%= model.className %>
 }) {
-  const model: <%= actor.className %>Update<%= modelClassName %>Input = {
-    <%= label %>: <%= modelPropertyName %>.<%= label %> ?? '',
+  const model: <%= actor.className %>Update<%= model.className %>Input = {
+    <%= label.propertyName %>: <%= model.propertyName %>.<%= label.propertyName %> ?? '',
   }
 
-  const fields: UiFormField<<%= actor.className %>Update<%= modelClassName %>Input>[] = [
-    formFieldText('<%= label %>', { label: '<%= labelClassName %>' }),
+  const fields: UiFormField<<%= actor.className %>Update<%= model.className %>Input>[] = [
+    formFieldText('<%= label.propertyName %>', { label: '<%= label.className %>' }),
   ]
   return (
-    <UiForm model={model} fields={fields} submit={(res) => submit(res as <%= actor.className %>Update<%= modelClassName %>Input)}>
+    <UiForm model={model} fields={fields} submit={(res) => submit(res as <%= actor.className %>Update<%= model.className %>Input)}>
       <Group justify="right">
         <Button type="submit">Save</Button>
       </Group>

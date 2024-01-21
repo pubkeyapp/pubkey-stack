@@ -1,23 +1,23 @@
 import { generateFiles, Tree } from '@nx/devkit'
 import { NormalizedApiFeatureSchema } from '../../generators/api-feature/api-feature-schema'
 import { addExports } from '../utils/add-export'
-import { getApiDataAccessModuleInfo } from './get-api-data-access-module-info'
+import { ensureNxProjectExists } from '../utils/ensure-nx-project-exists'
 import { getApiSubstitutions } from './get-api-substitutions'
 
 export async function generateApiLibDataAccess(tree: Tree, options: NormalizedApiFeatureSchema) {
   const substitutions = getApiSubstitutions(options)
 
-  const { dataAccessModulePath, dataAccessProjectRoot } = getApiDataAccessModuleInfo(tree, options)
-
-  const dataAccessExports: string[] = [
-    `./lib/${options.app}-${options.name}.service`,
-    `./lib/entity/${substitutions.model.fileName}.entity`,
-  ]
+  const [dataAccess] = [`${options.app}-${options.model}-data-access`].map((project) =>
+    ensureNxProjectExists(tree, project),
+  )
 
   // Remove the generated data access module
-  tree.delete(dataAccessModulePath)
+  tree.delete(`${dataAccess.sourceRoot}/lib/${dataAccess.name}.module.ts`)
   // Generate the data access library
-  generateFiles(tree, `${__dirname}/files/data-access`, dataAccessProjectRoot, { ...substitutions })
+  generateFiles(tree, `${__dirname}/files/data-access`, dataAccess.sourceRoot, { ...substitutions })
   // Add the exports to the barrel file
-  addExports(tree, `${dataAccessProjectRoot}/index.ts`, dataAccessExports)
+  addExports(tree, `${dataAccess.sourceRoot}/index.ts`, [
+    `./lib/${options.app}-${options.name}.service`,
+    `./lib/entity/${substitutions.model.fileName}.entity`,
+  ])
 }
