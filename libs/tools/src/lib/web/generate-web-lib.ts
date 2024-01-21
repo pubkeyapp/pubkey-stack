@@ -4,9 +4,7 @@ import { getNpmScope } from '@nx/js/src/utils/package-json/get-npm-scope'
 import { libraryGenerator } from '@nx/react'
 import { NormalizedWebFeatureSchema } from '../../generators/web-feature/web-feature-schema'
 import { WebLibType } from '../types/web-feature'
-import { generateWebLibDataAccess } from './generate-web-lib-data-access'
 import { generateWebLibFeature } from './generate-web-lib-feature'
-import { generateWebLibUi } from './generate-web-lib-ui'
 
 export async function generateWebLib(tree: Tree, type: WebLibType, options: NormalizedWebFeatureSchema) {
   const generated = await libraryGenerator(tree, {
@@ -28,14 +26,8 @@ export async function generateWebLib(tree: Tree, type: WebLibType, options: Norm
   }
 
   switch (type) {
-    case 'data-access':
-      await generateWebLibDataAccess(tree, options, npmScope)
-      break
     case 'feature':
       await generateWebLibFeature(tree, options, npmScope)
-      break
-    case 'ui':
-      await generateWebLibUi(tree, options, npmScope)
       break
   }
 

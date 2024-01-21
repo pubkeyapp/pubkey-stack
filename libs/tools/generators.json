@@ -35,6 +35,11 @@
       "schema": "./src/generators/setup/setup-schema.json",
       "description": "setup generator"
     },
+    "web-crud": {
+      "factory": "./src/generators/web-crud/web-crud-generator",
+      "schema": "./src/generators/web-crud/web-crud-schema.json",
+      "description": "web-crud generator"
+    },
     "web-feature": {
       "factory": "./src/generators/web-feature/web-feature-generator",
       "schema": "./src/generators/web-feature/web-feature-schema.json",

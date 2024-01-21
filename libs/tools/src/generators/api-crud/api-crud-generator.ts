@@ -7,9 +7,7 @@ import { ApiCrudGeneratorSchema } from './api-crud-schema'
 export async function apiCrudGenerator(tree: Tree, rawOptions: ApiCrudGeneratorSchema) {
   const options = normalizeApiCrudSchema(tree, rawOptions)
   ensureNxProjectExists(tree, options.app)
-
   generateApiCrud(tree, options)
-
   await formatFiles(tree)
 }
 

@@ -10,13 +10,13 @@ export function useGuardedRoutes({
   layout,
   index,
   full,
-  root,
+  public: publicRoutes,
 }: {
   index: string
   admin: RouteObject[]
   layout: RouteObject[]
   full: RouteObject[]
-  root: RouteObject[]
+  public: RouteObject[]
 }) {
   return useRoutes([
     { index: true, element: <Navigate to={index} replace /> },
@@ -51,6 +51,6 @@ export function useGuardedRoutes({
         },
       ],
     },
-    ...root,
+    ...publicRoutes,
   ])
 }

@@ -6,7 +6,7 @@ import '@pubkey-ui/core/index.esm.css'
 import 'mantine-datatable/styles.layer.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { BrowserRouter, Link } from 'react-router-dom'
-import { ShellRoutes } from './shell-routes'
+import { ShellRoutes } from './shell.routes'
 
 const client = new QueryClient({
   defaultOptions: {
