@@ -18,8 +18,9 @@ export async function prismaModelGenerator(tree: Tree, rawOptions: PrismaModelGe
     throw new Error(`Model "${options.name}" already exists`)
   }
 
+  const schema = tree.read(options.schemaFile).toString('utf-8')
   // Add the model to the schema
-  const updated = addPrismaModel(tree.read(options.schemaFile).toString('utf-8'), options.name, options.label)
+  const updated = addPrismaModel(schema, options.name, options.label, options.fields)
 
   // Write the schema back to the file
   tree.write(options.schemaFile, updated)

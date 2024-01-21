@@ -14,7 +14,7 @@ const links: UiDashboardItem[] = [
 ]
 
 const routes: RouteObject[] = [
-  // Admin Dashboard Routes are added by the web-crud generator
+  // User Dashboard Routes are added by the web-crud generator
   { path: '/dashboard', element: <DashboardFeature links={links} /> },
   { path: '/settings/*', element: <SettingsFeature /> },
   { path: '/solana/*', element: <SolanaFeature /> },

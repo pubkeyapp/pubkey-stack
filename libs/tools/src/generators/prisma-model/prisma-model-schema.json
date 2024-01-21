@@ -17,6 +17,13 @@
       "type": "string",
       "description": "The label field for the model. Generally 'name' or 'title'.",
       "default": "name"
+    },
+    "field": {
+      "type": "array",
+      "description": "The field to add to the model, in the format 'name:type'. Use this flag multiple times to add multiple fields.",
+      "items": {
+        "type": "string"
+      }
     }
   },
   "required": ["name"]

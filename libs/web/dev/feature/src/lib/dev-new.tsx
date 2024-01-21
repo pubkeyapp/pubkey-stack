@@ -9,7 +9,7 @@ export function DevNew() {
           title="A place for your new stuff"
           message={
             <Group gap={0} align="baseline">
-              Open <Code mx={4}>libs/web/dev/feature/src/lib/web-dev-new.tsx</Code> to get started.
+              Open <Code mx={4}>libs/web/dev/feature/src/lib/dev-new.tsx</Code> to get started.
             </Group>
           }
         />

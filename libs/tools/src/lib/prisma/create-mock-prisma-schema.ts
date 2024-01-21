@@ -1,5 +1,6 @@
 import { createPrismaSchemaBuilder, getSchema, printSchema } from '@mrleebo/prisma-ast'
 import { Tree } from '@nx/devkit'
+import { type ParsedPrismaModelField, parsePrismaModelFields } from './parse-prisma-model-fields'
 
 const baseScheme = `generator client {
   provider = "prisma-client-js"
@@ -50,19 +51,55 @@ export function createMockPrismaSchema(tree: Tree) {
   }
 }
 
-export function addPrismaModel(schema: string, name: string, label: string) {
-  const builder = createPrismaSchemaBuilder(schema)
+export function addPrismaModel(schema: string, name: string, label: string, fields: string[]) {
+  const builder = createPrismaSchemaBuilder(schema).model(name)
 
-  builder
-    .model(name)
-    .field('id', 'String')
-    .attribute('id')
-    .attribute('default', [{ name: 'cuid' }])
-    .field('createdAt', 'DateTime')
-    .attribute('default', [{ name: 'now' }])
-    .field('updatedAt', 'DateTime')
-    .attribute('updatedAt')
-    .field(label, 'String')
+  const parsedFields = parsePrismaModelFields(fields)
+
+  const defaultFields: ParsedPrismaModelField[] = [
+    {
+      name: 'id',
+      type: 'String',
+      attributes: [{ name: 'id' }, { name: 'default', params: [{ name: 'cuid' }] }],
+    },
+    {
+      name: 'createdAt',
+      type: 'DateTime',
+      attributes: [{ name: 'default', params: [{ name: 'now' }] }],
+    },
+    {
+      name: 'updatedAt',
+      type: 'DateTime',
+      attributes: [{ name: 'updatedAt' }],
+    },
+
+    //   owner        User                @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    //   ownerId      String
+    {
+      name: 'owner',
+      type: 'User',
+      attributes: [
+        {
+          name: 'relation',
+          params: [
+            { name: 'fields', params: ['ownerId'] },
+            { name: 'references', params: ['id'] },
+            { name: 'onDelete', params: ['Cascade'] },
+          ],
+        },
+      ],
+    },
+    { name: 'ownerId', type: 'String' },
+
+    { name: label, type: 'String' },
+  ]
+
+  for (const { name, type, attributes = [], isOptional } of [...defaultFields, ...parsedFields]) {
+    const field = builder.field(name, isOptional ? type + '?' : type)
+    for (const { name, params } of attributes) {
+      field.attribute(name, params)
+    }
+  }
 
   return builder.print({ sort: true })
 }

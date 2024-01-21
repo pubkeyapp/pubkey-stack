@@ -5,12 +5,12 @@ import { IconUsers } from '@tabler/icons-react'
 import { Navigate, RouteObject, useRoutes } from 'react-router-dom'
 
 const links: UiDashboardItem[] = [
-  // Admin Dashboard Links are added by the web-feature generator
+  // Admin Dashboard Links are added by the web-crud generator
   { label: 'Users', icon: IconUsers, to: '/admin/users' },
 ]
 
 const routes: RouteObject[] = [
-  // Admin Dashboard Routes are added by the web-feature generator
+  // Admin Dashboard Routes are added by the web-crud generator
   { path: 'development/*', element: <DevAdminRoutes /> },
   { path: 'users/*', element: <AdminUserFeature /> },
 ]
