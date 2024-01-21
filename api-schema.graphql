@@ -158,7 +158,7 @@ type User {
   id: String!
   identities: [Identity!]
   name: String
-  profileUrl: String
+  profileUrl: String!
   role: UserRole
   status: UserStatus
   updatedAt: DateTime

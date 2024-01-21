@@ -10,7 +10,7 @@ import { UiCard, UiContainer, UiDebugModal, UiGroup, UiLoader, UiStack, UiWarnin
 import { IconMoodSmile } from '@tabler/icons-react'
 import { Link, useParams } from 'react-router-dom'
 
-export function UserDetailFeature() {
+export function UserUserDetailFeature() {
   const { user: authUser } = useAuth()
   const { username } = useParams<{ username: string }>() as { username: string }
   const { user, query } = useUserFineOneUser({ username })

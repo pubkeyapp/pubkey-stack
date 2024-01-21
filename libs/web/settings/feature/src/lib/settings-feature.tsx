@@ -24,7 +24,7 @@ export default function SettingsFeature() {
           <UserUiProfile
             user={user}
             action={
-              <Button size="xs" variant="light" component={Link} to={`/profile`}>
+              <Button size="xs" variant="light" component={Link} to={user.profileUrl}>
                 View profile
               </Button>
             }

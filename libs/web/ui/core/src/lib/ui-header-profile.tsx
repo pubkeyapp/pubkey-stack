@@ -12,7 +12,7 @@ export function UiHeaderProfile({ user, logout }: { user?: User | null; logout: 
   const isAdmin = user?.role === UserRole.Admin
   const isDeveloper = user?.developer ?? false
 
-  return (
+  return user ? (
     <Menu
       width={260}
       position="bottom-end"
@@ -35,7 +35,7 @@ export function UiHeaderProfile({ user, logout }: { user?: User | null; logout: 
         </Button>
       </Menu.Target>
       <Menu.Dropdown>
-        <Menu.Item component={Link} to="/profile" leftSection={<IconUser size="0.9rem" stroke={1.5} />}>
+        <Menu.Item component={Link} to={user.profileUrl} leftSection={<IconUser size="0.9rem" stroke={1.5} />}>
           View profile
         </Menu.Item>
         <Menu.Item component={Link} to="/settings" leftSection={<IconSettings size="0.9rem" stroke={1.5} />}>
@@ -71,5 +71,5 @@ export function UiHeaderProfile({ user, logout }: { user?: User | null; logout: 
         </Menu.Item>
       </Menu.Dropdown>
     </Menu>
-  )
+  ) : null
 }

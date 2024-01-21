@@ -372,7 +372,9 @@ import { Link } from 'react-router-dom';
 
 export function AdminTestListFeature() {
   const { deleteTest, items, pagination, query, setSearch } =
-    useAdminFindManyTest();
+    useAdminFindManyTest({
+      limit: 10,
+    });
 
   return (
     <UiPage
@@ -581,7 +583,7 @@ exports[`web-feature generator should run successfully with crud 20`] = `
 "import { Button, Group } from '@mantine/core';
 import { UiPageLimit, UiSearchField } from '@proj/web-ui-core';
 import { useUserFindManyTest } from '@proj/web-test-data-access';
-import { UserTestUiTable } from '@proj/web-test-ui';
+import { TestUiGrid } from '@proj/web-test-ui';
 import {
   UiBack,
   UiDebugModal,
@@ -593,7 +595,9 @@ import { Link } from 'react-router-dom';
 
 export function UserTestListFeature() {
   const { deleteTest, items, pagination, query, setSearch } =
-    useUserFindManyTest();
+    useUserFindManyTest({
+      limit: 12,
+    });
 
   return (
     <UiPage
@@ -610,26 +614,19 @@ export function UserTestListFeature() {
     >
       <Group>
         <UiSearchField placeholder="Search test" setSearch={setSearch} />
-        <UiPageLimit
-          limit={pagination.limit}
-          setLimit={pagination.setLimit}
-          setPage={pagination.setPage}
-        />
       </Group>
 
       {query.isLoading ? (
         <UiLoader />
       ) : items?.length ? (
-        <UserTestUiTable
-          deleteTest={(test) => {
-            if (!window.confirm('Are you sure?')) return;
-            return deleteTest(test.id);
-          }}
+        <TestUiGrid
           tests={items}
           page={pagination.page}
           totalRecords={pagination.total}
-          recordsPerPage={pagination.limit}
-          onPageChange={(page) => void pagination.setPage(page)}
+          onPageChange={pagination.setPage}
+          limit={pagination.limit}
+          setLimit={pagination.setLimit}
+          setPage={pagination.setPage}
         />
       ) : (
         <UiInfo message="No tests found" />
@@ -663,6 +660,10 @@ exports[`web-feature generator should run successfully with crud 22`] = `
 "export * from './lib/admin-test-ui-create-form';
 export * from './lib/admin-test-ui-table';
 export * from './lib/admin-test-ui-update-form';
+export * from './lib/test-ui-avatar';
+export * from './lib/test-ui-grid';
+export * from './lib/test-ui-grid-item';
+export * from './lib/test-ui-item';
 export * from './lib/user-test-ui-create-form';
 export * from './lib/user-test-ui-table';
 export * from './lib/user-test-ui-update-form';
@@ -818,6 +819,138 @@ export function AdminTestUiUpdateForm({
 `;
 
 exports[`web-feature generator should run successfully with crud 26`] = `
+"import { Test } from '@pubkey-stack/sdk';
+import { UiAvatar, UiAvatarProps } from '@pubkey-stack/web-ui-core';
+
+export type TestUiAvatarProps = UiAvatarProps & {
+  test?: Test;
+};
+
+export function TestUiAvatar({ test, ...props }: TestUiAvatarProps) {
+  return <UiAvatar avatarUrl={undefined} name={test?.name} {...props} />;
+}
+"
+`;
+
+exports[`web-feature generator should run successfully with crud 27`] = `
+"import { Paper } from '@mantine/core';
+import type { Test } from '@pubkey-stack/sdk';
+import { UiDebugModal, UiGroup } from '@pubkey-ui/core';
+import { TestUiItem } from './test-ui-item';
+
+export function TestUiGridItem({ test, to }: { test: Test; to?: string }) {
+  return (
+    <Paper withBorder p="md">
+      <UiGroup>
+        <TestUiItem test={test} to={to} />
+        <UiDebugModal data={test} />
+      </UiGroup>
+    </Paper>
+  );
+}
+"
+`;
+
+exports[`web-feature generator should run successfully with crud 28`] = `
+"import { Group, Pagination, SimpleGrid } from '@mantine/core';
+import type { Test } from '@pubkey-stack/sdk';
+import { gridLimits, UiPageLimit } from '@pubkey-stack/web-ui-core';
+import { UiDebugModal, UiGroup, UiStack } from '@pubkey-ui/core';
+import { DataTableProps } from 'mantine-datatable';
+import { TestUiGridItem } from './test-ui-grid-item';
+
+export function TestUiGrid({
+  tests = [],
+  onPageChange,
+  page,
+  totalRecords,
+  limit,
+  setLimit,
+  setPage,
+}: {
+  tests: Test[];
+  page: DataTableProps['page'];
+  totalRecords: number;
+  onPageChange: (page: number) => void;
+  limit: number;
+  setLimit: (limit: number) => void;
+  setPage: (page: number) => void;
+}) {
+  const totalPages = totalRecords / limit + 1;
+  return (
+    <UiStack>
+      <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="md">
+        {tests.map((test) => (
+          <TestUiGridItem key={test.id} to={test.id} test={test} />
+        ))}
+      </SimpleGrid>
+      <UiGroup>
+        <Pagination
+          disabled={totalPages < 2}
+          total={totalPages}
+          value={page}
+          onChange={onPageChange}
+        />
+        <Group>
+          <UiDebugModal data={tests} />
+          <UiPageLimit
+            data={gridLimits}
+            limit={limit}
+            setLimit={setLimit}
+            setPage={setPage}
+          />
+        </Group>
+      </UiGroup>
+    </UiStack>
+  );
+}
+"
+`;
+
+exports[`web-feature generator should run successfully with crud 29`] = `
+"import {
+  AvatarProps,
+  Group,
+  type GroupProps,
+  Stack,
+  Text,
+} from '@mantine/core';
+import { Test } from '@pubkey-stack/sdk';
+import { UiAnchor, type UiAnchorProps } from '@pubkey-ui/core';
+import { TestUiAvatar } from './test-ui-avatar';
+
+export function TestUiItem({
+  anchorProps,
+  avatarProps,
+  groupProps,
+  test,
+  to,
+}: {
+  anchorProps?: UiAnchorProps;
+  avatarProps?: Omit<AvatarProps, 'src'>;
+  groupProps?: GroupProps;
+  test?: Test;
+  to?: string | null;
+}) {
+  if (!test) return null;
+
+  return (
+    <UiAnchor to={to ?? undefined} underline="never" {...anchorProps}>
+      <Group gap="sm" {...groupProps}>
+        <TestUiAvatar test={test} {...avatarProps} />
+        <Stack gap={1}>
+          <Text size="sm" fw={500}>
+            {test?.name}
+          </Text>
+        </Stack>
+      </Group>
+    </UiAnchor>
+  );
+}
+"
+`;
+
+exports[`web-feature generator should run successfully with crud 30`] = `
 "import { Button, Group } from '@mantine/core';
 import { UserCreateTestInput } from '@proj/sdk';
 import { formFieldText, UiForm, UiFormField } from '@pubkey-ui/core';
@@ -850,7 +983,7 @@ export function UserTestUiCreateForm({
 "
 `;
 
-exports[`web-feature generator should run successfully with crud 27`] = `
+exports[`web-feature generator should run successfully with crud 31`] = `
 "import { ActionIcon, Anchor, Group, ScrollArea } from '@mantine/core';
 import { Test } from '@proj/sdk';
 import { IconPencil, IconTrash } from '@tabler/icons-react';
@@ -931,7 +1064,7 @@ export function UserTestUiTable({
 "
 `;
 
-exports[`web-feature generator should run successfully with crud 28`] = `
+exports[`web-feature generator should run successfully with crud 32`] = `
 "import { Button, Group } from '@mantine/core';
 import { UserUpdateTestInput, Test } from '@proj/sdk';
 import { formFieldText, UiForm, UiFormField } from '@pubkey-ui/core';

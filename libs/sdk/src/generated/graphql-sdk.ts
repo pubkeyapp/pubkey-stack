@@ -258,7 +258,7 @@ export type User = {
   id: Scalars['String']['output']
   identities?: Maybe<Array<Identity>>
   name?: Maybe<Scalars['String']['output']>
-  profileUrl?: Maybe<Scalars['String']['output']>
+  profileUrl: Scalars['String']['output']
   role?: Maybe<UserRole>
   status?: Maybe<UserStatus>
   updatedAt?: Maybe<Scalars['DateTime']['output']>
@@ -319,7 +319,7 @@ export type LoginMutation = {
     developer?: boolean | null
     id: string
     name?: string | null
-    profileUrl?: string | null
+    profileUrl: string
     role?: UserRole | null
     status?: UserStatus | null
     updatedAt?: Date | null
@@ -344,7 +344,7 @@ export type RegisterMutation = {
     developer?: boolean | null
     id: string
     name?: string | null
-    profileUrl?: string | null
+    profileUrl: string
     role?: UserRole | null
     status?: UserStatus | null
     updatedAt?: Date | null
@@ -363,7 +363,7 @@ export type MeQuery = {
     developer?: boolean | null
     id: string
     name?: string | null
-    profileUrl?: string | null
+    profileUrl: string
     role?: UserRole | null
     status?: UserStatus | null
     updatedAt?: Date | null
@@ -479,7 +479,7 @@ export type AdminFindManyIdentityQuery = {
       developer?: boolean | null
       id: string
       name?: string | null
-      profileUrl?: string | null
+      profileUrl: string
       role?: UserRole | null
       status?: UserStatus | null
       updatedAt?: Date | null
@@ -654,7 +654,7 @@ export type UserDetailsFragment = {
   developer?: boolean | null
   id: string
   name?: string | null
-  profileUrl?: string | null
+  profileUrl: string
   role?: UserRole | null
   status?: UserStatus | null
   updatedAt?: Date | null
@@ -674,7 +674,7 @@ export type AdminCreateUserMutation = {
     developer?: boolean | null
     id: string
     name?: string | null
-    profileUrl?: string | null
+    profileUrl: string
     role?: UserRole | null
     status?: UserStatus | null
     updatedAt?: Date | null
@@ -703,7 +703,7 @@ export type AdminFindManyUserQuery = {
       developer?: boolean | null
       id: string
       name?: string | null
-      profileUrl?: string | null
+      profileUrl: string
       role?: UserRole | null
       status?: UserStatus | null
       updatedAt?: Date | null
@@ -748,7 +748,7 @@ export type AdminFindOneUserQuery = {
     developer?: boolean | null
     id: string
     name?: string | null
-    profileUrl?: string | null
+    profileUrl: string
     role?: UserRole | null
     status?: UserStatus | null
     updatedAt?: Date | null
@@ -770,7 +770,7 @@ export type AdminUpdateUserMutation = {
     developer?: boolean | null
     id: string
     name?: string | null
-    profileUrl?: string | null
+    profileUrl: string
     role?: UserRole | null
     status?: UserStatus | null
     updatedAt?: Date | null
@@ -793,7 +793,7 @@ export type UserFindManyUserQuery = {
       developer?: boolean | null
       id: string
       name?: string | null
-      profileUrl?: string | null
+      profileUrl: string
       role?: UserRole | null
       status?: UserStatus | null
       updatedAt?: Date | null
@@ -825,7 +825,7 @@ export type UserFindOneUserQuery = {
     developer?: boolean | null
     id: string
     name?: string | null
-    profileUrl?: string | null
+    profileUrl: string
     role?: UserRole | null
     status?: UserStatus | null
     updatedAt?: Date | null
@@ -846,7 +846,7 @@ export type UserUpdateUserMutation = {
     developer?: boolean | null
     id: string
     name?: string | null
-    profileUrl?: string | null
+    profileUrl: string
     role?: UserRole | null
     status?: UserStatus | null
     updatedAt?: Date | null

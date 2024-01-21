@@ -114,5 +114,9 @@ export function generateWebCrud(tree: Tree, options: NormalizedApiCrudSchema) {
     `./lib/${vars.actor.fileName}-${vars.model.fileName}-ui-create-form`,
     `./lib/${vars.actor.fileName}-${vars.model.fileName}-ui-table`,
     `./lib/${vars.actor.fileName}-${vars.model.fileName}-ui-update-form`,
+    `./lib/${vars.model.fileName}-ui-avatar`,
+    `./lib/${vars.model.fileName}-ui-grid`,
+    `./lib/${vars.model.fileName}-ui-grid-item`,
+    `./lib/${vars.model.fileName}-ui-item`,
   ])
 }

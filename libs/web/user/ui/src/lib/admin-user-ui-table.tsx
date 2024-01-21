@@ -69,7 +69,7 @@ export function AdminUserUiTable({
             textAlign: 'right',
             render: (item) => (
               <Group gap="xs" justify="right">
-                <ActionIcon size="sm" variant="light" color="brand" component={Link} to={`/profile/${item.username}`}>
+                <ActionIcon size="sm" variant="light" color="brand" component={Link} to={item.profileUrl}>
                   <IconUser size={16} />
                 </ActionIcon>
                 <ActionIcon
