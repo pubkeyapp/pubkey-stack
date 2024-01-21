@@ -4,7 +4,7 @@ export interface NormalizedWebFeatureSchema {
   app: string
   name: string
   label: string
-  modelName: string
+  model: string
   npmScope: string
   skipAdminCrud: boolean
   skipDataAccess: boolean

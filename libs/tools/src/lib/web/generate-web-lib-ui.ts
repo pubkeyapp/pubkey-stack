@@ -10,7 +10,7 @@ export async function generateWebLibUi(tree: Tree, options: NormalizedWebFeature
     options.app,
     'ui',
     options.name,
-    options.modelName,
+    options.model,
   )
 
   if (!options.skipAdminCrud) {

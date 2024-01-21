@@ -8,7 +8,7 @@ import { getWebModuleInfo } from './get-web-module-info'
 
 export async function generateWebLibFeature(tree: Tree, options: NormalizedWebFeatureSchema, npmScope: string) {
   const { project, barrel, className, classNamePlural, fileName, fileNamePlural, propertyName, propertyNamePlural } =
-    getWebModuleInfo(tree, options.app, 'feature', options.name, options.modelName)
+    getWebModuleInfo(tree, options.app, 'feature', options.name, options.model)
 
   if (!options.skipAdminCrud) {
     generateFiles(tree, join(__dirname, './files/feature'), project.sourceRoot, {

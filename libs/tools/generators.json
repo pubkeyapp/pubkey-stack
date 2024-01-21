@@ -1,5 +1,10 @@
 {
   "generators": {
+    "api-crud": {
+      "factory": "./src/generators/api-crud/api-crud-generator",
+      "schema": "./src/generators/api-crud/api-crud-schema.json",
+      "description": "api-crud generator"
+    },
     "api-e2e": {
       "factory": "./src/generators/api-e2e/api-e2e-generator",
       "schema": "./src/generators/api-feature/api-feature-schema.json",

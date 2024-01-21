@@ -10,4 +10,5 @@ export function ensureNxProjectExists(tree: Tree, name: string) {
   if (!config) {
     throw new Error(`Project "${name}" does not exist`)
   }
+  return config
 }

@@ -3,14 +3,14 @@ import { getNpmScope } from '@nx/js/src/utils/package-json/get-npm-scope'
 import { NormalizedWebFeatureSchema, WebFeatureGeneratorSchema } from '../../generators/web-feature/web-feature-schema'
 
 export function normalizeWebFeatureSchema(tree: Tree, schema: WebFeatureGeneratorSchema): NormalizedWebFeatureSchema {
-  const modelName = schema.name
+  const model = schema.name
   const npmScope = getNpmScope(tree)
 
   return {
     app: schema.app ?? 'web',
     name: schema.name,
     label: schema.label ?? 'name',
-    modelName,
+    model,
     npmScope,
     skipAdminCrud: schema.skipAdminCrud ?? false,
     skipDataAccess: schema.skipDataAccess ?? false,

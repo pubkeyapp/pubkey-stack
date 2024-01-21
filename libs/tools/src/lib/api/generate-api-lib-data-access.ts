@@ -12,16 +12,7 @@ export async function generateApiLibDataAccess(tree: Tree, options: NormalizedAp
   const dataAccessExports: string[] = [
     `./lib/${options.app}-${options.name}.service`,
     `./lib/entity/${substitutions.model.fileName}.entity`,
-    `./lib/entity/${substitutions.model.fileName}-paging.entity`,
   ]
-
-  if (!options.skipAdminCrud) {
-    dataAccessExports.push(
-      `./lib/dto/admin-create-${substitutions.model.fileName}.input`,
-      `./lib/dto/admin-find-many-${substitutions.model.fileName}.input`,
-      `./lib/dto/admin-update-${substitutions.model.fileName}.input`,
-    )
-  }
 
   // Remove the generated data access module
   tree.delete(dataAccessModulePath)

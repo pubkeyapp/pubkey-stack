@@ -10,7 +10,7 @@ export async function generateWebLibDataAccess(tree: Tree, options: NormalizedWe
     options.app,
     'data-access',
     options.name,
-    options.modelName,
+    options.model,
   )
 
   if (!options.skipAdminCrud) {

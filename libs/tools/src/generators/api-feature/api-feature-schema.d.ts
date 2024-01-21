@@ -1,12 +1,14 @@
-export type ApiFeatureGeneratorSchema = Partial<NormalizedApiFeatureSchema>
+export type ApiFeatureGeneratorSchema = Partial<Omit<NormalizedApiFeatureSchema, 'crud'>> & {
+  crud?: string
+}
 
 export interface NormalizedApiFeatureSchema {
   app: string
+  crud: string[]
   name: string
   label: string
-  modelName: string
+  model: string
   npmScope: string
-  skipAdminCrud: boolean
   skipDataAccess: boolean
   skipE2e: boolean
   skipFeature: boolean

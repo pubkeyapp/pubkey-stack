@@ -1,7 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
-export class <%= admin.className %>Create<%= model.className %>Input {
+export class <%= actor.className %>Create<%= model.className %>Input {
   @Field()
   <%= label.propertyName %>!: string
 }
