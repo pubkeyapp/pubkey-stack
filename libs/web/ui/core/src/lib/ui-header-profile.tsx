@@ -1,14 +1,12 @@
 import { Button, Menu } from '@mantine/core'
-import { UserRole } from '@pubkey-stack/sdk'
-import { useAuth } from '@pubkey-stack/web-auth-data-access'
-import { UserUiAvatar } from '@pubkey-stack/web-user-ui'
+import { User, UserRole } from '@pubkey-stack/sdk'
 import { useUiColorScheme } from '@pubkey-ui/core'
 import { IconBug, IconLogout, IconMoonStars, IconSettings, IconShield, IconSun, IconUser } from '@tabler/icons-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { UiAvatar } from './ui-avatar'
 
-export function UiHeaderProfile() {
-  const { user, logout } = useAuth()
+export function UiHeaderProfile({ user, logout }: { user?: User | null; logout: () => void }) {
   const { colorScheme, toggleColorScheme } = useUiColorScheme()
   const [open, setOpen] = useState(false)
   const isAdmin = user?.role === UserRole.Admin
@@ -27,7 +25,13 @@ export function UiHeaderProfile() {
     >
       <Menu.Target>
         <Button p={0} variant={open ? 'light' : 'default'} radius="xl">
-          <UserUiAvatar user={user} alt={user?.username ?? 'User Avatar'} radius={100} size={34} />
+          <UiAvatar
+            avatarUrl={user?.avatarUrl}
+            name={user?.username}
+            alt={user?.username ?? 'User Avatar'}
+            radius={100}
+            size={34}
+          />
         </Button>
       </Menu.Target>
       <Menu.Dropdown>

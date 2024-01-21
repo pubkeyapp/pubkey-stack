@@ -1,5 +1,6 @@
 import { Group } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
+import { useAuth } from '@pubkey-stack/web-auth-data-access'
 import {
   SolanaUiAccountBalanceButton,
   SolanaUiAccountChecker,
@@ -12,6 +13,7 @@ import { UiHeader, UiLayout, UiLoader } from '@pubkey-ui/core'
 import { ReactNode, Suspense } from 'react'
 
 export function ShellLayout({ children }: { children: ReactNode }) {
+  const { user, logout } = useAuth()
   const [opened, { toggle }] = useDisclosure(false)
   return (
     <UiLayout
@@ -28,7 +30,7 @@ export function ShellLayout({ children }: { children: ReactNode }) {
               <SolanaUiAccountBalanceButton />
               <SolanaUiClusterSelect />
               <WalletIcon />
-              <UiHeaderProfile />
+              <UiHeaderProfile user={user} logout={logout} />
             </Group>
           }
         />

@@ -4,9 +4,9 @@ import { IdentityUiAvatarGroup } from '@pubkey-stack/web-identity-ui'
 import { IconPencil, IconTrash, IconUser } from '@tabler/icons-react'
 import { DataTable, DataTableProps } from 'mantine-datatable'
 import { Link } from 'react-router-dom'
+import { UserUiItem } from './user-ui-item'
 import { UserUiRoleBadge } from './user-ui-role-badge'
 import { UserUiStatusBadge } from './user-ui-status-badge'
-import { UserUiTitle } from './user-ui-title'
 
 interface AdminUserTableProps {
   users: User[]
@@ -38,7 +38,7 @@ export function AdminUserUiTable({
         columns={[
           {
             accessor: 'username',
-            render: (item) => <UserUiTitle user={item} to={`/admin/users/${item.id}`} />,
+            render: (item) => <UserUiItem user={item} to={`/admin/users/${item.id}`} />,
           },
           {
             accessor: 'identities',

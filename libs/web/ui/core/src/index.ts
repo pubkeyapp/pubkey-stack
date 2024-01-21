@@ -1,3 +1,4 @@
+export * from './lib/ui-avatar'
 export * from './lib/ui-grid'
 export * from './lib/ui-header-profile'
 export * from './lib/ui-modal-button'
