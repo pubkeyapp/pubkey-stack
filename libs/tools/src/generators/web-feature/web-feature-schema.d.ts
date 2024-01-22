@@ -5,7 +5,6 @@ export type WebFeatureGeneratorSchema = Partial<Omit<NormalizedWebFeatureSchema,
 export interface NormalizedWebFeatureSchema {
   app: string
   crud: string[]
-  name: string
   label: string
   model: string
   npmScope: string

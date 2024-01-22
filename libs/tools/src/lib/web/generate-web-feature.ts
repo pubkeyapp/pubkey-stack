@@ -1,6 +1,6 @@
 import { getProjects, Tree } from '@nx/devkit'
+import webCrudGenerator from '../../generators/web-crud/web-crud-generator'
 import { NormalizedWebFeatureSchema } from '../../generators/web-feature/web-feature-schema'
-import { generateWebCrud } from '../web-crud/generate-web-crud'
 import { generateWebLib } from './generate-web-lib'
 
 export async function generateWebFeature(tree: Tree, options: NormalizedWebFeatureSchema) {
@@ -22,7 +22,7 @@ export async function generateWebFeature(tree: Tree, options: NormalizedWebFeatu
   }
   if (!options.skipDataAccess && !options.skipFeature && !options.skipUi && options.crud?.length) {
     for (const actor of options.crud) {
-      generateWebCrud(tree, { actor, ...options })
+      await webCrudGenerator(tree, { actor, ...options })
     }
   }
 }

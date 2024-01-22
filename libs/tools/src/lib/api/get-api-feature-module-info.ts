@@ -3,7 +3,7 @@ import { NormalizedApiFeatureSchema } from '../../generators/api-feature/api-fea
 import { getImportPath } from '../utils/get-import-path'
 
 export function getApiFeatureModuleInfo(tree: Tree, options: NormalizedApiFeatureSchema) {
-  const project = readProjectConfiguration(tree, `${options.app}-${options.name}-feature`)
+  const project = readProjectConfiguration(tree, `${options.app}-${options.model}-feature`)
 
   const featureProjectRoot = project.sourceRoot
   const featureImportPath = getImportPath(tree, `${featureProjectRoot}/index.ts`)

@@ -1,20 +1,24 @@
 import { Tree } from '@nx/devkit'
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing'
+import { createMockApiApp } from '../../lib/api/create-mock-api-app'
 
 import { getRecursiveFileNames } from '../../lib/utils/get-recursive-file-names'
 import { createMockWebApp, normalizeWebFeatureSchema } from '../../lib/web'
+import apiFeatureGenerator from '../api-feature/api-feature-generator'
 
 import { webFeatureGenerator } from './web-feature-generator'
 import { type NormalizedWebFeatureSchema, WebFeatureGeneratorSchema } from './web-feature-schema'
 
 describe('web-feature generator', () => {
   let tree: Tree
-  const rawOptions: WebFeatureGeneratorSchema = { app: 'web', name: 'test' }
+  const rawOptions: WebFeatureGeneratorSchema = { app: 'web', model: 'test' }
   let options: NormalizedWebFeatureSchema
 
   beforeEach(async () => {
     tree = createTreeWithEmptyWorkspace()
     options = normalizeWebFeatureSchema(tree, rawOptions)
+    await createMockApiApp(tree, 'api')
+    await apiFeatureGenerator(tree, { app: 'api', crud: 'admin,user', model: 'company' })
     await createMockWebApp(tree, options.app)
   })
 

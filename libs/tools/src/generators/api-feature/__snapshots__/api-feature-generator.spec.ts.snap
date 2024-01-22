@@ -222,6 +222,7 @@ export class Test {
   createdAt?: Date;
   @Field({ nullable: true })
   updatedAt?: Date;
+
   @Field()
   name!: string;
 }

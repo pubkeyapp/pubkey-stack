@@ -10,10 +10,11 @@ export function getWebCrudSubstitutions(options: NormalizedApiCrudSchema) {
 
   return {
     actor,
-    actorFileName: actor.fileName,
     actorAdmin: actor.className === 'Admin',
+    actorFileName: actor.fileName,
     app,
     appFileName: app.fileName,
+    fields: options.fields,
     label: names(options.label),
     model,
     modelFileName: model.fileName,

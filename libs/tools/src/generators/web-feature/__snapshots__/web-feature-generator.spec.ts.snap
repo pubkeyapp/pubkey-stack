@@ -213,6 +213,7 @@ export function useUserFindOneTest({ testId }: { testId: string }) {
 exports[`web-feature generator should run successfully with crud 9`] = `
 "export const AdminTestFeature = lazy(() => import('./lib/admin-test.routes'));
 import { lazy } from 'react';
+
 export const UserTestFeature = lazy(() => import('./lib/user-test.routes'));
 "
 `;
@@ -686,7 +687,7 @@ export function AdminTestUiCreateForm({
   };
 
   const fields: UiFormField<AdminCreateTestInput>[] = [
-    formFieldText('name', { label: 'Name', required: true }),
+    formFieldText('name', { label: 'name', required: true }),
   ];
   return (
     <UiForm
@@ -801,7 +802,7 @@ export function AdminTestUiUpdateForm({
   };
 
   const fields: UiFormField<AdminUpdateTestInput>[] = [
-    formFieldText('name', { label: 'Name' }),
+    formFieldText('name', { label: 'name' }),
   ];
   return (
     <UiForm
@@ -966,7 +967,7 @@ export function UserTestUiCreateForm({
   };
 
   const fields: UiFormField<UserCreateTestInput>[] = [
-    formFieldText('name', { label: 'Name', required: true }),
+    formFieldText('name', { label: 'name', required: true }),
   ];
   return (
     <UiForm
@@ -1081,7 +1082,7 @@ export function UserTestUiUpdateForm({
   };
 
   const fields: UiFormField<UserUpdateTestInput>[] = [
-    formFieldText('name', { label: 'Name' }),
+    formFieldText('name', { label: 'name' }),
   ];
   return (
     <UiForm

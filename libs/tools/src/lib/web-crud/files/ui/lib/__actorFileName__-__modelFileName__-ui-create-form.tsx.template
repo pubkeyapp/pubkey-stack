@@ -5,11 +5,15 @@ import { ReactNode } from 'react'
 
 export function <%= actor.className %><%= model.className %>UiCreateForm({ submit }: { submit: (res: <%= actor.className %>Create<%= model.className %>Input) => Promise<boolean> }) {
   const model: <%= actor.className %>Create<%= model.className %>Input = {
-    <%= label.propertyName %>: '',
+    <% for (let field of fields){ %>
+      <%= field.name %>: '',
+    <% } %>
   }
 
   const fields: UiFormField<<%= actor.className %>Create<%= model.className %>Input>[] = [
-    formFieldText('<%= label.propertyName %>', { label: '<%= label.className %>', required: true, }),
+    <% for (let field of fields){ %>
+        formFieldText('<%= field.name %>', { label: '<%= field.name %>', required: true, }),
+    <% } %>
   ]
   return (
     <UiForm model={model} fields={fields} submit={(res) => submit(res as <%= actor.className %>Create<%= model.className %>Input)}>

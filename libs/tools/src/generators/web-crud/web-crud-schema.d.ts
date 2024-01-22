@@ -8,4 +8,5 @@ export interface WebCrudGeneratorSchema {
 export interface NormalizedWebCrudSchema extends WebCrudGeneratorSchema {
   label: string
   npmScope: string
+  fields?: PrismaModelField[]
 }

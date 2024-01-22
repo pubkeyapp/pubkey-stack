@@ -13,7 +13,7 @@ describe('api-crud generator', () => {
   beforeEach(async () => {
     tree = createTreeWithEmptyWorkspace()
     await createMockApiApp(tree, options.app)
-    await apiFeatureGenerator(tree, { app: options.app, model: options.model, name: options.model })
+    await apiFeatureGenerator(tree, { app: options.app, model: options.model })
   })
 
   it('should run successfully', async () => {

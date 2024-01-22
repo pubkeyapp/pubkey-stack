@@ -1,6 +1,6 @@
 import { getProjects, names, Tree } from '@nx/devkit'
 
-export function generateSdkFile(tree: Tree, options: { actor: string; model: string; label: string }) {
+export function generateSdkFile(tree: Tree, options: { actor: string; model: string }, fields: string[]) {
   const project = getProjects(tree).get('sdk')
 
   if (!project) {
@@ -20,7 +20,7 @@ export function generateSdkFile(tree: Tree, options: { actor: string; model: str
 
   if (!exists) {
     // Write the fragment to the file if it doesn't exist.
-    tree.write(target, sdkTemplateFragment(options.model, options.label))
+    tree.write(target, sdkTemplateFragment(options.model, fields))
   }
   const content = tree.read(target)?.toString() ?? ''
 
@@ -30,12 +30,12 @@ export function generateSdkFile(tree: Tree, options: { actor: string; model: str
   }
 }
 
-function sdkTemplateFragment(name: string, label: string) {
+function sdkTemplateFragment(name: string, fields: string[]) {
   const { className } = names(name)
   return `fragment ${className}Details on ${className} {
   createdAt
   id
-  ${label}
+  ${fields.join('\n  ')}
   updatedAt
 }
 `

@@ -2,6 +2,8 @@ import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
 export class <%= actor.className %>Create<%= model.className %>Input {
-  @Field()
-  <%= label.propertyName %>!: string
+<% for (let field of fields){ %>
+  @Field(<% if(field.optional){ %>{ nullable: true }<% } %>)
+  <%= field.name %><% if(field.optional){ %>?<% } else { %>!<% } %>: <%= field.type %>
+<% } %>
 }

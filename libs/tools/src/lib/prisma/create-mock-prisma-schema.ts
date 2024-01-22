@@ -46,7 +46,6 @@ export function createMockPrismaSchema(tree: Tree) {
   const sorted = printSchema(schema, { sort: true })
 
   if (sorted.trim() !== baseScheme.trim()) {
-    console.log(sorted)
     throw new Error('createMockPrismaSchema: Prisma baseScheme not properly sorted')
   }
 }

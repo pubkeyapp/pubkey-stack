@@ -38,4 +38,19 @@ export async function createMockApiApp(tree: Tree, app: string) {
     projectNameAndRootFormat: 'as-provided',
     skipFormat: true,
   })
+
+  tree.write(
+    'prisma/schema.prisma',
+    `
+  model User {
+    id Int @id
+  }
+  model Company {
+    id Int @id
+    name String
+    location String
+    phone String?
+  }
+  `,
+  )
 }

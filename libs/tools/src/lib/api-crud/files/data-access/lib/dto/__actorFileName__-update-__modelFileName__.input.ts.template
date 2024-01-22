@@ -2,6 +2,8 @@ import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
 export class <%= actor.className %>Update<%= model.className %>Input {
+<% for (let field of fields){ %>
   @Field({ nullable: true })
-  <%= label.propertyName %>?: string
+  <%= field.name %>?: <%= field.type %>
+<% } %>
 }

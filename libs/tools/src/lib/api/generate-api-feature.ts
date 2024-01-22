@@ -1,6 +1,6 @@
 import { getProjects, Tree } from '@nx/devkit'
+import apiCrudGenerator from '../../generators/api-crud/api-crud-generator'
 import { NormalizedApiFeatureSchema } from '../../generators/api-feature/api-feature-schema'
-import { generateApiCrud } from '../api-crud/generate-api-crud'
 import { generateApiLib } from './generate-api-lib'
 
 export async function generateApiFeature(tree: Tree, options: NormalizedApiFeatureSchema) {
@@ -22,7 +22,7 @@ export async function generateApiFeature(tree: Tree, options: NormalizedApiFeatu
   }
   if (!options.skipDataAccess && !options.skipFeature && options.crud?.length) {
     for (const actor of options.crud) {
-      generateApiCrud(tree, { actor, ...options })
+      await apiCrudGenerator(tree, { actor, ...options })
     }
   }
 }

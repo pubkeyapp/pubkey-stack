@@ -12,7 +12,7 @@ describe('web-crud generator', () => {
     tree = createTreeWithEmptyWorkspace()
 
     await createMockWebApp(tree, options.app)
-    await webFeatureGenerator(tree, { app: options.app, model: options.model, name: options.model })
+    await webFeatureGenerator(tree, { app: options.app, model: options.model })
   })
 
   it('should run successfully', async () => {

@@ -4,14 +4,14 @@
   "title": "",
   "type": "object",
   "properties": {
-    "name": {
+    "model": {
       "type": "string",
-      "description": "The name of the feature.",
+      "description": "The name of the model for this feature.",
+      "x-prompt": "What is the name of the model for this feature?",
       "$default": {
         "$source": "argv",
         "index": 0
-      },
-      "x-prompt": "What name would you like to use?"
+      }
     },
     "app": {
       "type": "string",
@@ -22,10 +22,6 @@
       "type": "string",
       "description": "The label field for the model. Generally 'name' or 'title'.",
       "default": "name"
-    },
-    "model": {
-      "type": "string",
-      "description": "The name of the model for this feature."
     },
     "crud": {
       "type": "string",
@@ -48,5 +44,5 @@
       "default": true
     }
   },
-  "required": ["name"]
+  "required": ["model"]
 }

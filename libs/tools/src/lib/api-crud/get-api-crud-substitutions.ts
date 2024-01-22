@@ -12,6 +12,7 @@ export function getApiCrudSubstitutions(options: NormalizedApiCrudSchema) {
     actorFileName: actor.fileName,
     app,
     appFileName: app.fileName,
+    fields: options.fields,
     label: names(options.label),
     model,
     modelFileName: model.fileName,

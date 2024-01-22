@@ -9,7 +9,7 @@ import { ApiFeatureGeneratorSchema } from './api-feature-schema'
 
 describe('api-feature generator', () => {
   let tree: Tree
-  const options: ApiFeatureGeneratorSchema = { app: 'api', name: 'test', label: 'name' }
+  const options: ApiFeatureGeneratorSchema = { app: 'api', label: 'name', model: 'test' }
 
   beforeEach(() => {
     tree = createTreeWithEmptyWorkspace()
@@ -23,12 +23,12 @@ describe('api-feature generator', () => {
     await apiFeatureGenerator(tree, options)
 
     libs.forEach((lib) => {
-      const config = readProjectConfiguration(tree, `${options.app}-${options.name}-${lib}`)
+      const config = readProjectConfiguration(tree, `${options.app}-${options.model}-${lib}`)
       expect(config).toBeDefined()
     })
 
-    const basePathDataAccess = `libs/${options.app}/${options.name}/data-access/src`
-    const basePathFeature = `libs/${options.app}/${options.name}/feature/src`
+    const basePathDataAccess = `libs/${options.app}/${options.model}/data-access/src`
+    const basePathFeature = `libs/${options.app}/${options.model}/feature/src`
 
     const sourceFilesDataAccess = getRecursiveFileNames({ tree, path: basePathDataAccess })
     const sourceFilesFeature = getRecursiveFileNames({ tree, path: basePathFeature })
@@ -64,12 +64,12 @@ describe('api-feature generator', () => {
     await apiFeatureGenerator(tree, { ...options, crud: 'admin,user' })
 
     libs.forEach((lib) => {
-      const config = readProjectConfiguration(tree, `${options.app}-${options.name}-${lib}`)
+      const config = readProjectConfiguration(tree, `${options.app}-${options.model}-${lib}`)
       expect(config).toBeDefined()
     })
 
-    const basePathDataAccess = `libs/${options.app}/${options.name}/data-access/src`
-    const basePathFeature = `libs/${options.app}/${options.name}/feature/src`
+    const basePathDataAccess = `libs/${options.app}/${options.model}/data-access/src`
+    const basePathFeature = `libs/${options.app}/${options.model}/feature/src`
 
     const sourceFilesDataAccess = getRecursiveFileNames({ tree, path: basePathDataAccess })
     const sourceFilesFeature = getRecursiveFileNames({ tree, path: basePathFeature })
@@ -118,13 +118,13 @@ describe('api-feature generator', () => {
     await apiFeatureGenerator(tree, { ...options, skipUtil: false })
 
     libs.forEach((lib) => {
-      const config = readProjectConfiguration(tree, `${options.app}-${options.name}-${lib}`)
+      const config = readProjectConfiguration(tree, `${options.app}-${options.model}-${lib}`)
       expect(config).toBeDefined()
     })
   })
 
   it('should generate the feature with different name', async () => {
-    const testOptions = { ...options, name: 'company' }
+    const testOptions = { ...options, model: 'company' }
     await createMockApiApp(tree, testOptions.app)
 
     // By default, we generate two libraries: data-access and feature
@@ -132,7 +132,7 @@ describe('api-feature generator', () => {
     await apiFeatureGenerator(tree, { ...testOptions, skipUtil: false })
 
     libs.forEach((lib) => {
-      const config = readProjectConfiguration(tree, `${testOptions.app}-${testOptions.name}-${lib}`)
+      const config = readProjectConfiguration(tree, `${testOptions.app}-${testOptions.model}-${lib}`)
       expect(config).toBeDefined()
     })
   })
@@ -143,7 +143,7 @@ describe('api-feature generator', () => {
     // By default, we generate two libraries: data-access and feature
     const libs = ['data-access', 'feature']
     const customName = 'custom'
-    await apiFeatureGenerator(tree, { ...options, name: customName })
+    await apiFeatureGenerator(tree, { ...options, model: customName })
 
     libs.forEach((lib) => {
       const config = readProjectConfiguration(tree, `${options.app}-${customName}-${lib}`)

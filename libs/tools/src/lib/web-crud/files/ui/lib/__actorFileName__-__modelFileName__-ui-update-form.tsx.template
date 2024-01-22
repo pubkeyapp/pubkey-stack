@@ -10,11 +10,15 @@ export function <%= actor.className %><%= model.className %>UiUpdateForm({
   <%= model.propertyName %>: <%= model.className %>
 }) {
   const model: <%= actor.className %>Update<%= model.className %>Input = {
-    <%= label.propertyName %>: <%= model.propertyName %>.<%= label.propertyName %> ?? '',
+    <% for (let field of fields){ %>
+      <%= field.name %>: <%= model.propertyName %>.<%= field.name %> ?? '',
+    <% } %>
   }
 
   const fields: UiFormField<<%= actor.className %>Update<%= model.className %>Input>[] = [
-    formFieldText('<%= label.propertyName %>', { label: '<%= label.className %>' }),
+    <% for (let field of fields){ %>
+      formFieldText('<%= field.name %>', { label: '<%= field.name %>', }),
+    <% } %>
   ]
   return (
     <UiForm model={model} fields={fields} submit={(res) => submit(res as <%= actor.className %>Update<%= model.className %>Input)}>

@@ -1,10 +1,10 @@
 import { generateFiles, getProjects, type ProjectConfiguration, Tree } from '@nx/devkit'
 import type { NormalizedApiCrudSchema } from '../../generators/api-crud/api-crud-schema'
-import { generateSdkFile } from '../api/generate-sdk-file'
 import { addExports } from '../utils/add-export'
 import { ensureNxProjectExists } from '../utils/ensure-nx-project-exists'
 import { addServiceToClassConstructor } from './add-service-to-class-constructor'
 import { addServiceToModuleDecorator } from './add-service-to-module-decorator'
+import { generateSdkFile } from './generate-sdk-file'
 import { getApiCrudSubstitutions } from './get-api-crud-substitutions'
 
 export function generateApiCrud(tree: Tree, options: NormalizedApiCrudSchema) {
@@ -71,7 +71,11 @@ export function generateApiCrud(tree: Tree, options: NormalizedApiCrudSchema) {
   generateFiles(tree, `${__dirname}/files/feature`, feature.sourceRoot, { ...vars })
 
   // Generate the SDK file
-  generateSdkFile(tree, options)
+  generateSdkFile(
+    tree,
+    options,
+    options.fields?.map((f) => f.name.toString()),
+  )
 
   const e2e = getProjects(tree).get(`${options.app}-e2e`)
   if (!e2e) {

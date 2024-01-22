@@ -17,7 +17,7 @@ export async function generateApiLibDataAccess(tree: Tree, options: NormalizedAp
   generateFiles(tree, `${__dirname}/files/data-access`, dataAccess.sourceRoot, { ...substitutions })
   // Add the exports to the barrel file
   addExports(tree, `${dataAccess.sourceRoot}/index.ts`, [
-    `./lib/${options.app}-${options.name}.service`,
+    `./lib/${options.app}-${options.model}.service`,
     `./lib/entity/${substitutions.model.fileName}.entity`,
   ])
 }
