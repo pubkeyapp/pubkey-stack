@@ -34,18 +34,18 @@ export function generateWebCrud(tree: Tree, options: NormalizedApiCrudSchema) {
 
   const [dataAccess, feature, ui, shellFeature] = projects
 
-  const requiredFields = [
+  const requiredFiles = [
     `${shellFeature.sourceRoot}/lib/shell-${vars.actor.fileName}.routes.tsx`,
     `${shellFeature.sourceRoot}/lib/shell-${vars.actor.fileName}.routes.tsx`,
     `${feature.sourceRoot}/index.ts`,
   ]
-  for (const field of requiredFields) {
-    if (!tree.exists(field)) {
-      throw new Error(`Required file not found: ${field}`)
+  for (const file of requiredFiles) {
+    if (!tree.exists(file)) {
+      throw new Error(`Required file not found: ${file}`)
     }
   }
 
-  const [adminRoutes, userRoutes, featureIndex] = requiredFields
+  const [adminRoutes, userRoutes, featureIndex] = requiredFiles
 
   const routesFile = vars.actorAdmin ? adminRoutes : userRoutes
 
@@ -68,7 +68,7 @@ export function generateWebCrud(tree: Tree, options: NormalizedApiCrudSchema) {
   const importSnippet = `import { lazy } from 'react'`
   // Check if the featureIndex file already has the above import featureIndex
   if (!tree.read(featureIndex).toString().includes(importSnippet)) {
-    imports.push(importSnippet)
+    imports.unshift(importSnippet)
   }
 
   // Add the imports to the featureIndex file

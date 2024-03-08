@@ -211,8 +211,8 @@ export function useUserFindOneTest({ testId }: { testId: string }) {
 `;
 
 exports[`web-feature generator should run successfully with crud 9`] = `
-"export const AdminTestFeature = lazy(() => import('./lib/admin-test.routes'));
-import { lazy } from 'react';
+"import { lazy } from 'react';
+export const AdminTestFeature = lazy(() => import('./lib/admin-test.routes'));
 
 export const UserTestFeature = lazy(() => import('./lib/user-test.routes'));
 "
