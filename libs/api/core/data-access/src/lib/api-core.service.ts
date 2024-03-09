@@ -4,6 +4,7 @@ import { IdentityProvider } from '@prisma/client'
 import { ApiCorePrismaClient, prismaClient } from './api-core-prisma-client'
 import { ApiCoreConfigService } from './config/api-core-config.service'
 import { slugifyId } from './helpers/slugify-id'
+import { getEnvEnvTemplate } from './templates/get-env-env-template'
 
 @Injectable()
 export class ApiCoreService {
@@ -29,5 +30,12 @@ export class ApiCoreService {
 
   uptime() {
     return process.uptime()
+  }
+
+  envJs() {
+    return getEnvEnvTemplate(this.envJson())
+  }
+  envJson() {
+    return this.config.appConfig
   }
 }

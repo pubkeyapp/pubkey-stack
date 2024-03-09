@@ -2,12 +2,14 @@ import { Button, Divider, Group } from '@mantine/core'
 import { LoginInput } from '@pubkey-stack/sdk'
 import { useAuth } from '@pubkey-stack/web-auth-data-access'
 import { AuthUiForm, AuthUiShell } from '@pubkey-stack/web-auth-ui'
+import { useAppConfig } from '@pubkey-stack/web-core-data-access'
 import { UiLoader, UiStack } from '@pubkey-ui/core'
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 export default function AuthLoginFeature() {
-  const { login, logout, refresh, user, appConfig, appConfigLoading, authEnabled, enabledProviders } = useAuth()
+  const { appConfig, authEnabled, enabledProviders } = useAppConfig()
+  const { login, logout, refresh, user } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
   const [loading, setLoading] = useState(false)
@@ -25,7 +27,7 @@ export default function AuthLoginFeature() {
     })
   }
 
-  if (appConfigLoading || !appConfig) {
+  if (!appConfig) {
     return <UiLoader />
   }
 

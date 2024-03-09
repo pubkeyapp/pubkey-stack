@@ -1,8 +1,7 @@
-import { AppConfig, IdentityProvider, LoginInput, RegisterInput, User } from '@pubkey-stack/sdk'
+import { LoginInput, RegisterInput, User } from '@pubkey-stack/sdk'
 import { useSdk } from '@pubkey-stack/web-core-data-access'
 import { toastError, toastSuccess } from '@pubkey-ui/core'
-import { useQuery } from '@tanstack/react-query'
-import { createContext, ReactNode, useContext, useEffect, useMemo, useReducer } from 'react'
+import { createContext, ReactNode, useContext, useEffect, useReducer } from 'react'
 import { useMe } from './use-me'
 
 type AuthStatus = 'authenticated' | 'unauthenticated' | 'loading' | 'error'
@@ -14,12 +13,8 @@ export interface AuthState {
 }
 
 export interface AuthProviderContext extends AuthState {
-  appConfig?: AppConfig | undefined
-  appConfigLoading: boolean
   authenticated: boolean
-  authEnabled: boolean
   developer: boolean
-  enabledProviders: IdentityProvider[]
   error?: unknown | undefined
   loading: boolean
   login: (input: LoginInput) => Promise<User | undefined>
@@ -66,19 +61,9 @@ function authReducer(state: AuthState, { type, payload }: AuthAction): AuthState
   }
 }
 
-export function useAppConfig() {
-  const sdk = useSdk()
-
-  return useQuery({
-    queryKey: ['app-config'],
-    queryFn: () => sdk.appConfig().then((res) => res.data),
-  })
-}
-
 export function AuthProvider({ children }: { children: ReactNode }) {
   const sdk = useSdk()
   const me = useMe(sdk)
-  const configQuery = useAppConfig()
 
   const [state, dispatch] = useReducer(authReducer, { status: 'loading' })
 
@@ -92,49 +77,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     dispatchUser(me.data?.me)
   }, [me.isLoading, me.data?.me])
 
-  const authEnabled = useMemo(() => {
-    if (!configQuery.data?.config) return false
-    const {
-      authDiscordEnabled,
-      authGithubEnabled,
-      authGoogleEnabled,
-      authPasswordEnabled,
-      authRegisterEnabled,
-      authSolanaEnabled,
-      authTwitterEnabled,
-    } = configQuery.data.config
-    return (
-      authDiscordEnabled ||
-      authGithubEnabled ||
-      authGoogleEnabled ||
-      authRegisterEnabled ||
-      authPasswordEnabled ||
-      authSolanaEnabled ||
-      authTwitterEnabled
-    )
-  }, [configQuery.data?.config])
-
-  const enabledProviders: IdentityProvider[] = useMemo(
-    () =>
-      configQuery.data?.config
-        ? ([
-            configQuery.data?.config.authDiscordEnabled && IdentityProvider.Discord,
-            configQuery.data?.config.authGithubEnabled && IdentityProvider.GitHub,
-            configQuery.data?.config.authGoogleEnabled && IdentityProvider.Google,
-            configQuery.data?.config.authSolanaEnabled && IdentityProvider.Solana,
-            configQuery.data?.config.authTwitterEnabled && IdentityProvider.Twitter,
-          ].filter(Boolean) as IdentityProvider[])
-        : [],
-    [configQuery.data?.config],
-  )
-
   const value: AuthProviderContext = {
-    appConfig: configQuery.data?.config,
-    appConfigLoading: configQuery.isLoading,
-    authEnabled,
     authenticated: state.status === 'authenticated',
     developer: state.user?.developer ?? false,
-    enabledProviders,
     error: state.error,
     user: state.user,
     status: state.status,
