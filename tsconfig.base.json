@@ -32,7 +32,6 @@
       "@pubkey-stack/web-core-data-access": ["libs/web/core/data-access/src/index.ts"],
       "@pubkey-stack/web-core-feature": ["libs/web/core/feature/src/index.ts"],
       "@pubkey-stack/web-core-ui": ["libs/web/core/ui/src/index.ts"],
-      "@pubkey-stack/web-dashboard-feature": ["libs/web/dashboard/feature/src/index.ts"],
       "@pubkey-stack/web-dev-feature": ["libs/web/dev/feature/src/index.ts"],
       "@pubkey-stack/web-home-feature": ["libs/web/home/feature/src/index.ts"],
       "@pubkey-stack/web-identity-data-access": ["libs/web/identity/data-access/src/index.ts"],

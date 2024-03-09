@@ -1,8 +1,7 @@
-import { DashboardFeature } from '@pubkey-stack/web-dashboard-feature'
 import { SettingsFeature } from '@pubkey-stack/web-settings-feature'
 import { SolanaFeature } from '@pubkey-stack/web-solana-feature'
 import { UserFeature } from '@pubkey-stack/web-user-feature'
-import { UiDashboardItem } from '@pubkey-ui/core'
+import { UiContainer, UiDashboardGrid, UiDashboardItem } from '@pubkey-ui/core'
 import { IconCurrencySolana, IconSettings, IconUsers } from '@tabler/icons-react'
 import { RouteObject, useRoutes } from 'react-router-dom'
 
@@ -15,7 +14,7 @@ const links: UiDashboardItem[] = [
 
 const routes: RouteObject[] = [
   // User Dashboard Routes are added by the web-crud generator
-  { path: '/dashboard', element: <DashboardFeature links={links} /> },
+  { path: '/dashboard', element: <Dashboard /> },
   { path: '/settings/*', element: <SettingsFeature /> },
   { path: '/solana/*', element: <SolanaFeature /> },
   { path: '/u/*', element: <UserFeature /> },
@@ -23,4 +22,12 @@ const routes: RouteObject[] = [
 
 export default function WebCoreRoutesUser() {
   return useRoutes(routes)
+}
+
+function Dashboard() {
+  return (
+    <UiContainer>
+      <UiDashboardGrid links={links} />
+    </UiContainer>
+  )
 }
