@@ -29,14 +29,14 @@ export function generateWebCrud(tree: Tree, options: NormalizedApiCrudSchema) {
     `${vars.app.fileName}-${vars.model.fileName}-data-access`,
     `${vars.app.fileName}-${vars.model.fileName}-feature`,
     `${vars.app.fileName}-${vars.model.fileName}-ui`,
-    `${vars.app.fileName}-shell-feature`,
+    `${vars.app.fileName}-core-feature`,
   ].map((project) => ensureNxProjectExists(tree, project))
 
   const [dataAccess, feature, ui, shellFeature] = projects
 
   const requiredFiles = [
-    `${shellFeature.sourceRoot}/lib/shell-${vars.actor.fileName}.routes.tsx`,
-    `${shellFeature.sourceRoot}/lib/shell-${vars.actor.fileName}.routes.tsx`,
+    `${shellFeature.sourceRoot}/lib/${options.app}-core-routes-${vars.actor.fileName}.tsx`,
+    `${shellFeature.sourceRoot}/lib/${options.app}-core-routes-${vars.actor.fileName}.tsx`,
     `${feature.sourceRoot}/index.ts`,
   ]
   for (const file of requiredFiles) {
@@ -88,7 +88,7 @@ export function generateWebCrud(tree: Tree, options: NormalizedApiCrudSchema) {
   }
   const route = {
     name: 'routes',
-    content: `{ path: '${vars.plural.propertyName}/*', element: <${vars.actor.className}${vars.model.className}Feature /> },`,
+    content: `{ path: '/${vars.plural.fileName}/*', element: <${vars.actor.className}${vars.model.className}Feature /> },`,
   }
 
   updateSourceFile(tree, routesFile, (source) => {
@@ -117,6 +117,7 @@ export function generateWebCrud(tree: Tree, options: NormalizedApiCrudSchema) {
     `./lib/${vars.model.fileName}-ui-avatar`,
     `./lib/${vars.model.fileName}-ui-grid`,
     `./lib/${vars.model.fileName}-ui-grid-item`,
+    `./lib/${vars.model.fileName}-ui-info`,
     `./lib/${vars.model.fileName}-ui-item`,
   ])
 }

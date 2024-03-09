@@ -2,6 +2,13 @@ import { AppConfig, IdentityProvider } from '@pubkey-stack/sdk'
 import { toastError } from '@pubkey-ui/core'
 import { createContext, ReactNode, useContext, useMemo } from 'react'
 
+// This is provided by /api/__/env.js included in index.html
+const appConfig: AppConfig = (window as unknown as { __env: AppConfig }).__env
+
+if (!appConfig) {
+  toastError('App config not found')
+}
+
 export interface AuthProviderContext {
   appConfig?: AppConfig | undefined
   authEnabled: boolean
@@ -11,13 +18,6 @@ export interface AuthProviderContext {
 const Context = createContext<AuthProviderContext>({} as AuthProviderContext)
 
 export function AppConfigProvider({ children }: { children: ReactNode }) {
-  const appConfig: AppConfig = (window as unknown as { __env: AppConfig }).__env
-  if (!appConfig) {
-    toastError('App config not found')
-    throw new Error('App config not found')
-  }
-  console.log('appConfig', appConfig)
-
   const authEnabled = useMemo(() => {
     if (!appConfig) return false
     const {

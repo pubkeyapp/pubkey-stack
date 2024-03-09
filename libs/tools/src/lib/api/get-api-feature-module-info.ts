@@ -8,7 +8,7 @@ export function getApiFeatureModuleInfo(tree: Tree, options: NormalizedApiFeatur
   const featureProjectRoot = project.sourceRoot
   const featureImportPath = getImportPath(tree, `${featureProjectRoot}/index.ts`)
   const featureModulePath = `${featureProjectRoot}/lib/${project.name}.module.ts`
-  const featureModuleClassName = names(`${project.name}-module`).className
+  const featureModuleClassName = names(`${project.name}.module`).className
 
   return {
     featureImportPath,

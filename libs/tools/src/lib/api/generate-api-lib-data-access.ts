@@ -1,6 +1,6 @@
 import { generateFiles, Tree } from '@nx/devkit'
 import { NormalizedApiFeatureSchema } from '../../generators/api-feature/api-feature-schema'
-import { addExports } from '../utils/add-export'
+import { replaceExports } from '../utils/add-export'
 import { ensureNxProjectExists } from '../utils/ensure-nx-project-exists'
 import { getApiSubstitutions } from './get-api-substitutions'
 
@@ -15,8 +15,10 @@ export async function generateApiLibDataAccess(tree: Tree, options: NormalizedAp
   tree.delete(`${dataAccess.sourceRoot}/lib/${dataAccess.name}.module.ts`)
   // Generate the data access library
   generateFiles(tree, `${__dirname}/files/data-access`, dataAccess.sourceRoot, { ...substitutions })
+
   // Add the exports to the barrel file
-  addExports(tree, `${dataAccess.sourceRoot}/index.ts`, [
+  replaceExports(tree, `${dataAccess.sourceRoot}/index.ts`, [
+    `./lib/${options.app}-${options.model}.data-access.module`,
     `./lib/${options.app}-${options.model}.service`,
     `./lib/entity/${substitutions.model.fileName}.entity`,
   ])

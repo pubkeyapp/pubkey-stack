@@ -14,15 +14,15 @@ export function generateApiCrud(tree: Tree, options: NormalizedApiCrudSchema) {
   ].map((project) => ensureNxProjectExists(tree, project))
   const vars = getApiCrudSubstitutions(options)
 
-  const serviceName = `${vars.app.className}${vars.actor.className}${vars.model.className}Service`
-  const serviceFileName = `${vars.appFileName}-${vars.actorFileName}-${vars.modelFileName}.service.ts`
-  const resolverName = `${vars.app.className}${vars.actor.className}${vars.model.className}Resolver`
-  const resolverFileName = `${vars.appFileName}-${vars.actorFileName}-${vars.modelFileName}.resolver.ts`
+  const serviceName = `${vars.app.className}${vars.model.className}Data${vars.actor.className}Service`
+  const serviceFileName = `${vars.appFileName}-${vars.modelFileName}-data-${vars.actorFileName}.service.ts`
+  const resolverName = `${vars.app.className}${vars.model.className}${vars.actor.className}Resolver`
+  const resolverFileName = `${vars.appFileName}-${vars.modelFileName}-${vars.actorFileName}.resolver.ts`
 
   const requiredFields = [
     `${dataAccess.sourceRoot}/lib/${vars.appFileName}-${vars.modelFileName}.service.ts`,
-    `${dataAccess.sourceRoot}/lib/${vars.appFileName}-${vars.modelFileName}-data-access.module.ts`,
-    `${feature.sourceRoot}/lib/${vars.appFileName}-${vars.modelFileName}-feature.module.ts`,
+    `${dataAccess.sourceRoot}/lib/${vars.appFileName}-${vars.modelFileName}.data-access.module.ts`,
+    `${feature.sourceRoot}/lib/${vars.appFileName}-${vars.modelFileName}.feature.module.ts`,
   ]
 
   for (const field of requiredFields) {
@@ -44,7 +44,6 @@ export function generateApiCrud(tree: Tree, options: NormalizedApiCrudSchema) {
     `./lib/dto/${vars.actorFileName}-create-${vars.modelFileName}.input`,
     `./lib/dto/${vars.actorFileName}-find-many-${vars.modelFileName}.input`,
     `./lib/dto/${vars.actorFileName}-update-${vars.modelFileName}.input`,
-    `./lib/entity/${vars.modelFileName}-paging.entity`,
   ]
 
   // Generate the data access library

@@ -1,4 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql'
+import { PagingResponse } from '@<%= npmScope %>/<%= app.fileName %>-core-data-access'
 
 @ObjectType()
 export class <%= model.className %> {
@@ -13,3 +14,6 @@ export class <%= model.className %> {
     <%= field.name %><% if(field.optional){ %>?<% } else { %>!<% } %>: <%= field.type %>
   <% } %>
 }
+
+@ObjectType()
+export class <%= model.className %>Paging extends PagingResponse<<%= model.className %>>(<%= model.className %>) {}

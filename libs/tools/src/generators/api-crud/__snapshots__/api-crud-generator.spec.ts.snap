@@ -87,65 +87,18 @@ exports[`api-crud generator should run successfully 1`] = `
             "children": {
               "index.ts": {
                 "content": [
-                  "export * from './lib/test-company-data-access.module';",
+                  "export * from './lib/test-company.data-access.module';",
                   "export * from './lib/test-company.service';",
                   "export * from './lib/entity/company.entity';",
                   "export * from './lib/dto/admin-create-company.input';",
                   "export * from './lib/dto/admin-find-many-company.input';",
                   "export * from './lib/dto/admin-update-company.input';",
-                  "export * from './lib/entity/company-paging.entity';",
                 ],
                 "isBinary": false,
                 "path": "libs/test/company/data-access/src/index.ts",
               },
               "lib": {
                 "children": {
-                  "api-admin-company.service.ts": {
-                    "content": [
-                      "import { Injectable } from '@nestjs/common';",
-                      "import { TestCoreService } from '@proj/test-core-data-access';",
-                      "import { AdminCreateCompanyInput } from './dto/admin-create-company.input';",
-                      "import { AdminFindManyCompanyInput } from './dto/admin-find-many-company.input';",
-                      "import { AdminUpdateCompanyInput } from './dto/admin-update-company.input';",
-                      "import { CompanyPaging } from './entity/company-paging.entity';",
-                      "import { getAdminCompanyWhereInput } from './helpers/get-admin-company-where.input';",
-                      "@Injectable()",
-                      "export class TestAdminCompanyService {",
-                      "constructor(private readonly core: TestCoreService) {}",
-                      "async createCompany(input: AdminCreateCompanyInput) {",
-                      "return this.core.data.company.create({ data: input });",
-                      "}",
-                      "async deleteCompany(companyId: string) {",
-                      "const deleted = await this.core.data.company.delete({",
-                      "where: { id: companyId },",
-                      "});",
-                      "return !!deleted;",
-                      "}",
-                      "async findManyCompany(",
-                      "input: AdminFindManyCompanyInput",
-                      "): Promise<CompanyPaging> {",
-                      "return this.core.data.company",
-                      ".paginate({",
-                      "orderBy: { createdAt: 'desc' },",
-                      "where: getAdminCompanyWhereInput(input),",
-                      "})",
-                      ".withPages({ limit: input.limit, page: input.page })",
-                      ".then(([data, meta]) => ({ data, meta }));",
-                      "}",
-                      "async findOneCompany(companyId: string) {",
-                      "return this.core.data.company.findUnique({ where: { id: companyId } });",
-                      "}",
-                      "async updateCompany(companyId: string, input: AdminUpdateCompanyInput) {",
-                      "return this.core.data.company.update({",
-                      "where: { id: companyId },",
-                      "data: input,",
-                      "});",
-                      "}",
-                      "}",
-                    ],
-                    "isBinary": false,
-                    "path": "libs/test/company/data-access/src/lib/api-admin-company.service.ts",
-                  },
                   "dto": {
                     "children": {
                       "admin-create-company.input.ts": {
@@ -198,20 +151,10 @@ exports[`api-crud generator should run successfully 1`] = `
                   },
                   "entity": {
                     "children": {
-                      "company-paging.entity.ts": {
-                        "content": [
-                          "import { ObjectType } from '@nestjs/graphql';",
-                          "import { PagingResponse } from '@proj/test-core-data-access';",
-                          "import { Company } from './company.entity';",
-                          "@ObjectType()",
-                          "export class CompanyPaging extends PagingResponse<Company>(Company) {}",
-                        ],
-                        "isBinary": false,
-                        "path": "libs/test/company/data-access/src/lib/entity/company-paging.entity.ts",
-                      },
                       "company.entity.ts": {
                         "content": [
                           "import { Field, ObjectType } from '@nestjs/graphql';",
+                          "import { PagingResponse } from '@proj/test-core-data-access';",
                           "@ObjectType()",
                           "export class Company {",
                           "@Field()",
@@ -227,6 +170,8 @@ exports[`api-crud generator should run successfully 1`] = `
                           "@Field({ nullable: true })",
                           "phone?: string;",
                           "}",
+                          "@ObjectType()",
+                          "export class CompanyPaging extends PagingResponse<Company>(Company) {}",
                         ],
                         "isBinary": false,
                         "path": "libs/test/company/data-access/src/lib/entity/company.entity.ts",
@@ -236,11 +181,11 @@ exports[`api-crud generator should run successfully 1`] = `
                   },
                   "helpers": {
                     "children": {
-                      "get-admin-company-where.input.ts": {
+                      "get-company-where-admin.input.ts": {
                         "content": [
                           "import { Prisma } from '@prisma/client';",
                           "import { AdminFindManyCompanyInput } from '../dto/admin-find-many-company.input';",
-                          "export function getAdminCompanyWhereInput(",
+                          "export function getCompanyWhereAdminInput(",
                           "input: AdminFindManyCompanyInput",
                           "): Prisma.CompanyWhereInput {",
                           "const where: Prisma.CompanyWhereInput = {};",
@@ -254,22 +199,22 @@ exports[`api-crud generator should run successfully 1`] = `
                           "}",
                         ],
                         "isBinary": false,
-                        "path": "libs/test/company/data-access/src/lib/helpers/get-admin-company-where.input.ts",
+                        "path": "libs/test/company/data-access/src/lib/helpers/get-company-where-admin.input.ts",
                       },
                     },
                     "path": "libs/test/company/data-access/src/lib/helpers",
                   },
-                  "test-admin-company.service.ts": {
+                  "test-company-data-admin.service.ts": {
                     "content": [
                       "import { Injectable } from '@nestjs/common';",
                       "import { TestCoreService } from '@proj/test-core-data-access';",
                       "import { AdminCreateCompanyInput } from './dto/admin-create-company.input';",
                       "import { AdminFindManyCompanyInput } from './dto/admin-find-many-company.input';",
                       "import { AdminUpdateCompanyInput } from './dto/admin-update-company.input';",
-                      "import { CompanyPaging } from './entity/company-paging.entity';",
-                      "import { getAdminCompanyWhereInput } from './helpers/get-admin-company-where.input';",
+                      "import { CompanyPaging } from './entity/company.entity';",
+                      "import { getCompanyWhereAdminInput } from './helpers/get-company-where-admin.input';",
                       "@Injectable()",
-                      "export class TestAdminCompanyService {",
+                      "export class TestCompanyDataAdminService {",
                       "constructor(private readonly core: TestCoreService) {}",
                       "async createCompany(input: AdminCreateCompanyInput) {",
                       "return this.core.data.company.create({ data: input });",
@@ -286,7 +231,7 @@ exports[`api-crud generator should run successfully 1`] = `
                       "return this.core.data.company",
                       ".paginate({",
                       "orderBy: { createdAt: 'desc' },",
-                      "where: getAdminCompanyWhereInput(input),",
+                      "where: getCompanyWhereAdminInput(input),",
                       "})",
                       ".withPages({ limit: input.limit, page: input.page })",
                       ".then(([data, meta]) => ({ data, meta }));",
@@ -303,33 +248,31 @@ exports[`api-crud generator should run successfully 1`] = `
                       "}",
                     ],
                     "isBinary": false,
-                    "path": "libs/test/company/data-access/src/lib/test-admin-company.service.ts",
+                    "path": "libs/test/company/data-access/src/lib/test-company-data-admin.service.ts",
                   },
-                  "test-company-data-access.module.ts": {
+                  "test-company.data-access.module.ts": {
                     "content": [
                       "import { Module } from '@nestjs/common';",
                       "import { TestCoreDataAccessModule } from '@proj/test-core-data-access';",
                       "import { TestCompanyService } from './test-company.service';",
-                      "import { TestAdminCompanyService } from './test-admin-company.service';",
+                      "import { TestCompanyDataAdminService } from './test-company-data-admin.service';",
                       "@Module({",
                       "imports: [TestCoreDataAccessModule],",
-                      "providers: [TestCompanyService, TestAdminCompanyService],",
+                      "providers: [TestCompanyService, TestCompanyDataAdminService],",
                       "exports: [TestCompanyService],",
                       "})",
                       "export class TestCompanyDataAccessModule {}",
                     ],
                     "isBinary": false,
-                    "path": "libs/test/company/data-access/src/lib/test-company-data-access.module.ts",
+                    "path": "libs/test/company/data-access/src/lib/test-company.data-access.module.ts",
                   },
                   "test-company.service.ts": {
                     "content": [
                       "import { Injectable } from '@nestjs/common';",
-                      "import { TestAdminCompanyService } from './test-admin-company.service';",
+                      "import { TestCompanyDataAdminService } from './test-company-data-admin.service';",
                       "@Injectable()",
                       "export class TestCompanyService {",
-                      "// Use the following command to generate the CRUD for this service for a certain actor",
-                      "// nx g api-crud --app Test --model company --actor <admin|user|etc...>",
-                      "constructor(readonly admin: TestAdminCompanyService) {}",
+                      "constructor(readonly admin: TestCompanyDataAdminService) {}",
                       "}",
                     ],
                     "isBinary": false,
@@ -497,14 +440,14 @@ exports[`api-crud generator should run successfully 1`] = `
             "children": {
               "index.ts": {
                 "content": [
-                  "export * from './lib/test-company-feature.module';",
+                  "export * from './lib/test-company.feature.module';",
                 ],
                 "isBinary": false,
                 "path": "libs/test/company/feature/src/index.ts",
               },
               "lib": {
                 "children": {
-                  "api-admin-company.resolver.ts": {
+                  "test-company-admin.resolver.ts": {
                     "content": [
                       "import { Resolver } from '@nestjs/graphql';",
                       "import { TestCompanyService } from '@proj/test-company-data-access';",
@@ -520,7 +463,7 @@ exports[`api-crud generator should run successfully 1`] = `
                       "} from '@proj/test-company-data-access';",
                       "@Resolver()",
                       "@UseGuards(TestAuthGraphQLAdminGuard)",
-                      "export class TestAdminCompanyResolver {",
+                      "export class TestCompanyAdminResolver {",
                       "constructor(private readonly service: TestCompanyService) {}",
                       "@Mutation(() => Company, { nullable: true })",
                       "adminCreateCompany(@Args('input') input: AdminCreateCompanyInput) {",
@@ -548,22 +491,22 @@ exports[`api-crud generator should run successfully 1`] = `
                       "}",
                     ],
                     "isBinary": false,
-                    "path": "libs/test/company/feature/src/lib/api-admin-company.resolver.ts",
+                    "path": "libs/test/company/feature/src/lib/test-company-admin.resolver.ts",
                   },
-                  "test-company-feature.module.ts": {
+                  "test-company.feature.module.ts": {
                     "content": [
                       "import { Module } from '@nestjs/common';",
                       "import { TestCompanyDataAccessModule } from '@proj/test-company-data-access';",
                       "import { TestCompanyResolver } from './test-company.resolver';",
-                      "import { TestAdminCompanyResolver } from './test-admin-company.resolver';",
+                      "import { TestCompanyAdminResolver } from './test-company-admin.resolver';",
                       "@Module({",
                       "imports: [TestCompanyDataAccessModule],",
-                      "providers: [TestCompanyResolver, TestAdminCompanyResolver],",
+                      "providers: [TestCompanyResolver, TestCompanyAdminResolver],",
                       "})",
                       "export class TestCompanyFeatureModule {}",
                     ],
                     "isBinary": false,
-                    "path": "libs/test/company/feature/src/lib/test-company-feature.module.ts",
+                    "path": "libs/test/company/feature/src/lib/test-company.feature.module.ts",
                   },
                   "test-company.resolver.ts": {
                     "content": [

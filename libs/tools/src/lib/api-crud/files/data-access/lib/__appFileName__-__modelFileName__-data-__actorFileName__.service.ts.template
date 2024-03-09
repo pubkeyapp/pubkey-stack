@@ -3,11 +3,11 @@ import { <%= app.className %>CoreService } from '@<%= npmScope %>/<%= app.fileNa
 import { <%= actor.className %>Create<%= model.className %>Input } from './dto/<%= actor.fileName %>-create-<%= model.fileName %>.input'
 import { <%= actor.className %>FindMany<%= model.className %>Input } from './dto/<%= actor.fileName %>-find-many-<%= model.fileName %>.input'
 import { <%= actor.className %>Update<%= model.className %>Input } from './dto/<%= actor.fileName %>-update-<%= model.fileName %>.input'
-import { <%= model.className %>Paging } from './entity/<%= model.fileName %>-paging.entity'
-import { get<%= actor.className %><%= model.className %>WhereInput } from './helpers/get-<%= actor.fileName %>-<%= model.fileName %>-where.input'
+import { <%= model.className %>Paging } from './entity/<%= model.fileName %>.entity'
+import { get<%= model.className %>Where<%= actor.className %>Input } from './helpers/get-<%= model.fileName %>-where-<%= actor.fileName %>.input'
 
 @Injectable()
-export class <%= app.className %><%= actor.className %><%= model.className %>Service {
+export class <%= app.className %><%= model.className %>Data<%= actor.className %>Service {
   constructor(private readonly core: <%= app.className %>CoreService) {}
 
   async create<%= model.className %>(input: <%= actor.className %>Create<%= model.className %>Input) {
@@ -23,7 +23,7 @@ export class <%= app.className %><%= actor.className %><%= model.className %>Ser
     return this.core.data.<%= model.propertyName %>
       .paginate({
         orderBy: { createdAt: 'desc' },
-        where: get<%= actor.className %><%= model.className %>WhereInput(input),
+        where: get<%= model.className %>Where<%= actor.className %>Input(input),
       })
       .withPages({ limit: input.limit, page: input.page })
       .then(([data, meta]) => ({ data, meta }))
