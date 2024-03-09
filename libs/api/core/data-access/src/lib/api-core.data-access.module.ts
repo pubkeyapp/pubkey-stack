@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common'
+import { EventEmitterModule } from '@nestjs/event-emitter'
 import { ScheduleModule } from '@nestjs/schedule'
 import { ServeStaticModule } from '@nestjs/serve-static'
 import { ApiCoreProvisionService } from './api-core-provision.service'
@@ -11,6 +12,7 @@ import { serveStaticFactory } from './helpers/serve-static-factory'
   imports: [
     ApiCoreConfigModule,
     ApiCoreGraphQLModule,
+    EventEmitterModule.forRoot(),
     ScheduleModule.forRoot(),
     ServeStaticModule.forRootAsync({ useFactory: serveStaticFactory() }),
   ],

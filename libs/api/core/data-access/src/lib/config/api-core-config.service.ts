@@ -231,7 +231,7 @@ export class ApiCoreConfigService {
   }
 
   get prefix() {
-    return 'api'
+    return '/api'
   }
 
   get sessionSecret() {

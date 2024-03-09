@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
-import { ApiCoreService } from '@pubkey-stack/api-core-data-access'
+import { ApiCoreService, CORE_APP_STARTED } from '@pubkey-stack/api-core-data-access'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import { exec } from 'node:child_process'
@@ -19,7 +19,6 @@ async function bootstrap() {
       cookie: { secure: !core.config.isDevelopment },
     }),
   )
-
   const host = `http://${core.config.host}:${core.config.port}`
   await app.listen(core.config.port, core.config.host)
   Logger.log(`🚀 RestAPI is running on: ${host}/${core.config.prefix}.`)
@@ -31,6 +30,7 @@ async function bootstrap() {
     Logger.warn(`🐞 Application is running in development mode.`)
     exec('prettier --write ./api-schema.graphql ./api-swagger.json', { cwd: process.cwd() })
   }
+  core.eventEmitter.emit(CORE_APP_STARTED)
 }
 
 bootstrap()
