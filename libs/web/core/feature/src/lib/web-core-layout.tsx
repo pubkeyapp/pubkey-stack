@@ -12,7 +12,7 @@ import {
 import { UiHeader, UiLayout, UiLoader } from '@pubkey-ui/core'
 import { ReactNode, Suspense } from 'react'
 
-export function ShellLayout({ children }: { children: ReactNode }) {
+export function WebCoreLayout({ children }: { children: ReactNode }) {
   const { user, logout } = useAuth()
   const [opened, { toggle }] = useDisclosure(false)
   return (

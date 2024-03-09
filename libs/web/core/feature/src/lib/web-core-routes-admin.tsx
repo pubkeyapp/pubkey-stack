@@ -15,7 +15,7 @@ const routes: RouteObject[] = [
   { path: 'users/*', element: <AdminUserFeature /> },
 ]
 
-export default function ShellAdminRoutes() {
+export default function WebCoreRoutesAdmin() {
   return useRoutes([
     { index: true, element: <Navigate to="dashboard" replace /> },
     {

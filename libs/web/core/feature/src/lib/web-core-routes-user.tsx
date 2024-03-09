@@ -21,6 +21,6 @@ const routes: RouteObject[] = [
   { path: '/u/*', element: <UserFeature /> },
 ]
 
-export default function ShellUserRoutes() {
+export default function WebCoreRoutesUser() {
   return useRoutes(routes)
 }

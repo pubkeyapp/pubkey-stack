@@ -1,9 +1,9 @@
 {
-  "name": "web-shell-feature",
+  "name": "web-core-feature",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/web/shell/feature/src",
+  "sourceRoot": "libs/web/core/feature/src",
   "projectType": "library",
-  "tags": [],
+  "tags": ["app:web", "type:feature"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
