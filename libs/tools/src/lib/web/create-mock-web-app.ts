@@ -51,5 +51,6 @@ function createMockComponent(tree: Tree, project: string, name: string) {
     nameAndDirectoryFormat: 'as-provided',
     style: 'none',
     skipTests: true,
+    skipFormat: true,
   })
 }
