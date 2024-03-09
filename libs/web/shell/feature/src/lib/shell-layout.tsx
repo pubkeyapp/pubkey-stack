@@ -1,6 +1,7 @@
 import { Group } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { useAuth } from '@pubkey-stack/web-auth-data-access'
+import { UiHeaderProfile } from '@pubkey-stack/web-core-ui'
 import {
   SolanaUiAccountBalanceButton,
   SolanaUiAccountChecker,
@@ -8,7 +9,6 @@ import {
   SolanaUiClusterSelect,
   WalletIcon,
 } from '@pubkey-stack/web-solana-ui'
-import { UiHeaderProfile } from '@pubkey-stack/web-ui-core'
 import { UiHeader, UiLayout, UiLoader } from '@pubkey-ui/core'
 import { ReactNode, Suspense } from 'react'
 

@@ -1,5 +1,5 @@
 import { Button } from '@mantine/core'
-import { UiGrid } from '@pubkey-stack/web-ui-core'
+import { UiGrid } from '@pubkey-stack/web-core-ui'
 import { useUserProfile } from '@pubkey-stack/web-user-data-access'
 import { UserUiProfile, UserUiUpdateForm } from '@pubkey-stack/web-user-ui'
 import { UiCard, UiContainer, UiLoader, UiStack, UiWarning } from '@pubkey-ui/core'

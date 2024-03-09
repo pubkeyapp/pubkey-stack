@@ -1,5 +1,5 @@
 import { Button, Group } from '@mantine/core'
-import { UiPageLimit, UiSearchField } from '@pubkey-stack/web-ui-core'
+import { UiPageLimit, UiSearchField } from '@pubkey-stack/web-core-ui'
 import { useAdminFindManyUser } from '@pubkey-stack/web-user-data-access'
 import { AdminUserUiTable } from '@pubkey-stack/web-user-ui'
 import { UiBack, UiDebugModal, UiInfo, UiLoader, UiPage } from '@pubkey-ui/core'

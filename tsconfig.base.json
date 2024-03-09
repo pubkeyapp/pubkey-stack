@@ -30,6 +30,7 @@
       "@pubkey-stack/web-auth-feature": ["libs/web/auth/feature/src/index.ts"],
       "@pubkey-stack/web-auth-ui": ["libs/web/auth/ui/src/index.ts"],
       "@pubkey-stack/web-core-data-access": ["libs/web/core/data-access/src/index.ts"],
+      "@pubkey-stack/web-core-ui": ["libs/web/core/ui/src/index.ts"],
       "@pubkey-stack/web-dashboard-feature": ["libs/web/dashboard/feature/src/index.ts"],
       "@pubkey-stack/web-dev-feature": ["libs/web/dev/feature/src/index.ts"],
       "@pubkey-stack/web-home-feature": ["libs/web/home/feature/src/index.ts"],
@@ -40,7 +41,6 @@
       "@pubkey-stack/web-solana-data-access": ["libs/web/solana/data-access/src/index.ts"],
       "@pubkey-stack/web-solana-feature": ["libs/web/solana/feature/src/index.ts"],
       "@pubkey-stack/web-solana-ui": ["libs/web/solana/ui/src/index.ts"],
-      "@pubkey-stack/web-ui-core": ["libs/web/ui/core/src/index.ts"],
       "@pubkey-stack/web-user-data-access": ["libs/web/user/data-access/src/index.ts"],
       "@pubkey-stack/web-user-feature": ["libs/web/user/feature/src/index.ts"],
       "@pubkey-stack/web-user-ui": ["libs/web/user/ui/src/index.ts"]

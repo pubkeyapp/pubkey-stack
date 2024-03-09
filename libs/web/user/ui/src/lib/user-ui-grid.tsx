@@ -1,6 +1,6 @@
 import { Group, Pagination, SimpleGrid } from '@mantine/core'
 import type { User } from '@pubkey-stack/sdk'
-import { gridLimits, UiPageLimit } from '@pubkey-stack/web-ui-core'
+import { gridLimits, UiPageLimit } from '@pubkey-stack/web-core-ui'
 import { UiDebugModal, UiGroup, UiStack } from '@pubkey-ui/core'
 import { DataTableProps } from 'mantine-datatable'
 import { UserUiGridItem } from './user-ui-grid-item'
