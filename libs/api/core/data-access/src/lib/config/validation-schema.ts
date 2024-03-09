@@ -36,8 +36,6 @@ export const validationSchema = Joi.object({
   COOKIE_SECURE: Joi.boolean().default(true),
   // Database
   DATABASE_PROVISION: Joi.boolean().default(false),
-  DATABASE_RANDOM_DATA: Joi.boolean().default(false),
-  DATABASE_RESET: Joi.boolean().default(false),
   DATABASE_URL: Joi.string(),
   GRAPHQL_PLAYGROUND: Joi.boolean().default(false),
   JWT_SECRET: Joi.string().required(),

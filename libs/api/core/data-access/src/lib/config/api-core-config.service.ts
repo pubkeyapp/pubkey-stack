@@ -202,14 +202,6 @@ export class ApiCoreConfigService {
     return this.service.get<boolean>('databaseProvision')
   }
 
-  get databaseRandomData() {
-    return this.service.get<boolean>('databaseRandomData')
-  }
-
-  get databaseReset() {
-    return this.service.get<boolean>('databaseReset')
-  }
-
   get environment() {
     return this.service.get('environment')
   }

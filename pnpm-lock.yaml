@@ -232,9 +232,6 @@ devDependencies:
   '@babel/preset-react':
     specifier: ^7.23.3
     version: 7.23.3(@babel/core@7.23.7)
-  '@faker-js/faker':
-    specifier: ^8.3.1
-    version: 8.3.1
   '@graphql-codegen/add':
     specifier: ^5.0.0
     version: 5.0.0(graphql@16.8.1)
@@ -2409,11 +2406,6 @@ packages:
   /@eslint/js@8.56.0:
     resolution: {integrity: sha512-gMsVel9D7f2HLkBma9VbtzZRehRogVRfbr++f06nL2vnCGCNlzOD+/MUov/F4p8myyAHspEhVobgjpX64q5m6A==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
-
-  /@faker-js/faker@8.3.1:
-    resolution: {integrity: sha512-FdgpFxY6V6rLZE9mmIBb9hM0xpfvQOSNOLnzolzKwsE1DH+gC7lEKV1p1IbR0lAYyvYd5a4u3qWJzowUkw1bIw==}
-    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0, npm: '>=6.14.13'}
-    dev: true
 
   /@floating-ui/core@1.5.1:
     resolution: {integrity: sha512-QgcKYwzcc8vvZ4n/5uklchy8KVdjJwcOeI+HnnTNclJjs2nYsy23DOCf+sSV1kBwD9yDAoVKCkv/gEPzgQU3Pw==}
