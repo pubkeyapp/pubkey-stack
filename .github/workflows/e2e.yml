@@ -8,9 +8,10 @@ on:
 
 env:
   API_URL: http://localhost:3000/api
+  CLOAK_KEYCHAIN: 'v1.aesgcm256.6e1ba298.pf2UU5kKDxFWNgA6.VoV2c9xUARRchBZiY6iHlCc5'
+  CLOAK_MASTER_KEY: 'k1.aesgcm256.cs8BOCfbvuH-WwZDwqZ47zcLw0K8OlUGFW1JaXLAd78='
   DATABASE_URL: postgresql://pubkey-stack:pubkey-stack@localhost:5432/pubkey-stack?schema=public
   DATABASE_PROVISION: true
-  DATABASE_RESET: true
   HOST: 127.0.0.1
   JWT_SECRET: 1dfe5003518560c6362eab48f8220edf8708bbc67efbd4ed8cdf621965e938ee
   PORT: 3000
