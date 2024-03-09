@@ -1,6 +1,6 @@
 import { Button, Group } from '@mantine/core'
-import { AdminUpdateUserInput, getEnumOptions, User, UserRole, UserStatus } from '@pubkey-stack/sdk'
-import { formFieldCheckbox, formFieldSelect, formFieldText, UiForm, UiFormField } from '@pubkey-ui/core'
+import { AdminUpdateUserInput, User, UserRole, UserStatus } from '@pubkey-stack/sdk'
+import { formFieldCheckbox, formFieldSelect, formFieldText, getEnumOptions, UiForm, UiFormField } from '@pubkey-ui/core'
 
 export function AdminUiUpdateUserForm({
   submit,

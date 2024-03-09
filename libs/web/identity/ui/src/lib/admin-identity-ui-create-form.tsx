@@ -1,6 +1,6 @@
 import { Button, Group } from '@mantine/core'
-import { AdminCreateIdentityInput, getEnumOptions, IdentityProvider } from '@pubkey-stack/sdk'
-import { formFieldSelect, formFieldText, UiForm, UiFormField } from '@pubkey-ui/core'
+import { AdminCreateIdentityInput, IdentityProvider } from '@pubkey-stack/sdk'
+import { formFieldSelect, formFieldText, getEnumOptions, UiForm, UiFormField } from '@pubkey-ui/core'
 
 export function AuthUiIdentityCreateForm({ submit }: { submit: (res: AdminCreateIdentityInput) => Promise<boolean> }) {
   const model: AdminCreateIdentityInput = {

@@ -1,10 +1,9 @@
 import { Button, Menu } from '@mantine/core'
 import { User, UserRole } from '@pubkey-stack/sdk'
-import { useUiColorScheme } from '@pubkey-ui/core'
+import { UiAvatar, useUiColorScheme } from '@pubkey-ui/core'
 import { IconBug, IconLogout, IconMoonStars, IconSettings, IconShield, IconSun, IconUser } from '@tabler/icons-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { UiAvatar } from './ui-avatar'
 
 export function UiHeaderProfile({ user, logout }: { user?: User | null; logout: () => void }) {
   const { colorScheme, toggleColorScheme } = useUiColorScheme()
@@ -26,7 +25,7 @@ export function UiHeaderProfile({ user, logout }: { user?: User | null; logout: 
       <Menu.Target>
         <Button p={0} variant={open ? 'light' : 'default'} radius="xl">
           <UiAvatar
-            avatarUrl={user?.avatarUrl}
+            url={user?.avatarUrl}
             name={user?.username}
             alt={user?.username ?? 'User Avatar'}
             radius={100}

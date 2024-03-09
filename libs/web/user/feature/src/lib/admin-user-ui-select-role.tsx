@@ -1,17 +1,17 @@
-import { getEnumOptions, UserRole } from '@pubkey-stack/sdk'
-import { UiSelectEnumOption } from '@pubkey-stack/web-ui-core'
+import { UserRole } from '@pubkey-stack/sdk'
+import { getEnumOptions, UiSelectEnum } from '@pubkey-ui/core'
 
 export function AdminUserUiSelectRole({
   value,
-  onChange,
+  setValue,
 }: {
   value: UserRole | undefined
-  onChange: (role: UserRole | undefined) => void
+  setValue: (role: UserRole | undefined) => void
 }) {
   return (
-    <UiSelectEnumOption<UserRole>
+    <UiSelectEnum<UserRole>
       value={value}
-      onChange={onChange}
+      setValue={setValue}
       options={[{ value: '', label: 'Filter by role' }, ...getEnumOptions(UserRole)]}
     />
   )
