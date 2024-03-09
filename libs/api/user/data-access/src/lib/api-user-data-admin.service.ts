@@ -4,12 +4,12 @@ import { ApiCoreService, hashPassword, slugifyId } from '@pubkey-stack/api-core-
 import { AdminCreateUserInput } from './dto/admin-create-user.input'
 import { AdminFindManyUserInput } from './dto/admin-find-many-user.input'
 import { AdminUpdateUserInput } from './dto/admin-update-user.input'
-import { UserPaging } from './entity/user-paging.entity'
-import { getAdminUserWhereInput } from './helpers/get-admin-user-where.input'
+import { UserPaging } from './entity/user.entity'
+import { getUserWhereAdminInput } from './helpers/get-user-where-admin.input'
 
 @Injectable()
-export class ApiAdminUserService {
-  private readonly logger = new Logger(ApiAdminUserService.name)
+export class ApiUserDataAdminService {
+  private readonly logger = new Logger(ApiUserDataAdminService.name)
   constructor(private readonly core: ApiCoreService) {}
 
   async createUser(input: AdminCreateUserInput): Promise<PrismaUser> {
@@ -46,7 +46,7 @@ export class ApiAdminUserService {
     return this.core.data.user
       .paginate({
         orderBy: { createdAt: 'desc' },
-        where: getAdminUserWhereInput(input),
+        where: getUserWhereAdminInput(input),
         include: { identities: { orderBy: [{ provider: 'asc' }, { providerId: 'asc' }] } },
       })
       .withPages({ limit: input.limit, page: input.page })

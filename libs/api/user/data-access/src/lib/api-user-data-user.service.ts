@@ -2,19 +2,19 @@ import { Injectable, Logger } from '@nestjs/common'
 import { ApiCoreService } from '@pubkey-stack/api-core-data-access'
 import { UserFindManyUserInput } from './dto/user-find-many-user.input'
 import { UserUpdateUserInput } from './dto/user-update-user.input'
-import { UserPaging } from './entity/user-paging.entity'
-import { getUserUserWhereInput } from './helpers/get-user-user-where.input'
+import { UserPaging } from './entity/user.entity'
+import { getUserWhereUserInput } from './helpers/get-user-where-user.input'
 
 @Injectable()
-export class ApiUserUserService {
-  private readonly logger = new Logger(ApiUserUserService.name)
+export class ApiUserDataUserService {
+  private readonly logger = new Logger(ApiUserDataUserService.name)
   constructor(private readonly core: ApiCoreService) {}
 
   async findManyUser(input: UserFindManyUserInput): Promise<UserPaging> {
     return this.core.data.user
       .paginate({
         orderBy: { createdAt: 'desc' },
-        where: getUserUserWhereInput(input),
+        where: getUserWhereUserInput(input),
       })
       .withPages({ limit: input.limit, page: input.page })
       .then(([data, meta]) => ({ data, meta }))

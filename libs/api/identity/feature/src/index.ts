@@ -1,1 +1,1 @@
-export * from './lib/api-identity-feature.module'
+export * from './lib/api-identity.feature.module'

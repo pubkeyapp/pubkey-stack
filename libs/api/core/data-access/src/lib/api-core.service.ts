@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { IdentityProvider } from '@prisma/client'
-import { ApiCoreConfigService } from './api-core-config.service'
 import { ApiCorePrismaClient, prismaClient } from './api-core-prisma-client'
+import { ApiCoreConfigService } from './config/api-core-config.service'
 import { slugifyId } from './helpers/slugify-id'
 
 @Injectable()

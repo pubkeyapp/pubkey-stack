@@ -1,12 +1,12 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { IdentityProvider } from '@prisma/client'
 import { ApiCoreService, BaseContext, getRequestDetails } from '@pubkey-stack/api-core-data-access'
-import { PublicKey } from '@solana/web3.js'
 import { verifySignature } from '@pubkeyapp/solana-verify-wallet'
+import { PublicKey } from '@solana/web3.js'
 
 @Injectable()
-export class ApiSolanaIdentityService {
-  private readonly logger = new Logger(ApiSolanaIdentityService.name)
+export class ApiIdentitySolanaService {
+  private readonly logger = new Logger(ApiIdentitySolanaService.name)
   constructor(private readonly core: ApiCoreService) {}
 
   ensureLinkProvider(provider: IdentityProvider) {

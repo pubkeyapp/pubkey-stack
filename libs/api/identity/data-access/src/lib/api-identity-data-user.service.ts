@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common'
 import { Identity as PrismaIdentity } from '@prisma/client'
 import { ApiCoreService, BaseContext, getRequestDetails } from '@pubkey-stack/api-core-data-access'
 import { verifySignature } from '@pubkeyapp/solana-verify-wallet'
-import { ApiSolanaIdentityService } from './api-solana-identity.service'
+import { ApiIdentitySolanaService } from './api-identity-solana.service'
 import { LinkIdentityInput } from './dto/link-identity-input'
 import { RequestIdentityChallengeInput } from './dto/request-identity-challenge.input'
 import { UserFindManyIdentityInput } from './dto/user-find-many-identity-input'
@@ -10,9 +10,9 @@ import { VerifyIdentityChallengeInput } from './dto/verify-identity-challenge-in
 import { sha256 } from './helpers/sha256'
 
 @Injectable()
-export class ApiUserIdentityService {
-  private readonly logger = new Logger(ApiUserIdentityService.name)
-  constructor(private readonly core: ApiCoreService, private readonly solana: ApiSolanaIdentityService) {}
+export class ApiIdentityDataUserService {
+  private readonly logger = new Logger(ApiIdentityDataUserService.name)
+  constructor(private readonly core: ApiCoreService, private readonly solana: ApiIdentitySolanaService) {}
 
   async deleteIdentity(userId: string, identityId: string): Promise<boolean> {
     const found = await this.core.data.identity.findFirst({

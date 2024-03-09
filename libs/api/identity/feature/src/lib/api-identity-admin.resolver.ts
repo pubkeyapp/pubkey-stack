@@ -10,7 +10,7 @@ import {
 
 @Resolver()
 @UseGuards(ApiAuthGraphQLAdminGuard)
-export class ApiAdminIdentityResolver {
+export class ApiIdentityAdminResolver {
   constructor(private readonly service: ApiIdentityService) {}
 
   @Mutation(() => Identity, { nullable: true })

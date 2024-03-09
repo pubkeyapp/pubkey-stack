@@ -2,8 +2,8 @@ import { Injectable, Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { IdentityProvider } from '@prisma/client'
 import { CookieOptions } from 'express-serve-static-core'
-import { ApiCoreConfig } from './config/configuration'
-import { AppConfig } from './entity/app-config.entity'
+import { AppConfig } from '../entity/app-config.entity'
+import { ApiCoreConfig } from './configuration'
 
 @Injectable()
 export class ApiCoreConfigService {

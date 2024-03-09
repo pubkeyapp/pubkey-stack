@@ -8,7 +8,7 @@ import {
 } from '@pubkey-stack/api-identity-data-access'
 
 @Resolver()
-export class ApiAnonIdentityResolver {
+export class ApiIdentityAnonResolver {
   constructor(private readonly service: ApiIdentityService) {}
 
   @Query(() => IdentityChallenge, { nullable: true })

@@ -14,7 +14,7 @@ import {
 
 @Resolver()
 @UseGuards(ApiAuthGraphQLUserGuard)
-export class ApiUserIdentityResolver {
+export class ApiIdentityUserResolver {
   constructor(private readonly service: ApiIdentityService) {}
 
   @Mutation(() => Boolean, { nullable: true })

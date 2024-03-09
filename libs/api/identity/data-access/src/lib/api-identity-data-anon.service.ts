@@ -1,4 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common'
+import { IdentityProvider, UserRole, UserStatus } from '@prisma/client'
+import { ApiAuthService } from '@pubkey-stack/api-auth-data-access'
 import {
   ApiCoreService,
   BaseContext,
@@ -6,20 +8,18 @@ import {
   getRequestDetails,
   slugifyId,
 } from '@pubkey-stack/api-core-data-access'
+import { ApiIdentitySolanaService } from './api-identity-solana.service'
 import { RequestIdentityChallengeInput } from './dto/request-identity-challenge.input'
 import { VerifyIdentityChallengeInput } from './dto/verify-identity-challenge-input'
 import { sha256 } from './helpers/sha256'
-import { ApiSolanaIdentityService } from './api-solana-identity.service'
-import { ApiAuthService } from '@pubkey-stack/api-auth-data-access'
-import { IdentityProvider, UserRole, UserStatus } from '@prisma/client'
 
 @Injectable()
-export class ApiAnonIdentityService {
-  private readonly logger = new Logger(ApiAnonIdentityService.name)
+export class ApiIdentityDataAnonService {
+  private readonly logger = new Logger(ApiIdentityDataAnonService.name)
   constructor(
     private readonly auth: ApiAuthService,
     private readonly core: ApiCoreService,
-    private readonly solana: ApiSolanaIdentityService,
+    private readonly solana: ApiIdentitySolanaService,
   ) {}
 
   async requestIdentityChallenge(ctx: BaseContext, { provider, providerId }: RequestIdentityChallengeInput) {
