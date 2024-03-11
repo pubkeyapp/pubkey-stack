@@ -1,6 +1,6 @@
 import { names, readProjectConfiguration, Tree } from '@nx/devkit'
-import { NormalizedApiFeatureSchema } from '../../generators/api-feature/api-feature-schema'
 import { getImportPath } from '../utils/get-import-path'
+import { NormalizedApiFeatureSchema } from './normalized-api-feature-schema'
 
 export function getApiFeatureModuleInfo(tree: Tree, options: NormalizedApiFeatureSchema) {
   const project = readProjectConfiguration(tree, `${options.app}-${options.model}-feature`)

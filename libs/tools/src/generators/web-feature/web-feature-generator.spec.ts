@@ -4,10 +4,11 @@ import { createMockApiApp } from '../../lib/api/create-mock-api-app'
 
 import { getRecursiveFileNames } from '../../lib/utils/get-recursive-file-names'
 import { createMockWebApp, normalizeWebFeatureSchema } from '../../lib/web'
+import { NormalizedWebFeatureSchema } from '../../lib/web/normalized-web-feature-schema'
 import apiFeatureGenerator from '../api-feature/api-feature-generator'
 
 import { webFeatureGenerator } from './web-feature-generator'
-import { type NormalizedWebFeatureSchema, WebFeatureGeneratorSchema } from './web-feature-schema'
+import { WebFeatureGeneratorSchema } from './web-feature-schema'
 
 describe('web-feature generator', () => {
   let tree: Tree

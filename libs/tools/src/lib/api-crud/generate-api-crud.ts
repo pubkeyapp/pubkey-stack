@@ -1,11 +1,12 @@
 import { generateFiles, getProjects, type ProjectConfiguration, Tree } from '@nx/devkit'
-import type { NormalizedApiCrudSchema } from '../../generators/api-crud/api-crud-schema'
 import { addExports } from '../utils/add-export'
 import { ensureNxProjectExists } from '../utils/ensure-nx-project-exists'
 import { addServiceToClassConstructor } from './add-service-to-class-constructor'
 import { addServiceToModuleDecorator } from './add-service-to-module-decorator'
 import { generateSdkFile } from './generate-sdk-file'
 import { getApiCrudSubstitutions } from './get-api-crud-substitutions'
+
+import { NormalizedApiCrudSchema } from './normalized-api-crud.schema'
 
 export function generateApiCrud(tree: Tree, options: NormalizedApiCrudSchema) {
   const [dataAccess, feature]: ProjectConfiguration[] = [
@@ -51,9 +52,9 @@ export function generateApiCrud(tree: Tree, options: NormalizedApiCrudSchema) {
   // Generate the data access library
   generateFiles(tree, `${__dirname}/files/data-access`, dataAccess.sourceRoot, { ...vars })
 
+  // Add the services to the service constructor
+
   const currentFile = tree.read(dataAccessServicePath).toString()
-  // Add the crud services to the service constructor
-  console.log('serviceName', serviceName, currentFile, currentFile.includes(serviceName))
   if (!currentFile.includes(serviceName)) {
     addServiceToClassConstructor(
       tree,
@@ -63,7 +64,6 @@ export function generateApiCrud(tree: Tree, options: NormalizedApiCrudSchema) {
       serviceName,
       serviceFileName,
     )
-    // Add the crud service to the module providers
     addServiceToModuleDecorator(tree, dataAccessModulePath, serviceName, serviceFileName)
   }
 

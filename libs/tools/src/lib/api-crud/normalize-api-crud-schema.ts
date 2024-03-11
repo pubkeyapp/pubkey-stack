@@ -1,7 +1,8 @@
 import { Tree } from '@nx/devkit'
 import { getNpmScope } from '@nx/js/src/utils/package-json/get-npm-scope'
-import type { ApiCrudGeneratorSchema, NormalizedApiCrudSchema } from '../../generators/api-crud/api-crud-schema'
+import { ApiCrudGeneratorSchema } from '../../generators/api-crud/api-crud-schema'
 import { getPrismaModelFields } from '../prisma/get-prisma-models'
+import { NormalizedApiCrudSchema } from './normalized-api-crud.schema'
 
 export function normalizeApiCrudSchema(tree: Tree, schema: ApiCrudGeneratorSchema): NormalizedApiCrudSchema {
   const npmScope = getNpmScope(tree)

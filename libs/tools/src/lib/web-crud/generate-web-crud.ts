@@ -1,5 +1,6 @@
 import { generateFiles, type ProjectConfiguration, Tree } from '@nx/devkit'
-import type { NormalizedApiCrudSchema } from '../../generators/api-crud/api-crud-schema'
+
+import { NormalizedApiCrudSchema } from '../api-crud/normalized-api-crud.schema'
 import { addArrayItem } from '../utils/add-array-item'
 import { addExports } from '../utils/add-export'
 import { addNamedImport } from '../utils/add-named-import'
