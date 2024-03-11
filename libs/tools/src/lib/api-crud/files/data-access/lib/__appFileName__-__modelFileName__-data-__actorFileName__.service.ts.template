@@ -1,39 +1,38 @@
 import { Injectable } from '@nestjs/common'
-import { <%= app.className %>CoreService } from '@<%= npmScope %>/<%= app.fileName %>-core-data-access'
 import { <%= actor.className %>Create<%= model.className %>Input } from './dto/<%= actor.fileName %>-create-<%= model.fileName %>.input'
 import { <%= actor.className %>FindMany<%= model.className %>Input } from './dto/<%= actor.fileName %>-find-many-<%= model.fileName %>.input'
 import { <%= actor.className %>Update<%= model.className %>Input } from './dto/<%= actor.fileName %>-update-<%= model.fileName %>.input'
 import { <%= model.className %>Paging } from './entity/<%= model.fileName %>.entity'
 import { get<%= model.className %>Where<%= actor.className %>Input } from './helpers/get-<%= model.fileName %>-where-<%= actor.fileName %>.input'
+import { <%= app.className %><%= model.className %>DataService } from './<%= app.fileName %>-<%= model.fileName %>-data.service'
+
 
 @Injectable()
 export class <%= app.className %><%= model.className %>Data<%= actor.className %>Service {
-  constructor(private readonly core: <%= app.className %>CoreService) {}
+  constructor(private readonly data: <%= app.className %><%= model.className %>DataService) {}
 
   async create<%= model.className %>(input: <%= actor.className %>Create<%= model.className %>Input) {
-    return this.core.data.<%= model.propertyName %>.create({ data: input })
+    return this.data.create(input)
   }
 
   async delete<%= model.className %>(<%= model.propertyName %>Id: string) {
-    const deleted = await this.core.data.<%= model.propertyName %>.delete({ where: { id: <%= model.propertyName %>Id } })
-    return !!deleted
+    return this.data.delete(<%= model.propertyName %>Id)
   }
 
   async findMany<%= model.className %>(input: <%= actor.className %>FindMany<%= model.className %>Input): Promise<<%= model.className %>Paging> {
-    return this.core.data.<%= model.propertyName %>
-      .paginate({
+    return this.data.findMany({
         orderBy: { createdAt: 'desc' },
         where: get<%= model.className %>Where<%= actor.className %>Input(input),
+        limit: input.limit,
+        page: input.page
       })
-      .withPages({ limit: input.limit, page: input.page })
-      .then(([data, meta]) => ({ data, meta }))
   }
 
   async findOne<%= model.className %>(<%= model.propertyName %>Id: string) {
-    return this.core.data.<%= model.propertyName %>.findUnique({ where: { id: <%= model.propertyName %>Id } })
+    return this.data.findOne(<%= model.propertyName %>Id)
   }
 
   async update<%= model.className %>(<%= model.propertyName %>Id: string, input: <%= actor.className %>Update<%= model.className %>Input) {
-    return this.core.data.<%= model.propertyName %>.update({ where: { id: <%= model.propertyName %>Id }, data: input })
+    return this.data.update(<%= model.propertyName %>Id, input)
   }
 }

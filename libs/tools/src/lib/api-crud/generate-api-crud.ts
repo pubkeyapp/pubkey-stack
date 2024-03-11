@@ -14,8 +14,10 @@ export function generateApiCrud(tree: Tree, options: NormalizedApiCrudSchema) {
   ].map((project) => ensureNxProjectExists(tree, project))
   const vars = getApiCrudSubstitutions(options)
 
-  const serviceName = `${vars.app.className}${vars.model.className}Data${vars.actor.className}Service`
-  const serviceFileName = `${vars.appFileName}-${vars.modelFileName}-data-${vars.actorFileName}.service.ts`
+  const serviceName = `${vars.app.className}${vars.model.className}DataService`
+  const serviceFileName = `${vars.appFileName}-${vars.modelFileName}-data.service.ts`
+  const serviceActorName = `${vars.app.className}${vars.model.className}Data${vars.actor.className}Service`
+  const serviceActorFileName = `${vars.appFileName}-${vars.modelFileName}-data-${vars.actorFileName}.service.ts`
   const resolverName = `${vars.app.className}${vars.model.className}${vars.actor.className}Resolver`
   const resolverFileName = `${vars.appFileName}-${vars.modelFileName}-${vars.actorFileName}.resolver.ts`
 
@@ -49,17 +51,32 @@ export function generateApiCrud(tree: Tree, options: NormalizedApiCrudSchema) {
   // Generate the data access library
   generateFiles(tree, `${__dirname}/files/data-access`, dataAccess.sourceRoot, { ...vars })
 
-  // Add the crud service to the service constructor
+  const currentFile = tree.read(dataAccessServicePath).toString()
+  // Add the crud services to the service constructor
+  console.log('serviceName', serviceName, currentFile, currentFile.includes(serviceName))
+  if (!currentFile.includes(serviceName)) {
+    addServiceToClassConstructor(
+      tree,
+      dataAccessServicePath,
+      `${vars.app.className}${vars.model.className}Service`,
+      'data',
+      serviceName,
+      serviceFileName,
+    )
+    // Add the crud service to the module providers
+    addServiceToModuleDecorator(tree, dataAccessModulePath, serviceName, serviceFileName)
+  }
+
   addServiceToClassConstructor(
     tree,
     dataAccessServicePath,
     `${vars.app.className}${vars.model.className}Service`,
     vars.actor.propertyName,
-    serviceName,
-    serviceFileName,
+    serviceActorName,
+    serviceActorFileName,
   )
   // Add the crud service to the module providers
-  addServiceToModuleDecorator(tree, dataAccessModulePath, serviceName, serviceFileName)
+  addServiceToModuleDecorator(tree, dataAccessModulePath, serviceActorName, serviceActorFileName)
   // Add the crud service to the module resolvers
   addServiceToModuleDecorator(tree, featureModulePath, resolverName, resolverFileName)
 

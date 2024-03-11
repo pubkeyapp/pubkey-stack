@@ -79,6 +79,7 @@ describe('api-feature generator', () => {
         "libs/api/test/data-access/src/index.ts",
         "libs/api/test/data-access/src/lib/api-test-data-admin.service.ts",
         "libs/api/test/data-access/src/lib/api-test-data-user.service.ts",
+        "libs/api/test/data-access/src/lib/api-test-data.service.ts",
         "libs/api/test/data-access/src/lib/api-test.data-access.module.ts",
         "libs/api/test/data-access/src/lib/api-test.service.ts",
         "libs/api/test/data-access/src/lib/dto/admin-create-test.input.ts",
