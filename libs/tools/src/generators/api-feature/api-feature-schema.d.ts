@@ -11,6 +11,14 @@ export interface ApiFeatureGeneratorSchema {
    */
   model: string
   /**
+   * The id field of the model owner. Generally 'userId' or 'ownerId'.
+   */
+  modelParentId?: string
+  /**
+   * The name of the model owner. Generally 'User'.
+   */
+  modelParent?: string
+  /**
    * The name of the application you are adding the feature to.
    */
   app?: string

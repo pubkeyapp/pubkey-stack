@@ -6,6 +6,9 @@ import { NormalizedApiCrudSchema } from './normalized-api-crud.schema'
 
 export function normalizeApiCrudSchema(tree: Tree, schema: ApiCrudGeneratorSchema): NormalizedApiCrudSchema {
   const npmScope = getNpmScope(tree)
+  const modelParent = schema.modelParent ?? undefined
+  const modelParentId = schema.modelParentId ?? undefined
+  const modelParentProperty = modelParentId?.replace('Id', '')
   const fields = getPrismaModelFields(tree, schema.model) ?? [{ name: 'name', type: 'string', optional: false }]
 
   return {
@@ -13,7 +16,9 @@ export function normalizeApiCrudSchema(tree: Tree, schema: ApiCrudGeneratorSchem
     actor: schema.actor,
     label: schema.label ?? 'name',
     model: schema.model,
+    modelParent,
+    modelParentId,
     npmScope,
-    fields,
+    fields: fields.filter((f) => ![modelParentId, modelParentProperty].includes(f.name)),
   }
 }

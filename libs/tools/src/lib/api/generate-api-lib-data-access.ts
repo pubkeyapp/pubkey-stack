@@ -21,6 +21,5 @@ export async function generateApiLibDataAccess(tree: Tree, options: NormalizedAp
   replaceExports(tree, `${dataAccess.sourceRoot}/index.ts`, [
     `./lib/${options.app}-${options.model}.data-access.module`,
     `./lib/${options.app}-${options.model}.service`,
-    `./lib/entity/${substitutions.model.fileName}.entity`,
   ])
 }

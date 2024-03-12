@@ -11,11 +11,11 @@ import { <%= app.className %><%= model.className %>DataService } from './<%= app
 export class <%= app.className %><%= model.className %>Data<%= actor.className %>Service {
   constructor(private readonly data: <%= app.className %><%= model.className %>DataService) {}
 
-  async create<%= model.className %>(input: <%= actor.className %>Create<%= model.className %>Input) {
-    return this.data.create(input)
+  async create<%= model.className %>(<% if(parent){ %><%= parentId %>: string, <% } %>input: <%= actor.className %>Create<%= model.className %>Input) {
+    return this.data.create(<% if(parent && parent.className !== 'User'){ %>{...input, <%= parentId %> }<% } else { %>input<% } %>)
   }
 
-  async delete<%= model.className %>(<%= model.propertyName %>Id: string) {
+  async delete<%= model.className %>(<% if(parent){ %><%= parentId %>: string, <% } %><%= model.propertyName %>Id: string) {
     return this.data.delete(<%= model.propertyName %>Id)
   }
 
@@ -28,11 +28,11 @@ export class <%= app.className %><%= model.className %>Data<%= actor.className %
       })
   }
 
-  async findOne<%= model.className %>(<%= model.propertyName %>Id: string) {
+  async findOne<%= model.className %>(<% if(parent){ %><%= parentId %>: string, <% } %><%= model.propertyName %>Id: string) {
     return this.data.findOne(<%= model.propertyName %>Id)
   }
 
-  async update<%= model.className %>(<%= model.propertyName %>Id: string, input: <%= actor.className %>Update<%= model.className %>Input) {
+  async update<%= model.className %>(<% if(parent){ %><%= parentId %>: string, <% } %><%= model.propertyName %>Id: string, input: <%= actor.className %>Update<%= model.className %>Input) {
     return this.data.update(<%= model.propertyName %>Id, input)
   }
 }

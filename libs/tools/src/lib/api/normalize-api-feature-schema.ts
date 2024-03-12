@@ -12,6 +12,8 @@ export function normalizeApiFeatureSchema(tree: Tree, schema: ApiFeatureGenerato
     label: schema.label ?? 'name',
     crud: schema.crud?.length ? schema.crud.split(',') : [],
     model,
+    modelParent: schema.modelParent ?? undefined,
+    modelParentId: schema.modelParentId ?? undefined,
     npmScope,
     skipDataAccess: schema.skipDataAccess ?? false,
     skipFeature: schema.skipFeature ?? false,

@@ -42,13 +42,6 @@ export function generateApiCrud(tree: Tree, options: NormalizedApiCrudSchema) {
 
   const [dataAccessServicePath, dataAccessModulePath, featureModulePath] = requiredFields
 
-  const dataAccessExports: string[] = [
-    // Add exports here
-    `./lib/dto/${vars.actorFileName}-create-${vars.modelFileName}.input`,
-    `./lib/dto/${vars.actorFileName}-find-many-${vars.modelFileName}.input`,
-    `./lib/dto/${vars.actorFileName}-update-${vars.modelFileName}.input`,
-  ]
-
   // Generate the data access library
   generateFiles(tree, `${__dirname}/files/data-access`, dataAccess.sourceRoot, { ...vars })
 
@@ -79,6 +72,14 @@ export function generateApiCrud(tree: Tree, options: NormalizedApiCrudSchema) {
   addServiceToModuleDecorator(tree, dataAccessModulePath, serviceActorName, serviceActorFileName)
   // Add the crud service to the module resolvers
   addServiceToModuleDecorator(tree, featureModulePath, resolverName, resolverFileName)
+
+  const dataAccessExports: string[] = [
+    // Add exports here
+    `./lib/entity/${vars.model.fileName}.entity`,
+    `./lib/dto/${vars.actorFileName}-create-${vars.modelFileName}.input`,
+    `./lib/dto/${vars.actorFileName}-find-many-${vars.modelFileName}.input`,
+    `./lib/dto/${vars.actorFileName}-update-${vars.modelFileName}.input`,
+  ]
 
   // Add the exports to the barrel file
   addExports(tree, `${dataAccess.sourceRoot}/index.ts`, dataAccessExports)

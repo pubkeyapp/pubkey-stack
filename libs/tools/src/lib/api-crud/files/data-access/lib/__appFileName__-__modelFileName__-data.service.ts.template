@@ -7,7 +7,7 @@ import { <%= model.className %>Paging } from './entity/<%= model.fileName %>.ent
 export class <%= app.className %><%= model.className %>DataService {
   constructor(private readonly core: <%= app.className %>CoreService) {}
 
-  async create(input: Prisma.<%= model.className %>CreateInput) {
+  async create(input: Prisma.<%= model.className %>UncheckedCreateInput) {
     return this.core.data.<%= model.propertyName %>.create({ data: input })
   }
 

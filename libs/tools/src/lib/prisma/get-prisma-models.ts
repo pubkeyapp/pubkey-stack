@@ -25,7 +25,7 @@ function getField(type: string) {
     case 'DateTime':
       return 'Date'
     default:
-      return 'string'
+      return type
   }
 }
 

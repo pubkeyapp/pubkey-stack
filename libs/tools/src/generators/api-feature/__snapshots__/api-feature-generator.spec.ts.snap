@@ -108,7 +108,7 @@ import { TestPaging } from './entity/test.entity';
 export class ApiTestDataService {
   constructor(private readonly core: ApiCoreService) {}
 
-  async create(input: Prisma.TestCreateInput) {
+  async create(input: Prisma.TestUncheckedCreateInput) {
     return this.core.data.test.create({ data: input });
   }
 
@@ -445,7 +445,6 @@ export class ApiTestResolver {
 exports[`api-feature generator should generate the minimal feature libraries 3`] = `
 "export * from './lib/api-test.data-access.module';
 export * from './lib/api-test.service';
-export * from './lib/entity/test.entity';
 "
 `;
 

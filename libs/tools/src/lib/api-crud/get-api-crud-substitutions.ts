@@ -18,6 +18,9 @@ export function getApiCrudSubstitutions(options: NormalizedApiCrudSchema) {
     model,
     modelFileName: model.fileName,
     modelPropertyNamePlural: names(pluralize.plural(options.model)).propertyName,
+    parent: options.modelParent ? names(options.modelParent) : undefined,
+    parentId: options.modelParentId,
+    parentPropertyId: options.modelParentId?.replace('Id', ''),
     npmScope: options.npmScope,
   }
 }
