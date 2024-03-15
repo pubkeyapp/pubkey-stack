@@ -38,9 +38,10 @@ export async function createMockWebApp(tree: Tree, app: string) {
   await createMockComponent(tree, `${app}-core-feature`, `${app}-core-feature`)
 
   // Create the core routes libs
-  await createMockComponent(tree, `${app}-core-feature`, `web-core-routes`)
-  await createMockComponent(tree, `${app}-core-feature`, `web-core-routes-admin`)
-  await createMockComponent(tree, `${app}-core-feature`, `web-core-routes-user`)
+  await createMockComponent(tree, `${app}-core-feature`, `${app}-core-routes`)
+  await createMockComponent(tree, `${app}-core-feature`, `${app}-core-routes-admin`)
+  await createMockComponent(tree, `${app}-core-feature`, `${app}-core-routes-user`)
+  await createMockComponent(tree, `${app}-core-feature`, `${app}-core-routes-manager`)
 }
 
 function createMockComponent(tree: Tree, project: string, name: string) {

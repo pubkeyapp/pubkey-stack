@@ -11,6 +11,18 @@ export interface WebFeatureGeneratorSchema {
    */
   model: string
   /**
+   * The id field linked to the User model for this feature. Generally 'userId' or 'ownerId'.
+   */
+  modelOwnerId?: string
+  /**
+   * The id field of the parent model for this feature.
+   */
+  modelParentId?: string
+  /**
+   * The name of the parent model for this feature.
+   */
+  modelParent?: string
+  /**
    * The name of the application you are adding the feature to.
    */
   app?: string

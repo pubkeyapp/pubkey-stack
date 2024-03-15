@@ -2,15 +2,19 @@ import { Button, Group } from '@mantine/core'
 import { UiPageLimit, UiSearchField } from '@<%= npmScope %>/<%= app.fileName %>-core-ui'
 import { use<%= actor.className %>FindMany<%= model.className %> } from '@<%= npmScope %>/<%= app.fileName %>-<%= model.fileName %>-data-access'
 import { <% if(actorAdmin){ %><%= actor.className %><%= model.className %>UiTable<% } else { %><%= model.className %>UiGrid<% } %> } from '@<%= npmScope %>/<%= app.fileName %>-<%= model.fileName %>-ui'
-import { UiBack, UiDebugModal, UiInfo, UiLoader, UiPage } from '@pubkey-ui/core'
+import { UiBack, UiDebugModal, UiInfo, UiLoader, <% if(ownerId && actor.className === 'Admin'){ %>UiStack<% } else { %>UiPage<% } %> } from '@pubkey-ui/core'
 import { Link } from 'react-router-dom'
 
-export function <%= actor.className %><%= model.className %>ListFeature() {
+export function <%= actor.className %><%= model.className %>ListFeature(<% if(ownerId && actor.className === 'Admin'){ %>{ <%= ownerId %> }: { <%= ownerId %>: string } <% } %>) {
   const { delete<%= model.className %>, items, pagination, query, setSearch } = use<%= actor.className %>FindMany<%= model.className %>({
     limit: <% if(actorAdmin){ %>10<% } else { %>12<% } %>,
+    <% if(ownerId && actor.className === 'Admin'){ %><%= ownerId %>,<% } %>
   })
 
   return (
+  <% if(ownerId && actor.className === 'Admin'){ %>
+    <UiStack>
+  <% } else { %>
     <UiPage
       title="<%= plural.className %>"
       leftAction={<UiBack />}
@@ -23,9 +27,16 @@ export function <%= actor.className %><%= model.className %>ListFeature() {
         </Group>
       }
     >
+  <% } %>
       <Group>
         <UiSearchField placeholder="Search <%= model.propertyName %>" setSearch={setSearch} />
         <% if(actorAdmin){ %><UiPageLimit limit={pagination.limit} setLimit={pagination.setLimit} setPage={pagination.setPage} /><% } %>
+        <% if(ownerId && actor.className === 'Admin'){ %>
+          <UiDebugModal data={items} />
+          <Button component={Link} to="create">
+            Create
+          </Button>
+        <% } %>
       </Group>
 
       {query.isLoading ? (
@@ -52,6 +63,10 @@ export function <%= actor.className %><%= model.className %>ListFeature() {
                           />)<% } %> : (
         <UiInfo message="No <%= plural.propertyName %> found" />
       )}
+    <% if(ownerId && actor.className === 'Admin'){ %>
+    </UiStack>
+    <% } else { %>
     </UiPage>
+    <% } %>
   )
 }

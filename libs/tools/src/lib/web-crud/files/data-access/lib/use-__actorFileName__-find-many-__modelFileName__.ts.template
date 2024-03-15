@@ -4,13 +4,13 @@ import { toastError, toastSuccess } from '@pubkey-ui/core'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
-export function use<%= actor.className %>FindMany<%= model.className %>(props?: Partial<<%= actor.className %>FindMany<%= model.className %>Input>) {
+export function use<%= actor.className %>FindMany<%= model.className %>(props: Partial<<%= actor.className %>FindMany<%= model.className %>Input><% if(ownerId && actor.className === 'Admin'){ %> & { <%= ownerId %>: string } <% } else { %> = {} <% } %> ) {
   const sdk = useSdk()
   const [limit, setLimit] = useState(props?.limit ?? 10)
   const [page, setPage] = useState(props?.page ?? 1)
   const [search, setSearch] = useState<string>(props?.search ?? '')
 
-  const input: <%= actor.className %>FindMany<%= model.className %>Input = { page, limit, search }
+  const input: <%= actor.className %>FindMany<%= model.className %>Input = { page, limit, search<% if(ownerId && actor.className === 'Admin'){ %>, <%= ownerId %>: props.<%= ownerId %> <% } %> }
   const query = useQuery({
     queryKey: ['<%= actor.propertyName %>', 'find-many-<%= model.fileName %>', input],
     queryFn: () => sdk.<%= actor.propertyName %>FindMany<%= model.className %>({ input }).then((res) => res.data),
@@ -31,7 +31,7 @@ export function use<%= actor.className %>FindMany<%= model.className %>(props?: 
     setSearch,
     create<%= model.className %>: (input: <%= actor.className %>Create<%= model.className %>Input) =>
       sdk
-        .<%= actor.propertyName %>Create<%= model.className %>({ input })
+        .<%= actor.propertyName %>Create<%= model.className %>({ input<% if(ownerId && actor.className === 'Admin'){ %>: { ...input, <%= ownerId %>: props.<%= ownerId %> } <% } %> })
         .then((res) => res.data)
         .then((res) => {
           if (res.created) {

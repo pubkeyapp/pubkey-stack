@@ -112,6 +112,8 @@ exports[`api-crud generator should create crud with modelOwnerId 1`] = `
                           "location!: string;",
                           "@Field({ nullable: true })",
                           "phone?: string;",
+                          "@Field()",
+                          "ownerId!: string;",
                           "}",
                         ],
                         "isBinary": false,
@@ -123,6 +125,8 @@ exports[`api-crud generator should create crud with modelOwnerId 1`] = `
                           "import { PagingInput } from '@proj/test-core-data-access';",
                           "@InputType()",
                           "export class AdminFindManyCompanyInput extends PagingInput() {",
+                          "@Field()",
+                          "ownerId!: string;",
                           "@Field({ nullable: true })",
                           "search?: string;",
                           "}",
@@ -193,7 +197,9 @@ exports[`api-crud generator should create crud with modelOwnerId 1`] = `
                           "export function getCompanyWhereAdminInput(",
                           "input: AdminFindManyCompanyInput",
                           "): Prisma.CompanyWhereInput {",
-                          "const where: Prisma.CompanyWhereInput = {};",
+                          "const where: Prisma.CompanyWhereInput = {",
+                          "ownerId: input.ownerId,",
+                          "};",
                           "if (input.search) {",
                           "where.OR = [",
                           "{ id: { contains: input.search, mode: 'insensitive' } },",
@@ -222,7 +228,7 @@ exports[`api-crud generator should create crud with modelOwnerId 1`] = `
                       "export class TestCompanyDataAdminService {",
                       "constructor(private readonly data: TestCompanyDataService) {}",
                       "async createCompany(input: AdminCreateCompanyInput) {",
-                      "return this.data.create({ ...input, ownerId });",
+                      "return this.data.create(input);",
                       "}",
                       "async deleteCompany(companyId: string) {",
                       "return this.data.delete(companyId);",
@@ -1411,6 +1417,8 @@ exports[`api-crud generator should create crud with modelOwnerId for admin and u
                           "location!: string;",
                           "@Field({ nullable: true })",
                           "phone?: string;",
+                          "@Field()",
+                          "ownerId!: string;",
                           "}",
                         ],
                         "isBinary": false,
@@ -1422,6 +1430,8 @@ exports[`api-crud generator should create crud with modelOwnerId for admin and u
                           "import { PagingInput } from '@proj/test-core-data-access';",
                           "@InputType()",
                           "export class AdminFindManyCompanyInput extends PagingInput() {",
+                          "@Field()",
+                          "ownerId!: string;",
                           "@Field({ nullable: true })",
                           "search?: string;",
                           "}",
@@ -1537,7 +1547,9 @@ exports[`api-crud generator should create crud with modelOwnerId for admin and u
                           "export function getCompanyWhereAdminInput(",
                           "input: AdminFindManyCompanyInput",
                           "): Prisma.CompanyWhereInput {",
-                          "const where: Prisma.CompanyWhereInput = {};",
+                          "const where: Prisma.CompanyWhereInput = {",
+                          "ownerId: input.ownerId,",
+                          "};",
                           "if (input.search) {",
                           "where.OR = [",
                           "{ id: { contains: input.search, mode: 'insensitive' } },",
@@ -1589,7 +1601,7 @@ exports[`api-crud generator should create crud with modelOwnerId for admin and u
                       "export class TestCompanyDataAdminService {",
                       "constructor(private readonly data: TestCompanyDataService) {}",
                       "async createCompany(input: AdminCreateCompanyInput) {",
-                      "return this.data.create({ ...input, ownerId });",
+                      "return this.data.create(input);",
                       "}",
                       "async deleteCompany(companyId: string) {",
                       "return this.data.delete(companyId);",
@@ -2821,7 +2833,7 @@ exports[`api-crud generator should create crud with modelOwnerId for admin and u
 }
 `;
 
-exports[`api-crud generator should create crud with modelParentid 1`] = `
+exports[`api-crud generator should create crud with modelParentId 1`] = `
 {
   "company": {
     "children": {

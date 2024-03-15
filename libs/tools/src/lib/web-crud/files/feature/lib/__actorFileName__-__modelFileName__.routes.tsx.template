@@ -3,12 +3,12 @@ import { <%= actor.className %><%= model.className %>DetailFeature } from './<%=
 import { <%= actor.className %><%= model.className %>CreateFeature } from './<%= actor.propertyName %>-<%= model.fileName %>-create.feature'
 import { <%= actor.className %><%= model.className %>ListFeature } from './<%= actor.propertyName %>-<%= model.fileName %>-list.feature'
 
-export default function <%= actor.className %><%= model.className %>Routes() {
+export default function <%= actor.className %><%= model.className %>Routes(<% if(ownerId && actor.className === 'Admin'){ %>{ <%= ownerId %> }: { <%= ownerId %>: string } <% } %>) {
   return useRoutes([
-    { path: '', element: <<%= actor.className %><%= model.className %>ListFeature /> },
+    { path: '', element: <<%= actor.className %><%= model.className %>ListFeature <% if(ownerId && actor.className === 'Admin'){ %><%= ownerId %>={<%= ownerId %>}<% } %> /> },
     {
       path: 'create',
-      element: <<%= actor.className %><%= model.className %>CreateFeature />,
+      element: <<%= actor.className %><%= model.className %>CreateFeature <% if(ownerId && actor.className === 'Admin'){ %><%= ownerId %>={<%= ownerId %>}<% } %> />,
     },
     { path: ':<%= model.propertyName %>Id/*', element: <<%= actor.className %><%= model.className %>DetailFeature /> },
   ])

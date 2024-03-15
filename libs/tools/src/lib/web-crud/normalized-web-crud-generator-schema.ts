@@ -5,4 +5,6 @@ export interface NormalizedWebCrudGeneratorSchema extends WebCrudGeneratorSchema
   label: string
   npmScope: string
   fields?: PrismaModelField[]
+  modelOwner: string
+  modelOwnerProperty: string
 }

@@ -8,11 +8,17 @@ export function <%= actor.className %><%= model.className %>UiCreateForm({ submi
     <% for (let field of fields){ %>
       <%= field.name %>: '',
     <% } %>
+    <% if(ownerId && actor.className === 'Admin'){ %>
+      <%= ownerId %>: '',
+    <% } %>
   }
 
   const fields: UiFormField<<%= actor.className %>Create<%= model.className %>Input>[] = [
     <% for (let field of fields){ %>
         formFieldText('<%= field.name %>', { label: '<%= field.name %>', required: true, }),
+    <% } %>
+    <% if(ownerId && actor.className === 'Admin'){ %>
+      formFieldText('<%= ownerId %>', { label: '<%= ownerId %>', required: true, }),
     <% } %>
   ]
   return (

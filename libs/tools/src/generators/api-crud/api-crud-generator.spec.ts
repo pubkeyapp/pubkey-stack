@@ -2,8 +2,8 @@ import { readProjectConfiguration, Tree } from '@nx/devkit'
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing'
 import { createMockApiApp } from '../../lib/api/create-mock-api-app'
 import { getRecursiveFileContents } from '../../lib/utils/get-recursive-file-contents'
-import apiFeatureGenerator from '../api-feature/api-feature-generator'
-import apiCrudGenerator from './api-crud-generator'
+import { apiFeatureGenerator } from '../api-feature/api-feature-generator'
+import { apiCrudGenerator } from './api-crud-generator'
 import { ApiCrudGeneratorSchema } from './api-crud-schema'
 
 describe('api-crud generator', () => {
@@ -28,7 +28,7 @@ describe('api-crud generator', () => {
     expect(contents).toMatchSnapshot()
   })
 
-  it('should create crud with modelParentid', async () => {
+  it('should create crud with modelParentId', async () => {
     await apiCrudGenerator(tree, { ...options, modelParent: 'User', modelParentId: 'ownerId' })
     const config = readProjectConfiguration(tree, 'test')
     expect(config).toBeDefined()

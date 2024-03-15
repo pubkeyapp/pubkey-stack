@@ -20,6 +20,12 @@ export function getWebCrudSubstitutions(options: NormalizedApiCrudSchema) {
     model,
     modelFileName: model.fileName,
     modelPropertyNamePlural: plural.propertyName,
+    owner: options.modelOwner ? names(options.modelOwner) : undefined,
+    ownerId: options.modelOwnerId,
+    ownerPropertyId: options.modelOwnerId?.replace('Id', ''),
+    parent: options.modelParent ? names(options.modelParent) : undefined,
+    parentId: options.modelParentId,
+    parentPropertyId: options.modelParentId?.replace('Id', ''),
     npmScope: options.npmScope,
     plural,
   }
