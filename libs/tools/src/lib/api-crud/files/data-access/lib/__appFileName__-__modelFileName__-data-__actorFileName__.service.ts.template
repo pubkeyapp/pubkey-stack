@@ -11,28 +11,48 @@ import { <%= app.className %><%= model.className %>DataService } from './<%= app
 export class <%= app.className %><%= model.className %>Data<%= actor.className %>Service {
   constructor(private readonly data: <%= app.className %><%= model.className %>DataService) {}
 
-  async create<%= model.className %>(<% if(parent){ %><%= parentId %>: string, <% } %>input: <%= actor.className %>Create<%= model.className %>Input) {
-    return this.data.create(<% if(parent && parent.className !== 'User'){ %>{...input, <%= parentId %> }<% } else { %>input<% } %>)
+  async create<%= model.className %>(<% if(ownerId && actor.className !== 'Admin'){ %><%= ownerId %>: string, <% } %>input: <%= actor.className %>Create<%= model.className %>Input) {
+    return this.data.create(<% if(ownerId && actor.className !== 'Admin'){ %>{...input, <%= ownerId %> }<% } else { %>input<% } %>)
   }
 
-  async delete<%= model.className %>(<% if(parent){ %><%= parentId %>: string, <% } %><%= model.propertyName %>Id: string) {
+  async delete<%= model.className %>(<% if(ownerId && actor.className !== 'Admin'){ %><%= ownerId %>: string, <% } %><%= model.propertyName %>Id: string) {
+    <% if(ownerId && actor.className !== 'Admin'){ %>
+    const found = await this.data.findOne(<%= model.propertyName %>Id)
+    if (found.<%= ownerId %> !== <%= ownerId %>) {
+      throw new Error('You are not authorized to delete this <%= model.className %>')
+    }
+    <% } %>
     return this.data.delete(<%= model.propertyName %>Id)
   }
 
-  async findMany<%= model.className %>(input: <%= actor.className %>FindMany<%= model.className %>Input): Promise<<%= model.className %>Paging> {
+  async findMany<%= model.className %>(<% if(ownerId && actor.className !== 'Admin'){ %><%= ownerId %>: string, <% } %>input: <%= actor.className %>FindMany<%= model.className %>Input): Promise<<%= model.className %>Paging> {
     return this.data.findMany({
         orderBy: { createdAt: 'desc' },
-        where: get<%= model.className %>Where<%= actor.className %>Input(input),
+        where: get<%= model.className %>Where<%= actor.className %>Input(<% if(ownerId && actor.className !== 'Admin'){ %><%= ownerId %>, <% } %>input),
         limit: input.limit,
         page: input.page
       })
   }
 
-  async findOne<%= model.className %>(<% if(parent){ %><%= parentId %>: string, <% } %><%= model.propertyName %>Id: string) {
+  async findOne<%= model.className %>(<% if(ownerId && actor.className !== 'Admin'){ %><%= ownerId %>: string, <% } %><%= model.propertyName %>Id: string) {
+    <% if(ownerId && actor.className !== 'Admin'){ %>
+    const found = await this.data.findOne(<%= model.propertyName %>Id)
+    if (found.<%= ownerId %> !== <%= ownerId %>) {
+      throw new Error('You are not authorized to view this <%= model.className %>')
+    }
+    return found
+    <% } else { %>
     return this.data.findOne(<%= model.propertyName %>Id)
+    <% } %>
   }
 
-  async update<%= model.className %>(<% if(parent){ %><%= parentId %>: string, <% } %><%= model.propertyName %>Id: string, input: <%= actor.className %>Update<%= model.className %>Input) {
+  async update<%= model.className %>(<% if(ownerId && actor.className !== 'Admin'){ %><%= ownerId %>: string, <% } %><%= model.propertyName %>Id: string, input: <%= actor.className %>Update<%= model.className %>Input) {
+    <% if(ownerId && actor.className !== 'Admin'){ %>
+    const found = await this.data.findOne(<%= model.propertyName %>Id)
+    if (found.<%= ownerId %> !== <%= ownerId %>) {
+      throw new Error('You are not authorized to update this <%= model.className %>')
+    }
+    <% } %>
     return this.data.update(<%= model.propertyName %>Id, input)
   }
 }

@@ -129,7 +129,13 @@ export class ApiTestDataService {
   }
 
   async findOne(testId: string) {
-    return this.core.data.test.findUnique({ where: { id: testId } });
+    const found = await this.core.data.test.findUnique({
+      where: { id: testId },
+    });
+    if (!found) {
+      throw new Error('Test not found');
+    }
+    return found;
   }
 
   async update(testId: string, input: Prisma.TestUpdateInput) {

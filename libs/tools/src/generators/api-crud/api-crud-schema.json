@@ -26,13 +26,17 @@
       "description": "The name of the model for this feature.",
       "x-prompt": "What is the name of the model for this feature?"
     },
+    "modelOwnerId": {
+      "type": "string",
+      "description": "The id field linked to the User model for this feature. Generally 'userId' or 'ownerId'."
+    },
     "modelParentId": {
       "type": "string",
-      "description": "The id field of the model owner. Generally 'userId' or 'ownerId'."
+      "description": "The id field of the parent model for this feature."
     },
     "modelParent": {
       "type": "string",
-      "description": "The name of the model owner. Generally 'User'."
+      "description": "The name of the parent model for this feature."
     }
   },
   "required": ["app", "actor", "model"]

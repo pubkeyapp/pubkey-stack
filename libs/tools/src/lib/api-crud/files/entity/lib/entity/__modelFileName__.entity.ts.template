@@ -1,6 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql'
 import { PagingResponse } from '@<%= npmScope %>/<%= app.fileName %>-core-data-access'
 <% if(parent){ %> import { <%= parent.className %> } from '@<%= npmScope %>/<%= app.fileName %>-<%= parent.fileName %>-data-access' <% } %>
+<% if(owner){ %> import { <%= owner.className %> } from '@<%= npmScope %>/<%= app.fileName %>-<%= owner.fileName %>-data-access' <% } %>
 
 @ObjectType()
 export class <%= model.className %> {
@@ -15,10 +16,16 @@ export class <%= model.className %> {
     <%= field.name %><% if(field.optional){ %>?<% } else { %>!<% } %>: <%= field.type %>
   <% } %>
 <% if(parent){ %>
-  @Field(() => String)
+  @Field()
   <%= parentId %>!: string
-  @Field(() => () => <%= parent.className %>, { nullable: true })
+  @Field(() => <%= parent.className %>, { nullable: true })
   <%= parentPropertyId %>?: <%= parent.className %>
+<% } %>
+<% if(owner){ %>
+  @Field()
+  <%= ownerId %>!: string
+  @Field(() => <%= owner.className %>, { nullable: true })
+  <%= ownerPropertyId %>?: <%= owner.className %>
 <% } %>
 }
 

@@ -28,7 +28,11 @@ export class <%= app.className %><%= model.className %>DataService {
   }
 
   async findOne(<%= model.propertyName %>Id: string) {
-    return this.core.data.<%= model.propertyName %>.findUnique({ where: { id: <%= model.propertyName %>Id } })
+    const found = await this.core.data.<%= model.propertyName %>.findUnique({ where: { id: <%= model.propertyName %>Id } })
+    if (!found) {
+      throw new Error('<%= model.className %> not found')
+    }
+    return found
   }
 
   async update(<%= model.propertyName %>Id: string, input: Prisma.<%= model.className %>UpdateInput) {

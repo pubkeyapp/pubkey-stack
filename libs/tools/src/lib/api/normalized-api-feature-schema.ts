@@ -5,6 +5,7 @@ export interface NormalizedApiFeatureSchema extends Omit<ApiFeatureGeneratorSche
   crud: string[]
   label: string
   model: string
+  modelOwner: string
   npmScope: string
   skipDataAccess: boolean
   skipFeature: boolean

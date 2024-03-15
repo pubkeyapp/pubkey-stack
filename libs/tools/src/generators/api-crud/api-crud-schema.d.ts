@@ -23,11 +23,15 @@ export interface ApiCrudGeneratorSchema {
    */
   model: string
   /**
-   * The id field of the model owner. Generally 'userId' or 'ownerId'.
+   * The id field linked to the User model for this feature. Generally 'userId' or 'ownerId'.
+   */
+  modelOwnerId?: string
+  /**
+   * The id field of the parent model for this feature.
    */
   modelParentId?: string
   /**
-   * The name of the model owner. Generally 'User'.
+   * The name of the parent model for this feature.
    */
   modelParent?: string
 }

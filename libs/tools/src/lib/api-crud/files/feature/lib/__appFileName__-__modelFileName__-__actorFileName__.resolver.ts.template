@@ -1,6 +1,6 @@
 import { Resolver } from '@nestjs/graphql'
 import { <%= app.className %><%= model.className %>Service } from '@<%= npmScope %>/<%= app.fileName %>-<%= model.fileName %>-data-access'
-import { <%= app.className %>AuthGraphQL<%= actor.className %>Guard<% if(parent){ %>, CtxUserId<% } %> } from '@<%= npmScope %>/<%= app.fileName %>-auth-data-access'
+import { <%= app.className %>AuthGraphQL<%= actor.className %>Guard<% if(ownerId && actor.className !== 'Admin'){ %>, CtxUserId<% } %> } from '@<%= npmScope %>/<%= app.fileName %>-auth-data-access'
 import { Mutation, Query, Args } from '@nestjs/graphql'
 import { UseGuards } from '@nestjs/common'
 import {
@@ -18,34 +18,36 @@ export class <%= app.className %><%= model.className %><%= actor.className %>Res
 
   @Mutation(() => <%= model.className %>, { nullable: true })
   <%= actor.propertyName %>Create<%= model.className %>(
-    <% if(parent){ %>@CtxUserId() <%= parentId %>: string,<% } %>
+    <% if(ownerId && actor.className !== 'Admin'){ %>@CtxUserId() <%= ownerId %>: string,<% } %>
     @Args('input') input: <%= actor.className %>Create<%= model.className %>Input) {
-    return this.service.<%= actor.propertyName %>.create<%= model.className %>(<% if(parent){ %><%= parentId %>, <% } %>input)
+    return this.service.<%= actor.propertyName %>.create<%= model.className %>(<% if(ownerId && actor.className !== 'Admin'){ %><%= ownerId %>, <% } %>input)
   }
 
   @Mutation(() => Boolean, { nullable: true })
   <%= actor.propertyName %>Delete<%= model.className %>(
-    <% if(parent){ %>@CtxUserId() <%= parentId %>: string,<% } %>
+    <% if(ownerId && actor.className !== 'Admin'){ %>@CtxUserId() <%= ownerId %>: string,<% } %>
     @Args('<%= model.propertyName %>Id') <%= model.propertyName %>Id: string) {
-    return this.service.<%= actor.propertyName %>.delete<%= model.className %>(<% if(parent){ %><%= parentId %>, <% } %><%= model.propertyName %>Id)
+    return this.service.<%= actor.propertyName %>.delete<%= model.className %>(<% if(ownerId && actor.className !== 'Admin'){ %><%= ownerId %>, <% } %><%= model.propertyName %>Id)
   }
 
   @Query(() => <%= model.className %>Paging)
-  <%= actor.propertyName %>FindMany<%= model.className %>(@Args('input') input: <%= actor.className %>FindMany<%= model.className %>Input) {
-    return this.service.<%= actor.propertyName %>.findMany<%= model.className %>(input)
+  <%= actor.propertyName %>FindMany<%= model.className %>(
+    <% if(ownerId && actor.className !== 'Admin'){ %>@CtxUserId() <%= ownerId %>: string,<% } %>
+    @Args('input') input: <%= actor.className %>FindMany<%= model.className %>Input) {
+    return this.service.<%= actor.propertyName %>.findMany<%= model.className %>(<% if(ownerId && actor.className !== 'Admin'){ %><%= ownerId %>, <% } %>input)
   }
 
   @Query(() => <%= model.className %>, { nullable: true })
   <%= actor.propertyName %>FindOne<%= model.className %>(
-    <% if(parent){ %>@CtxUserId() <%= parentId %>: string,<% } %>
+    <% if(ownerId && actor.className !== 'Admin'){ %>@CtxUserId() <%= ownerId %>: string,<% } %>
     @Args('<%= model.propertyName %>Id') <%= model.propertyName %>Id: string) {
-    return this.service.<%= actor.propertyName %>.findOne<%= model.className %>(<% if(parent){ %><%= parentId %>, <% } %><%= model.propertyName %>Id)
+    return this.service.<%= actor.propertyName %>.findOne<%= model.className %>(<% if(ownerId && actor.className !== 'Admin'){ %><%= ownerId %>, <% } %><%= model.propertyName %>Id)
   }
 
   @Mutation(() => <%= model.className %>, { nullable: true })
   <%= actor.propertyName %>Update<%= model.className %>(
-    <% if(parent){ %>@CtxUserId() <%= parentId %>: string,<% } %>
+    <% if(ownerId && actor.className !== 'Admin'){ %>@CtxUserId() <%= ownerId %>: string,<% } %>
     @Args('<%= model.propertyName %>Id') <%= model.propertyName %>Id: string, @Args('input') input: <%= actor.className %>Update<%= model.className %>Input) {
-    return this.service.<%= actor.propertyName %>.update<%= model.className %>(<% if(parent){ %><%= parentId %>, <% } %><%= model.propertyName %>Id, input)
+    return this.service.<%= actor.propertyName %>.update<%= model.className %>(<% if(ownerId && actor.className !== 'Admin'){ %><%= ownerId %>, <% } %><%= model.propertyName %>Id, input)
   }
 }

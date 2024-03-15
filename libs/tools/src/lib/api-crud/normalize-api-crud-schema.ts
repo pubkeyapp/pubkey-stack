@@ -6,6 +6,8 @@ import { NormalizedApiCrudSchema } from './normalized-api-crud.schema'
 
 export function normalizeApiCrudSchema(tree: Tree, schema: ApiCrudGeneratorSchema): NormalizedApiCrudSchema {
   const npmScope = getNpmScope(tree)
+  const modelOwnerId = schema.modelOwnerId ?? undefined
+  const modelOwnerProperty = modelOwnerId?.replace('Id', '')
   const modelParent = schema.modelParent ?? undefined
   const modelParentId = schema.modelParentId ?? undefined
   const modelParentProperty = modelParentId?.replace('Id', '')
@@ -16,9 +18,14 @@ export function normalizeApiCrudSchema(tree: Tree, schema: ApiCrudGeneratorSchem
     actor: schema.actor,
     label: schema.label ?? 'name',
     model: schema.model,
+    modelOwner: schema.modelOwnerId ? 'User' : undefined,
+    modelOwnerId,
+    modelOwnerProperty,
     modelParent,
     modelParentId,
     npmScope,
-    fields: fields.filter((f) => ![modelParentId, modelParentProperty].includes(f.name)),
+    fields: fields.filter(
+      (f) => ![modelOwnerId, modelOwnerProperty, modelParentId, modelParentProperty].includes(f.name),
+    ),
   }
 }
