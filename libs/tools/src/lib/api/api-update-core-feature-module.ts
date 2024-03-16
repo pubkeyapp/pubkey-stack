@@ -1,6 +1,6 @@
 import { Tree } from '@nx/devkit'
-import { addNamedImport } from '../utils/add-named-import'
-import { updateSourceFile } from '../utils/update-source-file'
+import { addNamedImport } from '../utils/ast/add-named-import'
+import { updateSourceFile } from '../utils/ast/update-source-file'
 
 export function apiUpdateCoreFeatureModule(
   tree: Tree,

@@ -1,6 +1,6 @@
 import { generateFiles, Tree } from '@nx/devkit'
 
-import { replaceExports } from '../utils/add-export'
+import { replaceExports } from '../utils/ast/add-export'
 import { apiUpdateCoreFeatureModule } from './api-update-core-feature-module'
 import { getApiCoreFeatureInfo } from './get-api-core-feature-info'
 import { getApiFeatureModuleInfo } from './get-api-feature-module-info'

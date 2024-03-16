@@ -1,5 +1,5 @@
 import { Tree } from '@nx/devkit'
-import { updateSourceFile } from '../utils/update-source-file'
+import { updateSourceFile } from '../utils/ast/update-source-file'
 
 export function addServiceToClassConstructor(
   tree: Tree,

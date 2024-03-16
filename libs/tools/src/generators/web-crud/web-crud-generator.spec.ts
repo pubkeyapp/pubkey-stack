@@ -1,12 +1,12 @@
 import { readProjectConfiguration, Tree } from '@nx/devkit'
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing'
+import { createMockApiApp } from '../../lib/api/create-mock-api-app'
+import { getRecursiveFileContents } from '../../lib/utils/get-recursive-file-contents'
 import { createMockWebApp } from '../../lib/web'
 import { apiFeatureGenerator } from '../api-feature/api-feature-generator'
 import { webFeatureGenerator } from '../web-feature/web-feature-generator'
-import { WebCrudGeneratorSchema } from './web-crud-schema'
 import { webCrudGenerator } from './web-crud-generator'
-import { getRecursiveFileContents } from '../../lib/utils/get-recursive-file-contents'
-import { createMockApiApp } from '../../lib/api/create-mock-api-app'
+import { WebCrudGeneratorSchema } from './web-crud-schema'
 
 describe('web-crud generator', () => {
   let tree: Tree

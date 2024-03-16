@@ -1,5 +1,5 @@
 import { generateFiles, getProjects, type ProjectConfiguration, Tree } from '@nx/devkit'
-import { addExports } from '../utils/add-export'
+import { addExports } from '../utils/ast/add-export'
 import { ensureNxProjectExists } from '../utils/ensure-nx-project-exists'
 import { addServiceToClassConstructor } from './add-service-to-class-constructor'
 import { addServiceToModuleDecorator } from './add-service-to-module-decorator'

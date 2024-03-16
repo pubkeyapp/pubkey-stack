@@ -314,6 +314,7 @@ import {
   UiError,
   UiLoader,
   UiPage,
+  UiTabRoute,
   UiTabRoutes,
 } from '@pubkey-ui/core';
 import { useAdminFindOneTest } from '@proj/web-test-data-access';
@@ -333,6 +334,19 @@ export function AdminTestDetailFeature() {
     return <UiError message="Test not found." />;
   }
 
+  const tabs: UiTabRoute[] = [
+    {
+      path: 'info',
+      label: 'Info',
+      element: <AdminTestDetailInfoTab testId={testId} />,
+    },
+    {
+      path: 'settings',
+      label: 'Settings',
+      element: <AdminTestDetailSettingsTab testId={testId} />,
+    },
+  ];
+
   return (
     <UiPage
       title={<TestUiItem test={item} />}
@@ -343,20 +357,7 @@ export function AdminTestDetailFeature() {
         </Group>
       }
     >
-      <UiTabRoutes
-        tabs={[
-          {
-            path: 'info',
-            label: 'Info',
-            element: <AdminTestDetailInfoTab testId={testId} />,
-          },
-          {
-            path: 'settings',
-            label: 'Settings',
-            element: <AdminTestDetailSettingsTab testId={testId} />,
-          },
-        ]}
-      />
+      <UiTabRoutes tabs={tabs} />
     </UiPage>
   );
 }
@@ -378,10 +379,9 @@ import {
 import { Link } from 'react-router-dom';
 
 export function AdminTestListFeature() {
-  const { deleteTest, items, pagination, query, setSearch } =
-    useAdminFindManyTest({
-      limit: 10,
-    });
+  const { items, pagination, query, setSearch } = useAdminFindManyTest({
+    limit: 10,
+  });
 
   return (
     <UiPage
@@ -539,6 +539,7 @@ import {
   UiError,
   UiLoader,
   UiPage,
+  UiTabRoute,
   UiTabRoutes,
 } from '@pubkey-ui/core';
 import { useUserFindOneTest } from '@proj/web-test-data-access';
@@ -558,6 +559,19 @@ export function UserTestDetailFeature() {
     return <UiError message="Test not found." />;
   }
 
+  const tabs: UiTabRoute[] = [
+    {
+      path: 'info',
+      label: 'Info',
+      element: <UserTestDetailInfoTab testId={testId} />,
+    },
+    {
+      path: 'settings',
+      label: 'Settings',
+      element: <UserTestDetailSettingsTab testId={testId} />,
+    },
+  ];
+
   return (
     <UiPage
       title={<TestUiItem test={item} />}
@@ -568,20 +582,7 @@ export function UserTestDetailFeature() {
         </Group>
       }
     >
-      <UiTabRoutes
-        tabs={[
-          {
-            path: 'info',
-            label: 'Info',
-            element: <UserTestDetailInfoTab testId={testId} />,
-          },
-          {
-            path: 'settings',
-            label: 'Settings',
-            element: <UserTestDetailSettingsTab testId={testId} />,
-          },
-        ]}
-      />
+      <UiTabRoutes tabs={tabs} />
     </UiPage>
   );
 }
@@ -603,10 +604,9 @@ import {
 import { Link } from 'react-router-dom';
 
 export function UserTestListFeature() {
-  const { deleteTest, items, pagination, query, setSearch } =
-    useUserFindManyTest({
-      limit: 12,
-    });
+  const { items, pagination, query, setSearch } = useUserFindManyTest({
+    limit: 12,
+  });
 
   return (
     <UiPage

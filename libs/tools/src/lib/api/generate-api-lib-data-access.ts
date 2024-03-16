@@ -1,6 +1,6 @@
 import { generateFiles, Tree } from '@nx/devkit'
 
-import { replaceExports } from '../utils/add-export'
+import { replaceExports } from '../utils/ast/add-export'
 import { ensureNxProjectExists } from '../utils/ensure-nx-project-exists'
 import { getApiSubstitutions } from './get-api-substitutions'
 import { NormalizedApiFeatureSchema } from './normalized-api-feature-schema'

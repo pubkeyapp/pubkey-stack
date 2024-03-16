@@ -1,6 +1,6 @@
 import { Tree } from '@nx/devkit'
 import { SyntaxKind } from 'ts-morph'
-import { updateSourceFile } from '../utils/update-source-file'
+import { updateSourceFile } from '../utils/ast/update-source-file'
 
 export function addServiceToModuleDecorator(tree: Tree, path: string, serviceName: string, importPath: string) {
   const arrayName = 'providers'

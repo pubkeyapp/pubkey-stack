@@ -5,7 +5,7 @@ import { createMockApiApp } from '../../lib/api/create-mock-api-app'
 import { getRecursiveFileNames } from '../../lib/utils/get-recursive-file-names'
 import { createMockWebApp, normalizeWebFeatureSchema } from '../../lib/web'
 import { NormalizedWebFeatureSchema } from '../../lib/web/normalized-web-feature-schema'
-import apiFeatureGenerator from '../api-feature/api-feature-generator'
+import { apiFeatureGenerator } from '../api-feature/api-feature-generator'
 
 import { webFeatureGenerator } from './web-feature-generator'
 import { WebFeatureGeneratorSchema } from './web-feature-schema'
