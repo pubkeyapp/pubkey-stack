@@ -5,7 +5,9 @@ export function <%= model.className %>UiInfo({ <%= model.propertyName %> }: { <%
   if (!<%= model.propertyName %>) return null
 
   const items: UiInfoItems = [
-    ['name', <%= model.propertyName %>.<%= label.propertyName %>],
+    <% for (let field of fields){ %>
+      ['<%= field.name %>', <%= model.propertyName %>.<%= field.name %>],
+    <% } %>
     ['Created At', <UiTime size="xs" c="dimmed" date={new Date(<%= model.propertyName %>.createdAt ?? '0')} />],
     ['Updated At', <UiTime size="xs" c="dimmed" date={new Date(<%= model.propertyName %>.updatedAt ?? '0')} />],
   ]
