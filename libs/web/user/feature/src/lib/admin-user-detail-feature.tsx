@@ -1,7 +1,6 @@
-import { Group } from '@mantine/core'
 import { useAdminFindOneUser } from '@pubkey-stack/web-user-data-access'
-import { UserUiAvatar } from '@pubkey-stack/web-user-ui'
-import { UiBack, UiDebugModal, UiError, UiLoader, UiPage, UiStack, UiTabRoute, UiTabRoutes } from '@pubkey-ui/core'
+import { UserUiItem } from '@pubkey-stack/web-user-ui'
+import { UiBack, UiDebugModal, UiError, UiLoader, UiPage, UiTabRoute, UiTabRoutes } from '@pubkey-ui/core'
 import { useParams } from 'react-router-dom'
 import { AdminUserDetailFeatureIdentities } from './admin-user-detail-feature-identities'
 import { AdminUserDetailFeatureSettings } from './admin-user-detail-feature-settings'
@@ -30,22 +29,8 @@ export default function AdminUserDetailFeature() {
     },
   ]
   return (
-    <UiPage
-      leftAction={<UiBack />}
-      rightAction={
-        <Group>
-          <UiDebugModal data={item} />{' '}
-        </Group>
-      }
-      title={
-        <Group gap="xs">
-          <UserUiAvatar size="sm" user={item} /> {item.username}
-        </Group>
-      }
-    >
-      <UiStack>
-        <UiTabRoutes tabs={tabs} />
-      </UiStack>
+    <UiPage leftAction={<UiBack />} rightAction={<UiDebugModal data={item} />} title={<UserUiItem user={item} />}>
+      <UiTabRoutes tabs={tabs} />
     </UiPage>
   )
 }

@@ -1,7 +1,7 @@
 import { UserUserUpdateInput } from '@pubkey-stack/sdk'
 import { useAuth, useMe } from '@pubkey-stack/web-auth-data-access'
 import { useSdk } from '@pubkey-stack/web-core-data-access'
-import { toastError } from '@pubkey-ui/core'
+import { toastError, toastSuccess } from '@pubkey-ui/core'
 import { useUserFineOneUser } from './use-user-fine-one-user'
 
 export function useUserProfile() {
@@ -20,6 +20,7 @@ export function useUserProfile() {
         })
         .then(async (res) => {
           await Promise.all([query.refetch(), me.refetch()])
+          toastSuccess('Profile updated')
           return !!res.data
         })
         .catch((err) => {

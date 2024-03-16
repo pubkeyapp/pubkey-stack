@@ -5,7 +5,7 @@ import { <% if(actorAdmin){ %><%= actor.className %><%= model.className %>UiTabl
 import { UiBack, UiDebugModal, UiInfo, UiLoader, <% if(ownerId && actor.className === 'Admin'){ %>UiStack<% } else { %>UiPage<% } %> } from '@pubkey-ui/core'
 import { Link } from 'react-router-dom'
 
-export function <%= actor.className %><%= model.className %>ListFeature(<% if(ownerId && actor.className === 'Admin'){ %>{ <%= ownerId %> }: { <%= ownerId %>: string } <% } %>) {
+export default function <%= actor.className %><%= model.className %>ListFeature(<% if(ownerId && actor.className === 'Admin'){ %>{ <%= ownerId %> }: { <%= ownerId %>: string } <% } %>) {
   const { <% if(ownerId && actor.className === 'Admin'){ %>delete<%= model.className %>, <% } %> items, pagination, query, setSearch } = use<%= actor.className %>FindMany<%= model.className %>({
     limit: <% if(actorAdmin){ %>10<% } else { %>12<% } %>,
     <% if(ownerId && actor.className === 'Admin'){ %><%= ownerId %>,<% } %>

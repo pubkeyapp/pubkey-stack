@@ -229,7 +229,7 @@ import { AdminTestUiCreateForm } from '@proj/web-test-ui';
 import { toastError, UiBack, UiCard, UiPage } from '@pubkey-ui/core';
 import { useNavigate } from 'react-router-dom';
 
-export function AdminTestCreateFeature() {
+export default function AdminTestCreateFeature() {
   const navigate = useNavigate();
   const { createTest } = useAdminFindManyTest();
 
@@ -323,7 +323,7 @@ import { useParams } from 'react-router-dom';
 import { AdminTestDetailInfoTab } from './admin-test-detail-info.tab';
 import { AdminTestDetailSettingsTab } from './admin-test-detail-settings.tab';
 
-export function AdminTestDetailFeature() {
+export default function AdminTestDetailFeature() {
   const { testId } = useParams<{ testId: string }>() as { testId: string };
   const { item, query } = useAdminFindOneTest({ testId });
 
@@ -378,7 +378,7 @@ import {
 } from '@pubkey-ui/core';
 import { Link } from 'react-router-dom';
 
-export function AdminTestListFeature() {
+export default function AdminTestListFeature() {
   const { items, pagination, query, setSearch } = useAdminFindManyTest({
     limit: 10,
   });
@@ -429,19 +429,18 @@ export function AdminTestListFeature() {
 `;
 
 exports[`web-feature generator should run successfully with crud 15`] = `
-"import { useRoutes } from 'react-router-dom';
-import { AdminTestDetailFeature } from './admin-test-detail.feature';
-import { AdminTestCreateFeature } from './admin-test-create.feature';
-import { AdminTestListFeature } from './admin-test-list.feature';
+"import { lazy } from 'react';
+import { useRoutes } from 'react-router-dom';
+
+const Create = lazy(() => import('./admin-test-create.feature'));
+const Detail = lazy(() => import('./admin-test-detail.feature'));
+const List = lazy(() => import('./admin-test-list.feature'));
 
 export default function AdminTestRoutes() {
   return useRoutes([
-    { path: '', element: <AdminTestListFeature /> },
-    {
-      path: 'create',
-      element: <AdminTestCreateFeature />,
-    },
-    { path: ':testId/*', element: <AdminTestDetailFeature /> },
+    { path: '', element: <List /> },
+    { path: 'create', element: <Create /> },
+    { path: ':testId/*', element: <Detail /> },
   ]);
 }
 "
@@ -454,7 +453,7 @@ import { UserTestUiCreateForm } from '@proj/web-test-ui';
 import { toastError, UiBack, UiCard, UiPage } from '@pubkey-ui/core';
 import { useNavigate } from 'react-router-dom';
 
-export function UserTestCreateFeature() {
+export default function UserTestCreateFeature() {
   const navigate = useNavigate();
   const { createTest } = useUserFindManyTest();
 
@@ -548,7 +547,7 @@ import { useParams } from 'react-router-dom';
 import { UserTestDetailInfoTab } from './user-test-detail-info.tab';
 import { UserTestDetailSettingsTab } from './user-test-detail-settings.tab';
 
-export function UserTestDetailFeature() {
+export default function UserTestDetailFeature() {
   const { testId } = useParams<{ testId: string }>() as { testId: string };
   const { item, query } = useUserFindOneTest({ testId });
 
@@ -603,7 +602,7 @@ import {
 } from '@pubkey-ui/core';
 import { Link } from 'react-router-dom';
 
-export function UserTestListFeature() {
+export default function UserTestListFeature() {
   const { items, pagination, query, setSearch } = useUserFindManyTest({
     limit: 12,
   });
@@ -647,19 +646,18 @@ export function UserTestListFeature() {
 `;
 
 exports[`web-feature generator should run successfully with crud 21`] = `
-"import { useRoutes } from 'react-router-dom';
-import { UserTestDetailFeature } from './user-test-detail.feature';
-import { UserTestCreateFeature } from './user-test-create.feature';
-import { UserTestListFeature } from './user-test-list.feature';
+"import { lazy } from 'react';
+import { useRoutes } from 'react-router-dom';
+
+const Create = lazy(() => import('./user-test-create.feature'));
+const Detail = lazy(() => import('./user-test-detail.feature'));
+const List = lazy(() => import('./user-test-list.feature'));
 
 export default function UserTestRoutes() {
   return useRoutes([
-    { path: '', element: <UserTestListFeature /> },
-    {
-      path: 'create',
-      element: <UserTestCreateFeature />,
-    },
-    { path: ':testId/*', element: <UserTestDetailFeature /> },
+    { path: '', element: <List /> },
+    { path: 'create', element: <Create /> },
+    { path: ':testId/*', element: <Detail /> },
   ]);
 }
 "
@@ -681,32 +679,37 @@ export * from './lib/user-test-ui-update-form';
 `;
 
 exports[`web-feature generator should run successfully with crud 23`] = `
-"import { Button, Group } from '@mantine/core';
+"import { Button, Group, TextInput } from '@mantine/core';
+import { useForm } from '@mantine/form';
 import { TestAdminCreateInput } from '@proj/sdk';
-import { formFieldText, UiForm, UiFormField } from '@pubkey-ui/core';
+import { UiStack } from '@pubkey-ui/core';
 
 export function AdminTestUiCreateForm({
   submit,
 }: {
   submit: (res: TestAdminCreateInput) => Promise<boolean>;
 }) {
-  const model: TestAdminCreateInput = {
-    name: '',
-  };
+  const form = useForm<TestAdminCreateInput>({
+    initialValues: {
+      name: '',
+    },
+  });
 
-  const fields: UiFormField<TestAdminCreateInput>[] = [
-    formFieldText('name', { label: 'name', required: true }),
-  ];
   return (
-    <UiForm
-      model={model}
-      fields={fields}
-      submit={(res) => submit(res as TestAdminCreateInput)}
-    >
-      <Group justify="right">
-        <Button type="submit">Create</Button>
-      </Group>
-    </UiForm>
+    <form onSubmit={form.onSubmit((values) => submit(values))}>
+      <UiStack>
+        <TextInput
+          required
+          name="name"
+          label="name"
+          {...form.getInputProps('name')}
+        />
+
+        <Group justify="right">
+          <Button type="submit">Save</Button>
+        </Group>
+      </UiStack>
+    </form>
   );
 }
 "
@@ -789,9 +792,10 @@ export function AdminTestUiTable({
 `;
 
 exports[`web-feature generator should run successfully with crud 25`] = `
-"import { Button, Group } from '@mantine/core';
+"import { Button, Group, TextInput } from '@mantine/core';
+import { useForm } from '@mantine/form';
 import { TestAdminUpdateInput, Test } from '@proj/sdk';
-import { formFieldText, UiForm, UiFormField } from '@pubkey-ui/core';
+import { UiStack } from '@pubkey-ui/core';
 
 export function AdminTestUiUpdateForm({
   submit,
@@ -800,23 +804,22 @@ export function AdminTestUiUpdateForm({
   submit: (res: TestAdminUpdateInput) => Promise<boolean>;
   test: Test;
 }) {
-  const model: TestAdminUpdateInput = {
-    name: test.name ?? '',
-  };
+  const form = useForm<TestAdminUpdateInput>({
+    initialValues: {
+      name: test.name ?? '',
+    },
+  });
 
-  const fields: UiFormField<TestAdminUpdateInput>[] = [
-    formFieldText('name', { label: 'name' }),
-  ];
   return (
-    <UiForm
-      model={model}
-      fields={fields}
-      submit={(res) => submit(res as TestAdminUpdateInput)}
-    >
-      <Group justify="right">
-        <Button type="submit">Save</Button>
-      </Group>
-    </UiForm>
+    <form onSubmit={form.onSubmit((values) => submit(values))}>
+      <UiStack>
+        <TextInput name="name" label="name" {...form.getInputProps('name')} />
+
+        <Group justify="right">
+          <Button type="submit">Save</Button>
+        </Group>
+      </UiStack>
+    </form>
   );
 }
 "
@@ -973,32 +976,37 @@ export function TestUiItem({
 `;
 
 exports[`web-feature generator should run successfully with crud 31`] = `
-"import { Button, Group } from '@mantine/core';
+"import { Button, Group, TextInput } from '@mantine/core';
+import { useForm } from '@mantine/form';
 import { TestUserCreateInput } from '@proj/sdk';
-import { formFieldText, UiForm, UiFormField } from '@pubkey-ui/core';
+import { UiStack } from '@pubkey-ui/core';
 
 export function UserTestUiCreateForm({
   submit,
 }: {
   submit: (res: TestUserCreateInput) => Promise<boolean>;
 }) {
-  const model: TestUserCreateInput = {
-    name: '',
-  };
+  const form = useForm<TestUserCreateInput>({
+    initialValues: {
+      name: '',
+    },
+  });
 
-  const fields: UiFormField<TestUserCreateInput>[] = [
-    formFieldText('name', { label: 'name', required: true }),
-  ];
   return (
-    <UiForm
-      model={model}
-      fields={fields}
-      submit={(res) => submit(res as TestUserCreateInput)}
-    >
-      <Group justify="right">
-        <Button type="submit">Create</Button>
-      </Group>
-    </UiForm>
+    <form onSubmit={form.onSubmit((values) => submit(values))}>
+      <UiStack>
+        <TextInput
+          required
+          name="name"
+          label="name"
+          {...form.getInputProps('name')}
+        />
+
+        <Group justify="right">
+          <Button type="submit">Save</Button>
+        </Group>
+      </UiStack>
+    </form>
   );
 }
 "
@@ -1081,9 +1089,10 @@ export function UserTestUiTable({
 `;
 
 exports[`web-feature generator should run successfully with crud 33`] = `
-"import { Button, Group } from '@mantine/core';
+"import { Button, Group, TextInput } from '@mantine/core';
+import { useForm } from '@mantine/form';
 import { TestUserUpdateInput, Test } from '@proj/sdk';
-import { formFieldText, UiForm, UiFormField } from '@pubkey-ui/core';
+import { UiStack } from '@pubkey-ui/core';
 
 export function UserTestUiUpdateForm({
   submit,
@@ -1092,23 +1101,22 @@ export function UserTestUiUpdateForm({
   submit: (res: TestUserUpdateInput) => Promise<boolean>;
   test: Test;
 }) {
-  const model: TestUserUpdateInput = {
-    name: test.name ?? '',
-  };
+  const form = useForm<TestUserUpdateInput>({
+    initialValues: {
+      name: test.name ?? '',
+    },
+  });
 
-  const fields: UiFormField<TestUserUpdateInput>[] = [
-    formFieldText('name', { label: 'name' }),
-  ];
   return (
-    <UiForm
-      model={model}
-      fields={fields}
-      submit={(res) => submit(res as TestUserUpdateInput)}
-    >
-      <Group justify="right">
-        <Button type="submit">Save</Button>
-      </Group>
-    </UiForm>
+    <form onSubmit={form.onSubmit((values) => submit(values))}>
+      <UiStack>
+        <TextInput name="name" label="name" {...form.getInputProps('name')} />
+
+        <Group justify="right">
+          <Button type="submit">Save</Button>
+        </Group>
+      </UiStack>
+    </form>
   );
 }
 "

@@ -1,6 +1,7 @@
-import { Button, Group } from '@mantine/core'
+import { Button, Checkbox, Group, TextInput } from '@mantine/core'
+import { useForm } from '@mantine/form'
 import { User, UserUserUpdateInput } from '@pubkey-stack/sdk'
-import { formFieldText, UiForm, UiFormField } from '@pubkey-ui/core'
+import { UiStack } from '@pubkey-ui/core'
 
 export function UserUiUpdateForm({
   submit,
@@ -9,21 +10,24 @@ export function UserUiUpdateForm({
   submit: (res: UserUserUpdateInput) => Promise<boolean>
   user: User
 }) {
-  const model: UserUserUpdateInput = {
-    avatarUrl: user.avatarUrl ?? user.avatarUrl ?? '',
-    developer: user.developer ?? false,
-    name: user.name ?? '',
-  }
+  const form = useForm<UserUserUpdateInput>({
+    initialValues: {
+      avatarUrl: user.avatarUrl ?? user.avatarUrl ?? '',
+      developer: user.developer,
+      name: user.name ?? '',
+    },
+  })
 
-  const fields: UiFormField<UserUserUpdateInput>[] = [
-    formFieldText('name', { label: 'Name' }),
-    formFieldText('avatarUrl', { label: 'Avatar URL' }),
-  ]
   return (
-    <UiForm model={model} fields={fields} submit={(res) => submit(res as UserUserUpdateInput)}>
-      <Group justify="right">
-        <Button type="submit">Save</Button>
-      </Group>
-    </UiForm>
+    <form onSubmit={form.onSubmit((values) => submit(values))}>
+      <UiStack>
+        <TextInput name="name" label="Name" {...form.getInputProps('name')} />
+        <TextInput name="avatarUrl" label="Avatar URL" {...form.getInputProps('avatarUrl')} />
+        <Checkbox name="developer" label="Developer" {...form.getInputProps('developer', { type: 'checkbox' })} />
+        <Group justify="right">
+          <Button type="submit">Save</Button>
+        </Group>
+      </UiStack>
+    </form>
   )
 }

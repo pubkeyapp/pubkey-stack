@@ -1,6 +1,7 @@
-import { Button, Group } from '@mantine/core'
+import { Button, Checkbox, Group, Select, TextInput } from '@mantine/core'
+import { useForm } from '@mantine/form'
 import { User, UserAdminUpdateInput, UserRole, UserStatus } from '@pubkey-stack/sdk'
-import { formFieldCheckbox, formFieldSelect, formFieldText, getEnumOptions, UiForm, UiFormField } from '@pubkey-ui/core'
+import { getEnumOptions, UiStack } from '@pubkey-ui/core'
 
 export function AdminUiUpdateUserForm({
   submit,
@@ -9,28 +10,30 @@ export function AdminUiUpdateUserForm({
   submit: (res: UserAdminUpdateInput) => Promise<boolean>
   user: User
 }) {
-  const model = {
-    avatarUrl: user.avatarUrl ?? user.avatarUrl ?? '',
-    developer: user.developer ?? false,
-    name: user.name ?? '',
-    role: user.role ?? UserRole.User,
-    status: user.status ?? UserStatus.Created,
-    username: user.username ?? '',
-  }
+  const form = useForm<UserAdminUpdateInput>({
+    initialValues: {
+      avatarUrl: user.avatarUrl ?? user.avatarUrl ?? '',
+      developer: user.developer,
+      name: user.name ?? '',
+      role: user.role ?? UserRole.User,
+      status: user.status ?? UserStatus.Created,
+      username: user.username ?? '',
+    },
+  })
 
-  const fields: UiFormField<UserAdminUpdateInput>[] = [
-    formFieldSelect('role', { label: 'Role', options: getEnumOptions(UserRole) }),
-    formFieldSelect('status', { label: 'Status', options: getEnumOptions(UserStatus) }),
-    formFieldText('username', { label: 'Username' }),
-    formFieldText('name', { label: 'Name' }),
-    formFieldText('avatarUrl', { label: 'Avatar URL' }),
-    formFieldCheckbox('developer', { label: 'Developer' }),
-  ]
   return (
-    <UiForm model={model} fields={fields} submit={(res) => submit(res as UserAdminUpdateInput)}>
-      <Group justify="right">
-        <Button type="submit">Save</Button>
-      </Group>
-    </UiForm>
+    <form onSubmit={form.onSubmit((values) => submit(values))}>
+      <UiStack>
+        <Select name="role" label="Role" data={getEnumOptions(UserRole)} {...form.getInputProps('role')} />
+        <Select name="status" label="Status" data={getEnumOptions(UserStatus)} {...form.getInputProps('status')} />
+        <TextInput name="username" label="Username" {...form.getInputProps('username')} />
+        <TextInput name="name" label="Name" {...form.getInputProps('name')} />
+        <TextInput name="avatarUrl" label="Avatar URL" {...form.getInputProps('avatarUrl')} />
+        <Checkbox name="developer" label="Developer" {...form.getInputProps('developer', { type: 'checkbox' })} />
+        <Group justify="right">
+          <Button type="submit">Save</Button>
+        </Group>
+      </UiStack>
+    </form>
   )
 }

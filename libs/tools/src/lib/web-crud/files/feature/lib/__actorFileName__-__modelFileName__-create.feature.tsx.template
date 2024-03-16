@@ -5,7 +5,7 @@ import { toastError, UiBack, UiCard<% if(ownerId && actor.className === 'Admin')
 import { useNavigate } from 'react-router-dom'
 <% if(ownerId && actor.className === 'Admin'){ %>import { Group, Text } from '@mantine/core'<% } %>
 
-export function <%= actor.className %><%= model.className %>CreateFeature(<% if(ownerId && actor.className === 'Admin'){ %>{ <%= ownerId %> }: { <%= ownerId %>: string } <% } %>) {
+export default function <%= actor.className %><%= model.className %>CreateFeature(<% if(ownerId && actor.className === 'Admin'){ %>{ <%= ownerId %> }: { <%= ownerId %>: string } <% } %>) {
   const navigate = useNavigate()
   const { create<%= model.className %> } = use<%= actor.className %>FindMany<%= model.className %>(<% if(ownerId && actor.className === 'Admin'){ %>{ <%= ownerId %> }<% } %>)
 

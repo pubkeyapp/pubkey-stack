@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 import { <%= actor.className %><%= model.className %>DetailInfoTab } from './<%= actor.propertyName %>-<%= model.fileName %>-detail-info.tab'
 import { <%= actor.className %><%= model.className %>DetailSettingsTab } from './<%= actor.propertyName %>-<%= model.fileName %>-detail-settings.tab'
 
-export function <%= actor.className %><%= model.className %>DetailFeature() {
+export default function <%= actor.className %><%= model.className %>DetailFeature() {
   const { <%= model.propertyName %>Id } = useParams<{ <%= model.propertyName %>Id: string }>() as { <%= model.propertyName %>Id: string }
   const { item, query } = use<%= actor.className %>FindOne<%= model.className %>({ <%= model.propertyName %>Id })
 

@@ -1,29 +1,31 @@
-import { Button, Group } from '@mantine/core'
+import { Button, Group, Select, TextInput } from '@mantine/core'
+import { useForm } from '@mantine/form'
 import { IdentityAdminCreateInput, IdentityProvider } from '@pubkey-stack/sdk'
-import { formFieldSelect, formFieldText, getEnumOptions, UiForm, UiFormField } from '@pubkey-ui/core'
+import { getEnumOptions, UiStack } from '@pubkey-ui/core'
 
 export function AuthUiIdentityCreateForm({ submit }: { submit: (res: IdentityAdminCreateInput) => Promise<boolean> }) {
-  const model: IdentityAdminCreateInput = {
-    provider: IdentityProvider.Solana,
-    providerId: '',
-    ownerId: '',
-  }
-
-  const fields: UiFormField<IdentityAdminCreateInput>[] = [
-    formFieldText('providerId', {
-      label: 'Provider ID',
-    }),
-    formFieldSelect('provider', {
-      label: 'Provider',
-      options: getEnumOptions(IdentityProvider),
-    }),
-  ]
+  const form = useForm<IdentityAdminCreateInput>({
+    initialValues: {
+      provider: IdentityProvider.Solana,
+      providerId: '',
+      ownerId: '',
+    },
+  })
 
   return (
-    <UiForm model={model} fields={fields} submit={(res) => submit(res as IdentityAdminCreateInput)}>
-      <Group justify="right">
-        <Button type="submit">Create</Button>
-      </Group>
-    </UiForm>
+    <form onSubmit={form.onSubmit((values) => submit(values))}>
+      <UiStack>
+        <TextInput name="providerId" label="Provider ID" {...form.getInputProps('providerId')} />
+        <Select
+          name="provider"
+          label="Provider"
+          data={getEnumOptions(IdentityProvider)}
+          {...form.getInputProps('provider')}
+        />
+        <Group justify="right">
+          <Button type="submit">Create</Button>
+        </Group>
+      </UiStack>
+    </form>
   )
 }
