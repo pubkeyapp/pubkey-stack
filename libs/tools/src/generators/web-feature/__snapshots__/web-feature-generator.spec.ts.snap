@@ -15,21 +15,21 @@ export * from './lib/use-user-find-one-test';
 `;
 
 exports[`web-feature generator should run successfully with crud 5`] = `
-"import { AdminCreateTestInput, AdminFindManyTestInput } from '@proj/sdk';
+"import { TestAdminCreateInput, TestAdminFindManyInput } from '@proj/sdk';
 import { useSdk } from '@proj/web-core-data-access';
 import { toastError, toastSuccess } from '@pubkey-ui/core';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
 export function useAdminFindManyTest(
-  props: Partial<AdminFindManyTestInput> = {}
+  props: Partial<TestAdminFindManyInput> = {}
 ) {
   const sdk = useSdk();
   const [limit, setLimit] = useState(props?.limit ?? 10);
   const [page, setPage] = useState(props?.page ?? 1);
   const [search, setSearch] = useState<string>(props?.search ?? '');
 
-  const input: AdminFindManyTestInput = { page, limit, search };
+  const input: TestAdminFindManyInput = { page, limit, search };
   const query = useQuery({
     queryKey: ['admin', 'find-many-test', input],
     queryFn: () => sdk.adminFindManyTest({ input }).then((res) => res.data),
@@ -48,7 +48,7 @@ export function useAdminFindManyTest(
       total,
     },
     setSearch,
-    createTest: (input: AdminCreateTestInput) =>
+    createTest: (input: TestAdminCreateInput) =>
       sdk
         .adminCreateTest({ input })
         .then((res) => res.data)
@@ -75,7 +75,7 @@ export function useAdminFindManyTest(
 `;
 
 exports[`web-feature generator should run successfully with crud 6`] = `
-"import { AdminUpdateTestInput } from '@proj/sdk';
+"import { TestAdminUpdateInput } from '@proj/sdk';
 import { useSdk } from '@proj/web-core-data-access';
 import { toastError, toastSuccess } from '@pubkey-ui/core';
 import { useQuery } from '@tanstack/react-query';
@@ -92,7 +92,7 @@ export function useAdminFindOneTest({ testId }: { testId: string }) {
   return {
     item,
     query,
-    updateTest: async (input: AdminUpdateTestInput) =>
+    updateTest: async (input: TestAdminUpdateInput) =>
       sdk
         .adminUpdateTest({ testId, input })
         .then((res) => res.data)
@@ -115,21 +115,21 @@ export function useAdminFindOneTest({ testId }: { testId: string }) {
 `;
 
 exports[`web-feature generator should run successfully with crud 7`] = `
-"import { UserCreateTestInput, UserFindManyTestInput } from '@proj/sdk';
+"import { TestUserCreateInput, TestUserFindManyInput } from '@proj/sdk';
 import { useSdk } from '@proj/web-core-data-access';
 import { toastError, toastSuccess } from '@pubkey-ui/core';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
 export function useUserFindManyTest(
-  props: Partial<UserFindManyTestInput> = {}
+  props: Partial<TestUserFindManyInput> = {}
 ) {
   const sdk = useSdk();
   const [limit, setLimit] = useState(props?.limit ?? 10);
   const [page, setPage] = useState(props?.page ?? 1);
   const [search, setSearch] = useState<string>(props?.search ?? '');
 
-  const input: UserFindManyTestInput = { page, limit, search };
+  const input: TestUserFindManyInput = { page, limit, search };
   const query = useQuery({
     queryKey: ['user', 'find-many-test', input],
     queryFn: () => sdk.userFindManyTest({ input }).then((res) => res.data),
@@ -148,7 +148,7 @@ export function useUserFindManyTest(
       total,
     },
     setSearch,
-    createTest: (input: UserCreateTestInput) =>
+    createTest: (input: TestUserCreateInput) =>
       sdk
         .userCreateTest({ input })
         .then((res) => res.data)
@@ -175,7 +175,7 @@ export function useUserFindManyTest(
 `;
 
 exports[`web-feature generator should run successfully with crud 8`] = `
-"import { UserUpdateTestInput } from '@proj/sdk';
+"import { TestUserUpdateInput } from '@proj/sdk';
 import { useSdk } from '@proj/web-core-data-access';
 import { toastError, toastSuccess } from '@pubkey-ui/core';
 import { useQuery } from '@tanstack/react-query';
@@ -192,7 +192,7 @@ export function useUserFindOneTest({ testId }: { testId: string }) {
   return {
     item,
     query,
-    updateTest: async (input: UserUpdateTestInput) =>
+    updateTest: async (input: TestUserUpdateInput) =>
       sdk
         .userUpdateTest({ testId, input })
         .then((res) => res.data)
@@ -223,7 +223,7 @@ export const UserTestFeature = lazy(() => import('./lib/user-test.routes'));
 `;
 
 exports[`web-feature generator should run successfully with crud 10`] = `
-"import { AdminCreateTestInput } from '@proj/sdk';
+"import { TestAdminCreateInput } from '@proj/sdk';
 import { useAdminFindManyTest } from '@proj/web-test-data-access';
 import { AdminTestUiCreateForm } from '@proj/web-test-ui';
 import { toastError, UiBack, UiCard, UiPage } from '@pubkey-ui/core';
@@ -233,7 +233,7 @@ export function AdminTestCreateFeature() {
   const navigate = useNavigate();
   const { createTest } = useAdminFindManyTest();
 
-  async function submit(input: AdminCreateTestInput) {
+  async function submit(input: TestAdminCreateInput) {
     return createTest(input)
       .then((res) => {
         if (res) {
@@ -448,7 +448,7 @@ export default function AdminTestRoutes() {
 `;
 
 exports[`web-feature generator should run successfully with crud 16`] = `
-"import { UserCreateTestInput } from '@proj/sdk';
+"import { TestUserCreateInput } from '@proj/sdk';
 import { useUserFindManyTest } from '@proj/web-test-data-access';
 import { UserTestUiCreateForm } from '@proj/web-test-ui';
 import { toastError, UiBack, UiCard, UiPage } from '@pubkey-ui/core';
@@ -458,7 +458,7 @@ export function UserTestCreateFeature() {
   const navigate = useNavigate();
   const { createTest } = useUserFindManyTest();
 
-  async function submit(input: UserCreateTestInput) {
+  async function submit(input: TestUserCreateInput) {
     return createTest(input)
       .then((res) => {
         if (res) {
@@ -682,26 +682,26 @@ export * from './lib/user-test-ui-update-form';
 
 exports[`web-feature generator should run successfully with crud 23`] = `
 "import { Button, Group } from '@mantine/core';
-import { AdminCreateTestInput } from '@proj/sdk';
+import { TestAdminCreateInput } from '@proj/sdk';
 import { formFieldText, UiForm, UiFormField } from '@pubkey-ui/core';
 
 export function AdminTestUiCreateForm({
   submit,
 }: {
-  submit: (res: AdminCreateTestInput) => Promise<boolean>;
+  submit: (res: TestAdminCreateInput) => Promise<boolean>;
 }) {
-  const model: AdminCreateTestInput = {
+  const model: TestAdminCreateInput = {
     name: '',
   };
 
-  const fields: UiFormField<AdminCreateTestInput>[] = [
+  const fields: UiFormField<TestAdminCreateInput>[] = [
     formFieldText('name', { label: 'name', required: true }),
   ];
   return (
     <UiForm
       model={model}
       fields={fields}
-      submit={(res) => submit(res as AdminCreateTestInput)}
+      submit={(res) => submit(res as TestAdminCreateInput)}
     >
       <Group justify="right">
         <Button type="submit">Create</Button>
@@ -790,28 +790,28 @@ export function AdminTestUiTable({
 
 exports[`web-feature generator should run successfully with crud 25`] = `
 "import { Button, Group } from '@mantine/core';
-import { AdminUpdateTestInput, Test } from '@proj/sdk';
+import { TestAdminUpdateInput, Test } from '@proj/sdk';
 import { formFieldText, UiForm, UiFormField } from '@pubkey-ui/core';
 
 export function AdminTestUiUpdateForm({
   submit,
   test,
 }: {
-  submit: (res: AdminUpdateTestInput) => Promise<boolean>;
+  submit: (res: TestAdminUpdateInput) => Promise<boolean>;
   test: Test;
 }) {
-  const model: AdminUpdateTestInput = {
+  const model: TestAdminUpdateInput = {
     name: test.name ?? '',
   };
 
-  const fields: UiFormField<AdminUpdateTestInput>[] = [
+  const fields: UiFormField<TestAdminUpdateInput>[] = [
     formFieldText('name', { label: 'name' }),
   ];
   return (
     <UiForm
       model={model}
       fields={fields}
-      submit={(res) => submit(res as AdminUpdateTestInput)}
+      submit={(res) => submit(res as TestAdminUpdateInput)}
     >
       <Group justify="right">
         <Button type="submit">Save</Button>
@@ -974,26 +974,26 @@ export function TestUiItem({
 
 exports[`web-feature generator should run successfully with crud 31`] = `
 "import { Button, Group } from '@mantine/core';
-import { UserCreateTestInput } from '@proj/sdk';
+import { TestUserCreateInput } from '@proj/sdk';
 import { formFieldText, UiForm, UiFormField } from '@pubkey-ui/core';
 
 export function UserTestUiCreateForm({
   submit,
 }: {
-  submit: (res: UserCreateTestInput) => Promise<boolean>;
+  submit: (res: TestUserCreateInput) => Promise<boolean>;
 }) {
-  const model: UserCreateTestInput = {
+  const model: TestUserCreateInput = {
     name: '',
   };
 
-  const fields: UiFormField<UserCreateTestInput>[] = [
+  const fields: UiFormField<TestUserCreateInput>[] = [
     formFieldText('name', { label: 'name', required: true }),
   ];
   return (
     <UiForm
       model={model}
       fields={fields}
-      submit={(res) => submit(res as UserCreateTestInput)}
+      submit={(res) => submit(res as TestUserCreateInput)}
     >
       <Group justify="right">
         <Button type="submit">Create</Button>
@@ -1082,28 +1082,28 @@ export function UserTestUiTable({
 
 exports[`web-feature generator should run successfully with crud 33`] = `
 "import { Button, Group } from '@mantine/core';
-import { UserUpdateTestInput, Test } from '@proj/sdk';
+import { TestUserUpdateInput, Test } from '@proj/sdk';
 import { formFieldText, UiForm, UiFormField } from '@pubkey-ui/core';
 
 export function UserTestUiUpdateForm({
   submit,
   test,
 }: {
-  submit: (res: UserUpdateTestInput) => Promise<boolean>;
+  submit: (res: TestUserUpdateInput) => Promise<boolean>;
   test: Test;
 }) {
-  const model: UserUpdateTestInput = {
+  const model: TestUserUpdateInput = {
     name: test.name ?? '',
   };
 
-  const fields: UiFormField<UserUpdateTestInput>[] = [
+  const fields: UiFormField<TestUserUpdateInput>[] = [
     formFieldText('name', { label: 'name' }),
   ];
   return (
     <UiForm
       model={model}
       fields={fields}
-      submit={(res) => submit(res as UserUpdateTestInput)}
+      submit={(res) => submit(res as TestUserUpdateInput)}
     >
       <Group justify="right">
         <Button type="submit">Save</Button>

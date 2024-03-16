@@ -1,5 +1,6 @@
+import { useAuth } from '@pubkey-stack/web-auth-data-access'
 import { AuthLoginFeature, AuthRegisterFeature } from '@pubkey-stack/web-auth-feature'
-import { HomeFeature } from '@pubkey-stack/web-home-feature'
+import { HOME_ROUTES } from '@pubkey-stack/web-home-feature'
 import { UiNotFound } from '@pubkey-ui/core'
 import { lazy } from 'react'
 import { Navigate } from 'react-router-dom'
@@ -9,8 +10,9 @@ export const LazyAdminFeature = lazy(() => import('./web-core-routes-admin'))
 export const LazyUserFeature = lazy(() => import('./web-core-routes-user'))
 
 export function WebCoreRoutes() {
+  const { user } = useAuth()
   return useGuardedRoutes({
-    index: '/dashboard',
+    index: user ? '/dashboard' : '/home',
     admin: [
       // Here you can add routes that are only accessible by admins under the /admin/* path
       // Visit /admin/custom-admin-page to see this route
@@ -30,7 +32,7 @@ export function WebCoreRoutes() {
       { path: '/login', element: <AuthLoginFeature /> },
       { path: '/register', element: <AuthRegisterFeature /> },
       // Homepage
-      { path: '/*', element: <HomeFeature /> },
+      ...HOME_ROUTES,
       // Routes for the 404 page
       { path: '/404', element: <UiNotFound /> },
       { path: '*', element: <Navigate to="/404" replace /> },

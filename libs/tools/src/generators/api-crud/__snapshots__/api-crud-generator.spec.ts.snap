@@ -193,9 +193,9 @@ exports[`api-crud generator should create crud with modelOwnerId 1`] = `
                       "get-company-where-admin.input.ts": {
                         "content": [
                           "import { Prisma } from '@prisma/client';",
-                          "import { AdminFindManyCompanyInput } from '../dto/admin-find-many-company.input';",
+                          "import { CompanyAdminFindManyInput } from '../dto/company-admin-find-many.input';",
                           "export function getCompanyWhereAdminInput(",
-                          "input: AdminFindManyCompanyInput",
+                          "input: CompanyAdminFindManyInput",
                           "): Prisma.CompanyWhereInput {",
                           "const where: Prisma.CompanyWhereInput = {",
                           "ownerId: input.ownerId,",
@@ -1545,9 +1545,9 @@ exports[`api-crud generator should create crud with modelOwnerId for admin and u
                       "get-company-where-admin.input.ts": {
                         "content": [
                           "import { Prisma } from '@prisma/client';",
-                          "import { AdminFindManyCompanyInput } from '../dto/admin-find-many-company.input';",
+                          "import { CompanyAdminFindManyInput } from '../dto/company-admin-find-many.input';",
                           "export function getCompanyWhereAdminInput(",
-                          "input: AdminFindManyCompanyInput",
+                          "input: CompanyAdminFindManyInput",
                           "): Prisma.CompanyWhereInput {",
                           "const where: Prisma.CompanyWhereInput = {",
                           "ownerId: input.ownerId,",
@@ -1567,10 +1567,10 @@ exports[`api-crud generator should create crud with modelOwnerId for admin and u
                       "get-company-where-user.input.ts": {
                         "content": [
                           "import { Prisma } from '@prisma/client';",
-                          "import { UserFindManyCompanyInput } from '../dto/user-find-many-company.input';",
+                          "import { CompanyUserFindManyInput } from '../dto/company-user-find-many.input';",
                           "export function getCompanyWhereUserInput(",
                           "ownerId: string,",
-                          "input: UserFindManyCompanyInput",
+                          "input: CompanyUserFindManyInput",
                           "): Prisma.CompanyWhereInput {",
                           "const where: Prisma.CompanyWhereInput = {",
                           "ownerId: ownerId,",
@@ -3028,9 +3028,9 @@ exports[`api-crud generator should create crud with modelParentId 1`] = `
                       "get-company-where-admin.input.ts": {
                         "content": [
                           "import { Prisma } from '@prisma/client';",
-                          "import { AdminFindManyCompanyInput } from '../dto/admin-find-many-company.input';",
+                          "import { CompanyAdminFindManyInput } from '../dto/company-admin-find-many.input';",
                           "export function getCompanyWhereAdminInput(",
-                          "input: AdminFindManyCompanyInput",
+                          "input: CompanyAdminFindManyInput",
                           "): Prisma.CompanyWhereInput {",
                           "const where: Prisma.CompanyWhereInput = {",
                           "ownerId: input.ownerId,",
@@ -4322,9 +4322,9 @@ exports[`api-crud generator should run successfully 1`] = `
                       "get-company-where-admin.input.ts": {
                         "content": [
                           "import { Prisma } from '@prisma/client';",
-                          "import { AdminFindManyCompanyInput } from '../dto/admin-find-many-company.input';",
+                          "import { CompanyAdminFindManyInput } from '../dto/company-admin-find-many.input';",
                           "export function getCompanyWhereAdminInput(",
-                          "input: AdminFindManyCompanyInput",
+                          "input: CompanyAdminFindManyInput",
                           "): Prisma.CompanyWhereInput {",
                           "const where: Prisma.CompanyWhereInput = {};",
                           "if (input.search) {",

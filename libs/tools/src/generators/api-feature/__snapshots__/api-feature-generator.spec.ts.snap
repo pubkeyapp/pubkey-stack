@@ -274,10 +274,10 @@ export class TestPaging extends PagingResponse<Test>(Test) {}
 
 exports[`api-feature generator should generate the feature libraries with crud for admin and user  16`] = `
 "import { Prisma } from '@prisma/client';
-import { AdminFindManyTestInput } from '../dto/admin-find-many-test.input';
+import { TestAdminFindManyInput } from '../dto/test-admin-find-many.input';
 
 export function getTestWhereAdminInput(
-  input: AdminFindManyTestInput
+  input: TestAdminFindManyInput
 ): Prisma.TestWhereInput {
   const where: Prisma.TestWhereInput = {};
 
@@ -295,10 +295,10 @@ export function getTestWhereAdminInput(
 
 exports[`api-feature generator should generate the feature libraries with crud for admin and user  17`] = `
 "import { Prisma } from '@prisma/client';
-import { UserFindManyTestInput } from '../dto/user-find-many-test.input';
+import { TestUserFindManyInput } from '../dto/test-user-find-many.input';
 
 export function getTestWhereUserInput(
-  input: UserFindManyTestInput
+  input: TestUserFindManyInput
 ): Prisma.TestWhereInput {
   const where: Prisma.TestWhereInput = {};
 

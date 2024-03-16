@@ -3,7 +3,7 @@ import { UiStack } from '@pubkey-ui/core'
 import { IconBrandGithub, IconRocket } from '@tabler/icons-react'
 import { Link } from 'react-router-dom'
 
-export function HomePage() {
+export default function HomePage() {
   return (
     <Container size={800}>
       <UiStack gap="xl" my="xl">
