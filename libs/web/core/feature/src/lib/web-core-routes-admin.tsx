@@ -1,6 +1,7 @@
+import { UiDashboard } from '@pubkey-stack/web-core-ui'
 import { DevAdminRoutes } from '@pubkey-stack/web-dev-feature'
 import { AdminUserFeature } from '@pubkey-stack/web-user-feature'
-import { UiContainer, UiDashboardGrid, UiDashboardItem, UiNotFound } from '@pubkey-ui/core'
+import { UiDashboardItem, UiNotFound } from '@pubkey-ui/core'
 import { IconUsers } from '@tabler/icons-react'
 import { Navigate, RouteObject, useRoutes } from 'react-router-dom'
 
@@ -18,14 +19,7 @@ const routes: RouteObject[] = [
 export default function WebCoreRoutesAdmin() {
   return useRoutes([
     { index: true, element: <Navigate to="dashboard" replace /> },
-    {
-      path: 'dashboard/*',
-      element: (
-        <UiContainer>
-          <UiDashboardGrid links={links} />
-        </UiContainer>
-      ),
-    },
+    { path: '/dashboard', element: <UiDashboard links={links} /> },
     ...routes,
     { path: '*', element: <UiNotFound to="/admin" /> },
   ])

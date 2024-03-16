@@ -1,42 +1,21 @@
-import { AuthProvider } from '@pubkey-stack/web-auth-data-access'
-import { AppConfigProvider, SdkProvider } from '@pubkey-stack/web-core-data-access'
-import { SolanaClusterProvider } from '@pubkey-stack/web-solana-data-access'
-import { toastError, UiThemeLink, UiThemeProvider } from '@pubkey-ui/core'
-import '@pubkey-ui/core/index.esm.css'
-import 'mantine-datatable/styles.layer.css'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { BrowserRouter, Link } from 'react-router-dom'
+import { createTheme, DEFAULT_THEME } from '@mantine/core'
+import { BrowserRouter } from 'react-router-dom'
+import { WebCoreProviders } from './web-core-providers'
 import { WebCoreRoutes } from './web-core-routes'
 
-const client = new QueryClient({
-  defaultOptions: {
-    mutations: {
-      onError: () => {
-        toastError(`Something went wrong`)
-      },
-    },
+const theme = createTheme({
+  colors: {
+    brand: DEFAULT_THEME.colors.blue,
   },
+  primaryColor: 'brand',
 })
-
-// eslint-disable-next-line func-style
-export const ThemeLink: UiThemeLink = ({ children, ...props }) => <Link {...props}>{children}</Link>
 
 export function WebCoreFeature() {
   return (
     <BrowserRouter>
-      <QueryClientProvider client={client}>
-        <SdkProvider>
-          <AppConfigProvider>
-            <AuthProvider>
-              <UiThemeProvider link={ThemeLink}>
-                <SolanaClusterProvider>
-                  <WebCoreRoutes />
-                </SolanaClusterProvider>
-              </UiThemeProvider>
-            </AuthProvider>
-          </AppConfigProvider>
-        </SdkProvider>
-      </QueryClientProvider>
+      <WebCoreProviders theme={theme}>
+        <WebCoreRoutes />
+      </WebCoreProviders>
     </BrowserRouter>
   )
 }

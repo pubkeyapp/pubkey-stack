@@ -4,7 +4,7 @@ import { AdminUiCreateUserForm } from '@pubkey-stack/web-user-ui'
 import { toastError, UiBack, UiCard, UiPage } from '@pubkey-ui/core'
 import { useNavigate } from 'react-router-dom'
 
-export function AdminUserCreateFeature() {
+export default function AdminUserCreateFeature() {
   const navigate = useNavigate()
   const { createUser } = useAdminFindManyUser()
 

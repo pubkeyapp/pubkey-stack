@@ -6,8 +6,8 @@ import { lazy } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useGuardedRoutes } from './use-guarded-routes'
 
-export const LazyAdminFeature = lazy(() => import('./web-core-routes-admin'))
-export const LazyUserFeature = lazy(() => import('./web-core-routes-user'))
+export const AdminFeature = lazy(() => import('./web-core-routes-admin'))
+export const UserFeature = lazy(() => import('./web-core-routes-user'))
 
 export function WebCoreRoutes() {
   const { user } = useAuth()
@@ -17,11 +17,11 @@ export function WebCoreRoutes() {
       // Here you can add routes that are only accessible by admins under the /admin/* path
       // Visit /admin/custom-admin-page to see this route
       // { path: 'custom-admin-page', element: <div>CUSTOM ADMIN PAGE HERE</div> },
-      { path: '*', element: <LazyAdminFeature /> },
+      { path: '*', element: <AdminFeature /> },
     ],
     layout: [
       // Here you can add routes that are part of the main layout
-      { path: '*', element: <LazyUserFeature /> },
+      { path: '*', element: <UserFeature /> },
     ],
     full: [
       // Here you can add routes that are not part of the main layout, visit /custom-full-page to see this route

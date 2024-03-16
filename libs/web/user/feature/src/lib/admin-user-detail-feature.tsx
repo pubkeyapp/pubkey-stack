@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 import { AdminUserDetailFeatureIdentities } from './admin-user-detail-feature-identities'
 import { AdminUserDetailFeatureSettings } from './admin-user-detail-feature-settings'
 
-export function AdminUserDetailFeature() {
+export default function AdminUserDetailFeature() {
   const { userId } = useParams<{ userId: string }>() as { userId: string }
   const { query, item } = useAdminFindOneUser({ userId })
 

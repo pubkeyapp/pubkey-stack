@@ -5,7 +5,7 @@ import { UserUiGrid } from '@pubkey-stack/web-user-ui'
 import { UiInfo, UiLoader, UiPage } from '@pubkey-ui/core'
 import { IconUserSearch } from '@tabler/icons-react'
 
-export function UserUserListFeature() {
+export default function UserUserListFeature() {
   const { items, pagination, query, setSearch } = useUserFindManyUser({
     limit: 12,
   })

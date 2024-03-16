@@ -1,7 +1,7 @@
 import { UserStatus } from '@pubkey-stack/sdk'
 import { getEnumOptions, UiSelectEnum } from '@pubkey-ui/core'
 
-export function AdminUserUiSelectStatus({
+export function UserUiSelectStatus({
   value,
   setValue,
 }: {
@@ -12,7 +12,9 @@ export function AdminUserUiSelectStatus({
     <UiSelectEnum<UserStatus>
       value={value}
       setValue={setValue}
-      options={[{ value: '', label: 'Filter by status' }, ...getEnumOptions(UserStatus)]}
+      placeholder="Filter by status"
+      clearable
+      options={getEnumOptions(UserStatus)}
     />
   )
 }

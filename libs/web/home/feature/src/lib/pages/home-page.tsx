@@ -6,9 +6,8 @@ import { Link } from 'react-router-dom'
 export default function HomePage() {
   return (
     <Container size={800}>
-      <UiStack gap="xl" my="xl">
+      <UiStack gap="xl" py="xl">
         <Title>Welcome to PubKey Stack.</Title>
-
         <Text c="dimmed">This is the PubKey Stack starter project.</Text>
         <Group>
           <Button component={Link} to="/dashboard" size="xl" color="brand" leftSection={<IconRocket />}>
@@ -17,7 +16,6 @@ export default function HomePage() {
           <Button component={Link} to="/about" variant="light" size="xl" color="brand">
             About
           </Button>
-
           <Button
             component={'a'}
             href="https://github.com/pubkeyapp/pubkey-stack"

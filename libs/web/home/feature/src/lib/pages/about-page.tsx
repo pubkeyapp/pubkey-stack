@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom'
 
 export default function AboutPage() {
   return (
-    <Container size={700}>
-      <UiStack gap="xl" my="xl">
+    <Container size={800}>
+      <UiStack gap="xl" py="xl">
         <Title>About PubKey Stack.</Title>
         <Text c="dimmed">This is an empty about page.</Text>
         <Group>
