@@ -3,8 +3,8 @@ import { BaseContext } from '@pubkey-stack/api-core-data-access'
 import {
   ApiIdentityService,
   IdentityChallenge,
-  RequestIdentityChallengeInput,
-  VerifyIdentityChallengeInput,
+  IdentityRequestChallengeInput,
+  IdentityVerifyChallengeInput,
 } from '@pubkey-stack/api-identity-data-access'
 
 @Resolver()
@@ -12,12 +12,12 @@ export class ApiIdentityAnonResolver {
   constructor(private readonly service: ApiIdentityService) {}
 
   @Query(() => IdentityChallenge, { nullable: true })
-  anonRequestIdentityChallenge(@Context() ctx: BaseContext, @Args('input') input: RequestIdentityChallengeInput) {
+  anonRequestIdentityChallenge(@Context() ctx: BaseContext, @Args('input') input: IdentityRequestChallengeInput) {
     return this.service.anon.requestIdentityChallenge(ctx, input)
   }
 
   @Mutation(() => IdentityChallenge, { nullable: true })
-  anonVerifyIdentityChallenge(@Context() ctx: BaseContext, @Args('input') input: VerifyIdentityChallengeInput) {
+  anonVerifyIdentityChallenge(@Context() ctx: BaseContext, @Args('input') input: IdentityVerifyChallengeInput) {
     return this.service.anon.verifyIdentityChallenge(ctx, input)
   }
 }

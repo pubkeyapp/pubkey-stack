@@ -2,9 +2,9 @@ import { UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { ApiAuthGraphQLAdminGuard } from '@pubkey-stack/api-auth-data-access'
 import {
-  AdminCreateUserInput,
-  AdminFindManyUserInput,
-  AdminUpdateUserInput,
+  UserAdminCreateInput,
+  UserAdminFindManyInput,
+  UserAdminUpdateInput,
   ApiUserService,
   User,
   UserPaging,
@@ -16,7 +16,7 @@ export class ApiUserAdminResolver {
   constructor(private readonly service: ApiUserService) {}
 
   @Mutation(() => User, { nullable: true })
-  adminCreateUser(@Args('input') input: AdminCreateUserInput) {
+  adminCreateUser(@Args('input') input: UserAdminCreateInput) {
     return this.service.admin.createUser(input)
   }
 
@@ -26,7 +26,7 @@ export class ApiUserAdminResolver {
   }
 
   @Query(() => UserPaging)
-  adminFindManyUser(@Args('input') input: AdminFindManyUserInput) {
+  adminFindManyUser(@Args('input') input: UserAdminFindManyInput) {
     return this.service.admin.findManyUser(input)
   }
 
@@ -36,7 +36,7 @@ export class ApiUserAdminResolver {
   }
 
   @Mutation(() => User, { nullable: true })
-  adminUpdateUser(@Args('userId') userId: string, @Args('input') input: AdminUpdateUserInput) {
+  adminUpdateUser(@Args('userId') userId: string, @Args('input') input: UserAdminUpdateInput) {
     return this.service.admin.updateUser(userId, input)
   }
 }

@@ -4,11 +4,11 @@ import { <%= app.className %>AuthGraphQL<%= actor.className %>Guard<% if(ownerId
 import { Mutation, Query, Args } from '@nestjs/graphql'
 import { UseGuards } from '@nestjs/common'
 import {
-  <%= actor.className %>Create<%= model.className %>Input,
-  <%= actor.className %>FindMany<%= model.className %>Input,
+  <%= model.className %><%= actor.className %>CreateInput,
+  <%= model.className %><%= actor.className %>FindManyInput,
   <%= model.className %>,
   <%= model.className %>Paging,
-  <%= actor.className %>Update<%= model.className %>Input,
+  <%= model.className %><%= actor.className %>UpdateInput,
 } from '@<%= npmScope %>/<%= app.fileName %>-<%= model.fileName %>-data-access'
 
 @Resolver()
@@ -19,7 +19,7 @@ export class <%= app.className %><%= model.className %><%= actor.className %>Res
   @Mutation(() => <%= model.className %>, { nullable: true })
   <%= actor.propertyName %>Create<%= model.className %>(
     <% if(ownerId && actor.className !== 'Admin'){ %>@CtxUserId() <%= ownerId %>: string,<% } %>
-    @Args('input') input: <%= actor.className %>Create<%= model.className %>Input) {
+    @Args('input') input: <%= model.className %><%= actor.className %>CreateInput) {
     return this.service.<%= actor.propertyName %>.create<%= model.className %>(<% if(ownerId && actor.className !== 'Admin'){ %><%= ownerId %>, <% } %>input)
   }
 
@@ -33,7 +33,7 @@ export class <%= app.className %><%= model.className %><%= actor.className %>Res
   @Query(() => <%= model.className %>Paging)
   <%= actor.propertyName %>FindMany<%= model.className %>(
     <% if(ownerId && actor.className !== 'Admin'){ %>@CtxUserId() <%= ownerId %>: string,<% } %>
-    @Args('input') input: <%= actor.className %>FindMany<%= model.className %>Input) {
+    @Args('input') input: <%= model.className %><%= actor.className %>FindManyInput) {
     return this.service.<%= actor.propertyName %>.findMany<%= model.className %>(<% if(ownerId && actor.className !== 'Admin'){ %><%= ownerId %>, <% } %>input)
   }
 
@@ -47,7 +47,7 @@ export class <%= app.className %><%= model.className %><%= actor.className %>Res
   @Mutation(() => <%= model.className %>, { nullable: true })
   <%= actor.propertyName %>Update<%= model.className %>(
     <% if(ownerId && actor.className !== 'Admin'){ %>@CtxUserId() <%= ownerId %>: string,<% } %>
-    @Args('<%= model.propertyName %>Id') <%= model.propertyName %>Id: string, @Args('input') input: <%= actor.className %>Update<%= model.className %>Input) {
+    @Args('<%= model.propertyName %>Id') <%= model.propertyName %>Id: string, @Args('input') input: <%= model.className %><%= actor.className %>UpdateInput) {
     return this.service.<%= actor.propertyName %>.update<%= model.className %>(<% if(ownerId && actor.className !== 'Admin'){ %><%= ownerId %>, <% } %><%= model.propertyName %>Id, input)
   }
 }

@@ -1,4 +1,4 @@
-import { AdminCreateUserInput } from '@pubkey-stack/sdk'
+import { UserAdminCreateInput } from '@pubkey-stack/sdk'
 import { useAdminFindManyUser } from '@pubkey-stack/web-user-data-access'
 import { AdminUiCreateUserForm } from '@pubkey-stack/web-user-ui'
 import { toastError, UiBack, UiCard, UiPage } from '@pubkey-ui/core'
@@ -8,7 +8,7 @@ export function AdminUserCreateFeature() {
   const navigate = useNavigate()
   const { createUser } = useAdminFindManyUser()
 
-  async function submit(input: AdminCreateUserInput) {
+  async function submit(input: UserAdminCreateInput) {
     return createUser(input)
       .then((res) => {
         if (res?.id) {

@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { ApiCoreService } from '@pubkey-stack/api-core-data-access'
-import { UserFindManyUserInput } from './dto/user-find-many-user.input'
-import { UserUpdateUserInput } from './dto/user-update-user.input'
+import { UserUserFindManyInput } from './dto/user-user-find-many.input'
+import { UserUserUpdateInput } from './dto/user-user-update.input'
 import { UserPaging } from './entity/user.entity'
 import { getUserWhereUserInput } from './helpers/get-user-where-user.input'
 
@@ -10,7 +10,7 @@ export class ApiUserDataUserService {
   private readonly logger = new Logger(ApiUserDataUserService.name)
   constructor(private readonly core: ApiCoreService) {}
 
-  async findManyUser(input: UserFindManyUserInput): Promise<UserPaging> {
+  async findManyUser(input: UserUserFindManyInput): Promise<UserPaging> {
     return this.core.data.user
       .paginate({
         orderBy: { createdAt: 'desc' },
@@ -20,7 +20,7 @@ export class ApiUserDataUserService {
       .then(([data, meta]) => ({ data, meta }))
   }
 
-  async updateUser(userId: string, input: UserUpdateUserInput) {
+  async updateUser(userId: string, input: UserUserUpdateInput) {
     return this.core.data.user.update({ where: { id: userId }, data: input })
   }
 

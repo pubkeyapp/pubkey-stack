@@ -1,4 +1,4 @@
-import { UserUpdateUserInput } from '@pubkey-stack/sdk'
+import { UserUserUpdateInput } from '@pubkey-stack/sdk'
 import { useAuth, useMe } from '@pubkey-stack/web-auth-data-access'
 import { useSdk } from '@pubkey-stack/web-core-data-access'
 import { toastError } from '@pubkey-ui/core'
@@ -13,7 +13,7 @@ export function useUserProfile() {
   return {
     user: query.data?.item,
     query,
-    updateUser: async (input: UserUpdateUserInput) => {
+    updateUser: async (input: UserUserUpdateInput) => {
       return sdk
         .userUpdateUser({
           input,

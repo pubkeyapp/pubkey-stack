@@ -1,6 +1,6 @@
-import { AvatarProps, Group, type GroupProps, Stack, Text } from '@mantine/core'
+import { AvatarProps, Group, GroupProps, Stack, Text } from '@mantine/core'
 import { <%= model.className %> } from '@<%= npmScope %>/sdk'
-import { UiAnchor, type UiAnchorProps } from '@pubkey-ui/core'
+import { UiAnchor, UiAnchorProps } from '@pubkey-ui/core'
 import { <%= model.className %>UiAvatar } from './<%= model.fileName %>-ui-avatar'
 
 export function <%= model.className %>UiItem({

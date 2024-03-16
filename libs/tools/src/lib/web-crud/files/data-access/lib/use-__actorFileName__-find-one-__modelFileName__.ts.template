@@ -1,4 +1,4 @@
-import { <%= actor.className %>Update<%= model.className %>Input } from '@<%= npmScope %>/sdk'
+import { <%= model.className %><%= actor.className %>UpdateInput } from '@<%= npmScope %>/sdk'
 import { useSdk } from '@<%= npmScope %>/<%= app.fileName %>-core-data-access'
 import { toastError, toastSuccess } from '@pubkey-ui/core'
 import { useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ export function use<%= actor.className %>FindOne<%= model.className %>({ <%= mod
   return {
     item,
     query,
-    update<%= model.className %>: async (input: <%= actor.className %>Update<%= model.className %>Input) =>
+    update<%= model.className %>: async (input: <%= model.className %><%= actor.className %>UpdateInput) =>
       sdk
         .<%= actor.propertyName %>Update<%= model.className %>({ <%= model.propertyName %>Id, input })
         .then((res) => res.data)

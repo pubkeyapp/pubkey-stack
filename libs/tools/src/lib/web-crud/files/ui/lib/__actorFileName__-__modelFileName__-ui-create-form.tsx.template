@@ -1,10 +1,9 @@
 import { Button, Group } from '@mantine/core'
-import { <%= actor.className %>Create<%= model.className %>Input } from '@<%= npmScope %>/sdk'
+import { <%= model.className %><%= actor.className %>CreateInput } from '@<%= npmScope %>/sdk'
 import { formFieldText, UiForm, UiFormField } from '@pubkey-ui/core'
-import { ReactNode } from 'react'
 
-export function <%= actor.className %><%= model.className %>UiCreateForm({ submit }: { submit: (res: <%= actor.className %>Create<%= model.className %>Input) => Promise<boolean> }) {
-  const model: <%= actor.className %>Create<%= model.className %>Input = {
+export function <%= actor.className %><%= model.className %>UiCreateForm({ submit }: { submit: (res: <%= model.className %><%= actor.className %>CreateInput) => Promise<boolean> }) {
+  const model: <%= model.className %><%= actor.className %>CreateInput = {
     <% for (let field of fields){ %>
       <%= field.name %>: '',
     <% } %>
@@ -13,13 +12,13 @@ export function <%= actor.className %><%= model.className %>UiCreateForm({ submi
     <% } %>
   }
 
-  const fields: UiFormField<<%= actor.className %>Create<%= model.className %>Input>[] = [
+  const fields: UiFormField<<%= model.className %><%= actor.className %>CreateInput>[] = [
     <% for (let field of fields){ %>
         formFieldText('<%= field.name %>', { label: '<%= field.name %>', required: true, }),
     <% } %>
   ]
   return (
-    <UiForm model={model} fields={fields} submit={(res) => submit(res as <%= actor.className %>Create<%= model.className %>Input)}>
+    <UiForm model={model} fields={fields} submit={(res) => submit(res as <%= model.className %><%= actor.className %>CreateInput)}>
       <Group justify="right">
         <Button type="submit">Create</Button>
       </Group>

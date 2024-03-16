@@ -9,8 +9,8 @@ import {
   slugifyId,
 } from '@pubkey-stack/api-core-data-access'
 import { ApiIdentitySolanaService } from './api-identity-solana.service'
-import { RequestIdentityChallengeInput } from './dto/request-identity-challenge.input'
-import { VerifyIdentityChallengeInput } from './dto/verify-identity-challenge-input'
+import { IdentityRequestChallengeInput } from './dto/identity-request-challenge-input'
+import { IdentityVerifyChallengeInput } from './dto/identity-verify-challenge-input'
 import { sha256 } from './helpers/sha256'
 
 @Injectable()
@@ -22,7 +22,7 @@ export class ApiIdentityDataAnonService {
     private readonly solana: ApiIdentitySolanaService,
   ) {}
 
-  async requestIdentityChallenge(ctx: BaseContext, { provider, providerId }: RequestIdentityChallengeInput) {
+  async requestIdentityChallenge(ctx: BaseContext, { provider, providerId }: IdentityRequestChallengeInput) {
     // Make sure we can link the given provider
     this.solana.ensureLinkProvider(provider)
     // Make sure the providerId is valid
@@ -69,7 +69,7 @@ export class ApiIdentityDataAnonService {
 
   async verifyIdentityChallenge(
     ctx: BaseContext,
-    { provider, providerId, challenge, signature, useLedger }: VerifyIdentityChallengeInput,
+    { provider, providerId, challenge, signature, useLedger }: IdentityVerifyChallengeInput,
   ) {
     // Make sure we can link the given provider
     this.solana.ensureLinkProvider(provider)

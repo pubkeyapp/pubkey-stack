@@ -2,7 +2,7 @@ import { Field, InputType } from '@nestjs/graphql'
 import { IdentityProvider } from '../entity/identity-provider.enum'
 
 @InputType()
-export class AdminFindManyIdentityInput {
+export class IdentityAdminFindManyInput {
   @Field({ nullable: true })
   ownerId?: string
 

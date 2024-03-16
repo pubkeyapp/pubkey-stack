@@ -1,6 +1,6 @@
-import { AvatarProps, Group, type GroupProps, Stack, Text } from '@mantine/core'
+import { AvatarProps, Group, GroupProps, Stack, Text } from '@mantine/core'
 import { User } from '@pubkey-stack/sdk'
-import { UiAnchor, type UiAnchorProps } from '@pubkey-ui/core'
+import { UiAnchor, UiAnchorProps } from '@pubkey-ui/core'
 import { UserUiAvatar } from './user-ui-avatar'
 
 export function UserUiItem({
@@ -23,7 +23,7 @@ export function UserUiItem({
       <Group gap="sm" {...groupProps}>
         <UserUiAvatar user={user} {...avatarProps} />
         <Stack gap={1}>
-          <Text size="sm" fw={500}>
+          <Text size="lg" fw={500}>
             {user?.username}
           </Text>
           {user.name ? (

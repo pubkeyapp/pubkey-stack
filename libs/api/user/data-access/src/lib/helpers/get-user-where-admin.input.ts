@@ -1,7 +1,7 @@
 import { Prisma } from '@prisma/client'
-import { AdminFindManyUserInput } from '../dto/admin-find-many-user.input'
+import { UserAdminFindManyInput } from '../dto/user-admin-find-many.input'
 
-export function getUserWhereAdminInput(input: AdminFindManyUserInput): Prisma.UserWhereInput {
+export function getUserWhereAdminInput(input: UserAdminFindManyInput): Prisma.UserWhereInput {
   const where: Prisma.UserWhereInput = {}
 
   if (input.search) {

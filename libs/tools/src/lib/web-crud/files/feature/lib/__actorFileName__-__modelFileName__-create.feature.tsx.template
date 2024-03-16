@@ -1,4 +1,4 @@
-import { <%= actor.className %>Create<%= model.className %>Input } from '@<%= npmScope %>/sdk'
+import { <%= model.className %><%= actor.className %>CreateInput } from '@<%= npmScope %>/sdk'
 import { use<%= actor.className %>FindMany<%= model.className %> } from '@<%= npmScope %>/<%= app.fileName %>-<%= model.fileName %>-data-access'
 import { <%= actor.className %><%= model.className %>UiCreateForm } from '@<%= npmScope %>/<%= app.fileName %>-<%= model.fileName %>-ui'
 import { toastError, UiBack, UiCard<% if(ownerId && actor.className === 'Admin'){ %><% } else { %>, UiPage<% } %> } from '@pubkey-ui/core'
@@ -9,7 +9,7 @@ export function <%= actor.className %><%= model.className %>CreateFeature(<% if(
   const navigate = useNavigate()
   const { create<%= model.className %> } = use<%= actor.className %>FindMany<%= model.className %>(<% if(ownerId && actor.className === 'Admin'){ %>{ <%= ownerId %> }<% } %>)
 
-  async function submit(input: <%= actor.className %>Create<%= model.className %>Input) {
+  async function submit(input: <%= model.className %><%= actor.className %>CreateInput) {
     return create<%= model.className %>(input)
       .then((res) => {
          if (res) {

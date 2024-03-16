@@ -1,10 +1,10 @@
-import { AdminCreateUserInput, AdminFindManyUserInput, UserRole, UserStatus } from '@pubkey-stack/sdk'
+import { UserAdminCreateInput, UserAdminFindManyInput, UserRole, UserStatus } from '@pubkey-stack/sdk'
 import { useSdk } from '@pubkey-stack/web-core-data-access'
 import { toastError, toastSuccess } from '@pubkey-ui/core'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
-export function useAdminFindManyUser(props?: AdminFindManyUserInput) {
+export function useAdminFindManyUser(props?: UserAdminFindManyInput) {
   const sdk = useSdk()
   const [role, setRole] = useState<UserRole | undefined>(undefined)
   const [status, setStatus] = useState<UserStatus | undefined>(undefined)
@@ -12,7 +12,7 @@ export function useAdminFindManyUser(props?: AdminFindManyUserInput) {
   const [page, setPage] = useState(props?.page ?? 1)
   const [search, setSearch] = useState<string>('')
 
-  const input: AdminFindManyUserInput = { limit, page, role, search, status }
+  const input: UserAdminFindManyInput = { limit, page, role, search, status }
   const query = useQuery({
     queryKey: ['admin', 'find-many-user', input],
     queryFn: () => sdk.adminFindManyUser({ input }).then((res) => res.data),
@@ -44,7 +44,7 @@ export function useAdminFindManyUser(props?: AdminFindManyUserInput) {
       setPage(1)
       setStatus(status)
     },
-    createUser: (input: AdminCreateUserInput) =>
+    createUser: (input: UserAdminCreateInput) =>
       sdk
         .adminCreateUser({ input })
         .then((res) => res.data)

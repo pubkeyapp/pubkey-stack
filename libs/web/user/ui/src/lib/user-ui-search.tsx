@@ -1,5 +1,5 @@
 import { useUserFindManyUser } from '@pubkey-stack/web-user-data-access'
-import { UserUiAutocomplete, type UserUiAutocompleteProps } from './user-ui-autocomplete'
+import { UserUiAutocomplete, UserUiAutocompleteProps } from './user-ui-autocomplete'
 
 export type UserUiSearchProps = Omit<UserUiAutocompleteProps, 'items' | 'isLoading' | 'setSearch'>
 

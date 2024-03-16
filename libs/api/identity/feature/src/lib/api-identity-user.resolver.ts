@@ -6,10 +6,10 @@ import {
   ApiIdentityService,
   Identity,
   IdentityChallenge,
-  LinkIdentityInput,
-  RequestIdentityChallengeInput,
-  UserFindManyIdentityInput,
-  VerifyIdentityChallengeInput,
+  IdentityRequestChallengeInput,
+  IdentityUserFindManyInput,
+  IdentityUserLinkInput,
+  IdentityVerifyChallengeInput,
 } from '@pubkey-stack/api-identity-data-access'
 
 @Resolver()
@@ -26,13 +26,13 @@ export class ApiIdentityUserResolver {
   userRequestIdentityChallenge(
     @Context() ctx: BaseContext,
     @CtxUserId() userId: string,
-    @Args('input') input: RequestIdentityChallengeInput,
+    @Args('input') input: IdentityRequestChallengeInput,
   ) {
     return this.service.user.requestIdentityChallenge(ctx, userId, input)
   }
 
   @Mutation(() => Identity, { nullable: true })
-  userLinkIdentity(@CtxUserId() userId: string, @Args('input') input: LinkIdentityInput) {
+  userLinkIdentity(@CtxUserId() userId: string, @Args('input') input: IdentityUserLinkInput) {
     return this.service.user.linkIdentity(userId, input)
   }
 
@@ -40,13 +40,13 @@ export class ApiIdentityUserResolver {
   userVerifyIdentityChallenge(
     @Context() ctx: BaseContext,
     @CtxUserId() userId: string,
-    @Args('input') input: VerifyIdentityChallengeInput,
+    @Args('input') input: IdentityVerifyChallengeInput,
   ) {
     return this.service.user.verifyIdentityChallenge(ctx, userId, input)
   }
 
   @Query(() => [Identity], { nullable: true })
-  userFindManyIdentity(@Args('input') input: UserFindManyIdentityInput) {
+  userFindManyIdentity(@Args('input') input: IdentityUserFindManyInput) {
     return this.service.user.findManyIdentity(input)
   }
 }

@@ -1,9 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { User as PrismaUser } from '@prisma/client'
 import { ApiCoreService, hashPassword, slugifyId } from '@pubkey-stack/api-core-data-access'
-import { AdminCreateUserInput } from './dto/admin-create-user.input'
-import { AdminFindManyUserInput } from './dto/admin-find-many-user.input'
-import { AdminUpdateUserInput } from './dto/admin-update-user.input'
+import { UserAdminCreateInput } from './dto/user-admin-create.input'
+import { UserAdminFindManyInput } from './dto/user-admin-find-many.input'
+import { UserAdminUpdateInput } from './dto/user-admin-update.input'
 import { UserPaging } from './entity/user.entity'
 import { getUserWhereAdminInput } from './helpers/get-user-where-admin.input'
 
@@ -12,7 +12,7 @@ export class ApiUserDataAdminService {
   private readonly logger = new Logger(ApiUserDataAdminService.name)
   constructor(private readonly core: ApiCoreService) {}
 
-  async createUser(input: AdminCreateUserInput): Promise<PrismaUser> {
+  async createUser(input: UserAdminCreateInput): Promise<PrismaUser> {
     const username = slugifyId(input.username)
     if (!username.length) {
       throw new Error(`Username ${input.username} is not valid`)
@@ -42,7 +42,7 @@ export class ApiUserDataAdminService {
     return !!deleted
   }
 
-  async findManyUser(input: AdminFindManyUserInput): Promise<UserPaging> {
+  async findManyUser(input: UserAdminFindManyInput): Promise<UserPaging> {
     return this.core.data.user
       .paginate({
         orderBy: { createdAt: 'desc' },
@@ -63,7 +63,7 @@ export class ApiUserDataAdminService {
     return found
   }
 
-  async updateUser(userId: string, input: AdminUpdateUserInput): Promise<PrismaUser> {
+  async updateUser(userId: string, input: UserAdminUpdateInput): Promise<PrismaUser> {
     const exists = await this.findOneUser(userId)
 
     if (!exists) {

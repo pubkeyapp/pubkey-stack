@@ -1,15 +1,15 @@
-import { UserFindManyUserInput } from '@pubkey-stack/sdk'
+import { UserUserFindManyInput } from '@pubkey-stack/sdk'
 import { useSdk } from '@pubkey-stack/web-core-data-access'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
-export function useUserFindManyUser(props?: UserFindManyUserInput) {
+export function useUserFindManyUser(props?: UserUserFindManyInput) {
   const sdk = useSdk()
   const [limit, setLimit] = useState(props?.limit ?? 10)
   const [page, setPage] = useState(props?.page ?? 1)
   const [search, setSearch] = useState<string>('')
 
-  const input: UserFindManyUserInput = { limit, page, search }
+  const input: UserUserFindManyInput = { limit, page, search }
   const query = useQuery({
     queryKey: ['user', 'find-many-user', input],
     queryFn: () => sdk.userFindManyUser({ input }).then((res) => res.data),

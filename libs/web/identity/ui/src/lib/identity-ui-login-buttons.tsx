@@ -1,4 +1,4 @@
-import { Stack, type StackProps } from '@mantine/core'
+import { Stack, StackProps } from '@mantine/core'
 import { IdentityProvider } from '@pubkey-stack/sdk'
 import { IdentityUiLoginButton } from './identity-ui-login-button'
 

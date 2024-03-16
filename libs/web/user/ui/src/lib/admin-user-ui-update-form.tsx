@@ -1,12 +1,12 @@
 import { Button, Group } from '@mantine/core'
-import { AdminUpdateUserInput, User, UserRole, UserStatus } from '@pubkey-stack/sdk'
+import { User, UserAdminUpdateInput, UserRole, UserStatus } from '@pubkey-stack/sdk'
 import { formFieldCheckbox, formFieldSelect, formFieldText, getEnumOptions, UiForm, UiFormField } from '@pubkey-ui/core'
 
 export function AdminUiUpdateUserForm({
   submit,
   user,
 }: {
-  submit: (res: AdminUpdateUserInput) => Promise<boolean>
+  submit: (res: UserAdminUpdateInput) => Promise<boolean>
   user: User
 }) {
   const model = {
@@ -18,7 +18,7 @@ export function AdminUiUpdateUserForm({
     username: user.username ?? '',
   }
 
-  const fields: UiFormField<AdminUpdateUserInput>[] = [
+  const fields: UiFormField<UserAdminUpdateInput>[] = [
     formFieldSelect('role', { label: 'Role', options: getEnumOptions(UserRole) }),
     formFieldSelect('status', { label: 'Status', options: getEnumOptions(UserStatus) }),
     formFieldText('username', { label: 'Username' }),
@@ -27,7 +27,7 @@ export function AdminUiUpdateUserForm({
     formFieldCheckbox('developer', { label: 'Developer' }),
   ]
   return (
-    <UiForm model={model} fields={fields} submit={(res) => submit(res as AdminUpdateUserInput)}>
+    <UiForm model={model} fields={fields} submit={(res) => submit(res as UserAdminUpdateInput)}>
       <Group justify="right">
         <Button type="submit">Save</Button>
       </Group>

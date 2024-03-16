@@ -1,4 +1,4 @@
-import { generateFiles, getProjects, type ProjectConfiguration, Tree } from '@nx/devkit'
+import { generateFiles, getProjects, ProjectConfiguration, Tree } from '@nx/devkit'
 import { addExports } from '../utils/ast/add-export'
 import { ensureNxProjectExists } from '../utils/ensure-nx-project-exists'
 import { addServiceToClassConstructor } from './add-service-to-class-constructor'
@@ -76,9 +76,9 @@ export function generateApiCrud(tree: Tree, options: NormalizedApiCrudSchema) {
   const dataAccessExports: string[] = [
     // Add exports here
     `./lib/entity/${vars.model.fileName}.entity`,
-    `./lib/dto/${vars.actorFileName}-create-${vars.modelFileName}.input`,
-    `./lib/dto/${vars.actorFileName}-find-many-${vars.modelFileName}.input`,
-    `./lib/dto/${vars.actorFileName}-update-${vars.modelFileName}.input`,
+    `./lib/dto/${vars.modelFileName}-${vars.actorFileName}-create.input`,
+    `./lib/dto/${vars.modelFileName}-${vars.actorFileName}-find-many.input`,
+    `./lib/dto/${vars.modelFileName}-${vars.actorFileName}-update.input`,
   ]
 
   // Add the exports to the barrel file

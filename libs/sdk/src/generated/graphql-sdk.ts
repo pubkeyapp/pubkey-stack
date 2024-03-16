@@ -24,39 +24,6 @@ export type Scalars = {
   JSON: { input: any; output: any }
 }
 
-export type AdminCreateIdentityInput = {
-  ownerId: Scalars['String']['input']
-  provider: IdentityProvider
-  providerId: Scalars['String']['input']
-}
-
-export type AdminCreateUserInput = {
-  password?: InputMaybe<Scalars['String']['input']>
-  username: Scalars['String']['input']
-}
-
-export type AdminFindManyIdentityInput = {
-  ownerId?: InputMaybe<Scalars['String']['input']>
-  provider?: InputMaybe<IdentityProvider>
-}
-
-export type AdminFindManyUserInput = {
-  limit?: InputMaybe<Scalars['Int']['input']>
-  page?: InputMaybe<Scalars['Int']['input']>
-  role?: InputMaybe<UserRole>
-  search?: InputMaybe<Scalars['String']['input']>
-  status?: InputMaybe<UserStatus>
-}
-
-export type AdminUpdateUserInput = {
-  avatarUrl?: InputMaybe<Scalars['String']['input']>
-  developer?: InputMaybe<Scalars['Boolean']['input']>
-  name?: InputMaybe<Scalars['String']['input']>
-  role?: InputMaybe<UserRole>
-  status?: InputMaybe<UserStatus>
-  username?: InputMaybe<Scalars['String']['input']>
-}
-
 export type AppConfig = {
   __typename?: 'AppConfig'
   authDiscordEnabled: Scalars['Boolean']['output']
@@ -84,6 +51,17 @@ export type Identity = {
   verified?: Maybe<Scalars['Boolean']['output']>
 }
 
+export type IdentityAdminCreateInput = {
+  ownerId: Scalars['String']['input']
+  provider: IdentityProvider
+  providerId: Scalars['String']['input']
+}
+
+export type IdentityAdminFindManyInput = {
+  ownerId?: InputMaybe<Scalars['String']['input']>
+  provider?: InputMaybe<IdentityProvider>
+}
+
 export type IdentityChallenge = {
   __typename?: 'IdentityChallenge'
   challenge: Scalars['String']['output']
@@ -106,9 +84,26 @@ export enum IdentityProvider {
   Twitter = 'Twitter',
 }
 
-export type LinkIdentityInput = {
+export type IdentityRequestChallengeInput = {
   provider: IdentityProvider
   providerId: Scalars['String']['input']
+}
+
+export type IdentityUserFindManyInput = {
+  username: Scalars['String']['input']
+}
+
+export type IdentityUserLinkInput = {
+  provider: IdentityProvider
+  providerId: Scalars['String']['input']
+}
+
+export type IdentityVerifyChallengeInput = {
+  challenge: Scalars['String']['input']
+  provider: IdentityProvider
+  providerId: Scalars['String']['input']
+  signature: Scalars['String']['input']
+  useLedger?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 export type LoginInput = {
@@ -134,11 +129,11 @@ export type Mutation = {
 }
 
 export type MutationAdminCreateIdentityArgs = {
-  input: AdminCreateIdentityInput
+  input: IdentityAdminCreateInput
 }
 
 export type MutationAdminCreateUserArgs = {
-  input: AdminCreateUserInput
+  input: UserAdminCreateInput
 }
 
 export type MutationAdminDeleteIdentityArgs = {
@@ -150,12 +145,12 @@ export type MutationAdminDeleteUserArgs = {
 }
 
 export type MutationAdminUpdateUserArgs = {
-  input: AdminUpdateUserInput
+  input: UserAdminUpdateInput
   userId: Scalars['String']['input']
 }
 
 export type MutationAnonVerifyIdentityChallengeArgs = {
-  input: VerifyIdentityChallengeInput
+  input: IdentityVerifyChallengeInput
 }
 
 export type MutationLoginArgs = {
@@ -171,15 +166,15 @@ export type MutationUserDeleteIdentityArgs = {
 }
 
 export type MutationUserLinkIdentityArgs = {
-  input: LinkIdentityInput
+  input: IdentityUserLinkInput
 }
 
 export type MutationUserUpdateUserArgs = {
-  input: UserUpdateUserInput
+  input: UserUserUpdateInput
 }
 
 export type MutationUserVerifyIdentityChallengeArgs = {
-  input: VerifyIdentityChallengeInput
+  input: IdentityVerifyChallengeInput
 }
 
 export type PagingMeta = {
@@ -209,11 +204,11 @@ export type Query = {
 }
 
 export type QueryAdminFindManyIdentityArgs = {
-  input: AdminFindManyIdentityInput
+  input: IdentityAdminFindManyInput
 }
 
 export type QueryAdminFindManyUserArgs = {
-  input: AdminFindManyUserInput
+  input: UserAdminFindManyInput
 }
 
 export type QueryAdminFindOneUserArgs = {
@@ -221,15 +216,15 @@ export type QueryAdminFindOneUserArgs = {
 }
 
 export type QueryAnonRequestIdentityChallengeArgs = {
-  input: RequestIdentityChallengeInput
+  input: IdentityRequestChallengeInput
 }
 
 export type QueryUserFindManyIdentityArgs = {
-  input: UserFindManyIdentityInput
+  input: IdentityUserFindManyInput
 }
 
 export type QueryUserFindManyUserArgs = {
-  input: UserFindManyUserInput
+  input: UserUserFindManyInput
 }
 
 export type QueryUserFindOneUserArgs = {
@@ -237,17 +232,12 @@ export type QueryUserFindOneUserArgs = {
 }
 
 export type QueryUserRequestIdentityChallengeArgs = {
-  input: RequestIdentityChallengeInput
+  input: IdentityRequestChallengeInput
 }
 
 export type RegisterInput = {
   password: Scalars['String']['input']
   username: Scalars['String']['input']
-}
-
-export type RequestIdentityChallengeInput = {
-  provider: IdentityProvider
-  providerId: Scalars['String']['input']
 }
 
 export type User = {
@@ -265,14 +255,26 @@ export type User = {
   username?: Maybe<Scalars['String']['output']>
 }
 
-export type UserFindManyIdentityInput = {
+export type UserAdminCreateInput = {
+  password?: InputMaybe<Scalars['String']['input']>
   username: Scalars['String']['input']
 }
 
-export type UserFindManyUserInput = {
+export type UserAdminFindManyInput = {
   limit?: InputMaybe<Scalars['Int']['input']>
   page?: InputMaybe<Scalars['Int']['input']>
+  role?: InputMaybe<UserRole>
   search?: InputMaybe<Scalars['String']['input']>
+  status?: InputMaybe<UserStatus>
+}
+
+export type UserAdminUpdateInput = {
+  avatarUrl?: InputMaybe<Scalars['String']['input']>
+  developer?: InputMaybe<Scalars['Boolean']['input']>
+  name?: InputMaybe<Scalars['String']['input']>
+  role?: InputMaybe<UserRole>
+  status?: InputMaybe<UserStatus>
+  username?: InputMaybe<Scalars['String']['input']>
 }
 
 export type UserPaging = {
@@ -292,18 +294,16 @@ export enum UserStatus {
   Inactive = 'Inactive',
 }
 
-export type UserUpdateUserInput = {
+export type UserUserFindManyInput = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  page?: InputMaybe<Scalars['Int']['input']>
+  search?: InputMaybe<Scalars['String']['input']>
+}
+
+export type UserUserUpdateInput = {
   avatarUrl?: InputMaybe<Scalars['String']['input']>
   developer?: InputMaybe<Scalars['Boolean']['input']>
   name?: InputMaybe<Scalars['String']['input']>
-}
-
-export type VerifyIdentityChallengeInput = {
-  challenge: Scalars['String']['input']
-  provider: IdentityProvider
-  providerId: Scalars['String']['input']
-  signature: Scalars['String']['input']
-  useLedger?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 export type LoginMutationVariables = Exact<{
@@ -442,7 +442,7 @@ export type IdentityChallengeDetailsFragment = {
 }
 
 export type AdminFindManyIdentityQueryVariables = Exact<{
-  input: AdminFindManyIdentityInput
+  input: IdentityAdminFindManyInput
 }>
 
 export type AdminFindManyIdentityQuery = {
@@ -489,7 +489,7 @@ export type AdminFindManyIdentityQuery = {
 }
 
 export type AdminCreateIdentityMutationVariables = Exact<{
-  input: AdminCreateIdentityInput
+  input: IdentityAdminCreateInput
 }>
 
 export type AdminCreateIdentityMutation = {
@@ -516,7 +516,7 @@ export type AdminDeleteIdentityMutationVariables = Exact<{
 export type AdminDeleteIdentityMutation = { __typename?: 'Mutation'; deleted?: boolean | null }
 
 export type UserFindManyIdentityQueryVariables = Exact<{
-  input: UserFindManyIdentityInput
+  input: IdentityUserFindManyInput
 }>
 
 export type UserFindManyIdentityQuery = {
@@ -543,7 +543,7 @@ export type UserDeleteIdentityMutationVariables = Exact<{
 export type UserDeleteIdentityMutation = { __typename?: 'Mutation'; deleted?: boolean | null }
 
 export type UserRequestIdentityChallengeQueryVariables = Exact<{
-  input: RequestIdentityChallengeInput
+  input: IdentityRequestChallengeInput
 }>
 
 export type UserRequestIdentityChallengeQuery = {
@@ -564,7 +564,7 @@ export type UserRequestIdentityChallengeQuery = {
 }
 
 export type UserVerifyIdentityChallengeMutationVariables = Exact<{
-  input: VerifyIdentityChallengeInput
+  input: IdentityVerifyChallengeInput
 }>
 
 export type UserVerifyIdentityChallengeMutation = {
@@ -585,7 +585,7 @@ export type UserVerifyIdentityChallengeMutation = {
 }
 
 export type UserLinkIdentityMutationVariables = Exact<{
-  input: LinkIdentityInput
+  input: IdentityUserLinkInput
 }>
 
 export type UserLinkIdentityMutation = {
@@ -606,7 +606,7 @@ export type UserLinkIdentityMutation = {
 }
 
 export type AnonRequestIdentityChallengeQueryVariables = Exact<{
-  input: RequestIdentityChallengeInput
+  input: IdentityRequestChallengeInput
 }>
 
 export type AnonRequestIdentityChallengeQuery = {
@@ -627,7 +627,7 @@ export type AnonRequestIdentityChallengeQuery = {
 }
 
 export type AnonVerifyIdentityChallengeMutationVariables = Exact<{
-  input: VerifyIdentityChallengeInput
+  input: IdentityVerifyChallengeInput
 }>
 
 export type AnonVerifyIdentityChallengeMutation = {
@@ -662,7 +662,7 @@ export type UserDetailsFragment = {
 }
 
 export type AdminCreateUserMutationVariables = Exact<{
-  input: AdminCreateUserInput
+  input: UserAdminCreateInput
 }>
 
 export type AdminCreateUserMutation = {
@@ -689,7 +689,7 @@ export type AdminDeleteUserMutationVariables = Exact<{
 export type AdminDeleteUserMutation = { __typename?: 'Mutation'; deleted?: boolean | null }
 
 export type AdminFindManyUserQueryVariables = Exact<{
-  input: AdminFindManyUserInput
+  input: UserAdminFindManyInput
 }>
 
 export type AdminFindManyUserQuery = {
@@ -758,7 +758,7 @@ export type AdminFindOneUserQuery = {
 
 export type AdminUpdateUserMutationVariables = Exact<{
   userId: Scalars['String']['input']
-  input: AdminUpdateUserInput
+  input: UserAdminUpdateInput
 }>
 
 export type AdminUpdateUserMutation = {
@@ -779,7 +779,7 @@ export type AdminUpdateUserMutation = {
 }
 
 export type UserFindManyUserQueryVariables = Exact<{
-  input: UserFindManyUserInput
+  input: UserUserFindManyInput
 }>
 
 export type UserFindManyUserQuery = {
@@ -834,7 +834,7 @@ export type UserFindOneUserQuery = {
 }
 
 export type UserUpdateUserMutationVariables = Exact<{
-  input: UserUpdateUserInput
+  input: UserUserUpdateInput
 }>
 
 export type UserUpdateUserMutation = {
@@ -961,7 +961,7 @@ export const AppConfigDocument = gql`
   ${AppConfigDetailsFragmentDoc}
 `
 export const AdminFindManyIdentityDocument = gql`
-  query adminFindManyIdentity($input: AdminFindManyIdentityInput!) {
+  query adminFindManyIdentity($input: IdentityAdminFindManyInput!) {
     items: adminFindManyIdentity(input: $input) {
       ...IdentityDetails
       challenges {
@@ -977,7 +977,7 @@ export const AdminFindManyIdentityDocument = gql`
   ${UserDetailsFragmentDoc}
 `
 export const AdminCreateIdentityDocument = gql`
-  mutation adminCreateIdentity($input: AdminCreateIdentityInput!) {
+  mutation adminCreateIdentity($input: IdentityAdminCreateInput!) {
     created: adminCreateIdentity(input: $input) {
       ...IdentityDetails
     }
@@ -990,7 +990,7 @@ export const AdminDeleteIdentityDocument = gql`
   }
 `
 export const UserFindManyIdentityDocument = gql`
-  query userFindManyIdentity($input: UserFindManyIdentityInput!) {
+  query userFindManyIdentity($input: IdentityUserFindManyInput!) {
     items: userFindManyIdentity(input: $input) {
       ...IdentityDetails
     }
@@ -1003,7 +1003,7 @@ export const UserDeleteIdentityDocument = gql`
   }
 `
 export const UserRequestIdentityChallengeDocument = gql`
-  query userRequestIdentityChallenge($input: RequestIdentityChallengeInput!) {
+  query userRequestIdentityChallenge($input: IdentityRequestChallengeInput!) {
     challenge: userRequestIdentityChallenge(input: $input) {
       ...IdentityChallengeDetails
     }
@@ -1011,7 +1011,7 @@ export const UserRequestIdentityChallengeDocument = gql`
   ${IdentityChallengeDetailsFragmentDoc}
 `
 export const UserVerifyIdentityChallengeDocument = gql`
-  mutation userVerifyIdentityChallenge($input: VerifyIdentityChallengeInput!) {
+  mutation userVerifyIdentityChallenge($input: IdentityVerifyChallengeInput!) {
     verified: userVerifyIdentityChallenge(input: $input) {
       ...IdentityChallengeDetails
     }
@@ -1019,7 +1019,7 @@ export const UserVerifyIdentityChallengeDocument = gql`
   ${IdentityChallengeDetailsFragmentDoc}
 `
 export const UserLinkIdentityDocument = gql`
-  mutation userLinkIdentity($input: LinkIdentityInput!) {
+  mutation userLinkIdentity($input: IdentityUserLinkInput!) {
     linked: userLinkIdentity(input: $input) {
       ...IdentityDetails
     }
@@ -1027,7 +1027,7 @@ export const UserLinkIdentityDocument = gql`
   ${IdentityDetailsFragmentDoc}
 `
 export const AnonRequestIdentityChallengeDocument = gql`
-  query anonRequestIdentityChallenge($input: RequestIdentityChallengeInput!) {
+  query anonRequestIdentityChallenge($input: IdentityRequestChallengeInput!) {
     challenge: anonRequestIdentityChallenge(input: $input) {
       ...IdentityChallengeDetails
     }
@@ -1035,7 +1035,7 @@ export const AnonRequestIdentityChallengeDocument = gql`
   ${IdentityChallengeDetailsFragmentDoc}
 `
 export const AnonVerifyIdentityChallengeDocument = gql`
-  mutation anonVerifyIdentityChallenge($input: VerifyIdentityChallengeInput!) {
+  mutation anonVerifyIdentityChallenge($input: IdentityVerifyChallengeInput!) {
     verified: anonVerifyIdentityChallenge(input: $input) {
       ...IdentityChallengeDetails
     }
@@ -1043,7 +1043,7 @@ export const AnonVerifyIdentityChallengeDocument = gql`
   ${IdentityChallengeDetailsFragmentDoc}
 `
 export const AdminCreateUserDocument = gql`
-  mutation adminCreateUser($input: AdminCreateUserInput!) {
+  mutation adminCreateUser($input: UserAdminCreateInput!) {
     created: adminCreateUser(input: $input) {
       ...UserDetails
     }
@@ -1056,7 +1056,7 @@ export const AdminDeleteUserDocument = gql`
   }
 `
 export const AdminFindManyUserDocument = gql`
-  query adminFindManyUser($input: AdminFindManyUserInput!) {
+  query adminFindManyUser($input: UserAdminFindManyInput!) {
     paging: adminFindManyUser(input: $input) {
       data {
         ...UserDetails
@@ -1082,7 +1082,7 @@ export const AdminFindOneUserDocument = gql`
   ${UserDetailsFragmentDoc}
 `
 export const AdminUpdateUserDocument = gql`
-  mutation adminUpdateUser($userId: String!, $input: AdminUpdateUserInput!) {
+  mutation adminUpdateUser($userId: String!, $input: UserAdminUpdateInput!) {
     updated: adminUpdateUser(userId: $userId, input: $input) {
       ...UserDetails
     }
@@ -1090,7 +1090,7 @@ export const AdminUpdateUserDocument = gql`
   ${UserDetailsFragmentDoc}
 `
 export const UserFindManyUserDocument = gql`
-  query userFindManyUser($input: UserFindManyUserInput!) {
+  query userFindManyUser($input: UserUserFindManyInput!) {
     paging: userFindManyUser(input: $input) {
       data {
         ...UserDetails
@@ -1112,7 +1112,7 @@ export const UserFindOneUserDocument = gql`
   ${UserDetailsFragmentDoc}
 `
 export const UserUpdateUserDocument = gql`
-  mutation userUpdateUser($input: UserUpdateUserInput!) {
+  mutation userUpdateUser($input: UserUserUpdateInput!) {
     updated: userUpdateUser(input: $input) {
       ...UserDetails
     }
@@ -1645,7 +1645,7 @@ export const UserRoleSchema = z.nativeEnum(UserRole)
 
 export const UserStatusSchema = z.nativeEnum(UserStatus)
 
-export function AdminCreateIdentityInputSchema(): z.ZodObject<Properties<AdminCreateIdentityInput>> {
+export function IdentityAdminCreateInputSchema(): z.ZodObject<Properties<IdentityAdminCreateInput>> {
   return z.object({
     ownerId: z.string(),
     provider: IdentityProviderSchema,
@@ -1653,45 +1653,40 @@ export function AdminCreateIdentityInputSchema(): z.ZodObject<Properties<AdminCr
   })
 }
 
-export function AdminCreateUserInputSchema(): z.ZodObject<Properties<AdminCreateUserInput>> {
-  return z.object({
-    password: z.string().nullish(),
-    username: z.string(),
-  })
-}
-
-export function AdminFindManyIdentityInputSchema(): z.ZodObject<Properties<AdminFindManyIdentityInput>> {
+export function IdentityAdminFindManyInputSchema(): z.ZodObject<Properties<IdentityAdminFindManyInput>> {
   return z.object({
     ownerId: z.string().nullish(),
     provider: IdentityProviderSchema.nullish(),
   })
 }
 
-export function AdminFindManyUserInputSchema(): z.ZodObject<Properties<AdminFindManyUserInput>> {
-  return z.object({
-    limit: z.number().nullish(),
-    page: z.number().nullish(),
-    role: UserRoleSchema.nullish(),
-    search: z.string().nullish(),
-    status: UserStatusSchema.nullish(),
-  })
-}
-
-export function AdminUpdateUserInputSchema(): z.ZodObject<Properties<AdminUpdateUserInput>> {
-  return z.object({
-    avatarUrl: z.string().nullish(),
-    developer: z.boolean().nullish(),
-    name: z.string().nullish(),
-    role: UserRoleSchema.nullish(),
-    status: UserStatusSchema.nullish(),
-    username: z.string().nullish(),
-  })
-}
-
-export function LinkIdentityInputSchema(): z.ZodObject<Properties<LinkIdentityInput>> {
+export function IdentityRequestChallengeInputSchema(): z.ZodObject<Properties<IdentityRequestChallengeInput>> {
   return z.object({
     provider: IdentityProviderSchema,
     providerId: z.string(),
+  })
+}
+
+export function IdentityUserFindManyInputSchema(): z.ZodObject<Properties<IdentityUserFindManyInput>> {
+  return z.object({
+    username: z.string(),
+  })
+}
+
+export function IdentityUserLinkInputSchema(): z.ZodObject<Properties<IdentityUserLinkInput>> {
+  return z.object({
+    provider: IdentityProviderSchema,
+    providerId: z.string(),
+  })
+}
+
+export function IdentityVerifyChallengeInputSchema(): z.ZodObject<Properties<IdentityVerifyChallengeInput>> {
+  return z.object({
+    challenge: z.string(),
+    provider: IdentityProviderSchema,
+    providerId: z.string(),
+    signature: z.string(),
+    useLedger: z.boolean().nullish(),
   })
 }
 
@@ -1709,20 +1704,35 @@ export function RegisterInputSchema(): z.ZodObject<Properties<RegisterInput>> {
   })
 }
 
-export function RequestIdentityChallengeInputSchema(): z.ZodObject<Properties<RequestIdentityChallengeInput>> {
+export function UserAdminCreateInputSchema(): z.ZodObject<Properties<UserAdminCreateInput>> {
   return z.object({
-    provider: IdentityProviderSchema,
-    providerId: z.string(),
-  })
-}
-
-export function UserFindManyIdentityInputSchema(): z.ZodObject<Properties<UserFindManyIdentityInput>> {
-  return z.object({
+    password: z.string().nullish(),
     username: z.string(),
   })
 }
 
-export function UserFindManyUserInputSchema(): z.ZodObject<Properties<UserFindManyUserInput>> {
+export function UserAdminFindManyInputSchema(): z.ZodObject<Properties<UserAdminFindManyInput>> {
+  return z.object({
+    limit: z.number().nullish(),
+    page: z.number().nullish(),
+    role: UserRoleSchema.nullish(),
+    search: z.string().nullish(),
+    status: UserStatusSchema.nullish(),
+  })
+}
+
+export function UserAdminUpdateInputSchema(): z.ZodObject<Properties<UserAdminUpdateInput>> {
+  return z.object({
+    avatarUrl: z.string().nullish(),
+    developer: z.boolean().nullish(),
+    name: z.string().nullish(),
+    role: UserRoleSchema.nullish(),
+    status: UserStatusSchema.nullish(),
+    username: z.string().nullish(),
+  })
+}
+
+export function UserUserFindManyInputSchema(): z.ZodObject<Properties<UserUserFindManyInput>> {
   return z.object({
     limit: z.number().nullish(),
     page: z.number().nullish(),
@@ -1730,20 +1740,10 @@ export function UserFindManyUserInputSchema(): z.ZodObject<Properties<UserFindMa
   })
 }
 
-export function UserUpdateUserInputSchema(): z.ZodObject<Properties<UserUpdateUserInput>> {
+export function UserUserUpdateInputSchema(): z.ZodObject<Properties<UserUserUpdateInput>> {
   return z.object({
     avatarUrl: z.string().nullish(),
     developer: z.boolean().nullish(),
     name: z.string().nullish(),
-  })
-}
-
-export function VerifyIdentityChallengeInputSchema(): z.ZodObject<Properties<VerifyIdentityChallengeInput>> {
-  return z.object({
-    challenge: z.string(),
-    provider: IdentityProviderSchema,
-    providerId: z.string(),
-    signature: z.string(),
-    useLedger: z.boolean().nullish(),
   })
 }

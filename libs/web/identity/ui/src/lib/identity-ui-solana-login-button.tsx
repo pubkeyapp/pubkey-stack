@@ -1,4 +1,4 @@
-import { Button, type ButtonProps, Modal, Tooltip } from '@mantine/core'
+import { Button, ButtonProps, Modal, Tooltip } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { IdentityProvider } from '@pubkey-stack/sdk'
 import { IdentityProviderSolanaLogin } from '@pubkey-stack/web-identity-data-access'

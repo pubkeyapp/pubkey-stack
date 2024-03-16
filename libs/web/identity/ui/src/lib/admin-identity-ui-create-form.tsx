@@ -1,15 +1,15 @@
 import { Button, Group } from '@mantine/core'
-import { AdminCreateIdentityInput, IdentityProvider } from '@pubkey-stack/sdk'
+import { IdentityAdminCreateInput, IdentityProvider } from '@pubkey-stack/sdk'
 import { formFieldSelect, formFieldText, getEnumOptions, UiForm, UiFormField } from '@pubkey-ui/core'
 
-export function AuthUiIdentityCreateForm({ submit }: { submit: (res: AdminCreateIdentityInput) => Promise<boolean> }) {
-  const model: AdminCreateIdentityInput = {
+export function AuthUiIdentityCreateForm({ submit }: { submit: (res: IdentityAdminCreateInput) => Promise<boolean> }) {
+  const model: IdentityAdminCreateInput = {
     provider: IdentityProvider.Solana,
     providerId: '',
     ownerId: '',
   }
 
-  const fields: UiFormField<AdminCreateIdentityInput>[] = [
+  const fields: UiFormField<IdentityAdminCreateInput>[] = [
     formFieldText('providerId', {
       label: 'Provider ID',
     }),
@@ -20,7 +20,7 @@ export function AuthUiIdentityCreateForm({ submit }: { submit: (res: AdminCreate
   ]
 
   return (
-    <UiForm model={model} fields={fields} submit={(res) => submit(res as AdminCreateIdentityInput)}>
+    <UiForm model={model} fields={fields} submit={(res) => submit(res as IdentityAdminCreateInput)}>
       <Group justify="right">
         <Button type="submit">Create</Button>
       </Group>

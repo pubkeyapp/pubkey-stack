@@ -11,7 +11,7 @@ fragment UserDetails on User {
   username
 }
 
-mutation adminCreateUser($input: AdminCreateUserInput!) {
+mutation adminCreateUser($input: UserAdminCreateInput!) {
   created: adminCreateUser(input: $input) {
     ...UserDetails
   }
@@ -21,7 +21,7 @@ mutation adminDeleteUser($userId: String!) {
   deleted: adminDeleteUser(userId: $userId)
 }
 
-query adminFindManyUser($input: AdminFindManyUserInput!) {
+query adminFindManyUser($input: UserAdminFindManyInput!) {
   paging: adminFindManyUser(input: $input) {
     data {
       ...UserDetails
@@ -41,13 +41,13 @@ query adminFindOneUser($userId: String!) {
   }
 }
 
-mutation adminUpdateUser($userId: String!, $input: AdminUpdateUserInput!) {
+mutation adminUpdateUser($userId: String!, $input: UserAdminUpdateInput!) {
   updated: adminUpdateUser(userId: $userId, input: $input) {
     ...UserDetails
   }
 }
 
-query userFindManyUser($input: UserFindManyUserInput!) {
+query userFindManyUser($input: UserUserFindManyInput!) {
   paging: userFindManyUser(input: $input) {
     data {
       ...UserDetails
@@ -64,7 +64,7 @@ query userFindOneUser($username: String!) {
   }
 }
 
-mutation userUpdateUser($input: UserUpdateUserInput!) {
+mutation userUpdateUser($input: UserUserUpdateInput!) {
   updated: userUpdateUser(input: $input) {
     ...UserDetails
   }

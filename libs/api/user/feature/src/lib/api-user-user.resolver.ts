@@ -4,9 +4,9 @@ import { ApiAuthGraphQLUserGuard, CtxUserId } from '@pubkey-stack/api-auth-data-
 import {
   ApiUserService,
   User,
-  UserFindManyUserInput,
+  UserUserFindManyInput,
   UserPaging,
-  UserUpdateUserInput,
+  UserUserUpdateInput,
 } from '@pubkey-stack/api-user-data-access'
 
 @Resolver()
@@ -15,7 +15,7 @@ export class ApiUserUserResolver {
   constructor(private readonly service: ApiUserService) {}
 
   @Query(() => UserPaging)
-  userFindManyUser(@Args('input') input: UserFindManyUserInput) {
+  userFindManyUser(@Args('input') input: UserUserFindManyInput) {
     return this.service.user.findManyUser(input)
   }
 
@@ -25,7 +25,7 @@ export class ApiUserUserResolver {
   }
 
   @Mutation(() => User, { nullable: true })
-  userUpdateUser(@CtxUserId() userId: string, @Args('input') input: UserUpdateUserInput) {
+  userUpdateUser(@CtxUserId() userId: string, @Args('input') input: UserUserUpdateInput) {
     return this.service.user.updateUser(userId as string, input)
   }
 }

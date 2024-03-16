@@ -1,5 +1,5 @@
 import { Button } from '@mantine/core'
-import { IdentityProvider, type User } from '@pubkey-stack/sdk'
+import { IdentityProvider, User } from '@pubkey-stack/sdk'
 import { IdentityUiLoginButtons } from '@pubkey-stack/web-identity-ui'
 import { UserUiAvatar } from '@pubkey-stack/web-user-ui'
 import { UiStack } from '@pubkey-ui/core'

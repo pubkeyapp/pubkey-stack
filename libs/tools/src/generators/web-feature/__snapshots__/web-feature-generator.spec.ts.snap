@@ -684,7 +684,6 @@ exports[`web-feature generator should run successfully with crud 23`] = `
 "import { Button, Group } from '@mantine/core';
 import { AdminCreateTestInput } from '@proj/sdk';
 import { formFieldText, UiForm, UiFormField } from '@pubkey-ui/core';
-import { ReactNode } from 'react';
 
 export function AdminTestUiCreateForm({
   submit,
@@ -937,15 +936,9 @@ export function TestUiInfo({ test }: { test?: Test }) {
 `;
 
 exports[`web-feature generator should run successfully with crud 30`] = `
-"import {
-  AvatarProps,
-  Group,
-  type GroupProps,
-  Stack,
-  Text,
-} from '@mantine/core';
+"import { AvatarProps, Group, GroupProps, Stack, Text } from '@mantine/core';
 import { Test } from '@proj/sdk';
-import { UiAnchor, type UiAnchorProps } from '@pubkey-ui/core';
+import { UiAnchor, UiAnchorProps } from '@pubkey-ui/core';
 import { TestUiAvatar } from './test-ui-avatar';
 
 export function TestUiItem({
@@ -983,7 +976,6 @@ exports[`web-feature generator should run successfully with crud 31`] = `
 "import { Button, Group } from '@mantine/core';
 import { UserCreateTestInput } from '@proj/sdk';
 import { formFieldText, UiForm, UiFormField } from '@pubkey-ui/core';
-import { ReactNode } from 'react';
 
 export function UserTestUiCreateForm({
   submit,

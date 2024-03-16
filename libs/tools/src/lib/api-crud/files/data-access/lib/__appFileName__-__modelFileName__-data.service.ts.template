@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
-import { <%= app.className %>CoreService, type PagingInputFields } from '@<%= npmScope %>/<%= app.fileName %>-core-data-access'
+import { <%= app.className %>CoreService, PagingInputFields } from '@<%= npmScope %>/<%= app.fileName %>-core-data-access'
 import { <%= model.className %>Paging } from './entity/<%= model.fileName %>.entity'
 
 @Injectable()
@@ -12,6 +12,7 @@ export class <%= app.className %><%= model.className %>DataService {
   }
 
   async delete(<%= model.propertyName %>Id: string) {
+    await this.findOne(<%= model.propertyName %>Id)
     const deleted = await this.core.data.<%= model.propertyName %>.delete({ where: { id: <%= model.propertyName %>Id } })
     return !!deleted
   }

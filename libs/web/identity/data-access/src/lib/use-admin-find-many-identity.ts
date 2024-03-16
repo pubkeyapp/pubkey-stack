@@ -1,5 +1,5 @@
 import { modals } from '@mantine/modals'
-import { AdminCreateIdentityInput, AdminFindManyIdentityInput, Identity, IdentityProvider } from '@pubkey-stack/sdk'
+import { Identity, IdentityAdminCreateInput, IdentityAdminFindManyInput, IdentityProvider } from '@pubkey-stack/sdk'
 import { useSdk } from '@pubkey-stack/web-core-data-access'
 import { toastError, toastSuccess } from '@pubkey-ui/core'
 import { useQuery } from '@tanstack/react-query'
@@ -8,7 +8,7 @@ import { useState } from 'react'
 export function useAdminFindManyIdentity({ ownerId, provider }: { ownerId?: string; provider?: IdentityProvider }) {
   const sdk = useSdk()
 
-  const [input] = useState<AdminFindManyIdentityInput>({
+  const [input] = useState<IdentityAdminFindManyInput>({
     ownerId: ownerId,
     provider: provider,
   })
@@ -21,7 +21,7 @@ export function useAdminFindManyIdentity({ ownerId, provider }: { ownerId?: stri
   return {
     items: query.data?.items ?? [],
     query,
-    createIdentity: async (input: AdminCreateIdentityInput) => {
+    createIdentity: async (input: IdentityAdminCreateInput) => {
       if (!ownerId) {
         toastError('No owner ID')
         return false

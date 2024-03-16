@@ -3,10 +3,10 @@ import { Identity as PrismaIdentity } from '@prisma/client'
 import { ApiCoreService, BaseContext, getRequestDetails } from '@pubkey-stack/api-core-data-access'
 import { verifySignature } from '@pubkeyapp/solana-verify-wallet'
 import { ApiIdentitySolanaService } from './api-identity-solana.service'
-import { LinkIdentityInput } from './dto/link-identity-input'
-import { RequestIdentityChallengeInput } from './dto/request-identity-challenge.input'
-import { UserFindManyIdentityInput } from './dto/user-find-many-identity-input'
-import { VerifyIdentityChallengeInput } from './dto/verify-identity-challenge-input'
+import { IdentityRequestChallengeInput } from './dto/identity-request-challenge-input'
+import { IdentityUserFindManyInput } from './dto/identity-user-find-many.input'
+import { IdentityUserLinkInput } from './dto/identity-user-link-input'
+import { IdentityVerifyChallengeInput } from './dto/identity-verify-challenge-input'
 import { sha256 } from './helpers/sha256'
 
 @Injectable()
@@ -32,7 +32,7 @@ export class ApiIdentityDataUserService {
     return true
   }
 
-  async findManyIdentity(input: UserFindManyIdentityInput): Promise<PrismaIdentity[]> {
+  async findManyIdentity(input: IdentityUserFindManyInput): Promise<PrismaIdentity[]> {
     const items = await this.core.data.identity.findMany({
       where: { owner: { username: input.username } },
       orderBy: [{ provider: 'asc' }, { providerId: 'asc' }],
@@ -44,7 +44,7 @@ export class ApiIdentityDataUserService {
   async requestIdentityChallenge(
     ctx: BaseContext,
     userId: string,
-    { provider, providerId }: RequestIdentityChallengeInput,
+    { provider, providerId }: IdentityRequestChallengeInput,
   ) {
     // Make sure we can link the given provider
     this.solana.ensureLinkProvider(provider)
@@ -73,7 +73,7 @@ export class ApiIdentityDataUserService {
   async verifyIdentityChallenge(
     ctx: BaseContext,
     userId: string,
-    { provider, providerId, challenge, signature, useLedger }: VerifyIdentityChallengeInput,
+    { provider, providerId, challenge, signature, useLedger }: IdentityVerifyChallengeInput,
   ) {
     // Make sure we can link the given provider
     this.solana.ensureLinkProvider(provider)
@@ -124,7 +124,7 @@ export class ApiIdentityDataUserService {
     return updated
   }
 
-  async linkIdentity(userId: string, { provider, providerId }: LinkIdentityInput) {
+  async linkIdentity(userId: string, { provider, providerId }: IdentityUserLinkInput) {
     // Make sure we can link the given provider
     this.solana.ensureLinkProvider(provider)
     // Make sure the identity does not exist

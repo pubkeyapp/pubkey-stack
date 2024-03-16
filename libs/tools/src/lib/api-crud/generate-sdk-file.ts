@@ -50,7 +50,7 @@ function sdkTemplateActor(name: string, actor: string) {
   const { className, propertyName } = names(name)
   const { className: classNameActor, propertyName: propertyNameActor } = names(actor)
   return `
-query ${propertyNameActor}FindMany${className}($input: ${classNameActor}FindMany${className}Input!) {
+query ${propertyNameActor}FindMany${className}($input: ${className}${classNameActor}FindManyInput!) {
   paging: ${propertyNameActor}FindMany${className}(input: $input) {
     data {
       ...${className}Details
@@ -67,13 +67,13 @@ query ${propertyNameActor}FindOne${className}($${propertyName}Id: String!) {
   }
 }
 
-mutation ${propertyNameActor}Create${className}($input: ${classNameActor}Create${className}Input!) {
+mutation ${propertyNameActor}Create${className}($input: ${className}${classNameActor}CreateInput!) {
   created: ${propertyNameActor}Create${className}(input: $input) {
     ...${className}Details
   }
 }
 
-mutation ${propertyNameActor}Update${className}($${propertyName}Id: String!, $input: ${classNameActor}Update${className}Input!) {
+mutation ${propertyNameActor}Update${className}($${propertyName}Id: String!, $input: ${className}${classNameActor}UpdateInput!) {
   updated: ${propertyNameActor}Update${className}(${propertyName}Id: $${propertyName}Id, input: $input) {
     ...${className}Details
   }

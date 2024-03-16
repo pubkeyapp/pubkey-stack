@@ -2,11 +2,15 @@ import { Field, InputType } from '@nestjs/graphql'
 import { IdentityProvider } from '../entity/identity-provider.enum'
 
 @InputType()
-export class AdminCreateIdentityInput {
+export class IdentityVerifyChallengeInput {
   @Field(() => IdentityProvider)
   provider!: IdentityProvider
   @Field()
   providerId!: string
   @Field()
-  ownerId!: string
+  challenge!: string
+  @Field()
+  signature!: string
+  @Field({ nullable: true, defaultValue: false })
+  useLedger!: boolean
 }

@@ -1,7 +1,7 @@
 import { Prisma } from '@prisma/client'
-import { <%= actor.className %>FindMany<%= model.className %>Input } from '../dto/<%= actor.fileName %>-find-many-<%= model.fileName %>.input'
+import { <%= model.className %><%= actor.className %>FindManyInput } from '../dto/<%= model.fileName %>-<%= actor.fileName %>-find-many.input'
 
-export function get<%= model.className %>Where<%= actor.className %>Input(<% if(ownerId && actor.className !== 'Admin'){ %><%= ownerId %>: string, <% } %>input: <%= actor.className %>FindMany<%= model.className %>Input): Prisma.<%= model.className %>WhereInput {
+export function get<%= model.className %>Where<%= actor.className %>Input(<% if(ownerId && actor.className !== 'Admin'){ %><%= ownerId %>: string, <% } %>input: <%= model.className %><%= actor.className %>FindManyInput): Prisma.<%= model.className %>WhereInput {
   const where: Prisma.<%= model.className %>WhereInput = {
     <% if(parent){ %><%= parentId %>: input.<%= parentId %><% } %>
     <% if(owner && actor.className !== 'Admin'){ %><%= ownerId %>: <%= ownerId %><% } %>

@@ -24,7 +24,7 @@ fragment IdentityChallengeDetails on IdentityChallenge {
   verified
 }
 
-query adminFindManyIdentity($input: AdminFindManyIdentityInput!) {
+query adminFindManyIdentity($input: IdentityAdminFindManyInput!) {
   items: adminFindManyIdentity(input: $input) {
     ...IdentityDetails
     challenges {
@@ -36,7 +36,7 @@ query adminFindManyIdentity($input: AdminFindManyIdentityInput!) {
   }
 }
 
-mutation adminCreateIdentity($input: AdminCreateIdentityInput!) {
+mutation adminCreateIdentity($input: IdentityAdminCreateInput!) {
   created: adminCreateIdentity(input: $input) {
     ...IdentityDetails
   }
@@ -46,7 +46,7 @@ mutation adminDeleteIdentity($identityId: String!) {
   deleted: adminDeleteIdentity(identityId: $identityId)
 }
 
-query userFindManyIdentity($input: UserFindManyIdentityInput!) {
+query userFindManyIdentity($input: IdentityUserFindManyInput!) {
   items: userFindManyIdentity(input: $input) {
     ...IdentityDetails
   }
@@ -56,31 +56,31 @@ mutation userDeleteIdentity($identityId: String!) {
   deleted: userDeleteIdentity(identityId: $identityId)
 }
 
-query userRequestIdentityChallenge($input: RequestIdentityChallengeInput!) {
+query userRequestIdentityChallenge($input: IdentityRequestChallengeInput!) {
   challenge: userRequestIdentityChallenge(input: $input) {
     ...IdentityChallengeDetails
   }
 }
 
-mutation userVerifyIdentityChallenge($input: VerifyIdentityChallengeInput!) {
+mutation userVerifyIdentityChallenge($input: IdentityVerifyChallengeInput!) {
   verified: userVerifyIdentityChallenge(input: $input) {
     ...IdentityChallengeDetails
   }
 }
 
-mutation userLinkIdentity($input: LinkIdentityInput!) {
+mutation userLinkIdentity($input: IdentityUserLinkInput!) {
   linked: userLinkIdentity(input: $input) {
     ...IdentityDetails
   }
 }
 
-query anonRequestIdentityChallenge($input: RequestIdentityChallengeInput!) {
+query anonRequestIdentityChallenge($input: IdentityRequestChallengeInput!) {
   challenge: anonRequestIdentityChallenge(input: $input) {
     ...IdentityChallengeDetails
   }
 }
 
-mutation anonVerifyIdentityChallenge($input: VerifyIdentityChallengeInput!) {
+mutation anonVerifyIdentityChallenge($input: IdentityVerifyChallengeInput!) {
   verified: anonVerifyIdentityChallenge(input: $input) {
     ...IdentityChallengeDetails
   }

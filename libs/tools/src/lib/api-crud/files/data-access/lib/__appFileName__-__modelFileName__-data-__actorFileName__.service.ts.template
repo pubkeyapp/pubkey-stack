@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
-import { <%= actor.className %>Create<%= model.className %>Input } from './dto/<%= actor.fileName %>-create-<%= model.fileName %>.input'
-import { <%= actor.className %>FindMany<%= model.className %>Input } from './dto/<%= actor.fileName %>-find-many-<%= model.fileName %>.input'
-import { <%= actor.className %>Update<%= model.className %>Input } from './dto/<%= actor.fileName %>-update-<%= model.fileName %>.input'
+import { <%= model.className %><%= actor.className %>CreateInput } from './dto/<%= model.fileName %>-<%= actor.fileName %>-create.input'
+import { <%= model.className %><%= actor.className %>FindManyInput } from './dto/<%= model.fileName %>-<%= actor.fileName %>-find-many.input'
+import { <%= model.className %><%= actor.className %>UpdateInput } from './dto/<%= model.fileName %>-<%= actor.fileName %>-update.input'
 import { <%= model.className %>Paging } from './entity/<%= model.fileName %>.entity'
 import { get<%= model.className %>Where<%= actor.className %>Input } from './helpers/get-<%= model.fileName %>-where-<%= actor.fileName %>.input'
 import { <%= app.className %><%= model.className %>DataService } from './<%= app.fileName %>-<%= model.fileName %>-data.service'
@@ -11,7 +11,7 @@ import { <%= app.className %><%= model.className %>DataService } from './<%= app
 export class <%= app.className %><%= model.className %>Data<%= actor.className %>Service {
   constructor(private readonly data: <%= app.className %><%= model.className %>DataService) {}
 
-  async create<%= model.className %>(<% if(ownerId && actor.className !== 'Admin'){ %><%= ownerId %>: string, <% } %>input: <%= actor.className %>Create<%= model.className %>Input) {
+  async create<%= model.className %>(<% if(ownerId && actor.className !== 'Admin'){ %><%= ownerId %>: string, <% } %>input: <%= model.className %><%= actor.className %>CreateInput) {
     return this.data.create(<% if(ownerId && actor.className !== 'Admin'){ %>{...input, <%= ownerId %> }<% } else { %>input<% } %>)
   }
 
@@ -20,12 +20,11 @@ export class <%= app.className %><%= model.className %>Data<%= actor.className %
     const found = await this.data.findOne(<%= model.propertyName %>Id)
     if (found.<%= ownerId %> !== <%= ownerId %>) {
       throw new Error('You are not authorized to delete this <%= model.className %>')
-    }
-    <% } %>
+    }<% } %>
     return this.data.delete(<%= model.propertyName %>Id)
   }
 
-  async findMany<%= model.className %>(<% if(ownerId && actor.className !== 'Admin'){ %><%= ownerId %>: string, <% } %>input: <%= actor.className %>FindMany<%= model.className %>Input): Promise<<%= model.className %>Paging> {
+  async findMany<%= model.className %>(<% if(ownerId && actor.className !== 'Admin'){ %><%= ownerId %>: string, <% } %>input: <%= model.className %><%= actor.className %>FindManyInput): Promise<<%= model.className %>Paging> {
     return this.data.findMany({
         orderBy: { createdAt: 'desc' },
         where: get<%= model.className %>Where<%= actor.className %>Input(<% if(ownerId && actor.className !== 'Admin'){ %><%= ownerId %>, <% } %>input),
@@ -46,13 +45,12 @@ export class <%= app.className %><%= model.className %>Data<%= actor.className %
     <% } %>
   }
 
-  async update<%= model.className %>(<% if(ownerId && actor.className !== 'Admin'){ %><%= ownerId %>: string, <% } %><%= model.propertyName %>Id: string, input: <%= actor.className %>Update<%= model.className %>Input) {
+  async update<%= model.className %>(<% if(ownerId && actor.className !== 'Admin'){ %><%= ownerId %>: string, <% } %><%= model.propertyName %>Id: string, input: <%= model.className %><%= actor.className %>UpdateInput) {
     <% if(ownerId && actor.className !== 'Admin'){ %>
     const found = await this.data.findOne(<%= model.propertyName %>Id)
     if (found.<%= ownerId %> !== <%= ownerId %>) {
       throw new Error('You are not authorized to update this <%= model.className %>')
-    }
-    <% } %>
+    }<% } %>
     return this.data.update(<%= model.propertyName %>Id, input)
   }
 }

@@ -1,7 +1,9 @@
 import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
-export class UserFindManyIdentityInput {
+export class UserAdminCreateInput {
   @Field()
   username!: string
+  @Field({ nullable: true })
+  password?: string | undefined
 }
