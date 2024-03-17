@@ -1,8 +1,8 @@
 import {
-  AdminCreateUserInput,
-  AdminFindManyUserInput,
-  AdminUpdateUserInput,
   User,
+  UserAdminCreateInput,
+  UserAdminFindManyInput,
+  UserAdminUpdateInput,
   UserRole,
   UserStatus,
 } from '@pubkey-stack/sdk'
@@ -22,7 +22,7 @@ describe('api-user-feature', () => {
       })
 
       it('should create a user', async () => {
-        const input: AdminCreateUserInput = {
+        const input: UserAdminCreateInput = {
           username: uniqueId('user'),
           password: uniqueId('pass'),
         }
@@ -42,13 +42,13 @@ describe('api-user-feature', () => {
       })
 
       it('should update a user', async () => {
-        const createInput: AdminCreateUserInput = {
+        const createInput: UserAdminCreateInput = {
           username: uniqueId('user'),
           password: uniqueId('pass'),
         }
         const createdRes = await sdk.adminCreateUser({ input: createInput }, { cookie })
         const userId = createdRes.data.created.id
-        const input: AdminUpdateUserInput = {
+        const input: UserAdminUpdateInput = {
           avatarUrl: avatarUrl(createdRes.data.created.username),
           name: 'John Doe',
           role: UserRole.Admin,
@@ -65,7 +65,7 @@ describe('api-user-feature', () => {
       })
 
       it('should not update a user with an existing name', async () => {
-        const createInput: AdminCreateUserInput = {
+        const createInput: UserAdminCreateInput = {
           username: uniqueId('user'),
           password: uniqueId('pass'),
         }
@@ -73,7 +73,7 @@ describe('api-user-feature', () => {
         const userId = createdRes.data.created.id
         expect.assertions(1)
 
-        const input: AdminUpdateUserInput = {
+        const input: UserAdminUpdateInput = {
           username: 'alice',
         }
         try {
@@ -84,14 +84,14 @@ describe('api-user-feature', () => {
       })
 
       it('should find a list of users (find all)', async () => {
-        const createInput: AdminCreateUserInput = {
+        const createInput: UserAdminCreateInput = {
           username: uniqueId('user'),
           password: uniqueId('pass'),
         }
         const createdRes = await sdk.adminCreateUser({ input: createInput }, { cookie })
         const userId = createdRes.data.created.id
 
-        const input: AdminFindManyUserInput = {}
+        const input: UserAdminFindManyInput = {}
 
         const res = await sdk.adminFindManyUser({ input }, { cookie })
 
@@ -102,14 +102,14 @@ describe('api-user-feature', () => {
       })
 
       it('should find a list of users (find new one)', async () => {
-        const createInput: AdminCreateUserInput = {
+        const createInput: UserAdminCreateInput = {
           username: uniqueId('user'),
           password: uniqueId('pass'),
         }
         const createdRes = await sdk.adminCreateUser({ input: createInput }, { cookie })
         const userId = createdRes.data.created.id
 
-        const input: AdminFindManyUserInput = {
+        const input: UserAdminFindManyInput = {
           search: userId,
         }
 
@@ -121,7 +121,7 @@ describe('api-user-feature', () => {
       })
 
       it('should find a user by id', async () => {
-        const createInput: AdminCreateUserInput = {
+        const createInput: UserAdminCreateInput = {
           username: uniqueId('user'),
           password: uniqueId('pass'),
         }
@@ -134,7 +134,7 @@ describe('api-user-feature', () => {
       })
 
       it('should delete a user', async () => {
-        const createInput: AdminCreateUserInput = {
+        const createInput: UserAdminCreateInput = {
           username: uniqueId('user'),
           password: uniqueId('pass'),
         }
@@ -159,7 +159,7 @@ describe('api-user-feature', () => {
 
       it('should not create a user', async () => {
         expect.assertions(1)
-        const input: AdminCreateUserInput = {
+        const input: UserAdminCreateInput = {
           username: uniqueId('user'),
           password: uniqueId('pass'),
         }
