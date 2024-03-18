@@ -1,15 +1,16 @@
-import { <%= actor.className %>Create<%= model.className %>Input, <%= actor.className %>FindMany<%= model.className %>Input, <%= actor.className %>Update<%= model.className %>Input, <%= model.className %> } from '@<%= npmScope %>/sdk'
+import { <%= model.className %><%= actor.className %>CreateInput, <%= model.className %><%= actor.className %>FindManyInput, <%= model.className %><%= actor.className %>UpdateInput, <%= model.className %> } from '@<%= npmScope %>/sdk'
 import { getAliceCookie, getBobCookie, sdk, uniqueId } from '../support'
 
 describe('api-<%= model.fileName %>-feature', () => {
   describe('api-<%= model.fileName %>-<%= actor.fileName %>-resolver', () => {
     const <%= model.propertyName %>Name = uniqueId('acme-<%= model.fileName %>')
+    <% if(ownerId && actor.className === 'Admin'){ %>const <%= ownerId %>='bob'<% } %>
     let <%= model.propertyName %>Id: string
     let cookie: string
 
     beforeAll(async () => {
       cookie = await getAliceCookie()
-      const created = await sdk.<%= actor.fileName %>Create<%= model.className %>({ input: { name: <%= model.propertyName %>Name } }, { cookie })
+      const created = await sdk.<%= actor.fileName %>Create<%= model.className %>({ input: { name: <%= model.propertyName %>Name<% if(ownerId && actor.className === 'Admin'){ %>, <%= ownerId %><% } %> } }, { cookie })
       <%= model.propertyName %>Id = created.data.created.id
     })
 
@@ -19,8 +20,9 @@ describe('api-<%= model.fileName %>-feature', () => {
       })
 
       it('should create a <%= model.fileName %>', async () => {
-        const input: <%= actor.className %>Create<%= model.className %>Input = {
+        const input: <%= model.className %><%= actor.className %>CreateInput = {
           name: uniqueId('<%= model.fileName %>'),
+          <% if(ownerId && actor.className === 'Admin'){ %><%= ownerId %><% } %>
         }
 
         const res = await sdk.<%= actor.fileName %>Create<%= model.className %>({ input }, { cookie })
@@ -33,12 +35,13 @@ describe('api-<%= model.fileName %>-feature', () => {
       })
 
       it('should update a <%= model.fileName %>', async () => {
-        const createInput: <%= actor.className %>Create<%= model.className %>Input = {
+        const createInput: <%= model.className %><%= actor.className %>CreateInput = {
           name: uniqueId('<%= model.fileName %>'),
+          <% if(ownerId && actor.className === 'Admin'){ %><%= ownerId %><% } %>
         }
         const createdRes = await sdk.<%= actor.fileName %>Create<%= model.className %>({ input: createInput }, { cookie })
         const <%= model.propertyName %>Id = createdRes.data.created.id
-        const input: <%= actor.className %>Update<%= model.className %>Input = {
+        const input: <%= model.className %><%= actor.className %>UpdateInput = {
           name: uniqueId('<%= model.fileName %>'),
         }
 
@@ -49,13 +52,14 @@ describe('api-<%= model.fileName %>-feature', () => {
       })
 
       it('should find a list of <%= modelPropertyNamePlural %> (find all)', async () => {
-        const createInput: <%= actor.className %>Create<%= model.className %>Input = {
+        const createInput: <%= model.className %><%= actor.className %>CreateInput = {
           name: uniqueId('<%= model.fileName %>'),
+          <% if(ownerId && actor.className === 'Admin'){ %><%= ownerId %><% } %>
         }
         const createdRes = await sdk.<%= actor.fileName %>Create<%= model.className %>({ input: createInput }, { cookie })
         const <%= model.propertyName %>Id = createdRes.data.created.id
 
-        const input: <%= actor.className %>FindMany<%= model.className %>Input = {}
+        const input: <%= model.className %><%= actor.className %>FindManyInput = {<% if(ownerId && actor.className === 'Admin'){ %><%= ownerId %><% } %>}
 
         const res = await sdk.<%= actor.fileName %>FindMany<%= model.className %>({ input }, { cookie })
 
@@ -66,14 +70,16 @@ describe('api-<%= model.fileName %>-feature', () => {
       })
 
       it('should find a list of <%= modelPropertyNamePlural %> (find new one)', async () => {
-        const createInput: <%= actor.className %>Create<%= model.className %>Input = {
+        const createInput: <%= model.className %><%= actor.className %>CreateInput = {
           name: uniqueId('<%= model.fileName %>'),
+          <% if(ownerId && actor.className === 'Admin'){ %><%= ownerId %><% } %>
         }
         const createdRes = await sdk.<%= actor.fileName %>Create<%= model.className %>({ input: createInput }, { cookie })
         const <%= model.propertyName %>Id = createdRes.data.created.id
 
-        const input: <%= actor.className %>FindMany<%= model.className %>Input = {
+        const input: <%= model.className %><%= actor.className %>FindManyInput = {
           search: <%= model.propertyName %>Id,
+          <% if(ownerId && actor.className === 'Admin'){ %><%= ownerId %><% } %>
         }
 
         const res = await sdk.<%= actor.fileName %>FindMany<%= model.className %>({ input }, { cookie })
@@ -84,8 +90,9 @@ describe('api-<%= model.fileName %>-feature', () => {
       })
 
       it('should find a <%= model.fileName %> by id', async () => {
-        const createInput: <%= actor.className %>Create<%= model.className %>Input = {
+        const createInput: <%= model.className %><%= actor.className %>CreateInput = {
           name: uniqueId('<%= model.fileName %>'),
+          <% if(ownerId && actor.className === 'Admin'){ %><%= ownerId %><% } %>
         }
         const createdRes = await sdk.<%= actor.fileName %>Create<%= model.className %>({ input: createInput }, { cookie })
         const <%= model.propertyName %>Id = createdRes.data.created.id
@@ -96,8 +103,9 @@ describe('api-<%= model.fileName %>-feature', () => {
       })
 
       it('should delete a <%= model.fileName %>', async () => {
-        const createInput: <%= actor.className %>Create<%= model.className %>Input = {
+        const createInput: <%= model.className %><%= actor.className %>CreateInput = {
           name: uniqueId('<%= model.fileName %>'),
+          <% if(ownerId && actor.className === 'Admin'){ %><%= ownerId %><% } %>
         }
         const createdRes = await sdk.<%= actor.fileName %>Create<%= model.className %>({ input: createInput }, { cookie })
         const <%= model.propertyName %>Id = createdRes.data.created.id
@@ -106,7 +114,7 @@ describe('api-<%= model.fileName %>-feature', () => {
 
         expect(res.data.deleted).toBe(true)
 
-        const findRes = await sdk.<%= actor.fileName %>FindMany<%= model.className %>({ input: { search: <%= model.propertyName %>Id } }, { cookie })
+        const findRes = await sdk.<%= actor.fileName %>FindMany<%= model.className %>({ input: { search: <%= model.propertyName %>Id<% if(ownerId && actor.className === 'Admin'){ %>, <%= ownerId %><% } %> } }, { cookie })
         expect(findRes.data.paging.meta.totalCount).toBe(0)
         expect(findRes.data.paging.data.length).toBe(0)
       })
@@ -118,10 +126,12 @@ describe('api-<%= model.fileName %>-feature', () => {
         cookie = await getBobCookie()
       })
 
+      <% if(ownerId && actor.className === 'Admin'){ %>
       it('should not create a <%= model.fileName %>', async () => {
         expect.assertions(1)
-        const input: <%= actor.className %>Create<%= model.className %>Input = {
+        const input: <%= model.className %><%= actor.className %>CreateInput = {
           name: uniqueId('<%= model.fileName %>'),
+          <% if(ownerId && actor.className === 'Admin'){ %><%= ownerId %><% } %>
         }
 
         try {
@@ -130,31 +140,41 @@ describe('api-<%= model.fileName %>-feature', () => {
           expect(e.message).toBe('Unauthorized: User is not <%= actor.className %>')
         }
       })
+      <% } %>
 
       it('should not update a <%= model.fileName %>', async () => {
         expect.assertions(1)
         try {
           await sdk.<%= actor.fileName %>Update<%= model.className %>({ <%= model.propertyName %>Id, input: {} }, { cookie })
         } catch (e) {
+          <% if(actor.className === 'Admin'){ %>
           expect(e.message).toBe('Unauthorized: User is not <%= actor.className %>')
+          <% } else { %>
+          expect(e.message).toBe('You are not authorized to update this <%= model.className %>')
+          <% } %>
         }
       })
-
+      <% if(ownerId && actor.className === 'Admin'){ %>
       it('should not find a list of <%= modelPropertyNamePlural %> (find all)', async () => {
         expect.assertions(1)
         try {
-          await sdk.<%= actor.fileName %>FindMany<%= model.className %>({ input: {} }, { cookie })
+          await sdk.<%= actor.fileName %>FindMany<%= model.className %>({ input: { <% if(ownerId && actor.className === 'Admin'){ %><%= ownerId %><% } %> } }, { cookie })
         } catch (e) {
           expect(e.message).toBe('Unauthorized: User is not <%= actor.className %>')
         }
       })
+      <% } %>
 
       it('should not find a <%= model.fileName %> by id', async () => {
         expect.assertions(1)
         try {
           await sdk.<%= actor.fileName %>FindOne<%= model.className %>({ <%= model.propertyName %>Id }, { cookie })
         } catch (e) {
+          <% if(actor.className === 'Admin'){ %>
           expect(e.message).toBe('Unauthorized: User is not <%= actor.className %>')
+          <% } else { %>
+          expect(e.message).toBe('You are not authorized to view this <%= model.className %>')
+          <% } %>
         }
       })
 
@@ -163,7 +183,11 @@ describe('api-<%= model.fileName %>-feature', () => {
         try {
           await sdk.<%= actor.fileName %>Delete<%= model.className %>({ <%= model.propertyName %>Id }, { cookie })
         } catch (e) {
+          <% if(actor.className === 'Admin'){ %>
           expect(e.message).toBe('Unauthorized: User is not <%= actor.className %>')
+          <% } else { %>
+          expect(e.message).toBe('You are not authorized to delete this <%= model.className %>')
+          <% } %>
         }
       })
     })
