@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { z } from 'zod'
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { GraphQLError, print } from 'graphql'
 import gql from 'graphql-tag'
 export type Maybe<T> = T | null
@@ -11,6 +10,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> }
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never }
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never }
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string }
@@ -1127,7 +1127,7 @@ export type SdkFunctionWrapper = <T>(
   variables?: any,
 ) => Promise<T>
 
-const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType, variables) => action()
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType, _variables) => action()
 const LoginDocumentString = print(LoginDocument)
 const LogoutDocumentString = print(LogoutDocument)
 const RegisterDocumentString = print(RegisterDocument)
@@ -1686,7 +1686,7 @@ export function IdentityVerifyChallengeInputSchema(): z.ZodObject<Properties<Ide
     provider: IdentityProviderSchema,
     providerId: z.string(),
     signature: z.string(),
-    useLedger: z.boolean().nullish(),
+    useLedger: z.boolean().default(false).nullish(),
   })
 }
 
@@ -1713,8 +1713,8 @@ export function UserAdminCreateInputSchema(): z.ZodObject<Properties<UserAdminCr
 
 export function UserAdminFindManyInputSchema(): z.ZodObject<Properties<UserAdminFindManyInput>> {
   return z.object({
-    limit: z.number().nullish(),
-    page: z.number().nullish(),
+    limit: z.number().default(10).nullish(),
+    page: z.number().default(1).nullish(),
     role: UserRoleSchema.nullish(),
     search: z.string().nullish(),
     status: UserStatusSchema.nullish(),
@@ -1734,8 +1734,8 @@ export function UserAdminUpdateInputSchema(): z.ZodObject<Properties<UserAdminUp
 
 export function UserUserFindManyInputSchema(): z.ZodObject<Properties<UserUserFindManyInput>> {
   return z.object({
-    limit: z.number().nullish(),
-    page: z.number().nullish(),
+    limit: z.number().default(10).nullish(),
+    page: z.number().default(1).nullish(),
     search: z.string().nullish(),
   })
 }
