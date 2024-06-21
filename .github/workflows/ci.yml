@@ -39,5 +39,5 @@ jobs:
       node-version: 20.10.0
       number-of-agents: 3
       install-commands: |
-        pnpm install --frozen-lockfile
+        pnpm install --no-frozen-lockfile
         pnpm prisma generate

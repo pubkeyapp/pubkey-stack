@@ -3,10 +3,10 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/api/auth/data-access/src",
   "projectType": "library",
+  "tags": ["api", "data-access"],
   "targets": {
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
@@ -15,6 +15,5 @@
         "jestConfig": "libs/api/auth/data-access/jest.config.ts"
       }
     }
-  },
-  "tags": ["api", "data-access"]
+  }
 }

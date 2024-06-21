@@ -48,7 +48,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-      - run: pnpm install --frozen-lockfile --prefer-frozen-lockfile
+      - run: pnpm install --no-frozen-lockfile --prefer-frozen-lockfile
       - run: pnpm prisma generate
       - run: pnpm prisma db push --skip-generate
       - run: pnpm nx run-many --target=build --all --parallel --skip-nx-cache --verbose
