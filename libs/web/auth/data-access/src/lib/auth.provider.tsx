@@ -1,5 +1,4 @@
-import { LoginInput, RegisterInput, User } from '@pubkey-stack/sdk'
-import { useSdk } from '@pubkey-stack/web-core-data-access'
+import { LoginInput, RegisterInput, sdk, User } from '@pubkey-stack/sdk'
 import { toastError, toastSuccess } from '@pubkey-ui/core'
 import { createContext, ReactNode, useContext, useEffect, useReducer } from 'react'
 import { useMe } from './use-me'
@@ -62,8 +61,7 @@ function authReducer(state: AuthState, { type, payload }: AuthAction): AuthState
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const sdk = useSdk()
-  const me = useMe(sdk)
+  const me = useMe()
 
   const [state, dispatch] = useReducer(authReducer, { status: 'loading' })
 

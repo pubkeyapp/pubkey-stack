@@ -1,5 +1,4 @@
-import { IdentityProvider } from '@pubkey-stack/sdk'
-import { useSdk } from '@pubkey-stack/web-core-data-access'
+import { IdentityProvider, sdk } from '@pubkey-stack/sdk'
 import { toastError, toastSuccess } from '@pubkey-ui/core'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { createContext, ReactNode, useContext } from 'react'
@@ -13,7 +12,6 @@ export interface IdentityProviderSolanaLoginContext {
 const Context = createContext<IdentityProviderSolanaLoginContext>({} as IdentityProviderSolanaLoginContext)
 
 export function IdentityProviderSolanaLogin({ children, refresh }: { children: ReactNode; refresh: () => void }) {
-  const sdk = useSdk()
   const { signMessage } = useWallet()
   const createSignature = useCreateSignature()
 
