@@ -11,7 +11,7 @@ export function UiHeaderProfile({ user, logout }: { user?: User | null; logout: 
   const isAdmin = user?.role === UserRole.Admin
   const isDeveloper = user?.developer ?? false
 
-  return user ? (
+  return user?.username ? (
     <Menu
       width={260}
       position="bottom-end"

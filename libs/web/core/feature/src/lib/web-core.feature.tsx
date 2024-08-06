@@ -8,6 +8,13 @@ const theme = createTheme({
     brand: DEFAULT_THEME.colors.blue,
   },
   primaryColor: 'brand',
+  components: {
+    Avatar: {
+      defaultProps: {
+        variant: 'filled',
+      },
+    },
+  },
 })
 
 export function WebCoreFeature() {
