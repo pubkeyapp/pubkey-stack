@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "workspaceLayout": { "projectNameAndRootFormat": "as-provided" },
+  "workspaceLayout": {},
   "targetDefaults": {
     "build": { "dependsOn": ["^build"], "cache": true },
     "e2e": { "cache": true },
@@ -13,6 +13,11 @@
     "@nx/eslint:lint": {
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json", "{workspaceRoot}/.eslintignore"],
       "cache": true
+    },
+    "@nx/js:tsc": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["default", "^default"]
     }
   },
   "generators": { "@nx/react": { "application": { "babel": true }, "library": { "unitTestRunner": "none" } } },
