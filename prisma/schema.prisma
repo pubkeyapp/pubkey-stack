@@ -1,5 +1,8 @@
 generator client {
   provider = "prisma-client-js"
+  // This is needed to make the Prisma Client work in a Docker container built using pnpm.
+  // Found here: https://github.com/prisma/prisma/issues/6603#issuecomment-1054227614
+  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {

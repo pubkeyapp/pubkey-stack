@@ -1,5 +1,19 @@
 version: '3'
 services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    environment:
+      DATABASE_URL: postgresql://pubkey-stack:pubkey-stack@postgres:5432/pubkey-stack?schema=public
+      DATABASE_PROVISION: true
+      HOST: 0.0.0.0
+      JWT_SECRET: 1dfe5003518560c6362eab48f8220edf8708bbc67efbd4ed8cdf621965e938ee
+      PORT: 3000
+      SESSION_SECRET: 1dfe5003518560c6362eab48f8220edf8708bbc67efbd4ed8cdf621965e938ee
+      WEB_URL: http://localhost:4200
   postgres:
     image: postgres:15-alpine
     # command: [ "postgres", "-c", "log_statement=all", "-c", "log_destination=stderr" ]
